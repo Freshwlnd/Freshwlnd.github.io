@@ -4,7 +4,7 @@
  document.addEventListener('visibilitychange', function () {
      if (document.hidden) {
          $('[rel="icon"]').attr('href', "/img/TEP.ico");
-         document.title = '╭(p.p`)╮ 你什么时候会来看我呢';
+         document.title = '╭(q.q`)╮ 你什么时候会来看我呢';
          clearTimeout(titleTime);
      }
      else {
