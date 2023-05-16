@@ -3,20 +3,23 @@
   <entry>
     <title>Hello World</title>
     <url>/2020/10/19/hello-world/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+    <content><![CDATA[<p>Welcome to <a class="link"   href="https://hexo.io/" >Hexo <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>! This is your very first post. Check <a class="link"   href="https://hexo.io/docs/" >documentation <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> for more info. If you get any problems when using Hexo, you can find the answer in <a class="link"   href="https://hexo.io/docs/troubleshooting.html" >troubleshooting <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> or you can ask me on <a class="link"   href="https://github.com/hexojs/hexo/issues" >GitHub <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure></div>
 
-<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<p>More info: <a class="link"   href="https://hexo.io/docs/writing.html" >Writing <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure></div>
 
-<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+<p>More info: <a class="link"   href="https://hexo.io/docs/server.html" >Server <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure></div>
 
-<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+<p>More info: <a class="link"   href="https://hexo.io/docs/generating.html" >Generating <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure></div>
 
-<p>More info: <a href="https://hexo.io/docs/deployment.html">Deployment</a></p>
+<p>More info: <a class="link"   href="https://hexo.io/docs/deployment.html" >Deployment <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
 ]]></content>
+      <categories>
+        <category>测试</category>
+      </categories>
   </entry>
   <entry>
     <title>Lua 数据类型</title>
@@ -71,10 +74,10 @@
 <li>boolean 类型只有两个可选值：true（真） 和 false（假）</li>
 <li>Lua 把 false 和 nil 看作是”假”，其他的都为”真”:</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">if false or nil then</span><br><span class="line">    print(&quot;至少有一个是 true&quot;)</span><br><span class="line">else</span><br><span class="line">    print(&quot;false 和 nil 都为 false!&quot;)</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+<div class="highlight-container" data-rel="Code"><figure class="iseeu highlight plain"><table><tr><td class="code"><pre><span class="line">if false or nil then</span><br><span class="line">    print(&quot;至少有一个是 true&quot;)</span><br><span class="line">else</span><br><span class="line">    print(&quot;false 和 nil 都为 false!&quot;)</span><br><span class="line">end</span><br></pre></td></tr></table></figure></div>
 
 <p> *<em>以上代码执行结果如下</em></p>
- <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">false 和 nil 都为 false!</span><br><span class="line">[Finished in 0.0s]</span><br></pre></td></tr></table></figure>
+ <div class="highlight-container" data-rel="Code"><figure class="iseeu highlight plain"><table><tr><td class="code"><pre><span class="line">false 和 nil 都为 false!</span><br><span class="line">[Finished in 0.0s]</span><br></pre></td></tr></table></figure></div>
 
 <hr>
 <h2 id="number"><a href="#number" class="headerlink" title="number"></a>number</h2><ul>
@@ -84,84 +87,84 @@
 <h2 id="string"><a href="#string" class="headerlink" title="string"></a>string</h2><ul>
 <li>字符串由一对双引号或单引号来表示。</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">string1 &#x3D; &quot;this is string1&quot;</span><br><span class="line">string2 &#x3D; &#39;this is string2&#39;</span><br></pre></td></tr></table></figure>
+<div class="highlight-container" data-rel="Code"><figure class="iseeu highlight plain"><table><tr><td class="code"><pre><span class="line">string1 &#x3D; &quot;this is string1&quot;</span><br><span class="line">string2 &#x3D; &#39;this is string2&#39;</span><br></pre></td></tr></table></figure></div>
 
 <ul>
 <li>也可以用 2 个方括号 “[[]]” 来表示”一块”字符串。</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">html &#x3D; [[</span><br><span class="line">There are many words</span><br><span class="line">]]</span><br></pre></td></tr></table></figure>
+<div class="highlight-container" data-rel="Code"><figure class="iseeu highlight plain"><table><tr><td class="code"><pre><span class="line">html &#x3D; [[</span><br><span class="line">There are many words</span><br><span class="line">]]</span><br></pre></td></tr></table></figure></div>
 
 <ul>
 <li>在对一个数字字符串上进行算术操作时，Lua 会尝试将这个数字字符串转成一个数字，如：</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&gt; print(&quot;2&quot; + 6)</span><br><span class="line">8.0</span><br><span class="line">&gt; print(&quot;2&quot; + &quot;6&quot;)</span><br><span class="line">8.0</span><br><span class="line">&gt; print(&quot;2 + 6&quot;)</span><br><span class="line">2 + 6</span><br><span class="line">&gt; print(&quot;-2e2&quot; * &quot;6&quot;)</span><br><span class="line">-1200.0</span><br></pre></td></tr></table></figure>
+<div class="highlight-container" data-rel="Code"><figure class="iseeu highlight plain"><table><tr><td class="code"><pre><span class="line">&gt; print(&quot;2&quot; + 6)</span><br><span class="line">8.0</span><br><span class="line">&gt; print(&quot;2&quot; + &quot;6&quot;)</span><br><span class="line">8.0</span><br><span class="line">&gt; print(&quot;2 + 6&quot;)</span><br><span class="line">2 + 6</span><br><span class="line">&gt; print(&quot;-2e2&quot; * &quot;6&quot;)</span><br><span class="line">-1200.0</span><br></pre></td></tr></table></figure></div>
 
 <ul>
 <li>字符串连接使用的是 .. ，如：</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&gt; print(&quot;a&quot; .. &#39;b&#39;)</span><br><span class="line">ab</span><br><span class="line">&gt; print(157 .. 428)</span><br><span class="line">157428</span><br></pre></td></tr></table></figure>
+<div class="highlight-container" data-rel="Code"><figure class="iseeu highlight plain"><table><tr><td class="code"><pre><span class="line">&gt; print(&quot;a&quot; .. &#39;b&#39;)</span><br><span class="line">ab</span><br><span class="line">&gt; print(157 .. 428)</span><br><span class="line">157428</span><br></pre></td></tr></table></figure></div>
 
 <ul>
 <li>使用 # 来计算字符串的长度，放在字符串前面，如：</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&gt; len &#x3D; &quot;https:&#x2F;&#x2F;freshwlnd.github.io&#x2F;&quot;</span><br><span class="line">&gt; print(#len)</span><br><span class="line">28</span><br></pre></td></tr></table></figure>
+<div class="highlight-container" data-rel="Code"><figure class="iseeu highlight plain"><table><tr><td class="code"><pre><span class="line">&gt; len &#x3D; &quot;https:&#x2F;&#x2F;freshwlnd.github.io&#x2F;&quot;</span><br><span class="line">&gt; print(#len)</span><br><span class="line">28</span><br></pre></td></tr></table></figure></div>
 
 <hr>
 <h2 id="table"><a href="#table" class="headerlink" title="table"></a>table</h2><ul>
 <li>在 Lua 里，table 的创建是通过”构造表达式”来完成，最简单构造表达式是{}，用来创建一个空表。也可以在表里添加一些数据，直接初始化表:</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">-- 创建一个空的 table</span><br><span class="line">table1 &#x3D; &#123;&#125;</span><br><span class="line">table2 &#x3D; &#123;&#39;a&#39;&#125;</span><br></pre></td></tr></table></figure>
+<div class="highlight-container" data-rel="Code"><figure class="iseeu highlight plain"><table><tr><td class="code"><pre><span class="line">-- 创建一个空的 table</span><br><span class="line">table1 &#x3D; &#123;&#125;</span><br><span class="line">table2 &#x3D; &#123;&#39;a&#39;&#125;</span><br></pre></td></tr></table></figure></div>
 
 <ul>
 <li>Lua 中的表（table）其实是一个”关联数组”（associative arrays），数组的索引可以是数字或者是字符串:</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">-- table.lua</span><br><span class="line"></span><br><span class="line">-- 1</span><br><span class="line">table1 &#x3D; &#123;1,3,4,5,6&#125;</span><br><span class="line">print(table1[3])</span><br><span class="line">print()</span><br><span class="line"></span><br><span class="line">-- 2</span><br><span class="line">table2 &#x3D; &#123;&#125;</span><br><span class="line">table2[&#39;a&#39;] &#x3D; &#39;b&#39;</span><br><span class="line">table2[1] &#x3D; 2</span><br><span class="line">for k,v in pairs(table2) do</span><br><span class="line">	print(k..&#39; : &#39;..v)</span><br><span class="line">end</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<div class="highlight-container" data-rel="Code"><figure class="iseeu highlight plain"><table><tr><td class="code"><pre><span class="line">-- table.lua</span><br><span class="line"></span><br><span class="line">-- 1</span><br><span class="line">table1 &#x3D; &#123;1,3,4,5,6&#125;</span><br><span class="line">print(table1[3])</span><br><span class="line">print()</span><br><span class="line"></span><br><span class="line">-- 2</span><br><span class="line">table2 &#x3D; &#123;&#125;</span><br><span class="line">table2[&#39;a&#39;] &#x3D; &#39;b&#39;</span><br><span class="line">table2[1] &#x3D; 2</span><br><span class="line">for k,v in pairs(table2) do</span><br><span class="line">	print(k..&#39; : &#39;..v)</span><br><span class="line">end</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
 
 <ul>
 <li>脚本执行结果为：</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">4</span><br><span class="line"></span><br><span class="line">1 : 2</span><br><span class="line">a : b</span><br><span class="line">[Finished in 0.0s]</span><br></pre></td></tr></table></figure>
+<div class="highlight-container" data-rel="Code"><figure class="iseeu highlight plain"><table><tr><td class="code"><pre><span class="line">4</span><br><span class="line"></span><br><span class="line">1 : 2</span><br><span class="line">a : b</span><br><span class="line">[Finished in 0.0s]</span><br></pre></td></tr></table></figure></div>
 
 <ul>
 <li>不同于其他语言的数组把 0 作为数组的初始索引，在 Lua 里表的默认初始索引一般以 1 开始:</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">-- table.lua</span><br><span class="line"></span><br><span class="line">table &#x3D; &#123;1,2,3,4,5&#125;</span><br><span class="line">for k,v in pairs(table) do</span><br><span class="line">	print(k..&#39; : &#39;..v)</span><br><span class="line">end</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<div class="highlight-container" data-rel="Code"><figure class="iseeu highlight plain"><table><tr><td class="code"><pre><span class="line">-- table.lua</span><br><span class="line"></span><br><span class="line">table &#x3D; &#123;1,2,3,4,5&#125;</span><br><span class="line">for k,v in pairs(table) do</span><br><span class="line">	print(k..&#39; : &#39;..v)</span><br><span class="line">end</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
 
 <ul>
 <li>脚本执行结果为：</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">1 : 1</span><br><span class="line">2 : 2</span><br><span class="line">3 : 3</span><br><span class="line">4 : 4</span><br><span class="line">5 : 5</span><br><span class="line">[Finished in 0.0s]</span><br></pre></td></tr></table></figure>
+<div class="highlight-container" data-rel="Code"><figure class="iseeu highlight plain"><table><tr><td class="code"><pre><span class="line">1 : 1</span><br><span class="line">2 : 2</span><br><span class="line">3 : 3</span><br><span class="line">4 : 4</span><br><span class="line">5 : 5</span><br><span class="line">[Finished in 0.0s]</span><br></pre></td></tr></table></figure></div>
 
 <ul>
 <li>table 不会固定长度大小，有新数据添加时 table 长度会自动增长，没初始的 table 都是 nil:</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">-- table.lua</span><br><span class="line"></span><br><span class="line">table &#x3D; &#123;&#125;</span><br><span class="line">table[1] &#x3D; &#39;a&#39;</span><br><span class="line">table[2] &#x3D; &#39;b&#39;</span><br><span class="line">for i&#x3D;1,3 do</span><br><span class="line">	print(table[i])</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+<div class="highlight-container" data-rel="Code"><figure class="iseeu highlight plain"><table><tr><td class="code"><pre><span class="line">-- table.lua</span><br><span class="line"></span><br><span class="line">table &#x3D; &#123;&#125;</span><br><span class="line">table[1] &#x3D; &#39;a&#39;</span><br><span class="line">table[2] &#x3D; &#39;b&#39;</span><br><span class="line">for i&#x3D;1,3 do</span><br><span class="line">	print(table[i])</span><br><span class="line">end</span><br></pre></td></tr></table></figure></div>
 
 <ul>
 <li>脚本执行结果为：</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">a</span><br><span class="line">b</span><br><span class="line">nil</span><br><span class="line">[Finished in 0.0s]</span><br></pre></td></tr></table></figure>
+<div class="highlight-container" data-rel="Code"><figure class="iseeu highlight plain"><table><tr><td class="code"><pre><span class="line">a</span><br><span class="line">b</span><br><span class="line">nil</span><br><span class="line">[Finished in 0.0s]</span><br></pre></td></tr></table></figure></div>
 
 <hr>
 <h2 id="function"><a href="#function" class="headerlink" title="function"></a>function</h2><ul>
 <li>在 Lua 中，函数是被看作是”第一类值（First-Class Value）”，函数可以存在变量里:</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">-- function.lua</span><br><span class="line">function factorial1(n)</span><br><span class="line">    if n &#x3D;&#x3D; 0 then</span><br><span class="line">        return 1</span><br><span class="line">    else</span><br><span class="line">        return n * factorial1(n - 1)</span><br><span class="line">    end</span><br><span class="line">end</span><br><span class="line">print(factorial1(5))</span><br><span class="line">factorial2 &#x3D; factorial1</span><br><span class="line">print(factorial2(5))</span><br></pre></td></tr></table></figure>
+<div class="highlight-container" data-rel="Code"><figure class="iseeu highlight plain"><table><tr><td class="code"><pre><span class="line">-- function.lua</span><br><span class="line">function factorial1(n)</span><br><span class="line">    if n &#x3D;&#x3D; 0 then</span><br><span class="line">        return 1</span><br><span class="line">    else</span><br><span class="line">        return n * factorial1(n - 1)</span><br><span class="line">    end</span><br><span class="line">end</span><br><span class="line">print(factorial1(5))</span><br><span class="line">factorial2 &#x3D; factorial1</span><br><span class="line">print(factorial2(5))</span><br></pre></td></tr></table></figure></div>
 
 <ul>
 <li>脚本执行结果为：</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">120</span><br><span class="line">120</span><br><span class="line">[Finished in 0.0s]</span><br></pre></td></tr></table></figure>
+<div class="highlight-container" data-rel="Code"><figure class="iseeu highlight plain"><table><tr><td class="code"><pre><span class="line">120</span><br><span class="line">120</span><br><span class="line">[Finished in 0.0s]</span><br></pre></td></tr></table></figure></div>
 
 <ul>
 <li>function 可以以匿名函数（anonymous function）的方式通过参数传递:</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">-- function2.lua</span><br><span class="line">function testFun(tab,fun)</span><br><span class="line">    for k ,v in pairs(tab) do</span><br><span class="line">        print(fun(k,v));</span><br><span class="line">    end</span><br><span class="line">end</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">tab&#x3D;&#123;key1&#x3D;&quot;val1&quot;,key2&#x3D;&quot;val2&quot;&#125;;</span><br><span class="line">testFun(tab,</span><br><span class="line">function(key,val)--匿名函数</span><br><span class="line">    return key..&quot;&#x3D;&quot;..val;</span><br><span class="line">end</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<div class="highlight-container" data-rel="Code"><figure class="iseeu highlight plain"><table><tr><td class="code"><pre><span class="line">-- function2.lua</span><br><span class="line">function testFun(tab,fun)</span><br><span class="line">    for k ,v in pairs(tab) do</span><br><span class="line">        print(fun(k,v));</span><br><span class="line">    end</span><br><span class="line">end</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">tab&#x3D;&#123;key1&#x3D;&quot;val1&quot;,key2&#x3D;&quot;val2&quot;&#125;;</span><br><span class="line">testFun(tab,</span><br><span class="line">function(key,val)--匿名函数</span><br><span class="line">    return key..&quot;&#x3D;&quot;..val;</span><br><span class="line">end</span><br><span class="line">);</span><br></pre></td></tr></table></figure></div>
 
 <ul>
 <li>脚本执行结果为：</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">key1&#x3D;val1</span><br><span class="line">key2&#x3D;val2</span><br><span class="line">[Finished in 0.0s]</span><br></pre></td></tr></table></figure>
+<div class="highlight-container" data-rel="Code"><figure class="iseeu highlight plain"><table><tr><td class="code"><pre><span class="line">key1&#x3D;val1</span><br><span class="line">key2&#x3D;val2</span><br><span class="line">[Finished in 0.0s]</span><br></pre></td></tr></table></figure></div>
 
 
 <hr>
@@ -173,6 +176,11 @@
 <p>在最后，必须感谢<a href="www.runoob.com">菜鸟教程</a>的教程</p>
 </blockquote>
 ]]></content>
+      <categories>
+        <category>基础知识</category>
+        <category>编程语言</category>
+        <category>基础语法</category>
+      </categories>
       <tags>
         <tag>Lua</tag>
       </tags>
@@ -180,9 +188,14 @@
   <entry>
     <title>ShortestPath</title>
     <url>/2018/07/05/ShortestPath/</url>
-    <content><![CDATA[<p><img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1531369451&di=f74d562d1d7462eb7fe3c5a776859ab6&imgtype=jpg&er=1&src=http://static.freepik.com/free-photo/shortest-path-problem_21018875.jpg" alt="最短路径算法" title="最短路径"></p>
+    <content><![CDATA[<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1531369451&di=f74d562d1d7462eb7fe3c5a776859ab6&imgtype=jpg&er=1&src=http://static.freepik.com/free-photo/shortest-path-problem_21018875.jpg"
+                      alt="最短路径算法" title="最短路径"
+                ></p>
 <hr>
-<p>·（ <del>整理的并不完善</del>）<br>·<em>（就是手痒想写点东西）</em><br>·<strong>（顺便熟悉一下MarkDown基础语法）</strong><br>· <a href="https://github.com/Freshwlnd/template/blob/master/Graph/ShortestPath">模版代码</a><br>· （<strong>需解决的问题</strong>：理清各算法的原理，以及因此导致的适用范围）<br>· （<strong>状态</strong>：像不懂数学公式的意义，只会套用，不会变通）<br>· （问题列举：</p>
+<p>·（ <del>整理的并不完善</del>）<br>·<em>（就是手痒想写点东西）</em><br>·<strong>（顺便熟悉一下MarkDown基础语法）</strong><br>· <a class="link"   href="https://github.com/Freshwlnd/template/blob/master/Graph/ShortestPath" >模版代码 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a><br>· （<strong>需解决的问题</strong>：理清各算法的原理，以及因此导致的适用范围）<br>· （<strong>状态</strong>：像不懂数学公式的意义，只会套用，不会变通）<br>· （问题列举：</p>
 <blockquote>
 <p>判断环权值<br>字典序<br>求最长路径</p>
 </blockquote>
@@ -208,8 +221,8 @@
 </blockquote>
 </blockquote>
 <hr>
-<h2 id="Floyd-算法"><a href="#Floyd-算法" class="headerlink" title="Floyd 算法"></a>Floyd 算法</h2><p><strong>解决对象</strong> ：图中每两个点的最短距离（边不为负）<br><strong>原理</strong> ：向路径中依次加入点，加入的点的距离已是当前最短。<br>  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>【子图dp思想】</strong><br><strong>问题</strong> ：[floyd一定是对的吗？]([floyd算法:我们真的明白floyd吗? - CSDN博客]<a href="https://blog.csdn.net/ljhandlwt/article/details/52096932">https://blog.csdn.net/ljhandlwt/article/details/52096932</a>)<br><strong>方法</strong> ：  </p>
- <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">for(k&#x3D;0;k&lt;n;k++) &#123;  </span><br><span class="line">　　for(i&#x3D;0;i&lt;n;i++) &#123;  </span><br><span class="line">　　　　for(j&#x3D;0;j&lt;n;j++) &#123;  </span><br><span class="line">　　　　　　if(graph[I][j] &gt; graph[I][k] + graph[k][j]) &#123;  </span><br><span class="line">　　　　　　　　graph[i][j] &gt; graph[i][k] + graph[k][j])   </span><br><span class="line">　　　　　　&#125;  </span><br><span class="line">　　　　&#125;  </span><br><span class="line">　　&#125;  </span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+<h2 id="Floyd-算法"><a href="#Floyd-算法" class="headerlink" title="Floyd 算法"></a>Floyd 算法</h2><p><strong>解决对象</strong> ：图中每两个点的最短距离（边不为负）<br><strong>原理</strong> ：向路径中依次加入点，加入的点的距离已是当前最短。<br>  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>【子图dp思想】</strong><br><strong>问题</strong> ：[floyd一定是对的吗？]([floyd算法:我们真的明白floyd吗? - CSDN博客]<a class="link"   href="https://blog.csdn.net/ljhandlwt/article/details/52096932" >https://blog.csdn.net/ljhandlwt/article/details/52096932 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>)<br><strong>方法</strong> ：  </p>
+ <div class="highlight-container" data-rel="Code"><figure class="iseeu highlight plain"><table><tr><td class="code"><pre><span class="line">for(k&#x3D;0;k&lt;n;k++) &#123;  </span><br><span class="line">　　for(i&#x3D;0;i&lt;n;i++) &#123;  </span><br><span class="line">　　　　for(j&#x3D;0;j&lt;n;j++) &#123;  </span><br><span class="line">　　　　　　if(graph[I][j] &gt; graph[I][k] + graph[k][j]) &#123;  </span><br><span class="line">　　　　　　　　graph[i][j] &gt; graph[i][k] + graph[k][j])   </span><br><span class="line">　　　　　　&#125;  </span><br><span class="line">　　　　&#125;  </span><br><span class="line">　　&#125;  </span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure></div>
 
 <hr>
 <h2 id="Bellman-Ford-算法"><a href="#Bellman-Ford-算法" class="headerlink" title="Bellman-Ford 算法"></a>Bellman-Ford 算法</h2><p><strong>解决对象</strong> ：单源最短路径/判断负权回路（复杂度较高）<br><strong>原理</strong> ：遍历每条边，每次遍历得到一个节点的最短距离（类似Dijkstra）。<br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>【简单遍历】</strong><br><strong>方法</strong> ：  </p>
@@ -300,8 +313,11 @@
 </blockquote>
 </blockquote>
 <hr>
-<p>题目目录：<br><a href="http://acm.hdu.edu.cn/showproblem.php?pid=1217">HDU 1217: Arbitrage</a><br><a href="http://acm.hdu.edu.cn/showproblem.php?pid=1224">HDU 1224: Free DIY Tour</a><br><a href="http://acm.hdu.edu.cn/showproblem.php?pid=1385">HDU 1385: Minimum Transport Cost</a><br><a href="http://acm.hdu.edu.cn/showproblem.php?pid=1869">HDU 1869: 六度分离</a><br><a href="http://acm.hdu.edu.cn/showproblem.php?pid=1874">HDU 1874: 畅通工程续</a><br><a href="http://acm.hdu.edu.cn/showproblem.php?pid=2066">HDU 2066: 一个人的旅行</a><br><a href="http://acm.hdu.edu.cn/showproblem.php?pid=2112">HDU  2112: HDU Today</a><br><a href="http://acm.hdu.edu.cn/showproblem.php?pid=2544">HDU 2544: 最短路</a><br><a href="http://acm.hdu.edu.cn/showproblem.php?pid=2680">HDU 2680: Choose the best route</a><br><a href="http://acm.hdu.edu.cn/showproblem.php?pid=2722">HDU 2722: Here We Go(relians) Again</a><br><a href="http://acm.hdu.edu.cn/showproblem.php?pid=2923">HDU 2923: Einbahnstrasse</a><br><a href="http://acm.hdu.edu.cn/showproblem.php?pid=3339">HDU 3339: In Action</a><br><a href="http://acm.hdu.edu.cn/showproblem.php?pid=3790">HDU 3790: 最短路径问题</a></p>
+<p>题目目录：<br><a class="link"   href="http://acm.hdu.edu.cn/showproblem.php?pid=1217" >HDU 1217: Arbitrage <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a><br><a class="link"   href="http://acm.hdu.edu.cn/showproblem.php?pid=1224" >HDU 1224: Free DIY Tour <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a><br><a class="link"   href="http://acm.hdu.edu.cn/showproblem.php?pid=1385" >HDU 1385: Minimum Transport Cost <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a><br><a class="link"   href="http://acm.hdu.edu.cn/showproblem.php?pid=1869" >HDU 1869: 六度分离 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a><br><a class="link"   href="http://acm.hdu.edu.cn/showproblem.php?pid=1874" >HDU 1874: 畅通工程续 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a><br><a class="link"   href="http://acm.hdu.edu.cn/showproblem.php?pid=2066" >HDU 2066: 一个人的旅行 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a><br><a class="link"   href="http://acm.hdu.edu.cn/showproblem.php?pid=2112" >HDU  2112: HDU Today <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a><br><a class="link"   href="http://acm.hdu.edu.cn/showproblem.php?pid=2544" >HDU 2544: 最短路 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a><br><a class="link"   href="http://acm.hdu.edu.cn/showproblem.php?pid=2680" >HDU 2680: Choose the best route <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a><br><a class="link"   href="http://acm.hdu.edu.cn/showproblem.php?pid=2722" >HDU 2722: Here We Go(relians) Again <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a><br><a class="link"   href="http://acm.hdu.edu.cn/showproblem.php?pid=2923" >HDU 2923: Einbahnstrasse <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a><br><a class="link"   href="http://acm.hdu.edu.cn/showproblem.php?pid=3339" >HDU 3339: In Action <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a><br><a class="link"   href="http://acm.hdu.edu.cn/showproblem.php?pid=3790" >HDU 3790: 最短路径问题 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
 ]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
       <tags>
         <tag>算法</tag>
         <tag>图论</tag>
@@ -311,42 +327,81 @@
     <title>二分图匹配问题</title>
     <url>/2018/07/17/clique/</url>
     <content><![CDATA[<hr>
-<p>题目：<br><a href="http://acm.hdu.edu.cn/showproblem.php?pid=1530">HDU 1530: Maximum Clique</a><br><a href="http://acm.hdu.edu.cn/showproblem.php?pid=1435">HDU 1435: Stable Match</a><br><a href="http://acm.hdu.edu.cn/showproblem.php?pid=3585">HDU 3585: maximum shortest distance</a><br><a href="http://acm.hdu.edu.cn/showproblem.php?pid=1522">HDU 1522: Marriage is Stable</a><br><a href="http://acm.hdu.edu.cn/showproblem.php?pid=1914">HDU 1914: The Stable Marriage Problem</a><br><a href="http://acm.hdu.edu.cn/showproblem.php?pid=1373">HDU 1373: Channel Allocation</a><br><a href="http://poj.org/problem?id=2989">POJ &nbsp;2989: All Friends</a><br><a href="http://poj.org/problem?id=1419">POJ &nbsp;1419: Graph Coloring</a><br><a href="http://poj.org/problem?id=1075">POJ &nbsp;1075: University Entrance Examination</a>  </p>
+<p>题目：<br><a class="link"   href="http://acm.hdu.edu.cn/showproblem.php?pid=1530" >HDU 1530: Maximum Clique <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a><br><a class="link"   href="http://acm.hdu.edu.cn/showproblem.php?pid=1435" >HDU 1435: Stable Match <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a><br><a class="link"   href="http://acm.hdu.edu.cn/showproblem.php?pid=3585" >HDU 3585: maximum shortest distance <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a><br><a class="link"   href="http://acm.hdu.edu.cn/showproblem.php?pid=1522" >HDU 1522: Marriage is Stable <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a><br><a class="link"   href="http://acm.hdu.edu.cn/showproblem.php?pid=1914" >HDU 1914: The Stable Marriage Problem <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a><br><a class="link"   href="http://acm.hdu.edu.cn/showproblem.php?pid=1373" >HDU 1373: Channel Allocation <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a><br><a class="link"   href="http://poj.org/problem?id=2989" >POJ &nbsp;2989: All Friends <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a><br><a class="link"   href="http://poj.org/problem?id=1419" >POJ &nbsp;1419: Graph Coloring <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a><br><a class="link"   href="http://poj.org/problem?id=1075" >POJ &nbsp;1075: University Entrance Examination <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>  </p>
 ]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
       <tags>
         <tag>算法</tag>
+        <tag>图论</tag>
       </tags>
   </entry>
   <entry>
     <title>testpage</title>
     <url>/2018/07/04/firstblog/</url>
     <content><![CDATA[<h1 id="1"><a href="#1" class="headerlink" title="1"></a>1</h1><h2 id="2"><a href="#2" class="headerlink" title="2"></a>2</h2><h3 id="3"><a href="#3" class="headerlink" title="3"></a>3</h3><h4 id="4"><a href="#4" class="headerlink" title="4"></a>4</h4><h5 id="5"><a href="#5" class="headerlink" title="5"></a>5</h5>]]></content>
-      <tags>
-        <tag>test</tag>
-      </tags>
+      <categories>
+        <category>测试</category>
+      </categories>
   </entry>
   <entry>
     <title>概率DP</title>
     <url>/2018/07/07/zjgsu4/</url>
-    <content><![CDATA[<p><img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1531838590422&di=2d2c1b9a15e1da38c0fed47b0e2a9c13&imgtype=0&src=http://img0.ph.126.net/yoxBKkpzaJWi6FKb6pla7A==/6632351995281896151.png" alt="概率DP"></p>
+    <content><![CDATA[<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1531838590422&di=2d2c1b9a15e1da38c0fed47b0e2a9c13&imgtype=0&src=http://img0.ph.126.net/yoxBKkpzaJWi6FKb6pla7A==/6632351995281896151.png"
+                      alt="概率DP"
+                ></p>
 <h2 id="剖析"><a href="#剖析" class="headerlink" title="剖析"></a>剖析</h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;先思考本次要解决的问题是什么，才能对症下药。找出问题的方法则是梳理，将整个过程有逻辑地复述一遍。<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;概率DP的问题有两类：求期望、求概率。此外还会用到一个工具：高斯消元。同时有经典的“正向推概率，反向推期望”思想。<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;先整理DP的特点：将问题分解成子问题，通过子问题的最优解求得父问题的最优解，实际上是对爆搜的剪枝。   </p>
-<h3 id="期望DP"><a href="#期望DP" class="headerlink" title="期望DP"></a>期望DP</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;对于求期望题，题解一般从后往前倒推。在<a href="https://blog.csdn.net/nameofcsdn/article/details/52082746">飞行棋</a>一题中可以看出，正向逆向都可求解，但对于终点确定的问题，逆推要简单得多。其中原因是：从“起点到达该点的期望”的理解转变为“该点到达终点的期望”，相当于把主体从前导点转移到所求点（前者用 <em>各个前导点的出现概率 * 转移概率*，后者用 *所求点出现概率 * 转移概率</em>），省去了由于前导点出现概率不同导致的麻烦。【写到这里发现对期望的递推公式还是不理解】<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;除了逆推求解思想，题解一般先求出状态转移方程，但我对于该方程一直理解不好。  </p>
+<h3 id="期望DP"><a href="#期望DP" class="headerlink" title="期望DP"></a>期望DP</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;对于求期望题，题解一般从后往前倒推。在<a class="link"   href="https://blog.csdn.net/nameofcsdn/article/details/52082746" >飞行棋 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>一题中可以看出，正向逆向都可求解，但对于终点确定的问题，逆推要简单得多。其中原因是：从“起点到达该点的期望”的理解转变为“该点到达终点的期望”，相当于把主体从前导点转移到所求点（前者用 <em>各个前导点的出现概率 * 转移概率*，后者用 *所求点出现概率 * 转移概率</em>），省去了由于前导点出现概率不同导致的麻烦。【写到这里发现对期望的递推公式还是不理解】<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;除了逆推求解思想，题解一般先求出状态转移方程，但我对于该方程一直理解不好。  </p>
 <hr>
-<h4 id="示例："><a href="#示例：" class="headerlink" title="示例："></a>示例：</h4><h5 id="PKU-3682-King-Arthur’s-Birthday-Celebration"><a href="#PKU-3682-King-Arthur’s-Birthday-Celebration" class="headerlink" title="PKU 3682: King Arthur’s Birthday Celebration"></a><a href="http://poj.org/problem?id=3682">PKU 3682: King Arthur’s Birthday Celebration</a></h5><blockquote>
+<h4 id="示例："><a href="#示例：" class="headerlink" title="示例："></a>示例：</h4><h5 id="PKU-3682-King-Arthur’s-Birthday-Celebration"><a href="#PKU-3682-King-Arthur’s-Birthday-Celebration" class="headerlink" title="PKU 3682: King Arthur’s Birthday Celebration"></a><a class="link"   href="http://poj.org/problem?id=3682" >PKU 3682: King Arthur’s Birthday Celebration <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></h5><blockquote>
 <p>· 天数</p>
 <blockquote>
-<p><img src="https://raw.githubusercontent.com/Freshwlnd/image/blog/DP1.png" alt="1"><br><img src="https://raw.githubusercontent.com/Freshwlnd/image/blog/DP2.png" alt="2">  </p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/Freshwlnd/image/blog/DP1.png"
+                      alt="1"
+                ><br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/Freshwlnd/image/blog/DP2.png"
+                      alt="2"
+                >  </p>
 </blockquote>
 <p>· 花费  </p>
 <blockquote>
-<p><img src="https://raw.githubusercontent.com/Freshwlnd/image/blog/DP5.png" alt="5"><br><img src="https://raw.githubusercontent.com/Freshwlnd/image/blog/DP6.png" alt="6">  </p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/Freshwlnd/image/blog/DP5.png"
+                      alt="5"
+                ><br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/Freshwlnd/image/blog/DP6.png"
+                      alt="6"
+                >  </p>
 </blockquote>
 </blockquote>
-<h5 id="HDU-3853-LOOPS"><a href="#HDU-3853-LOOPS" class="headerlink" title="HDU 3853: LOOPS"></a><a href="http://acm.hdu.edu.cn/showproblem.php?pid=3853">HDU 3853: LOOPS</a></h5><blockquote>
-<p><img src="https://raw.githubusercontent.com/Freshwlnd/image/blog/DP3.png" alt="3"><br><img src="https://raw.githubusercontent.com/Freshwlnd/image/blog/DP4.png" alt="4">  </p>
+<h5 id="HDU-3853-LOOPS"><a href="#HDU-3853-LOOPS" class="headerlink" title="HDU 3853: LOOPS"></a><a class="link"   href="http://acm.hdu.edu.cn/showproblem.php?pid=3853" >HDU 3853: LOOPS <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></h5><blockquote>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/Freshwlnd/image/blog/DP3.png"
+                      alt="3"
+                ><br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/Freshwlnd/image/blog/DP4.png"
+                      alt="4"
+                >  </p>
 </blockquote>
 <hr>
-<h5 id="HDU-4405-Aeroplane-chess（上文提到的飞行棋）"><a href="#HDU-4405-Aeroplane-chess（上文提到的飞行棋）" class="headerlink" title="HDU 4405: Aeroplane chess（上文提到的飞行棋）"></a><a href="http://acm.hdu.edu.cn/showproblem.php?pid=4405">HDU 4405: Aeroplane chess</a>（上文提到的飞行棋）</h5><blockquote>
+<h5 id="HDU-4405-Aeroplane-chess（上文提到的飞行棋）"><a href="#HDU-4405-Aeroplane-chess（上文提到的飞行棋）" class="headerlink" title="HDU 4405: Aeroplane chess（上文提到的飞行棋）"></a><a class="link"   href="http://acm.hdu.edu.cn/showproblem.php?pid=4405" >HDU 4405: Aeroplane chess <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>（上文提到的飞行棋）</h5><blockquote>
 <p>正推  </p>
 <blockquote>
 <p><code>times[i] += ft(i-1,i) + ft(i-2,i) + ft(i-3,i) + ft(i-4,i) + ft(i-5,i) + ft(i-6,i);</code><br><code>ft(i,k) = (times[i] + list[i]) / 6;</code><br><em>(ft(i,k) / list[I] = (times[i] / list[i] + 1) / 6;)?</em><br>其中list[i]指到i点的概率，times[i]指到i点次数的期望。  </p>
@@ -361,12 +416,53 @@
 <p>E(X) = ∑</p>
 <h3 id="概率DP"><a href="#概率DP" class="headerlink" title="概率DP"></a>概率DP</h3><p>（待补充…）</p>
 <hr>
-<h2 id="他人博客："><a href="#他人博客：" class="headerlink" title="他人博客："></a>他人博客：</h2><p><a href="https://blog.csdn.net/nameofcsdn/article/details/52082746">正向推概率，反向推期望 - CSDN博客</a><br><a href="https://blog.csdn.net/qq_37963864/article/details/79320424">期望&amp;概率dp总结 - CSDN博客</a><br><a href="https://blog.csdn.net/cc_again/article/details/25866971">ACM动态规划总结 - CSDN博客</a>  </p>
+<h2 id="他人博客："><a href="#他人博客：" class="headerlink" title="他人博客："></a>他人博客：</h2><p><a class="link"   href="https://blog.csdn.net/nameofcsdn/article/details/52082746" >正向推概率，反向推期望 - CSDN博客 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a><br><a class="link"   href="https://blog.csdn.net/qq_37963864/article/details/79320424" >期望&amp;概率dp总结 - CSDN博客 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a><br><a class="link"   href="https://blog.csdn.net/cc_again/article/details/25866971" >ACM动态规划总结 - CSDN博客 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>  </p>
 <hr>
-<p>题目目录：<br><a href="http://poj.org/problem?id=3682">PKU 3682: King Arthur’s Birthday Celebration</a><br><a href="http://acm.hdu.edu.cn/showproblem.php?pid=3853">HDU 3853: LOOPS</a><br><a href="http://acm.hdu.edu.cn/showproblem.php?pid=4089">HDU 4089: Activation</a><br><a href="http://acm.hdu.edu.cn/showproblem.php?pid=2262">HDU 2262: Where is the canteen</a><br><a href="http://acm.hdu.edu.cn/showproblem.php?pid=3949">HDU 3949: XOR</a><br><a href="http://acm.hdu.edu.cn/showproblem.php?pid=4418">HDU 4418: Time travel</a><br><a href="https://icpcarchive.ecs.baylor.edu/external/50/5070.pdf">UVALive 5070: Awkward Lights</a></p>
+<p>题目目录：<br><a class="link"   href="http://poj.org/problem?id=3682" >PKU 3682: King Arthur’s Birthday Celebration <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a><br><a class="link"   href="http://acm.hdu.edu.cn/showproblem.php?pid=3853" >HDU 3853: LOOPS <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a><br><a class="link"   href="http://acm.hdu.edu.cn/showproblem.php?pid=4089" >HDU 4089: Activation <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a><br><a class="link"   href="http://acm.hdu.edu.cn/showproblem.php?pid=2262" >HDU 2262: Where is the canteen <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a><br><a class="link"   href="http://acm.hdu.edu.cn/showproblem.php?pid=3949" >HDU 3949: XOR <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a><br><a class="link"   href="http://acm.hdu.edu.cn/showproblem.php?pid=4418" >HDU 4418: Time travel <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a><br><a class="link"   href="https://icpcarchive.ecs.baylor.edu/external/50/5070.pdf" >UVALive 5070: Awkward Lights <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
 ]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
       <tags>
-        <tag>算法/DP/概率DP</tag>
+        <tag>算法</tag>
+        <tag>DP</tag>
+        <tag>概率DP</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>MathJax Test</title>
+    <url>/2023/05/16/testMathJax/</url>
+    <content><![CDATA[<p><mjx-container class="MathJax" jax="SVG" display="true"><svg style="vertical-align: -1.602ex;" xmlns="http://www.w3.org/2000/svg" width="25.832ex" height="5.018ex" role="img" focusable="false" viewBox="0 -1509.9 11417.6 2217.9"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D456" d="M184 600Q184 624 203 642T247 661Q265 661 277 649T290 619Q290 596 270 577T226 557Q211 557 198 567T184 600ZM21 287Q21 295 30 318T54 369T98 420T158 442Q197 442 223 419T250 357Q250 340 236 301T196 196T154 83Q149 61 149 51Q149 26 166 26Q175 26 185 29T208 43T235 78T260 137Q263 149 265 151T282 153Q302 153 302 143Q302 135 293 112T268 61T223 11T161 -11Q129 -11 102 10T74 74Q74 91 79 106T122 220Q160 321 166 341T173 380Q173 404 156 404H154Q124 404 99 371T61 287Q60 286 59 284T58 281T56 279T53 278T49 278T41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mi" transform="translate(345,0)"><path data-c="210F" d="M182 599Q182 611 174 615T133 619Q118 619 114 621T109 630Q109 636 114 656T122 681Q125 685 202 688Q272 695 286 695Q304 695 304 684Q304 682 295 644T282 597Q282 592 360 592H399Q430 592 445 587T460 563Q460 552 451 541L442 535H266L251 468Q247 453 243 436T236 409T233 399Q233 395 244 404Q295 441 357 441Q405 441 445 417T485 333Q485 284 449 178T412 58T426 44Q447 44 466 68Q485 87 500 130L509 152H531H543Q562 152 562 144Q562 128 546 93T494 23T415 -13Q385 -13 359 3T322 44Q318 52 318 77Q318 99 352 196T386 337Q386 386 346 386Q318 386 286 370Q267 361 245 338T211 292Q207 287 193 235T162 113T138 21Q128 7 122 4Q105 -12 83 -12Q66 -12 54 -2T42 26L166 530Q166 534 161 534T129 535Q127 535 122 535T112 534Q74 534 74 562Q74 570 77 576T84 585T96 589T109 591T124 592T138 592L182 595V599Z"></path></g><g data-mml-node="mfrac" transform="translate(907,0)"><g data-mml-node="mi" transform="translate(400.5,676)"><path data-c="1D715" d="M202 508Q179 508 169 520T158 547Q158 557 164 577T185 624T230 675T301 710L333 715H345Q378 715 384 714Q447 703 489 661T549 568T566 457Q566 362 519 240T402 53Q321 -22 223 -22Q123 -22 73 56Q42 102 42 148V159Q42 276 129 370T322 465Q383 465 414 434T455 367L458 378Q478 461 478 515Q478 603 437 639T344 676Q266 676 223 612Q264 606 264 572Q264 547 246 528T202 508ZM430 306Q430 372 401 400T333 428Q270 428 222 382Q197 354 183 323T150 221Q132 149 132 116Q132 21 232 21Q244 21 250 22Q327 35 374 112Q389 137 409 196T430 306Z"></path></g><g data-mml-node="mrow" transform="translate(220,-686)"><g data-mml-node="mi"><path data-c="1D715" d="M202 508Q179 508 169 520T158 547Q158 557 164 577T185 624T230 675T301 710L333 715H345Q378 715 384 714Q447 703 489 661T549 568T566 457Q566 362 519 240T402 53Q321 -22 223 -22Q123 -22 73 56Q42 102 42 148V159Q42 276 129 370T322 465Q383 465 414 434T455 367L458 378Q478 461 478 515Q478 603 437 639T344 676Q266 676 223 612Q264 606 264 572Q264 547 246 528T202 508ZM430 306Q430 372 401 400T333 428Q270 428 222 382Q197 354 183 323T150 221Q132 149 132 116Q132 21 232 21Q244 21 250 22Q327 35 374 112Q389 137 409 196T430 306Z"></path></g><g data-mml-node="mi" transform="translate(566,0)"><path data-c="1D461" d="M26 385Q19 392 19 395Q19 399 22 411T27 425Q29 430 36 430T87 431H140L159 511Q162 522 166 540T173 566T179 586T187 603T197 615T211 624T229 626Q247 625 254 615T261 596Q261 589 252 549T232 470L222 433Q222 431 272 431H323Q330 424 330 420Q330 398 317 385H210L174 240Q135 80 135 68Q135 26 162 26Q197 26 230 60T283 144Q285 150 288 151T303 153H307Q322 153 322 145Q322 142 319 133Q314 117 301 95T267 48T216 6T155 -11Q125 -11 98 4T59 56Q57 64 57 83V101L92 241Q127 382 128 383Q128 385 77 385H26Z"></path></g></g><rect width="1127" height="60" x="120" y="220"></rect></g><g data-mml-node="mi" transform="translate(2274,0)"><path data-c="1D713" d="M161 441Q202 441 226 417T250 358Q250 338 218 252T187 127Q190 85 214 61Q235 43 257 37Q275 29 288 29H289L371 360Q455 691 456 692Q459 694 472 694Q492 694 492 687Q492 678 411 356Q329 28 329 27T335 26Q421 26 498 114T576 278Q576 302 568 319T550 343T532 361T524 384Q524 405 541 424T583 443Q602 443 618 425T634 366Q634 337 623 288T605 220Q573 125 492 57T329 -11H319L296 -104Q272 -198 272 -199Q270 -205 252 -205H239Q233 -199 233 -197Q233 -192 256 -102T279 -9Q272 -8 265 -8Q106 14 106 139Q106 174 139 264T173 379Q173 380 173 381Q173 390 173 393T169 400T158 404H154Q131 404 112 385T82 344T65 302T57 280Q55 278 41 278H27Q21 284 21 287Q21 299 34 333T82 404T161 441Z"></path></g><g data-mml-node="mo" transform="translate(3202.8,0)"><path data-c="3D" d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z"></path></g><g data-mml-node="mo" transform="translate(4258.6,0)"><path data-c="2212" d="M84 237T84 250T98 270H679Q694 262 694 250T679 230H98Q84 237 84 250Z"></path></g><g data-mml-node="mfrac" transform="translate(5036.6,0)"><g data-mml-node="msup" transform="translate(384.2,676)"><g data-mml-node="mi"><path data-c="210F" d="M182 599Q182 611 174 615T133 619Q118 619 114 621T109 630Q109 636 114 656T122 681Q125 685 202 688Q272 695 286 695Q304 695 304 684Q304 682 295 644T282 597Q282 592 360 592H399Q430 592 445 587T460 563Q460 552 451 541L442 535H266L251 468Q247 453 243 436T236 409T233 399Q233 395 244 404Q295 441 357 441Q405 441 445 417T485 333Q485 284 449 178T412 58T426 44Q447 44 466 68Q485 87 500 130L509 152H531H543Q562 152 562 144Q562 128 546 93T494 23T415 -13Q385 -13 359 3T322 44Q318 52 318 77Q318 99 352 196T386 337Q386 386 346 386Q318 386 286 370Q267 361 245 338T211 292Q207 287 193 235T162 113T138 21Q128 7 122 4Q105 -12 83 -12Q66 -12 54 -2T42 26L166 530Q166 534 161 534T129 535Q127 535 122 535T112 534Q74 534 74 562Q74 570 77 576T84 585T96 589T109 591T124 592T138 592L182 595V599Z"></path></g><g data-mml-node="mn" transform="translate(646.1,363) scale(0.707)"><path data-c="32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z"></path></g></g><g data-mml-node="mrow" transform="translate(220,-686)"><g data-mml-node="mn"><path data-c="32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z"></path></g><g data-mml-node="mi" transform="translate(500,0)"><path data-c="1D45A" d="M21 287Q22 293 24 303T36 341T56 388T88 425T132 442T175 435T205 417T221 395T229 376L231 369Q231 367 232 367L243 378Q303 442 384 442Q401 442 415 440T441 433T460 423T475 411T485 398T493 385T497 373T500 364T502 357L510 367Q573 442 659 442Q713 442 746 415T780 336Q780 285 742 178T704 50Q705 36 709 31T724 26Q752 26 776 56T815 138Q818 149 821 151T837 153Q857 153 857 145Q857 144 853 130Q845 101 831 73T785 17T716 -10Q669 -10 648 17T627 73Q627 92 663 193T700 345Q700 404 656 404H651Q565 404 506 303L499 291L466 157Q433 26 428 16Q415 -11 385 -11Q372 -11 364 -4T353 8T350 18Q350 29 384 161L420 307Q423 322 423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 181Q151 335 151 342Q154 357 154 369Q154 405 129 405Q107 405 92 377T69 316T57 280Q55 278 41 278H27Q21 284 21 287Z"></path></g></g><rect width="1578" height="60" x="120" y="220"></rect></g><g data-mml-node="msup" transform="translate(6854.6,0)"><g data-mml-node="mi"><path data-c="2207" d="M46 676Q46 679 51 683H781Q786 679 786 676Q786 674 617 326T444 -26Q439 -33 416 -33T388 -26Q385 -22 216 326T46 676ZM697 596Q697 597 445 597T193 596Q195 591 319 336T445 80L697 596Z"></path></g><g data-mml-node="mn" transform="translate(866,413) scale(0.707)"><path data-c="32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z"></path></g></g><g data-mml-node="mi" transform="translate(8124.1,0)"><path data-c="1D713" d="M161 441Q202 441 226 417T250 358Q250 338 218 252T187 127Q190 85 214 61Q235 43 257 37Q275 29 288 29H289L371 360Q455 691 456 692Q459 694 472 694Q492 694 492 687Q492 678 411 356Q329 28 329 27T335 26Q421 26 498 114T576 278Q576 302 568 319T550 343T532 361T524 384Q524 405 541 424T583 443Q602 443 618 425T634 366Q634 337 623 288T605 220Q573 125 492 57T329 -11H319L296 -104Q272 -198 272 -199Q270 -205 252 -205H239Q233 -199 233 -197Q233 -192 256 -102T279 -9Q272 -8 265 -8Q106 14 106 139Q106 174 139 264T173 379Q173 380 173 381Q173 390 173 393T169 400T158 404H154Q131 404 112 385T82 344T65 302T57 280Q55 278 41 278H27Q21 284 21 287Q21 299 34 333T82 404T161 441Z"></path></g><g data-mml-node="mo" transform="translate(8997.3,0)"><path data-c="2B" d="M56 237T56 250T70 270H369V420L370 570Q380 583 389 583Q402 583 409 568V270H707Q722 262 722 250T707 230H409V-68Q401 -82 391 -82H389H387Q375 -82 369 -68V230H70Q56 237 56 250Z"></path></g><g data-mml-node="mi" transform="translate(9997.6,0)"><path data-c="1D449" d="M52 648Q52 670 65 683H76Q118 680 181 680Q299 680 320 683H330Q336 677 336 674T334 656Q329 641 325 637H304Q282 635 274 635Q245 630 242 620Q242 618 271 369T301 118L374 235Q447 352 520 471T595 594Q599 601 599 609Q599 633 555 637Q537 637 537 648Q537 649 539 661Q542 675 545 679T558 683Q560 683 570 683T604 682T668 681Q737 681 755 683H762Q769 676 769 672Q769 655 760 640Q757 637 743 637Q730 636 719 635T698 630T682 623T670 615T660 608T652 599T645 592L452 282Q272 -9 266 -16Q263 -18 259 -21L241 -22H234Q216 -22 216 -15Q213 -9 177 305Q139 623 138 626Q133 637 76 637H59Q52 642 52 648Z"></path></g><g data-mml-node="mi" transform="translate(10766.6,0)"><path data-c="1D713" d="M161 441Q202 441 226 417T250 358Q250 338 218 252T187 127Q190 85 214 61Q235 43 257 37Q275 29 288 29H289L371 360Q455 691 456 692Q459 694 472 694Q492 694 492 687Q492 678 411 356Q329 28 329 27T335 26Q421 26 498 114T576 278Q576 302 568 319T550 343T532 361T524 384Q524 405 541 424T583 443Q602 443 618 425T634 366Q634 337 623 288T605 220Q573 125 492 57T329 -11H319L296 -104Q272 -198 272 -199Q270 -205 252 -205H239Q233 -199 233 -197Q233 -192 256 -102T279 -9Q272 -8 265 -8Q106 14 106 139Q106 174 139 264T173 379Q173 380 173 381Q173 390 173 393T169 400T158 404H154Q131 404 112 385T82 344T65 302T57 280Q55 278 41 278H27Q21 284 21 287Q21 299 34 333T82 404T161 441Z"></path></g></g></g></svg></mjx-container></p>
+]]></content>
+      <categories>
+        <category>测试</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>新功能测试</title>
+    <url>/2023/05/16/testNewFunction/</url>
+    <content><![CDATA[<ul>
+<li><p>首页缩略图</p>
+<div class="highlight-container" data-rel="Code"><figure class="iseeu highlight plain"><table><tr><td class="code"><pre><span class="line">thumbnail: &quot;IMAGE_LINK&quot;</span><br></pre></td></tr></table></figure></div>
+</li>
+<li><p>首页文章摘要：</p>
+<div class="highlight-container" data-rel="Code"><figure class="iseeu highlight plain"><table><tr><td class="code"><pre><span class="line">excerpt: &quot;这是文章摘要 This is the excerpt of the post&quot;</span><br></pre></td></tr></table></figure></div>
+<p>or</p>
+<div class="highlight-container" data-rel="Code"><figure class="iseeu highlight plain"><table><tr><td class="code"><pre><span class="line">excerpt: false  # 关闭文章摘要</span><br></pre></td></tr></table></figure></div>
+</li>
+<li><p>文章页头图</p>
+<div class="highlight-container" data-rel="Code"><figure class="iseeu highlight plain"><table><tr><td class="code"><pre><span class="line">cover: &quot;IMAGE_LINK&quot;</span><br></pre></td></tr></table></figure></div>
+<p>或</p>
+<div class="highlight-container" data-rel="Code"><figure class="iseeu highlight plain"><table><tr><td class="code"><pre><span class="line">banner: &quot;IMAGE_LINK&quot;</span><br></pre></td></tr></table></figure></div>
+
+</li>
+</ul>
+<blockquote>
+<p>如果你设置了 首页头图 thumbnail(opens in a new tab) ，文章封面也会自动选择为 thumbnail 链接，当然，banner 和 cover 的优先级最高。<br>如果你不想设置文章封面却想保留首页头图，请把 cover 或者 banner 设置成 false</p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>测试</category>
+      </categories>
   </entry>
 </search>
