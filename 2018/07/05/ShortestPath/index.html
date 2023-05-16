@@ -22,19 +22,23 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":true,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+  <meta name="description" content="·（ 整理的并不完善）·（就是手痒想写点东西）·（顺便熟悉一下MarkDown基础语法）· 模版代码· （需解决的问题：理清各算法的原理，以及因此导致的适用范围）· （状态：像不懂数学公式的意义，只会套用，不会变通）· （问题列举：  判断环权值字典序求最长路径   算法：Dijkstra 算法解决对象 ：单源最短路径（边不能为负）原理 ：每次松弛后，最近点的当前距离是其最短距离。方法 ：">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="http://example.com/2020/10/19/hello-world/index.html">
+<meta property="og:title" content="ShortestPath">
+<meta property="og:url" content="http://example.com/2018/07/05/ShortestPath/index.html">
 <meta property="og:site_name" content="Fre5h1nd Blog">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta property="og:description" content="·（ 整理的并不完善）·（就是手痒想写点东西）·（顺便熟悉一下MarkDown基础语法）· 模版代码· （需解决的问题：理清各算法的原理，以及因此导致的适用范围）· （状态：像不懂数学公式的意义，只会套用，不会变通）· （问题列举：  判断环权值字典序求最长路径   算法：Dijkstra 算法解决对象 ：单源最短路径（边不能为负）原理 ：每次松弛后，最近点的当前距离是其最短距离。方法 ：">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2020-10-19T03:03:29.000Z">
-<meta property="article:modified_time" content="2023-05-16T07:56:29.671Z">
+<meta property="og:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1531369451&di=f74d562d1d7462eb7fe3c5a776859ab6&imgtype=jpg&er=1&src=http://static.freepik.com/free-photo/shortest-path-problem_21018875.jpg">
+<meta property="article:published_time" content="2018-07-05T03:10:27.000Z">
+<meta property="article:modified_time" content="2023-05-16T07:56:29.670Z">
 <meta property="article:author" content="Fre5h1nd">
+<meta property="article:tag" content="算法">
+<meta property="article:tag" content="图论">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1531369451&di=f74d562d1d7462eb7fe3c5a776859ab6&imgtype=jpg&er=1&src=http://static.freepik.com/free-photo/shortest-path-problem_21018875.jpg">
 
-<link rel="canonical" href="http://example.com/2020/10/19/hello-world/">
+<link rel="canonical" href="http://example.com/2018/07/05/ShortestPath/">
 
 
 <script id="page-configurations">
@@ -47,7 +51,7 @@
   };
 </script>
 
-  <title>Hello World | Fre5h1nd Blog</title>
+  <title>ShortestPath | Fre5h1nd Blog</title>
   
 
 
@@ -180,7 +184,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2020/10/19/hello-world/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2018/07/05/ShortestPath/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -193,7 +197,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Hello World
+          ShortestPath
         </h1>
 
         <div class="post-meta">
@@ -203,7 +207,7 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2020-10-19 11:03:29" itemprop="dateCreated datePublished" datetime="2020-10-19T11:03:29+08:00">2020-10-19</time>
+              <time title="创建时间：2018-07-05 11:10:27" itemprop="dateCreated datePublished" datetime="2018-07-05T11:10:27+08:00">2018-07-05</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
@@ -226,14 +230,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>367</span>
+              <span>2.7k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
+              <span>2 分钟</span>
             </span>
 
         </div>
@@ -245,19 +249,127 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+        <p><img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1531369451&di=f74d562d1d7462eb7fe3c5a776859ab6&imgtype=jpg&er=1&src=http://static.freepik.com/free-photo/shortest-path-problem_21018875.jpg" alt="最短路径算法" title="最短路径"></p>
+<hr>
+<p>·（ <del>整理的并不完善</del>）<br>·<em>（就是手痒想写点东西）</em><br>·<strong>（顺便熟悉一下MarkDown基础语法）</strong><br>· <a target="_blank" rel="noopener" href="https://github.com/Freshwlnd/template/blob/master/Graph/ShortestPath">模版代码</a><br>· （<strong>需解决的问题</strong>：理清各算法的原理，以及因此导致的适用范围）<br>· （<strong>状态</strong>：像不懂数学公式的意义，只会套用，不会变通）<br>· （问题列举：</p>
+<blockquote>
+<p>判断环权值<br>字典序<br>求最长路径</p>
+</blockquote>
+<hr>
+<h1 id="算法："><a href="#算法：" class="headerlink" title="算法："></a>算法：</h1><h2 id="Dijkstra-算法"><a href="#Dijkstra-算法" class="headerlink" title="Dijkstra 算法"></a>Dijkstra 算法</h2><p><strong>解决对象</strong> ：单源最短路径（边不能为负）<br><strong>原理</strong> ：每次松弛后，最近点的当前距离是其最短距离。<br><strong>方法</strong> ：  </p>
+<blockquote>
+<p><em>容器</em> ：  </p>
+<blockquote>
+<p><code>邻接矩阵图 graph[ ][ ]        //记录各点间距（无距离为INF，自己到自己为0）</code><br><code>数组 marked[ ]            //记录是否已得到最短路</code><br><code>数组 lenth[ ]            //记录已得到的距离</code></p>
+</blockquote>
+</blockquote>
+<blockquote>
+<p><em>过程</em>：  </p>
+<blockquote>
+<ol>
+<li>设初始点为 v  </li>
+<li>通过 v 点更新 lenth[] 数据  <blockquote>
+<p>a. marked[v] = 1<br>b. 选取 v 使 marked[v] == 0 且 lenth[v] 最小  </p>
+</blockquote>
+</li>
+<li>重复2直到 marked[] 中所有都为1   </li>
+</ol>
+</blockquote>
+</blockquote>
+<hr>
+<h2 id="Floyd-算法"><a href="#Floyd-算法" class="headerlink" title="Floyd 算法"></a>Floyd 算法</h2><p><strong>解决对象</strong> ：图中每两个点的最短距离（边不为负）<br><strong>原理</strong> ：向路径中依次加入点，加入的点的距离已是当前最短。<br>  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>【子图dp思想】</strong><br><strong>问题</strong> ：[floyd一定是对的吗？]([floyd算法:我们真的明白floyd吗? - CSDN博客]<a target="_blank" rel="noopener" href="https://blog.csdn.net/ljhandlwt/article/details/52096932">https://blog.csdn.net/ljhandlwt/article/details/52096932</a>)<br><strong>方法</strong> ：  </p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">for(k&#x3D;0;k&lt;n;k++) &#123;  </span><br><span class="line">　　for(i&#x3D;0;i&lt;n;i++) &#123;  </span><br><span class="line">　　　　for(j&#x3D;0;j&lt;n;j++) &#123;  </span><br><span class="line">　　　　　　if(graph[I][j] &gt; graph[I][k] + graph[k][j]) &#123;  </span><br><span class="line">　　　　　　　　graph[i][j] &gt; graph[i][k] + graph[k][j])   </span><br><span class="line">　　　　　　&#125;  </span><br><span class="line">　　　　&#125;  </span><br><span class="line">　　&#125;  </span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/deployment.html">Deployment</a></p>
+<hr>
+<h2 id="Bellman-Ford-算法"><a href="#Bellman-Ford-算法" class="headerlink" title="Bellman-Ford 算法"></a>Bellman-Ford 算法</h2><p><strong>解决对象</strong> ：单源最短路径/判断负权回路（复杂度较高）<br><strong>原理</strong> ：遍历每条边，每次遍历得到一个节点的最短距离（类似Dijkstra）。<br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>【简单遍历】</strong><br><strong>方法</strong> ：  </p>
+<blockquote>
+<p><em>容器</em> ：  </p>
+<blockquote>
+<p><code>邻接矩阵图 graph[ ][ ]    //记录各点间距</code><br><code>数组 lenth[ ]            //储存最短距离</code>  </p>
+</blockquote>
+<p><em>过程</em>：  </p>
+<blockquote>
+<ol>
+<li>设初始点为 v  </li>
+<li>循环n-1次：  <blockquote>
+<p>a. 对每条边 edge(v,u), 如果 lenth[v]+edge(v,u) &lt; lenth[u], 更新lenth[u]</p>
+</blockquote>
+</li>
+<li>（若需判断负环）再循环n-1次，若有边能被更新则说明有负环。  </li>
+</ol>
+</blockquote>
+</blockquote>
+<hr>
+<h2 id="SPFA-算法"><a href="#SPFA-算法" class="headerlink" title="SPFA 算法"></a>SPFA 算法</h2><p><strong>解决对象</strong> ：单源最短路径（边可为负）（会因特殊数据导致复杂度很高）<br><strong>原理</strong> ：类似堆调整，对每个被更新过的节点进行更新。【相当于剪枝的遍历】<br> &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>【bellman的优化】</strong><br><strong>方法</strong> ：  </p>
+<blockquote>
+<p><em>容器</em> ：  </p>
+<blockquote>
+<p><code>邻接矩阵图 graph[ ][ ]    //记录各点间距</code><br><code>队列    queue                //储存处理点v</code><br><code>数组 lenth[ ]                //储存最短距离</code>  </p>
+</blockquote>
+<p><em>过程</em>：  </p>
+<blockquote>
+<ol>
+<li>将起点入队    </li>
+<li>出队v<blockquote>
+<p>a.更新v周围点<br>b.如果被更新，入队</p>
+</blockquote>
+</li>
+<li>重复2直到队空 </li>
+</ol>
+</blockquote>
+</blockquote>
+<hr>
+<h2 id="A-算法"><a href="#A-算法" class="headerlink" title="A* 算法"></a>A* 算法</h2><p><strong>解决对象</strong> ：在地图上找点对点最短路。<br><strong>原理</strong> ：类似Dijkstra算法，每次更新权值，并找当前点可达的权值最小点。<br><strong>方法</strong> ：  </p>
+<blockquote>
+<p><em>容器</em> ：  </p>
+<blockquote>
+<p><code>权值 F = G+H        //G为从起点到当前点移动的距离，H为到终点的估计移动距离</code><br><code>数组 open[ ]        //用于记录点是否可达</code><br><code>数组 close[ ]        //用于记录点是否不可达（已走过或是墙）</code></p>
+</blockquote>
+<p><em>过程</em>：  </p>
+<blockquote>
+<ol>
+<li>设起点为v  </li>
+<li>遍历v周围可达点u，并做：  <blockquote>
+<p>a. u在close[ ]中，则跳过.<br>b. u不在open[ ]中， 则加入open[]并计算权值F.<br>c. u在open[ ]中，计算F并与原本权值比较，取较小.  </p>
+</blockquote>
+</li>
+<li>重复2，直到到达终点. </li>
+</ol>
+</blockquote>
+</blockquote>
+<hr>
+<h1 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h1><p>关于路径：   </p>
+<blockquote>
+<p><font size=1>一个巧妙的方法：<br><em>（在 HDU 1385 中实现过）</em><br><code>int path[ ][ ]        //path[i][j]记录从i到j的第二个节点</code>  </p>
+</blockquote>
+<hr>
+<h1 id="回顾反思"><a href="#回顾反思" class="headerlink" title="回顾反思"></a>回顾反思</h1><p>学习过程回顾：   </p>
+<blockquote>
+<p>本次学习过程中经历了三个阶段：摸索算法-&gt;尝试运用-&gt;回顾剖析<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在第一个阶段中只是简单地罗列算法，像是本篇blog中每个算法的「方法」模块，知道过程，但只能死记硬背生搬硬套。<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在第二个阶段中，运用算法解题的过程中遭到了很多打击：选错算法、一直WA之类的。与此同时也在不断吸收各个题解的精华，对算法有进一步的了解。<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;第三个过程则是在第二个过程中顿悟达到的。连续的挫败引发了总结的欲望，从题解中吸收的知识为成功总结打下基石。  </p>
+</blockquote>
+<p>反思：   </p>
+<blockquote>
+<p>  &emsp;&emsp;1.第一个阶段花费时间过多，状态较差，不清楚所作所为的目标。但时间花费还是必要的，「迷茫」也是入门阶段无法避免的挑战，下次还要更加打起精神来。<br>  &emsp;&emsp;2.达成主线任务(学习算法)的过程中还会遇到支线任务(markdown知识掌握)，做支线任务之余不能忘了把主要精力放在主线任务上。支线任务可以用于放松心情。（成就感十足）<br> &emsp;&emsp;3.游戏什么的应该当作阶段性奖励，能很好地达到放松的目的，也能更好地推进任务完成。<br> &emsp;&emsp;4.写博客实在是太爽了！（终于找到督促自己实时反思的途径了）  </p>
+</blockquote>
+<p>未解决问题（挖坑）：  </p>
+<blockquote>
+<p> 1.<strong>markdown语法在hexo框架下显示错误</strong>  </p>
+<blockquote>
+<p> <em>猜测</em>：  </p>
+<blockquote>
+<p>是从 bear 复制到 Macdown 时发生错误*  </p>
+</blockquote>
+<p> <em>解决</em>：  </p>
+<blockquote>
+<p>去掉html下划线代码后，格式显示成功。也许是不兼容的原因。  </p>
+</blockquote>
+</blockquote>
+<blockquote>
+<p> 2.<strong>blog图片的相对路径引用</strong><br> （存放在文件夹的什么位置问题）  </p>
+</blockquote>
+</blockquote>
+<hr>
+<p>题目目录：<br><a target="_blank" rel="noopener" href="http://acm.hdu.edu.cn/showproblem.php?pid=1217">HDU 1217: Arbitrage</a><br><a target="_blank" rel="noopener" href="http://acm.hdu.edu.cn/showproblem.php?pid=1224">HDU 1224: Free DIY Tour</a><br><a target="_blank" rel="noopener" href="http://acm.hdu.edu.cn/showproblem.php?pid=1385">HDU 1385: Minimum Transport Cost</a><br><a target="_blank" rel="noopener" href="http://acm.hdu.edu.cn/showproblem.php?pid=1869">HDU 1869: 六度分离</a><br><a target="_blank" rel="noopener" href="http://acm.hdu.edu.cn/showproblem.php?pid=1874">HDU 1874: 畅通工程续</a><br><a target="_blank" rel="noopener" href="http://acm.hdu.edu.cn/showproblem.php?pid=2066">HDU 2066: 一个人的旅行</a><br><a target="_blank" rel="noopener" href="http://acm.hdu.edu.cn/showproblem.php?pid=2112">HDU  2112: HDU Today</a><br><a target="_blank" rel="noopener" href="http://acm.hdu.edu.cn/showproblem.php?pid=2544">HDU 2544: 最短路</a><br><a target="_blank" rel="noopener" href="http://acm.hdu.edu.cn/showproblem.php?pid=2680">HDU 2680: Choose the best route</a><br><a target="_blank" rel="noopener" href="http://acm.hdu.edu.cn/showproblem.php?pid=2722">HDU 2722: Here We Go(relians) Again</a><br><a target="_blank" rel="noopener" href="http://acm.hdu.edu.cn/showproblem.php?pid=2923">HDU 2923: Einbahnstrasse</a><br><a target="_blank" rel="noopener" href="http://acm.hdu.edu.cn/showproblem.php?pid=3339">HDU 3339: In Action</a><br><a target="_blank" rel="noopener" href="http://acm.hdu.edu.cn/showproblem.php?pid=3790">HDU 3790: 最短路径问题</a></p>
 
     </div>
 
@@ -266,6 +378,10 @@
     
 
       <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E7%AE%97%E6%B3%95/" rel="tag"># 算法</a>
+              <a href="/tags/%E5%9B%BE%E8%AE%BA/" rel="tag"># 图论</a>
+          </div>
 
         
 
@@ -273,10 +389,13 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2018/11/02/Lua-%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95/" rel="prev" title="Lua 数据类型">
-      <i class="fa fa-chevron-left"></i> Lua 数据类型
+    <a href="/2018/07/04/firstblog/" rel="prev" title="testpage">
+      <i class="fa fa-chevron-left"></i> testpage
     </a></div>
-      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2018/07/07/zjgsu4/" rel="next" title="概率DP">
+      概率DP <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
       </footer>
     
@@ -336,7 +455,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Quick-Start"><span class="nav-number">1.</span> <span class="nav-text">Quick Start</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Create-a-new-post"><span class="nav-number">1.1.</span> <span class="nav-text">Create a new post</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Run-server"><span class="nav-number">1.2.</span> <span class="nav-text">Run server</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Generate-static-files"><span class="nav-number">1.3.</span> <span class="nav-text">Generate static files</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Deploy-to-remote-sites"><span class="nav-number">1.4.</span> <span class="nav-text">Deploy to remote sites</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AE%97%E6%B3%95%EF%BC%9A"><span class="nav-number">1.</span> <span class="nav-text">算法：</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Dijkstra-%E7%AE%97%E6%B3%95"><span class="nav-number">1.1.</span> <span class="nav-text">Dijkstra 算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Floyd-%E7%AE%97%E6%B3%95"><span class="nav-number">1.2.</span> <span class="nav-text">Floyd 算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Bellman-Ford-%E7%AE%97%E6%B3%95"><span class="nav-number">1.3.</span> <span class="nav-text">Bellman-Ford 算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SPFA-%E7%AE%97%E6%B3%95"><span class="nav-number">1.4.</span> <span class="nav-text">SPFA 算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#A-%E7%AE%97%E6%B3%95"><span class="nav-number">1.5.</span> <span class="nav-text">A* 算法</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%A1%A5%E5%85%85"><span class="nav-number">2.</span> <span class="nav-text">补充</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9B%9E%E9%A1%BE%E5%8F%8D%E6%80%9D"><span class="nav-number">3.</span> <span class="nav-text">回顾反思</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -571,7 +690,7 @@ NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
       repo        : 'gitalk-comment',
       owner       : 'freshwlnd',
       admin       : ['freshwlnd'],
-      id          : '99eb219f0fe4862c1734a59edaae26ef',
+      id          : '1d33600dc718112a3fbe90db7544ee5f',
         language: '',
       distractionFreeMode: true
     });
