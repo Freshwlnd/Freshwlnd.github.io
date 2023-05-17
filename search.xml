@@ -526,7 +526,7 @@
       </tags>
   </entry>
   <entry>
-    <title>论文略读笔记-1</title>
+    <title>论文略读笔记1-前沿-模拟器加速算法</title>
     <url>/2023/05/17/literatureNotes1/</url>
     <content><![CDATA[<h1 id="《A-Parallel-Algorithm-to-Accelerate-DEVS-Simulations-in-Shared-Memory-Architectures》"><a href="#《A-Parallel-Algorithm-to-Accelerate-DEVS-Simulations-in-Shared-Memory-Architectures》" class="headerlink" title="《A Parallel Algorithm to Accelerate DEVS Simulations in Shared Memory Architectures》"></a>《A Parallel Algorithm to Accelerate DEVS Simulations in Shared Memory Architectures》</h1><blockquote>
 <p>序言：</p>
@@ -562,7 +562,7 @@
 </ul>
 </li>
 </ul>
-<h1 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h1><ul>
+<h1 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h1><ul>
 <li>展示了一组使用合成基准的实验结果，以及使用两个独立计算机架构的真实场景。获得的结果显示了算法将模拟加速多达八倍。<ul>
 <li>使用为蜂窝DEVS模型设计的基准和真实世界的案例研究，其中真实案例研究是一个流行病学模型，模拟疾病如何在人群中传播。</li>
 </ul>
@@ -585,6 +585,75 @@
       <tags>
         <tag>模拟器</tag>
         <tag>并行加速</tag>
+        <tag>架构</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>论文略读笔记2-经典-CloudSimPlus</title>
+    <url>/2023/05/17/literatureNotes2/</url>
+    <content><![CDATA[<h1 id="《CloudSim-Plus-A-cloud-computing-simulation-framework-pursuing-software-engineering-principles-for-improved-modularity-extensibility-and-correctness》"><a href="#《CloudSim-Plus-A-cloud-computing-simulation-framework-pursuing-software-engineering-principles-for-improved-modularity-extensibility-and-correctness》" class="headerlink" title="《CloudSim Plus: A cloud computing simulation framework pursuing software engineering principles for improved modularity, extensibility and correctness》"></a>《CloudSim Plus: A cloud computing simulation framework pursuing software engineering principles for improved modularity, extensibility and correctness》</h1><h1 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h1><ul>
+<li>云计算是一种成熟的技术，可以按需提供计算资源，目前面临一些挑战。<ul>
+<li>主要挑战包括：<ul>
+<li>共享资源的管理、能源消耗、负载平衡、资源配置和分配以及服务级别协议 （SLA） 的履行。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>尽管云提供了按需收费模式，但在实际基础设施中实施大规模实验是昂贵、耗时的，限制了实验的可重复性，并且由于不受控制的环境而损害了测量。由于这些固有的复杂性，新的模型和算法主要通过云模拟来试验。</li>
+</ul>
+<h1 id="现状"><a href="#现状" class="headerlink" title="现状"></a>现状</h1><ul>
+<li>学界已开发了几种用于云计算的模拟工具，使用最广泛的是CloudSim，这是一个用于云计算的通用且可扩展的模拟框架。</li>
+<li>有助于广泛采用CloudSim的特征是：<ul>
+<li>（i）它是用Java（一种广泛使用的编程语言）开发的;</li>
+<li>（ii） 该项目是开源的，允许其他开发人员做出贡献;</li>
+<li>（iii）它是第一个开源的专用云模拟框架;</li>
+<li>（iv）它为创建模拟场景提供了极大的灵活性，其中每个场景都必须使用Java代码而不是使用僵化的图形工具来实现。</li>
+</ul>
+</li>
+<li>存在以下缺点：<ul>
+<li>（i） 文件有限;</li>
+<li>（ii） 危及可维护性、可扩展性和测试的重复代码数量;</li>
+<li>（iii） 缺乏功能/集成测试，这对于确保模拟器的正确性和有效性很重要;</li>
+<li>（iv）缺乏设计模式来改进软件工程和面向对象设计的几个指标;</li>
+<li>（v）不符合某些软件工程实践和建议，如SOLID原则;</li>
+<li>（vi） 缺乏更有条理的一揽子结构，无法更好地理解项目并使之成为模块化;</li>
+<li>（vii）缺乏更好的类结构，允许第三方开发人员在框架中实现缺失的功能，而无需更改核心类。</li>
+</ul>
+</li>
+</ul>
+<h1 id="创新"><a href="#创新" class="headerlink" title="创新"></a>创新</h1><ul>
+<li>这项工作介绍了CloudSim Plus，这是一个开源模拟框架，追求符合软件工程原则和面向对象设计，以提供可扩展，模块化和准确的工具。<ul>
+<li>它基于CloudSim框架，旨在改进几个工程方面，例如可维护性，可重用性和可扩展性。</li>
+<li>它的主要贡献是：<ul>
+<li>（i）改进了类层次结构和代码，这更容易理解;</li>
+<li>（ii）更多地应用可重用性原则;</li>
+<li>（iii）全面审查和改进守则文件;</li>
+<li>（iv）重新调整项目模块和包的结构，以简化使用并改进关注点分离（SoC）原则;</li>
+<li>（v）增加集成测试以涵盖整个模拟场景;</li>
+<li>（vi）官方网站上详细描述的全新功能集。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h1><ul>
+<li>这项工作展示了CloudSim Plus的优势，它的特殊功能，它如何确保更高的准确性，扩展设施和使用简单性。</li>
+</ul>
+<h1 id="疑问"><a href="#疑问" class="headerlink" title="疑问"></a>疑问</h1><ol>
+<li>这类模拟器相关论文，是否与一般的方法性论文的结构有所区别？审稿人对这类论文的要求是怎样的？如果想写一篇模拟器相关论文，应该怎么写？<blockquote>
+<p>本文结构：<br>  引言 -&gt; 相关工作 -&gt; CloudSim Plus 概述（目标分析，特性简介） -&gt; 架构（整体设计及主要类） -&gt; 与现有方案相比的改进 -&gt; 特性和优势详解 -&gt; 使用方法</p>
+</blockquote>
+</li>
+</ol>
+<h1 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h1><div id="refer-anchor-1"></div>
+[1] M. C. Silva Filho, R. L. Oliveira, C. C. Monteiro, P. R. M. Inácio and M. M. Freire, "CloudSim Plus: A cloud computing simulation framework pursuing software engineering principles for improved modularity, extensibility and correctness," 2017 IFIP/IEEE Symposium on Integrated Network and Service Management (IM), Lisbon, Portugal, 2017, pp. 400-406, doi: 10.23919/INM.2017.7987304.
+]]></content>
+      <categories>
+        <category>论文</category>
+        <category>略读</category>
+      </categories>
+      <tags>
+        <tag>模拟器</tag>
         <tag>架构</tag>
       </tags>
   </entry>
