@@ -57,7 +57,6 @@
         <category>题目解析</category>
       </categories>
       <tags>
-        <tag>算法</tag>
         <tag>DP</tag>
       </tags>
   </entry>
@@ -72,7 +71,6 @@
         <category>算法介绍</category>
       </categories>
       <tags>
-        <tag>算法</tag>
         <tag>图论</tag>
       </tags>
   </entry>
@@ -234,10 +232,10 @@
       <categories>
         <category>基础知识</category>
         <category>编程语言</category>
-        <category>基础语法</category>
       </categories>
       <tags>
         <tag>Lua</tag>
+        <tag>语法</tag>
       </tags>
   </entry>
   <entry>
@@ -375,7 +373,6 @@
         <category>算法介绍</category>
       </categories>
       <tags>
-        <tag>算法</tag>
         <tag>图论</tag>
       </tags>
   </entry>
@@ -524,9 +521,71 @@
         <category>算法介绍</category>
       </categories>
       <tags>
-        <tag>算法</tag>
         <tag>DP</tag>
         <tag>概率DP</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>论文略读笔记-1</title>
+    <url>/2023/05/17/literatureNotes1/</url>
+    <content><![CDATA[<h1 id="《A-Parallel-Algorithm-to-Accelerate-DEVS-Simulations-in-Shared-Memory-Architectures》"><a href="#《A-Parallel-Algorithm-to-Accelerate-DEVS-Simulations-in-Shared-Memory-Architectures》" class="headerlink" title="《A Parallel Algorithm to Accelerate DEVS Simulations in Shared Memory Architectures》"></a>《A Parallel Algorithm to Accelerate DEVS Simulations in Shared Memory Architectures》</h1><blockquote>
+<p>序言：</p>
+<blockquote>
+<p> 写这个系列的目的是督促自己养成阅读论文的习惯，有疏漏或错误之处欢迎指出和讨论。</p>
+</blockquote>
+</blockquote>
+<h1 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h1><ul>
+<li>建模和仿真（M&amp;S）成为表示各个学科问题和进行科学探索的重要工具。尽管已经开发了许多M&amp;S方法，但离散事件模拟（其中系统行为被建模为连续时间内事件的时间顺序）现在广泛用于研究各种各样的问题。</li>
+<li>正式的M&amp;S方法允许精确定义模型，进行正式检查并构建更易于验证的模拟器。特别是，离散事件系统规范（DEVS）形式化为离散事件M&amp;S的开发提供了正式的理论框架。</li>
+<li>在不同研究领域模拟复杂的DEVS模型的需求不断增长，导致执行时间增加。</li>
+</ul>
+<h1 id="现状"><a href="#现状" class="headerlink" title="现状"></a>现状</h1><ul>
+<li>为了解决模拟时间过长问题，已经多次尝试使用并行离散事件模拟（PDES）方法，实现DEVS的并行执行。然而，在实践中，这些算法会导致复杂的仿真架构，并产生与零前瞻循环和正确性相关的各种问题。</li>
+<li>[<a href="#refer-anchor-2">2</a>]中提出了一种加速 DEVS 仿真的不同方法，该方法允许并行执行仿真协议。这种方法背后的主要思想是通过并行执行同时发生的事件来允许简单且无错误的算法。<ul>
+<li>在这种方法中，作者确定了仿真协议可以并行执行的两种情况：<ul>
+<li>1）当两个或多个组件执行其输出功能时;</li>
+<li>2）当两个或多个组件执行其状态转换功能时。</li>
+</ul>
+</li>
+<li>然而，这种方法在实际应用中显示出有限的加速[8]。</li>
+</ul>
+</li>
+</ul>
+<h1 id="创新"><a href="#创新" class="headerlink" title="创新"></a>创新</h1><ul>
+<li>提出了一种在并行共享内存架构上执行离散事件系统规范（DEVS）仿真的新算法。<ul>
+<li>通过并行执行PDEVS仿真协议中的所有任务来执行并行离散事件仿真。该算法的工作原理是在共享内存架构上的不同内核之间分配计算，与分布式内存系统相比，共享内存计算机体系结构可以有效地使用系统资源并且具有较低的通信延迟。</li>
+<li>（在现有方法的基础上，提供额外并行执行机会）</li>
+</ul>
+</li>
+<li>在本文方法中，完整的算法并行执行，在所有场景中都能获得与顺序版本相同的结果。<ul>
+<li>思路是分解任务并将它们分配给一组加速执行的线程。每个任务完成后，线程将同步以确保在启动新任务之前完成任务。</li>
+</ul>
+</li>
+</ul>
+<h1 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h1><ul>
+<li>展示了一组使用合成基准的实验结果，以及使用两个独立计算机架构的真实场景。获得的结果显示了算法将模拟加速多达八倍。<ul>
+<li>使用为蜂窝DEVS模型设计的基准和真实世界的案例研究，其中真实案例研究是一个流行病学模型，模拟疾病如何在人群中传播。</li>
+</ul>
+</li>
+<li>此外，实验表明，当增加使用的 CPU 内核数量时，算法能够持续扩展。</li>
+</ul>
+<h1 id="疑问"><a href="#疑问" class="headerlink" title="疑问"></a>疑问</h1><ol>
+<li>离散事件系统规范（DEVS）是什么样的标准？与现有的云计算模拟器如CloudSim之间的关系是什么？</li>
+<li>核心思路是什么？还没看懂。</li>
+</ol>
+<h1 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h1><div id="refer-anchor-1"></div>
+[1] G. G. Trabes, G. A. Wainer and V. Gil-Costa, "A Parallel Algorithm to Accelerate DEVS Simulations in Shared Memory Architectures," in IEEE Transactions on Parallel and Distributed Systems, vol. 34, no. 5, pp. 1609-1620, May 2023, doi: 10.1109/TPDS.2023.3256083.
+
+<div id="refer-anchor-2"></div>
+[2] B. P. Zeigler, "Using the Parallel DEVS Protocol for General Robust Simulation with Near Optimal Performance," in Computing in Science &amp; Engineering, vol. 19, no. 3, pp. 68-77, May-June 2017, doi: 10.1109/MCSE.2017.52.]]></content>
+      <categories>
+        <category>论文</category>
+        <category>略读</category>
+      </categories>
+      <tags>
+        <tag>模拟器</tag>
+        <tag>并行加速</tag>
+        <tag>架构</tag>
       </tags>
   </entry>
 </search>
