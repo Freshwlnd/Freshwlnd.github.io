@@ -795,4 +795,98 @@
         <tag>概率DP</tag>
       </tags>
   </entry>
+  <entry>
+    <title>K8S集群搭建记录——简易单机集群</title>
+    <url>/2023/05/22/k8s-install/</url>
+    <content><![CDATA[<h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><ul>
+<li>组内师兄弟把自己集群玩坏了，我进行重装时遇到各种奇怪的报错，在此记录一下，避免下次遇到同样的情况浪费时间。</li>
+<li>本次目标集群较为简单，仅由一台服务器组成。</li>
+<li>整体根据<a href="#refer-anchor-1">[1]</a>进行安装。</li>
+</ul>
+<h1 id="安装Docker"><a href="#安装Docker" class="headerlink" title="安装Docker"></a>安装Docker</h1><ul>
+<li>使用yum安装Docker<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">docker_version=20.10.5  <span class="comment"># 根据自己需要可设置为其他版本</span></span><br><span class="line">yum install docker-ce-<span class="variable">$&#123;docker_version&#125;</span> -y</span><br></pre></td></tr></table></figure></div>
+
+</li>
+</ul>
+<h2 id="细节问题"><a href="#细节问题" class="headerlink" title="细节问题"></a>细节问题</h2><ul>
+<li>由于本机已有Docker环境故跳过了这一步，但得到报错：<blockquote>
+<p>[WARNING Service-Docker]: docker service is not enabled, please run ‘systemctl enable docker.service’<br>[WARNING SystemVerification]: this Docker version is not on the list of validated versions: 23.0.4. Latest validated version: 20.10</p>
+</blockquote>
+</li>
+<li>显然是Docker版本过高（可能是由于K8S和Docker近期分道扬镳有关，故对Docker版本进行降级<a href="#refer-anchor-2"><sup>[2]</sup></a>：<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">$ docker_version=20.10.5  <span class="comment"># 根据自己需要可设置为其他版本</span></span><br><span class="line">$ yum downgrade --<span class="built_in">setopt</span>=obsoletes=0 -y docker-ce-<span class="variable">$&#123;docker_version&#125;</span> docker-ce-selinux-<span class="variable">$&#123;docker_version&#125;</span>   <span class="comment"># 安装Docker</span></span><br><span class="line"></span><br><span class="line">$ systemctl <span class="built_in">enable</span> docker.service <span class="comment"># 安装完成后启动Docker服务</span></span><br></pre></td></tr></table></figure></div>
+
+</li>
+</ul>
+<h1 id="安装kubelet、kubeadm、kubectl"><a href="#安装kubelet、kubeadm、kubectl" class="headerlink" title="安装kubelet、kubeadm、kubectl"></a>安装kubelet、kubeadm、kubectl</h1><ul>
+<li>使用yum安装K8S组件<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">$ k8s_version=1.23.6  <span class="comment"># 根据自己需要可设置为其他版本</span></span><br><span class="line">$ yum install -y kubelet-<span class="variable">$&#123;k8s_version&#125;</span> kubeadm-<span class="variable">$&#123;k8s_version&#125;</span> kubectl-<span class="variable">$&#123;k8s_version&#125;</span> --disableexcludes=kubernetes    <span class="comment"># disableexcludes参数禁止了除了该仓库外的其他仓库</span></span><br><span class="line"></span><br><span class="line">$ systemctl <span class="built_in">enable</span> --now kubelet  <span class="comment"># 安装完成后启动kubelet服务</span></span><br><span class="line">$ systemctl start kubelet</span><br></pre></td></tr></table></figure></div>
+
+</li>
+</ul>
+<h2 id="细节问题-1"><a href="#细节问题-1" class="headerlink" title="细节问题"></a>细节问题</h2><ul>
+<li>正常安装后一直卡在其中一步，得到信息：<blockquote>
+<p>[wait-control-plane] Waiting for the kubelet to boot up the control plane as static Pods from directory “/etc/kubernetes/manifests”. This can take up to 4m0s<br>[kubelet-check] Initial timeout of 40s passed.</p>
+</blockquote>
+</li>
+<li>根据[<a href="#refer-anchor-3">3</a>]确认和前面Docker一样是版本问题（发现该问题之前安装组件并未指定版本），对相关组件进行降级：<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">$ yum remove -y kubelet kubeadm kubectl</span><br><span class="line">$ k8s_version=1.23.6  <span class="comment"># 根据自己需要可设置为其他版本</span></span><br><span class="line">$ yum install -y kubelet-<span class="variable">$&#123;k8s_version&#125;</span> kubeadm-<span class="variable">$&#123;k8s_version&#125;</span> kubectl-<span class="variable">$&#123;k8s_version&#125;</span> <span class="comment"># 安装组件</span></span><br></pre></td></tr></table></figure></div>
+
+</li>
+</ul>
+<h2 id="知识补充"><a href="#知识补充" class="headerlink" title="知识补充"></a>知识补充</h2><ul>
+<li><p>kubelet, kubeadm, kubectl是Kubernetes的三个基本工具，它们分别有以下作用：</p>
+<ul>
+<li>kubelet是运行在每个节点上的代理，它负责管理本机的容器，保证容器都运行在Pod中。kubelet还负责维护容器的生命周期，以及管理存储和网络资源。kubelet会定期向控制平面汇报节点的状态和资源使用情况。</li>
+<li>kubeadm是一个用于快速部署Kubernetes集群的工具。kubeadm可以通过简单的命令来初始化集群、添加节点、升级集群等。kubeadm会执行一系列的操作，如生成证书、配置kubeconfig文件、启动控制平面组件、安装网络插件等。</li>
+<li>kubectl是一个用于与Kubernetes集群交互的命令行工具。kubectl可以用来管理集群本身，以及在集群上部署和运维容器化应用。kubectl支持多种操作，如创建、删除、更新、查看资源对象，执行命令，查看日志等。</li>
+</ul>
+</li>
+<li><p>一些具体的例子：</p>
+<ul>
+<li>如果想在节点上查看运行中的Pod，可以使用kubelet提供的API接口：<code>curl -s http://localhost:10255/pods | jq .items[].metadata.name</code></li>
+<li>如果想在主节点上初始化一个集群，可以使用kubeadm init命令：<code>kubeadm init --apiserver-advertise-address=192.168.0.10 --pod-network-cidr=10.244.0.0/16</code></li>
+<li>如果想在工作节点上加入一个集群，可以使用kubeadm join命令：<code>kubeadm join 192.168.0.10:6443 --token abcdef.1234567890abcdef --discovery-token-ca-cert-hash sha256:1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef</code></li>
+<li>如果想在集群上创建一个Deployment对象，可以使用kubectl create命令：<code>kubectl create deployment nginx --image=nginx</code></li>
+<li>如果想在集群上查看所有的节点，可以使用kubectl get命令：<code>kubectl get nodes</code></li>
+</ul>
+</li>
+</ul>
+<h1 id="集群初始化"><a href="#集群初始化" class="headerlink" title="集群初始化"></a>集群初始化</h1><ul>
+<li>创建并设置配置文件<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">$ kubeadm config <span class="built_in">print</span> init-defaults &gt; kubeadm-config.yaml</span><br><span class="line">$ vim kubeadm-config.yaml</span><br><span class="line">advertiseAddress: 1.2.3.4   <span class="comment"># 修改为本机ip</span></span><br><span class="line">name: node  <span class="comment"># 修改为本机hostname（使用hostname命令查看）</span></span><br><span class="line">image-repository: registry.aliyuncs.com/google_containers   <span class="comment"># 修改为国内源</span></span><br></pre></td></tr></table></figure></div></li>
+<li>初始化集群<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">$ kubeadm init --config kubeadm-config.yaml <span class="comment"># 初始化集群</span></span><br></pre></td></tr></table></figure></div></li>
+<li>初始化成功或后获得信息：<blockquote>
+<p>To start using your cluster, you need to run the following as a regular user:<br>  mkdir -p $HOME/.kube<br>  sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config<br>  sudo chown $(id -u):$(id -g) $HOME/.kube/config</p>
+<p>Alternatively, if you are the root user, you can run:<br>  export KUBECONFIG=/etc/kubernetes/admin.conf</p>
+<p>You should now deploy a pod network to the cluster.<br>Run “kubectl apply -f [podnetwork].yaml” with one of the options listed at:<br>  <a class="link"   href="https://kubernetes.io/docs/concepts/cluster-administration/addons/" >https://kubernetes.io/docs/concepts/cluster-administration/addons/ <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<p>Then you can join any number of worker nodes by running the following on each as root:</p>
+<p>kubeadm join x.x.x.x:6443 –token abcdef.0123456789abcdef \<br>–discovery-token-ca-cert-hash sha256:b45c9d150ca4a2f658b8316ae0246844733cafb36ed2883b3fd4be5e7fd554e8</p>
+</blockquote>
+</li>
+<li>根据信息配置：<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">$ mkdir -p <span class="variable">$HOME</span>/.kube</span><br><span class="line">$ sudo cp -i /etc/kubernetes/admin.conf <span class="variable">$HOME</span>/.kube/config</span><br><span class="line">$ sudo chown $(id -u):$(id -g) <span class="variable">$HOME</span>/.kube/config</span><br><span class="line">$ <span class="built_in">echo</span> <span class="string">&quot;export KUBECONFIG=/etc/kubernetes/admin.conf&quot;</span> &gt;&gt; ~/.bashrc</span><br><span class="line">$ <span class="built_in">source</span> ~/.bashrc</span><br></pre></td></tr></table></figure></div>
+
+</li>
+</ul>
+<h1 id="环境汇总"><a href="#环境汇总" class="headerlink" title="环境汇总"></a>环境汇总</h1><blockquote>
+<p>CentOS Linux release 7.9.2009 (Core)<br>docker_version=20.10.5<br>k8s_version=1.23.6</p>
+</blockquote>
+<h1 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h1><ul>
+<li>后续可能会有复杂集群搭建的问题，到时候再继续记录复杂版本</li>
+<li>理论上K8S和Docker分道扬镳后应当有新的安装方式，本次使用的强制降级方法不是很自然，后续有机会再更新新版安装方式</li>
+</ul>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><div id="refer-anchor-1"></div>
+
+<p>[1] <a class="link"   href="https://blog.csdn.net/rockstics/article/details/110850423" >Centos安装部署Kubernetes（K8s） <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<div id="refer-anchor-2"></div>
+
+<p>[2] <a class="link"   href="https://blog.csdn.net/zhanremo3062/article/details/114652850" >docker降级操作，20.10降级到19.03版本 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<div id="refer-anchor-3"></div>
+
+<p>[3] <a class="link"   href="https://blog.csdn.net/weixin_46601322/article/details/126722529" >k8s初始化报错[kubelet-check] Initial timeout of 40s passed. <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+]]></content>
+      <categories>
+        <category>工程</category>
+        <category>安装应用</category>
+      </categories>
+      <tags>
+        <tag>K8S</tag>
+      </tags>
+  </entry>
 </search>
