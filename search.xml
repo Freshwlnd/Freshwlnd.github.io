@@ -286,144 +286,6 @@
       </tags>
   </entry>
   <entry>
-    <title>ShortestPath</title>
-    <url>/2018/07/05/ShortestPath/</url>
-    <content><![CDATA[<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1531369451&di=f74d562d1d7462eb7fe3c5a776859ab6&imgtype=jpg&er=1&src=http://static.freepik.com/free-photo/shortest-path-problem_21018875.jpg"
-                      alt="最短路径算法" title="最短路径"
-                ></p>
-<hr>
-<p>·（ <del>整理的并不完善</del>）<br>·<em>（就是手痒想写点东西）</em><br>·<strong>（顺便熟悉一下MarkDown基础语法）</strong><br>· <a class="link"   href="https://github.com/Freshwlnd/template/blob/master/Graph/ShortestPath" >模版代码 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a><br>· （<strong>需解决的问题</strong>：理清各算法的原理，以及因此导致的适用范围）<br>· （<strong>状态</strong>：像不懂数学公式的意义，只会套用，不会变通）<br>· （问题列举：</p>
-<blockquote>
-<p>判断环权值<br>字典序<br>求最长路径</p>
-</blockquote>
-<hr>
-<h1 id="算法："><a href="#算法：" class="headerlink" title="算法："></a>算法：</h1><h2 id="Dijkstra-算法"><a href="#Dijkstra-算法" class="headerlink" title="Dijkstra 算法"></a>Dijkstra 算法</h2><p><strong>解决对象</strong> ：单源最短路径（边不能为负）<br><strong>原理</strong> ：每次松弛后，最近点的当前距离是其最短距离。<br><strong>方法</strong> ：  </p>
-<blockquote>
-<p><em>容器</em> ：  </p>
-<blockquote>
-<p><code>邻接矩阵图 graph[ ][ ]        //记录各点间距（无距离为INF，自己到自己为0）</code><br><code>数组 marked[ ]            //记录是否已得到最短路</code><br><code>数组 lenth[ ]            //记录已得到的距离</code></p>
-</blockquote>
-</blockquote>
-<blockquote>
-<p><em>过程</em>：  </p>
-<blockquote>
-<ol>
-<li>设初始点为 v  </li>
-<li>通过 v 点更新 lenth[] 数据  <blockquote>
-<p>a. marked[v] = 1<br>b. 选取 v 使 marked[v] == 0 且 lenth[v] 最小  </p>
-</blockquote>
-</li>
-<li>重复2直到 marked[] 中所有都为1   </li>
-</ol>
-</blockquote>
-</blockquote>
-<hr>
-<h2 id="Floyd-算法"><a href="#Floyd-算法" class="headerlink" title="Floyd 算法"></a>Floyd 算法</h2><p><strong>解决对象</strong> ：图中每两个点的最短距离（边不为负）<br><strong>原理</strong> ：向路径中依次加入点，加入的点的距离已是当前最短。<br>  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>【子图dp思想】</strong><br><strong>问题</strong> ：[floyd一定是对的吗？]([floyd算法:我们真的明白floyd吗? - CSDN博客]<a class="link"   href="https://blog.csdn.net/ljhandlwt/article/details/52096932" >https://blog.csdn.net/ljhandlwt/article/details/52096932 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>)<br><strong>方法</strong> ：  </p>
- <div class="highlight-container" data-rel="Code"><figure class="iseeu highlight plain"><table><tr><td class="code"><pre><span class="line">for(k&#x3D;0;k&lt;n;k++) &#123;  </span><br><span class="line">　　for(i&#x3D;0;i&lt;n;i++) &#123;  </span><br><span class="line">　　　　for(j&#x3D;0;j&lt;n;j++) &#123;  </span><br><span class="line">　　　　　　if(graph[I][j] &gt; graph[I][k] + graph[k][j]) &#123;  </span><br><span class="line">　　　　　　　　graph[i][j] &gt; graph[i][k] + graph[k][j])   </span><br><span class="line">　　　　　　&#125;  </span><br><span class="line">　　　　&#125;  </span><br><span class="line">　　&#125;  </span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure></div>
-
-<hr>
-<h2 id="Bellman-Ford-算法"><a href="#Bellman-Ford-算法" class="headerlink" title="Bellman-Ford 算法"></a>Bellman-Ford 算法</h2><p><strong>解决对象</strong> ：单源最短路径/判断负权回路（复杂度较高）<br><strong>原理</strong> ：遍历每条边，每次遍历得到一个节点的最短距离（类似Dijkstra）。<br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>【简单遍历】</strong><br><strong>方法</strong> ：  </p>
-<blockquote>
-<p><em>容器</em> ：  </p>
-<blockquote>
-<p><code>邻接矩阵图 graph[ ][ ]    //记录各点间距</code><br><code>数组 lenth[ ]            //储存最短距离</code>  </p>
-</blockquote>
-<p><em>过程</em>：  </p>
-<blockquote>
-<ol>
-<li>设初始点为 v  </li>
-<li>循环n-1次：  <blockquote>
-<p>a. 对每条边 edge(v,u), 如果 lenth[v]+edge(v,u) &lt; lenth[u], 更新lenth[u]</p>
-</blockquote>
-</li>
-<li>（若需判断负环）再循环n-1次，若有边能被更新则说明有负环。  </li>
-</ol>
-</blockquote>
-</blockquote>
-<hr>
-<h2 id="SPFA-算法"><a href="#SPFA-算法" class="headerlink" title="SPFA 算法"></a>SPFA 算法</h2><p><strong>解决对象</strong> ：单源最短路径（边可为负）（会因特殊数据导致复杂度很高）<br><strong>原理</strong> ：类似堆调整，对每个被更新过的节点进行更新。【相当于剪枝的遍历】<br> &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>【bellman的优化】</strong><br><strong>方法</strong> ：  </p>
-<blockquote>
-<p><em>容器</em> ：  </p>
-<blockquote>
-<p><code>邻接矩阵图 graph[ ][ ]    //记录各点间距</code><br><code>队列    queue                //储存处理点v</code><br><code>数组 lenth[ ]                //储存最短距离</code>  </p>
-</blockquote>
-<p><em>过程</em>：  </p>
-<blockquote>
-<ol>
-<li>将起点入队    </li>
-<li>出队v<blockquote>
-<p>a.更新v周围点<br>b.如果被更新，入队</p>
-</blockquote>
-</li>
-<li>重复2直到队空 </li>
-</ol>
-</blockquote>
-</blockquote>
-<hr>
-<h2 id="A-算法"><a href="#A-算法" class="headerlink" title="A* 算法"></a>A* 算法</h2><p><strong>解决对象</strong> ：在地图上找点对点最短路。<br><strong>原理</strong> ：类似Dijkstra算法，每次更新权值，并找当前点可达的权值最小点。<br><strong>方法</strong> ：  </p>
-<blockquote>
-<p><em>容器</em> ：  </p>
-<blockquote>
-<p><code>权值 F = G+H        //G为从起点到当前点移动的距离，H为到终点的估计移动距离</code><br><code>数组 open[ ]        //用于记录点是否可达</code><br><code>数组 close[ ]        //用于记录点是否不可达（已走过或是墙）</code></p>
-</blockquote>
-<p><em>过程</em>：  </p>
-<blockquote>
-<ol>
-<li>设起点为v  </li>
-<li>遍历v周围可达点u，并做：  <blockquote>
-<p>a. u在close[ ]中，则跳过.<br>b. u不在open[ ]中， 则加入open[]并计算权值F.<br>c. u在open[ ]中，计算F并与原本权值比较，取较小.  </p>
-</blockquote>
-</li>
-<li>重复2，直到到达终点. </li>
-</ol>
-</blockquote>
-</blockquote>
-<hr>
-<h1 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h1><p>关于路径：   </p>
-<blockquote>
-<p><font size=1>一个巧妙的方法：<br><em>（在 HDU 1385 中实现过）</em><br><code>int path[ ][ ]        //path[i][j]记录从i到j的第二个节点</code>  </p>
-</blockquote>
-<hr>
-<h1 id="回顾反思"><a href="#回顾反思" class="headerlink" title="回顾反思"></a>回顾反思</h1><p>学习过程回顾：   </p>
-<blockquote>
-<p>本次学习过程中经历了三个阶段：摸索算法-&gt;尝试运用-&gt;回顾剖析<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在第一个阶段中只是简单地罗列算法，像是本篇blog中每个算法的「方法」模块，知道过程，但只能死记硬背生搬硬套。<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在第二个阶段中，运用算法解题的过程中遭到了很多打击：选错算法、一直WA之类的。与此同时也在不断吸收各个题解的精华，对算法有进一步的了解。<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;第三个过程则是在第二个过程中顿悟达到的。连续的挫败引发了总结的欲望，从题解中吸收的知识为成功总结打下基石。  </p>
-</blockquote>
-<p>反思：   </p>
-<blockquote>
-<p>  &emsp;&emsp;1.第一个阶段花费时间过多，状态较差，不清楚所作所为的目标。但时间花费还是必要的，「迷茫」也是入门阶段无法避免的挑战，下次还要更加打起精神来。<br>  &emsp;&emsp;2.达成主线任务(学习算法)的过程中还会遇到支线任务(markdown知识掌握)，做支线任务之余不能忘了把主要精力放在主线任务上。支线任务可以用于放松心情。（成就感十足）<br> &emsp;&emsp;3.游戏什么的应该当作阶段性奖励，能很好地达到放松的目的，也能更好地推进任务完成。<br> &emsp;&emsp;4.写博客实在是太爽了！（终于找到督促自己实时反思的途径了）  </p>
-</blockquote>
-<p>未解决问题（挖坑）：  </p>
-<blockquote>
-<p> 1.<strong>markdown语法在hexo框架下显示错误</strong>  </p>
-<blockquote>
-<p> <em>猜测</em>：  </p>
-<blockquote>
-<p>是从 bear 复制到 Macdown 时发生错误*  </p>
-</blockquote>
-<p> <em>解决</em>：  </p>
-<blockquote>
-<p>去掉html下划线代码后，格式显示成功。也许是不兼容的原因。  </p>
-</blockquote>
-</blockquote>
-<blockquote>
-<p> 2.<strong>blog图片的相对路径引用</strong><br> （存放在文件夹的什么位置问题）  </p>
-</blockquote>
-</blockquote>
-<hr>
-<p>题目目录：<br><a class="link"   href="http://acm.hdu.edu.cn/showproblem.php?pid=1217" >HDU 1217: Arbitrage <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a><br><a class="link"   href="http://acm.hdu.edu.cn/showproblem.php?pid=1224" >HDU 1224: Free DIY Tour <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a><br><a class="link"   href="http://acm.hdu.edu.cn/showproblem.php?pid=1385" >HDU 1385: Minimum Transport Cost <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a><br><a class="link"   href="http://acm.hdu.edu.cn/showproblem.php?pid=1869" >HDU 1869: 六度分离 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a><br><a class="link"   href="http://acm.hdu.edu.cn/showproblem.php?pid=1874" >HDU 1874: 畅通工程续 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a><br><a class="link"   href="http://acm.hdu.edu.cn/showproblem.php?pid=2066" >HDU 2066: 一个人的旅行 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a><br><a class="link"   href="http://acm.hdu.edu.cn/showproblem.php?pid=2112" >HDU  2112: HDU Today <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a><br><a class="link"   href="http://acm.hdu.edu.cn/showproblem.php?pid=2544" >HDU 2544: 最短路 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a><br><a class="link"   href="http://acm.hdu.edu.cn/showproblem.php?pid=2680" >HDU 2680: Choose the best route <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a><br><a class="link"   href="http://acm.hdu.edu.cn/showproblem.php?pid=2722" >HDU 2722: Here We Go(relians) Again <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a><br><a class="link"   href="http://acm.hdu.edu.cn/showproblem.php?pid=2923" >HDU 2923: Einbahnstrasse <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a><br><a class="link"   href="http://acm.hdu.edu.cn/showproblem.php?pid=3339" >HDU 3339: In Action <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a><br><a class="link"   href="http://acm.hdu.edu.cn/showproblem.php?pid=3790" >HDU 3790: 最短路径问题 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-]]></content>
-      <categories>
-        <category>算法</category>
-        <category>算法介绍</category>
-      </categories>
-      <tags>
-        <tag>图论</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>二分图匹配问题</title>
     <url>/2018/07/17/clique/</url>
     <content><![CDATA[<hr>
@@ -600,6 +462,209 @@
       <tags>
         <tag>图论</tag>
         <tag>二分图</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>论文略读笔记1-前沿-模拟器加速算法</title>
+    <url>/2023/05/17/literatureNotes1/</url>
+    <content><![CDATA[<h1 id="x1f4d6-《A-Parallel-Algorithm-to-Accelerate-DEVS-Simulations-in-Shared-Memory-Architectures》"><a href="#x1f4d6-《A-Parallel-Algorithm-to-Accelerate-DEVS-Simulations-in-Shared-Memory-Architectures》" class="headerlink" title="📖《A Parallel Algorithm to Accelerate DEVS Simulations in Shared Memory Architectures》"></a><span class="emoji" alias="book" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4d6.png?v8">📖</span>《A Parallel Algorithm to Accelerate DEVS Simulations in Shared Memory Architectures》</h1><blockquote>
+<p>序言：</p>
+<blockquote>
+<p> 写这个系列的目的是督促自己养成阅读论文的习惯，有疏漏或错误之处欢迎指出和讨论。</p>
+</blockquote>
+</blockquote>
+<h2 id="x1f3af-需求"><a href="#x1f3af-需求" class="headerlink" title="🎯需求"></a><span class="emoji" alias="dart" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f3af.png?v8">🎯</span>需求</h2><ul>
+<li>建模和仿真（M&amp;S）成为表示各个学科问题和进行科学探索的重要工具。尽管已经开发了许多M&amp;S方法，但离散事件模拟（其中系统行为被建模为连续时间内事件的时间顺序）现在广泛用于研究各种各样的问题。</li>
+<li>正式的M&amp;S方法允许精确定义模型，进行正式检查并构建更易于验证的模拟器。特别是，离散事件系统规范（DEVS）形式化为离散事件M&amp;S的开发提供了正式的理论框架。</li>
+<li>在不同研究领域模拟复杂的DEVS模型的需求不断增长，导致执行时间增加。</li>
+</ul>
+<h2 id="x1f6a7-现状"><a href="#x1f6a7-现状" class="headerlink" title="🚧现状"></a><span class="emoji" alias="construction" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f6a7.png?v8">🚧</span>现状</h2><ul>
+<li>为了解决模拟时间过长问题，已经多次尝试使用并行离散事件模拟（PDES）方法，实现DEVS的并行执行。然而，在实践中，这些算法会导致复杂的仿真架构，并产生与零前瞻循环和正确性相关的各种问题。</li>
+<li>[<a href="#refer-anchor-2">2</a>]中提出了一种加速 DEVS 仿真的不同方法，该方法允许并行执行仿真协议。这种方法背后的主要思想是通过并行执行同时发生的事件来允许简单且无错误的算法。<ul>
+<li>在这种方法中，作者确定了仿真协议可以并行执行的两种情况：<ul>
+<li>1）当两个或多个组件执行其输出功能时;</li>
+<li>2）当两个或多个组件执行其状态转换功能时。</li>
+</ul>
+</li>
+<li>然而，这种方法在实际应用中显示出有限的加速。</li>
+</ul>
+</li>
+</ul>
+<h2 id="x1f6e9-创新"><a href="#x1f6e9-创新" class="headerlink" title="🛩创新"></a><span class="emoji" alias="small_airplane" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f6e9.png?v8">🛩</span>创新</h2><ul>
+<li>提出了一种在并行共享内存架构上执行离散事件系统规范（DEVS）仿真的新算法。<ul>
+<li>通过并行执行PDEVS仿真协议中的所有任务来执行并行离散事件仿真。该算法的工作原理是在共享内存架构上的不同内核之间分配计算，与分布式内存系统相比，共享内存计算机体系结构可以有效地使用系统资源并且具有较低的通信延迟。</li>
+<li>（在现有方法的基础上，提供额外并行执行机会）</li>
+</ul>
+</li>
+<li>在本文方法中，完整的算法并行执行，在所有场景中都能获得与顺序版本相同的结果。<ul>
+<li>思路是分解任务并将它们分配给一组加速执行的线程。每个任务完成后，线程将同步以确保在启动新任务之前完成任务。</li>
+</ul>
+</li>
+</ul>
+<h2 id="x1f4ca-效果"><a href="#x1f4ca-效果" class="headerlink" title="📊效果"></a><span class="emoji" alias="bar_chart" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4ca.png?v8">📊</span>效果</h2><ul>
+<li>展示了一组使用合成基准的实验结果，以及使用两个独立计算机架构的真实场景。获得的结果显示了算法将模拟加速多达八倍。<ul>
+<li>使用为蜂窝DEVS模型设计的基准和真实世界的案例研究，其中真实案例研究是一个流行病学模型，模拟疾病如何在人群中传播。</li>
+</ul>
+</li>
+<li>此外，实验表明，当增加使用的 CPU 内核数量时，算法能够持续扩展。</li>
+</ul>
+<h2 id="x1f9e0-疑问"><a href="#x1f9e0-疑问" class="headerlink" title="🧠疑问"></a><span class="emoji" alias="brain" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f9e0.png?v8">🧠</span>疑问</h2><ol>
+<li>离散事件系统规范（DEVS）是什么样的标准？与现有的云计算模拟器如CloudSim之间的关系是什么？</li>
+<li>核心思路是什么？还没看懂。</li>
+</ol>
+<h2 id="x1f5fa-参考文献"><a href="#x1f5fa-参考文献" class="headerlink" title="🗺参考文献"></a><span class="emoji" alias="world_map" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f5fa.png?v8">🗺</span>参考文献</h2><div id="refer-anchor-1"></div>
+
+<p>[1] <a class="link" href="https://ieeexplore.ieee.org/document/10068737">G. G. Trabes, G. A. Wainer and V. Gil-Costa, “A Parallel Algorithm to Accelerate DEVS Simulations in Shared Memory Architectures,” in IEEE Transactions on Parallel and Distributed Systems, vol. 34, no. 5, pp. 1609-1620, May 2023, doi: 10.1109/TPDS.2023.3256083. <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<div id="refer-anchor-2"></div>
+
+<p>[2] <a class="link" href="https://ieeexplore.ieee.org/document/7914577">B. P. Zeigler, “Using the Parallel DEVS Protocol for General Robust Simulation with Near Optimal Performance,” in Computing in Science &amp; Engineering, vol. 19, no. 3, pp. 68-77, May-June 2017, doi: 10.1109/MCSE.2017.52. <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+]]></content>
+      <categories>
+        <category>论文</category>
+        <category>略读</category>
+      </categories>
+      <tags>
+        <tag>模拟器</tag>
+        <tag>并行加速</tag>
+        <tag>架构</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>ShortestPath</title>
+    <url>/2018/07/05/ShortestPath/</url>
+    <content><![CDATA[<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1531369451&di=f74d562d1d7462eb7fe3c5a776859ab6&imgtype=jpg&er=1&src=http://static.freepik.com/free-photo/shortest-path-problem_21018875.jpg"
+                      alt="最短路径算法" title="最短路径"
+                ></p>
+<hr>
+<p>·（ <del>整理的并不完善</del>）<br>·<em>（就是手痒想写点东西）</em><br>·<strong>（顺便熟悉一下MarkDown基础语法）</strong><br>· <a class="link"   href="https://github.com/Freshwlnd/template/blob/master/Graph/ShortestPath" >模版代码 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a><br>· （<strong>需解决的问题</strong>：理清各算法的原理，以及因此导致的适用范围）<br>· （<strong>状态</strong>：像不懂数学公式的意义，只会套用，不会变通）<br>· （问题列举：</p>
+<blockquote>
+<p>判断环权值<br>字典序<br>求最长路径</p>
+</blockquote>
+<hr>
+<h1 id="算法："><a href="#算法：" class="headerlink" title="算法："></a>算法：</h1><h2 id="Dijkstra-算法"><a href="#Dijkstra-算法" class="headerlink" title="Dijkstra 算法"></a>Dijkstra 算法</h2><p><strong>解决对象</strong> ：单源最短路径（边不能为负）<br><strong>原理</strong> ：每次松弛后，最近点的当前距离是其最短距离。<br><strong>方法</strong> ：  </p>
+<blockquote>
+<p><em>容器</em> ：  </p>
+<blockquote>
+<p><code>邻接矩阵图 graph[ ][ ]        //记录各点间距（无距离为INF，自己到自己为0）</code><br><code>数组 marked[ ]            //记录是否已得到最短路</code><br><code>数组 lenth[ ]            //记录已得到的距离</code></p>
+</blockquote>
+</blockquote>
+<blockquote>
+<p><em>过程</em>：  </p>
+<blockquote>
+<ol>
+<li>设初始点为 v  </li>
+<li>通过 v 点更新 lenth[] 数据  <blockquote>
+<p>a. marked[v] = 1<br>b. 选取 v 使 marked[v] == 0 且 lenth[v] 最小  </p>
+</blockquote>
+</li>
+<li>重复2直到 marked[] 中所有都为1   </li>
+</ol>
+</blockquote>
+</blockquote>
+<hr>
+<h2 id="Floyd-算法"><a href="#Floyd-算法" class="headerlink" title="Floyd 算法"></a>Floyd 算法</h2><p><strong>解决对象</strong> ：图中每两个点的最短距离（边不为负）<br><strong>原理</strong> ：向路径中依次加入点，加入的点的距离已是当前最短。<br>  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>【子图dp思想】</strong><br><strong>问题</strong> ：[floyd一定是对的吗？]([floyd算法:我们真的明白floyd吗? - CSDN博客]<a class="link"   href="https://blog.csdn.net/ljhandlwt/article/details/52096932" >https://blog.csdn.net/ljhandlwt/article/details/52096932 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>)<br><strong>方法</strong> ：  </p>
+ <div class="highlight-container" data-rel="Code"><figure class="iseeu highlight plain"><table><tr><td class="code"><pre><span class="line">for(k&#x3D;0;k&lt;n;k++) &#123;  </span><br><span class="line">　　for(i&#x3D;0;i&lt;n;i++) &#123;  </span><br><span class="line">　　　　for(j&#x3D;0;j&lt;n;j++) &#123;  </span><br><span class="line">　　　　　　if(graph[I][j] &gt; graph[I][k] + graph[k][j]) &#123;  </span><br><span class="line">　　　　　　　　graph[i][j] &gt; graph[i][k] + graph[k][j])   </span><br><span class="line">　　　　　　&#125;  </span><br><span class="line">　　　　&#125;  </span><br><span class="line">　　&#125;  </span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure></div>
+
+<hr>
+<h2 id="Bellman-Ford-算法"><a href="#Bellman-Ford-算法" class="headerlink" title="Bellman-Ford 算法"></a>Bellman-Ford 算法</h2><p><strong>解决对象</strong> ：单源最短路径/判断负权回路（复杂度较高）<br><strong>原理</strong> ：遍历每条边，每次遍历得到一个节点的最短距离（类似Dijkstra）。<br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>【简单遍历】</strong><br><strong>方法</strong> ：  </p>
+<blockquote>
+<p><em>容器</em> ：  </p>
+<blockquote>
+<p><code>邻接矩阵图 graph[ ][ ]    //记录各点间距</code><br><code>数组 lenth[ ]            //储存最短距离</code>  </p>
+</blockquote>
+<p><em>过程</em>：  </p>
+<blockquote>
+<ol>
+<li>设初始点为 v  </li>
+<li>循环n-1次：  <blockquote>
+<p>a. 对每条边 edge(v,u), 如果 lenth[v]+edge(v,u) &lt; lenth[u], 更新lenth[u]</p>
+</blockquote>
+</li>
+<li>（若需判断负环）再循环n-1次，若有边能被更新则说明有负环。  </li>
+</ol>
+</blockquote>
+</blockquote>
+<hr>
+<h2 id="SPFA-算法"><a href="#SPFA-算法" class="headerlink" title="SPFA 算法"></a>SPFA 算法</h2><p><strong>解决对象</strong> ：单源最短路径（边可为负）（会因特殊数据导致复杂度很高）<br><strong>原理</strong> ：类似堆调整，对每个被更新过的节点进行更新。【相当于剪枝的遍历】<br> &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>【bellman的优化】</strong><br><strong>方法</strong> ：  </p>
+<blockquote>
+<p><em>容器</em> ：  </p>
+<blockquote>
+<p><code>邻接矩阵图 graph[ ][ ]    //记录各点间距</code><br><code>队列    queue                //储存处理点v</code><br><code>数组 lenth[ ]                //储存最短距离</code>  </p>
+</blockquote>
+<p><em>过程</em>：  </p>
+<blockquote>
+<ol>
+<li>将起点入队    </li>
+<li>出队v<blockquote>
+<p>a.更新v周围点<br>b.如果被更新，入队</p>
+</blockquote>
+</li>
+<li>重复2直到队空 </li>
+</ol>
+</blockquote>
+</blockquote>
+<hr>
+<h2 id="A-算法"><a href="#A-算法" class="headerlink" title="A* 算法"></a>A* 算法</h2><p><strong>解决对象</strong> ：在地图上找点对点最短路。<br><strong>原理</strong> ：类似Dijkstra算法，每次更新权值，并找当前点可达的权值最小点。<br><strong>方法</strong> ：  </p>
+<blockquote>
+<p><em>容器</em> ：  </p>
+<blockquote>
+<p><code>权值 F = G+H        //G为从起点到当前点移动的距离，H为到终点的估计移动距离</code><br><code>数组 open[ ]        //用于记录点是否可达</code><br><code>数组 close[ ]        //用于记录点是否不可达（已走过或是墙）</code></p>
+</blockquote>
+<p><em>过程</em>：  </p>
+<blockquote>
+<ol>
+<li>设起点为v  </li>
+<li>遍历v周围可达点u，并做：  <blockquote>
+<p>a. u在close[ ]中，则跳过.<br>b. u不在open[ ]中， 则加入open[]并计算权值F.<br>c. u在open[ ]中，计算F并与原本权值比较，取较小.  </p>
+</blockquote>
+</li>
+<li>重复2，直到到达终点. </li>
+</ol>
+</blockquote>
+</blockquote>
+<hr>
+<h1 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h1><p>关于路径：   </p>
+<blockquote>
+<p><font size=1>一个巧妙的方法：<br><em>（在 HDU 1385 中实现过）</em><br><code>int path[ ][ ]        //path[i][j]记录从i到j的第二个节点</code>  </p>
+</blockquote>
+<hr>
+<h1 id="回顾反思"><a href="#回顾反思" class="headerlink" title="回顾反思"></a>回顾反思</h1><p>学习过程回顾：   </p>
+<blockquote>
+<p>本次学习过程中经历了三个阶段：摸索算法-&gt;尝试运用-&gt;回顾剖析<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在第一个阶段中只是简单地罗列算法，像是本篇blog中每个算法的「方法」模块，知道过程，但只能死记硬背生搬硬套。<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在第二个阶段中，运用算法解题的过程中遭到了很多打击：选错算法、一直WA之类的。与此同时也在不断吸收各个题解的精华，对算法有进一步的了解。<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;第三个过程则是在第二个过程中顿悟达到的。连续的挫败引发了总结的欲望，从题解中吸收的知识为成功总结打下基石。  </p>
+</blockquote>
+<p>反思：   </p>
+<blockquote>
+<p>  &emsp;&emsp;1.第一个阶段花费时间过多，状态较差，不清楚所作所为的目标。但时间花费还是必要的，「迷茫」也是入门阶段无法避免的挑战，下次还要更加打起精神来。<br>  &emsp;&emsp;2.达成主线任务(学习算法)的过程中还会遇到支线任务(markdown知识掌握)，做支线任务之余不能忘了把主要精力放在主线任务上。支线任务可以用于放松心情。（成就感十足）<br> &emsp;&emsp;3.游戏什么的应该当作阶段性奖励，能很好地达到放松的目的，也能更好地推进任务完成。<br> &emsp;&emsp;4.写博客实在是太爽了！（终于找到督促自己实时反思的途径了）  </p>
+</blockquote>
+<p>未解决问题（挖坑）：  </p>
+<blockquote>
+<p> 1.<strong>markdown语法在hexo框架下显示错误</strong>  </p>
+<blockquote>
+<p> <em>猜测</em>：  </p>
+<blockquote>
+<p>是从 bear 复制到 Macdown 时发生错误*  </p>
+</blockquote>
+<p> <em>解决</em>：  </p>
+<blockquote>
+<p>去掉html下划线代码后，格式显示成功。也许是不兼容的原因。  </p>
+</blockquote>
+</blockquote>
+<blockquote>
+<p> 2.<strong>blog图片的相对路径引用</strong><br> （存放在文件夹的什么位置问题）  </p>
+</blockquote>
+</blockquote>
+<hr>
+<p>题目目录：<br><a class="link"   href="http://acm.hdu.edu.cn/showproblem.php?pid=1217" >HDU 1217: Arbitrage <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a><br><a class="link"   href="http://acm.hdu.edu.cn/showproblem.php?pid=1224" >HDU 1224: Free DIY Tour <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a><br><a class="link"   href="http://acm.hdu.edu.cn/showproblem.php?pid=1385" >HDU 1385: Minimum Transport Cost <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a><br><a class="link"   href="http://acm.hdu.edu.cn/showproblem.php?pid=1869" >HDU 1869: 六度分离 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a><br><a class="link"   href="http://acm.hdu.edu.cn/showproblem.php?pid=1874" >HDU 1874: 畅通工程续 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a><br><a class="link"   href="http://acm.hdu.edu.cn/showproblem.php?pid=2066" >HDU 2066: 一个人的旅行 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a><br><a class="link"   href="http://acm.hdu.edu.cn/showproblem.php?pid=2112" >HDU  2112: HDU Today <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a><br><a class="link"   href="http://acm.hdu.edu.cn/showproblem.php?pid=2544" >HDU 2544: 最短路 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a><br><a class="link"   href="http://acm.hdu.edu.cn/showproblem.php?pid=2680" >HDU 2680: Choose the best route <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a><br><a class="link"   href="http://acm.hdu.edu.cn/showproblem.php?pid=2722" >HDU 2722: Here We Go(relians) Again <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a><br><a class="link"   href="http://acm.hdu.edu.cn/showproblem.php?pid=2923" >HDU 2923: Einbahnstrasse <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a><br><a class="link"   href="http://acm.hdu.edu.cn/showproblem.php?pid=3339" >HDU 3339: In Action <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a><br><a class="link"   href="http://acm.hdu.edu.cn/showproblem.php?pid=3790" >HDU 3790: 最短路径问题 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+]]></content>
+      <categories>
+        <category>算法</category>
+        <category>算法介绍</category>
+      </categories>
+      <tags>
+        <tag>图论</tag>
       </tags>
   </entry>
   <entry>
@@ -811,6 +876,50 @@
       </tags>
   </entry>
   <entry>
+    <title>MathJax Test</title>
+    <url>/2023/05/16/testMathJax/</url>
+    <content><![CDATA[<p><mjx-container class="MathJax" jax="SVG" display="true" width="full" style="min-width: 35.234ex;"><svg style="vertical-align: -1.943ex; min-width: 35.234ex;" xmlns="http://www.w3.org/2000/svg" width="100%" height="5.018ex" role="img" focusable="false"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(0.0181,-0.0181) translate(0, -1359)"><g data-mml-node="math"><g data-mml-node="mtable" transform="translate(2078,0) translate(-2078,0)"><g transform="translate(0 1359) matrix(1 0 0 -1 0 0) scale(55.25)"><svg data-table="true" preserveAspectRatio="xMidYMid" viewBox="5708.8 -1359 1 2217.9"><g transform="matrix(1 0 0 -1 0 0)"><g data-mml-node="mlabeledtr" transform="translate(0,-151)"><g data-mml-node="mtd"><g data-mml-node="mi"><path data-c="1D456" d="M184 600Q184 624 203 642T247 661Q265 661 277 649T290 619Q290 596 270 577T226 557Q211 557 198 567T184 600ZM21 287Q21 295 30 318T54 369T98 420T158 442Q197 442 223 419T250 357Q250 340 236 301T196 196T154 83Q149 61 149 51Q149 26 166 26Q175 26 185 29T208 43T235 78T260 137Q263 149 265 151T282 153Q302 153 302 143Q302 135 293 112T268 61T223 11T161 -11Q129 -11 102 10T74 74Q74 91 79 106T122 220Q160 321 166 341T173 380Q173 404 156 404H154Q124 404 99 371T61 287Q60 286 59 284T58 281T56 279T53 278T49 278T41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mi" transform="translate(345,0)"><path data-c="210F" d="M182 599Q182 611 174 615T133 619Q118 619 114 621T109 630Q109 636 114 656T122 681Q125 685 202 688Q272 695 286 695Q304 695 304 684Q304 682 295 644T282 597Q282 592 360 592H399Q430 592 445 587T460 563Q460 552 451 541L442 535H266L251 468Q247 453 243 436T236 409T233 399Q233 395 244 404Q295 441 357 441Q405 441 445 417T485 333Q485 284 449 178T412 58T426 44Q447 44 466 68Q485 87 500 130L509 152H531H543Q562 152 562 144Q562 128 546 93T494 23T415 -13Q385 -13 359 3T322 44Q318 52 318 77Q318 99 352 196T386 337Q386 386 346 386Q318 386 286 370Q267 361 245 338T211 292Q207 287 193 235T162 113T138 21Q128 7 122 4Q105 -12 83 -12Q66 -12 54 -2T42 26L166 530Q166 534 161 534T129 535Q127 535 122 535T112 534Q74 534 74 562Q74 570 77 576T84 585T96 589T109 591T124 592T138 592L182 595V599Z"></path></g><g data-mml-node="mfrac" transform="translate(907,0)"><g data-mml-node="mi" transform="translate(400.5,676)"><path data-c="1D715" d="M202 508Q179 508 169 520T158 547Q158 557 164 577T185 624T230 675T301 710L333 715H345Q378 715 384 714Q447 703 489 661T549 568T566 457Q566 362 519 240T402 53Q321 -22 223 -22Q123 -22 73 56Q42 102 42 148V159Q42 276 129 370T322 465Q383 465 414 434T455 367L458 378Q478 461 478 515Q478 603 437 639T344 676Q266 676 223 612Q264 606 264 572Q264 547 246 528T202 508ZM430 306Q430 372 401 400T333 428Q270 428 222 382Q197 354 183 323T150 221Q132 149 132 116Q132 21 232 21Q244 21 250 22Q327 35 374 112Q389 137 409 196T430 306Z"></path></g><g data-mml-node="mrow" transform="translate(220,-686)"><g data-mml-node="mi"><path data-c="1D715" d="M202 508Q179 508 169 520T158 547Q158 557 164 577T185 624T230 675T301 710L333 715H345Q378 715 384 714Q447 703 489 661T549 568T566 457Q566 362 519 240T402 53Q321 -22 223 -22Q123 -22 73 56Q42 102 42 148V159Q42 276 129 370T322 465Q383 465 414 434T455 367L458 378Q478 461 478 515Q478 603 437 639T344 676Q266 676 223 612Q264 606 264 572Q264 547 246 528T202 508ZM430 306Q430 372 401 400T333 428Q270 428 222 382Q197 354 183 323T150 221Q132 149 132 116Q132 21 232 21Q244 21 250 22Q327 35 374 112Q389 137 409 196T430 306Z"></path></g><g data-mml-node="mi" transform="translate(566,0)"><path data-c="1D461" d="M26 385Q19 392 19 395Q19 399 22 411T27 425Q29 430 36 430T87 431H140L159 511Q162 522 166 540T173 566T179 586T187 603T197 615T211 624T229 626Q247 625 254 615T261 596Q261 589 252 549T232 470L222 433Q222 431 272 431H323Q330 424 330 420Q330 398 317 385H210L174 240Q135 80 135 68Q135 26 162 26Q197 26 230 60T283 144Q285 150 288 151T303 153H307Q322 153 322 145Q322 142 319 133Q314 117 301 95T267 48T216 6T155 -11Q125 -11 98 4T59 56Q57 64 57 83V101L92 241Q127 382 128 383Q128 385 77 385H26Z"></path></g></g><rect width="1127" height="60" x="120" y="220"></rect></g><g data-mml-node="mi" transform="translate(2274,0)"><path data-c="1D713" d="M161 441Q202 441 226 417T250 358Q250 338 218 252T187 127Q190 85 214 61Q235 43 257 37Q275 29 288 29H289L371 360Q455 691 456 692Q459 694 472 694Q492 694 492 687Q492 678 411 356Q329 28 329 27T335 26Q421 26 498 114T576 278Q576 302 568 319T550 343T532 361T524 384Q524 405 541 424T583 443Q602 443 618 425T634 366Q634 337 623 288T605 220Q573 125 492 57T329 -11H319L296 -104Q272 -198 272 -199Q270 -205 252 -205H239Q233 -199 233 -197Q233 -192 256 -102T279 -9Q272 -8 265 -8Q106 14 106 139Q106 174 139 264T173 379Q173 380 173 381Q173 390 173 393T169 400T158 404H154Q131 404 112 385T82 344T65 302T57 280Q55 278 41 278H27Q21 284 21 287Q21 299 34 333T82 404T161 441Z"></path></g><g data-mml-node="mo" transform="translate(3202.8,0)"><path data-c="3D" d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z"></path></g><g data-mml-node="mo" transform="translate(4258.6,0)"><path data-c="2212" d="M84 237T84 250T98 270H679Q694 262 694 250T679 230H98Q84 237 84 250Z"></path></g><g data-mml-node="mfrac" transform="translate(5036.6,0)"><g data-mml-node="msup" transform="translate(384.2,676)"><g data-mml-node="mi"><path data-c="210F" d="M182 599Q182 611 174 615T133 619Q118 619 114 621T109 630Q109 636 114 656T122 681Q125 685 202 688Q272 695 286 695Q304 695 304 684Q304 682 295 644T282 597Q282 592 360 592H399Q430 592 445 587T460 563Q460 552 451 541L442 535H266L251 468Q247 453 243 436T236 409T233 399Q233 395 244 404Q295 441 357 441Q405 441 445 417T485 333Q485 284 449 178T412 58T426 44Q447 44 466 68Q485 87 500 130L509 152H531H543Q562 152 562 144Q562 128 546 93T494 23T415 -13Q385 -13 359 3T322 44Q318 52 318 77Q318 99 352 196T386 337Q386 386 346 386Q318 386 286 370Q267 361 245 338T211 292Q207 287 193 235T162 113T138 21Q128 7 122 4Q105 -12 83 -12Q66 -12 54 -2T42 26L166 530Q166 534 161 534T129 535Q127 535 122 535T112 534Q74 534 74 562Q74 570 77 576T84 585T96 589T109 591T124 592T138 592L182 595V599Z"></path></g><g data-mml-node="mn" transform="translate(646.1,363) scale(0.707)"><path data-c="32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z"></path></g></g><g data-mml-node="mrow" transform="translate(220,-686)"><g data-mml-node="mn"><path data-c="32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z"></path></g><g data-mml-node="mi" transform="translate(500,0)"><path data-c="1D45A" d="M21 287Q22 293 24 303T36 341T56 388T88 425T132 442T175 435T205 417T221 395T229 376L231 369Q231 367 232 367L243 378Q303 442 384 442Q401 442 415 440T441 433T460 423T475 411T485 398T493 385T497 373T500 364T502 357L510 367Q573 442 659 442Q713 442 746 415T780 336Q780 285 742 178T704 50Q705 36 709 31T724 26Q752 26 776 56T815 138Q818 149 821 151T837 153Q857 153 857 145Q857 144 853 130Q845 101 831 73T785 17T716 -10Q669 -10 648 17T627 73Q627 92 663 193T700 345Q700 404 656 404H651Q565 404 506 303L499 291L466 157Q433 26 428 16Q415 -11 385 -11Q372 -11 364 -4T353 8T350 18Q350 29 384 161L420 307Q423 322 423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 181Q151 335 151 342Q154 357 154 369Q154 405 129 405Q107 405 92 377T69 316T57 280Q55 278 41 278H27Q21 284 21 287Z"></path></g></g><rect width="1578" height="60" x="120" y="220"></rect></g><g data-mml-node="msup" transform="translate(6854.6,0)"><g data-mml-node="mi"><path data-c="2207" d="M46 676Q46 679 51 683H781Q786 679 786 676Q786 674 617 326T444 -26Q439 -33 416 -33T388 -26Q385 -22 216 326T46 676ZM697 596Q697 597 445 597T193 596Q195 591 319 336T445 80L697 596Z"></path></g><g data-mml-node="mn" transform="translate(866,413) scale(0.707)"><path data-c="32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z"></path></g></g><g data-mml-node="mi" transform="translate(8124.1,0)"><path data-c="1D713" d="M161 441Q202 441 226 417T250 358Q250 338 218 252T187 127Q190 85 214 61Q235 43 257 37Q275 29 288 29H289L371 360Q455 691 456 692Q459 694 472 694Q492 694 492 687Q492 678 411 356Q329 28 329 27T335 26Q421 26 498 114T576 278Q576 302 568 319T550 343T532 361T524 384Q524 405 541 424T583 443Q602 443 618 425T634 366Q634 337 623 288T605 220Q573 125 492 57T329 -11H319L296 -104Q272 -198 272 -199Q270 -205 252 -205H239Q233 -199 233 -197Q233 -192 256 -102T279 -9Q272 -8 265 -8Q106 14 106 139Q106 174 139 264T173 379Q173 380 173 381Q173 390 173 393T169 400T158 404H154Q131 404 112 385T82 344T65 302T57 280Q55 278 41 278H27Q21 284 21 287Q21 299 34 333T82 404T161 441Z"></path></g><g data-mml-node="mo" transform="translate(8997.3,0)"><path data-c="2B" d="M56 237T56 250T70 270H369V420L370 570Q380 583 389 583Q402 583 409 568V270H707Q722 262 722 250T707 230H409V-68Q401 -82 391 -82H389H387Q375 -82 369 -68V230H70Q56 237 56 250Z"></path></g><g data-mml-node="mi" transform="translate(9997.6,0)"><path data-c="1D449" d="M52 648Q52 670 65 683H76Q118 680 181 680Q299 680 320 683H330Q336 677 336 674T334 656Q329 641 325 637H304Q282 635 274 635Q245 630 242 620Q242 618 271 369T301 118L374 235Q447 352 520 471T595 594Q599 601 599 609Q599 633 555 637Q537 637 537 648Q537 649 539 661Q542 675 545 679T558 683Q560 683 570 683T604 682T668 681Q737 681 755 683H762Q769 676 769 672Q769 655 760 640Q757 637 743 637Q730 636 719 635T698 630T682 623T670 615T660 608T652 599T645 592L452 282Q272 -9 266 -16Q263 -18 259 -21L241 -22H234Q216 -22 216 -15Q213 -9 177 305Q139 623 138 626Q133 637 76 637H59Q52 642 52 648Z"></path></g><g data-mml-node="mi" transform="translate(10766.6,0)"><path data-c="1D713" d="M161 441Q202 441 226 417T250 358Q250 338 218 252T187 127Q190 85 214 61Q235 43 257 37Q275 29 288 29H289L371 360Q455 691 456 692Q459 694 472 694Q492 694 492 687Q492 678 411 356Q329 28 329 27T335 26Q421 26 498 114T576 278Q576 302 568 319T550 343T532 361T524 384Q524 405 541 424T583 443Q602 443 618 425T634 366Q634 337 623 288T605 220Q573 125 492 57T329 -11H319L296 -104Q272 -198 272 -199Q270 -205 252 -205H239Q233 -199 233 -197Q233 -192 256 -102T279 -9Q272 -8 265 -8Q106 14 106 139Q106 174 139 264T173 379Q173 380 173 381Q173 390 173 393T169 400T158 404H154Q131 404 112 385T82 344T65 302T57 280Q55 278 41 278H27Q21 284 21 287Q21 299 34 333T82 404T161 441Z"></path></g></g></g></g></svg><svg data-labels="true" preserveAspectRatio="xMaxYMid" viewBox="1278 -1359 1 2217.9"><g data-labels="true" transform="matrix(1 0 0 -1 0 0)"><g data-mml-node="mtd" id="mjx-eqn:1" transform="translate(0,599)"><text data-id-align="true"></text><g data-idbox="true" transform="translate(0,-750)"><g data-mml-node="mtext"><path data-c="28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z"></path><path data-c="31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z" transform="translate(389,0)"></path><path data-c="29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z" transform="translate(889,0)"></path></g></g></g></g></svg></g></g></g></g></svg></mjx-container></p>
+]]></content>
+      <categories>
+        <category>测试</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>新功能测试</title>
+    <url>/2023/05/16/testNewFunction/</url>
+    <content><![CDATA[<ul>
+<li><p>首页缩略图</p>
+<div class="highlight-container" data-rel="Code"><figure class="iseeu highlight plain"><table><tr><td class="code"><pre><span class="line">thumbnail: &quot;IMAGE_LINK&quot;</span><br></pre></td></tr></table></figure></div>
+</li>
+<li><p>首页文章摘要：</p>
+<div class="highlight-container" data-rel="Code"><figure class="iseeu highlight plain"><table><tr><td class="code"><pre><span class="line">excerpt: &quot;这是文章摘要 This is the excerpt of the post&quot;</span><br></pre></td></tr></table></figure></div>
+<p>or</p>
+<div class="highlight-container" data-rel="Code"><figure class="iseeu highlight plain"><table><tr><td class="code"><pre><span class="line">excerpt: false  # 关闭文章摘要</span><br></pre></td></tr></table></figure></div>
+</li>
+<li><p>文章页头图</p>
+<div class="highlight-container" data-rel="Code"><figure class="iseeu highlight plain"><table><tr><td class="code"><pre><span class="line">cover: &quot;IMAGE_LINK&quot;</span><br></pre></td></tr></table></figure></div>
+<p>或</p>
+<div class="highlight-container" data-rel="Code"><figure class="iseeu highlight plain"><table><tr><td class="code"><pre><span class="line">banner: &quot;IMAGE_LINK&quot;</span><br></pre></td></tr></table></figure></div>
+
+</li>
+</ul>
+<blockquote>
+<p>如果你设置了 首页头图 thumbnail(opens in a new tab) ，文章封面也会自动选择为 thumbnail 链接，当然，banner 和 cover 的优先级最高。<br>如果你不想设置文章封面却想保留首页头图，请把 cover 或者 banner 设置成 false</p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>测试</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>testpage</title>
+    <url>/2018/07/04/testpage/</url>
+    <content><![CDATA[<h1 id="1"><a href="#1" class="headerlink" title="1"></a>1</h1><h2 id="2"><a href="#2" class="headerlink" title="2"></a>2</h2><h3 id="3"><a href="#3" class="headerlink" title="3"></a>3</h3><h4 id="4"><a href="#4" class="headerlink" title="4"></a>4</h4><h5 id="5"><a href="#5" class="headerlink" title="5"></a>5</h5>]]></content>
+      <categories>
+        <category>测试</category>
+      </categories>
+  </entry>
+  <entry>
     <title>概率DP</title>
     <url>/2018/07/07/%E6%A6%82%E7%8E%87DP/</url>
     <content><![CDATA[<p><img  
@@ -893,114 +1002,5 @@
         <tag>DP</tag>
         <tag>概率DP</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>MathJax Test</title>
-    <url>/2023/05/16/testMathJax/</url>
-    <content><![CDATA[<p><mjx-container class="MathJax" jax="SVG" display="true" width="full" style="min-width: 35.234ex;"><svg style="vertical-align: -1.943ex; min-width: 35.234ex;" xmlns="http://www.w3.org/2000/svg" width="100%" height="5.018ex" role="img" focusable="false"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(0.0181,-0.0181) translate(0, -1359)"><g data-mml-node="math"><g data-mml-node="mtable" transform="translate(2078,0) translate(-2078,0)"><g transform="translate(0 1359) matrix(1 0 0 -1 0 0) scale(55.25)"><svg data-table="true" preserveAspectRatio="xMidYMid" viewBox="5708.8 -1359 1 2217.9"><g transform="matrix(1 0 0 -1 0 0)"><g data-mml-node="mlabeledtr" transform="translate(0,-151)"><g data-mml-node="mtd"><g data-mml-node="mi"><path data-c="1D456" d="M184 600Q184 624 203 642T247 661Q265 661 277 649T290 619Q290 596 270 577T226 557Q211 557 198 567T184 600ZM21 287Q21 295 30 318T54 369T98 420T158 442Q197 442 223 419T250 357Q250 340 236 301T196 196T154 83Q149 61 149 51Q149 26 166 26Q175 26 185 29T208 43T235 78T260 137Q263 149 265 151T282 153Q302 153 302 143Q302 135 293 112T268 61T223 11T161 -11Q129 -11 102 10T74 74Q74 91 79 106T122 220Q160 321 166 341T173 380Q173 404 156 404H154Q124 404 99 371T61 287Q60 286 59 284T58 281T56 279T53 278T49 278T41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mi" transform="translate(345,0)"><path data-c="210F" d="M182 599Q182 611 174 615T133 619Q118 619 114 621T109 630Q109 636 114 656T122 681Q125 685 202 688Q272 695 286 695Q304 695 304 684Q304 682 295 644T282 597Q282 592 360 592H399Q430 592 445 587T460 563Q460 552 451 541L442 535H266L251 468Q247 453 243 436T236 409T233 399Q233 395 244 404Q295 441 357 441Q405 441 445 417T485 333Q485 284 449 178T412 58T426 44Q447 44 466 68Q485 87 500 130L509 152H531H543Q562 152 562 144Q562 128 546 93T494 23T415 -13Q385 -13 359 3T322 44Q318 52 318 77Q318 99 352 196T386 337Q386 386 346 386Q318 386 286 370Q267 361 245 338T211 292Q207 287 193 235T162 113T138 21Q128 7 122 4Q105 -12 83 -12Q66 -12 54 -2T42 26L166 530Q166 534 161 534T129 535Q127 535 122 535T112 534Q74 534 74 562Q74 570 77 576T84 585T96 589T109 591T124 592T138 592L182 595V599Z"></path></g><g data-mml-node="mfrac" transform="translate(907,0)"><g data-mml-node="mi" transform="translate(400.5,676)"><path data-c="1D715" d="M202 508Q179 508 169 520T158 547Q158 557 164 577T185 624T230 675T301 710L333 715H345Q378 715 384 714Q447 703 489 661T549 568T566 457Q566 362 519 240T402 53Q321 -22 223 -22Q123 -22 73 56Q42 102 42 148V159Q42 276 129 370T322 465Q383 465 414 434T455 367L458 378Q478 461 478 515Q478 603 437 639T344 676Q266 676 223 612Q264 606 264 572Q264 547 246 528T202 508ZM430 306Q430 372 401 400T333 428Q270 428 222 382Q197 354 183 323T150 221Q132 149 132 116Q132 21 232 21Q244 21 250 22Q327 35 374 112Q389 137 409 196T430 306Z"></path></g><g data-mml-node="mrow" transform="translate(220,-686)"><g data-mml-node="mi"><path data-c="1D715" d="M202 508Q179 508 169 520T158 547Q158 557 164 577T185 624T230 675T301 710L333 715H345Q378 715 384 714Q447 703 489 661T549 568T566 457Q566 362 519 240T402 53Q321 -22 223 -22Q123 -22 73 56Q42 102 42 148V159Q42 276 129 370T322 465Q383 465 414 434T455 367L458 378Q478 461 478 515Q478 603 437 639T344 676Q266 676 223 612Q264 606 264 572Q264 547 246 528T202 508ZM430 306Q430 372 401 400T333 428Q270 428 222 382Q197 354 183 323T150 221Q132 149 132 116Q132 21 232 21Q244 21 250 22Q327 35 374 112Q389 137 409 196T430 306Z"></path></g><g data-mml-node="mi" transform="translate(566,0)"><path data-c="1D461" d="M26 385Q19 392 19 395Q19 399 22 411T27 425Q29 430 36 430T87 431H140L159 511Q162 522 166 540T173 566T179 586T187 603T197 615T211 624T229 626Q247 625 254 615T261 596Q261 589 252 549T232 470L222 433Q222 431 272 431H323Q330 424 330 420Q330 398 317 385H210L174 240Q135 80 135 68Q135 26 162 26Q197 26 230 60T283 144Q285 150 288 151T303 153H307Q322 153 322 145Q322 142 319 133Q314 117 301 95T267 48T216 6T155 -11Q125 -11 98 4T59 56Q57 64 57 83V101L92 241Q127 382 128 383Q128 385 77 385H26Z"></path></g></g><rect width="1127" height="60" x="120" y="220"></rect></g><g data-mml-node="mi" transform="translate(2274,0)"><path data-c="1D713" d="M161 441Q202 441 226 417T250 358Q250 338 218 252T187 127Q190 85 214 61Q235 43 257 37Q275 29 288 29H289L371 360Q455 691 456 692Q459 694 472 694Q492 694 492 687Q492 678 411 356Q329 28 329 27T335 26Q421 26 498 114T576 278Q576 302 568 319T550 343T532 361T524 384Q524 405 541 424T583 443Q602 443 618 425T634 366Q634 337 623 288T605 220Q573 125 492 57T329 -11H319L296 -104Q272 -198 272 -199Q270 -205 252 -205H239Q233 -199 233 -197Q233 -192 256 -102T279 -9Q272 -8 265 -8Q106 14 106 139Q106 174 139 264T173 379Q173 380 173 381Q173 390 173 393T169 400T158 404H154Q131 404 112 385T82 344T65 302T57 280Q55 278 41 278H27Q21 284 21 287Q21 299 34 333T82 404T161 441Z"></path></g><g data-mml-node="mo" transform="translate(3202.8,0)"><path data-c="3D" d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z"></path></g><g data-mml-node="mo" transform="translate(4258.6,0)"><path data-c="2212" d="M84 237T84 250T98 270H679Q694 262 694 250T679 230H98Q84 237 84 250Z"></path></g><g data-mml-node="mfrac" transform="translate(5036.6,0)"><g data-mml-node="msup" transform="translate(384.2,676)"><g data-mml-node="mi"><path data-c="210F" d="M182 599Q182 611 174 615T133 619Q118 619 114 621T109 630Q109 636 114 656T122 681Q125 685 202 688Q272 695 286 695Q304 695 304 684Q304 682 295 644T282 597Q282 592 360 592H399Q430 592 445 587T460 563Q460 552 451 541L442 535H266L251 468Q247 453 243 436T236 409T233 399Q233 395 244 404Q295 441 357 441Q405 441 445 417T485 333Q485 284 449 178T412 58T426 44Q447 44 466 68Q485 87 500 130L509 152H531H543Q562 152 562 144Q562 128 546 93T494 23T415 -13Q385 -13 359 3T322 44Q318 52 318 77Q318 99 352 196T386 337Q386 386 346 386Q318 386 286 370Q267 361 245 338T211 292Q207 287 193 235T162 113T138 21Q128 7 122 4Q105 -12 83 -12Q66 -12 54 -2T42 26L166 530Q166 534 161 534T129 535Q127 535 122 535T112 534Q74 534 74 562Q74 570 77 576T84 585T96 589T109 591T124 592T138 592L182 595V599Z"></path></g><g data-mml-node="mn" transform="translate(646.1,363) scale(0.707)"><path data-c="32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z"></path></g></g><g data-mml-node="mrow" transform="translate(220,-686)"><g data-mml-node="mn"><path data-c="32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z"></path></g><g data-mml-node="mi" transform="translate(500,0)"><path data-c="1D45A" d="M21 287Q22 293 24 303T36 341T56 388T88 425T132 442T175 435T205 417T221 395T229 376L231 369Q231 367 232 367L243 378Q303 442 384 442Q401 442 415 440T441 433T460 423T475 411T485 398T493 385T497 373T500 364T502 357L510 367Q573 442 659 442Q713 442 746 415T780 336Q780 285 742 178T704 50Q705 36 709 31T724 26Q752 26 776 56T815 138Q818 149 821 151T837 153Q857 153 857 145Q857 144 853 130Q845 101 831 73T785 17T716 -10Q669 -10 648 17T627 73Q627 92 663 193T700 345Q700 404 656 404H651Q565 404 506 303L499 291L466 157Q433 26 428 16Q415 -11 385 -11Q372 -11 364 -4T353 8T350 18Q350 29 384 161L420 307Q423 322 423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 181Q151 335 151 342Q154 357 154 369Q154 405 129 405Q107 405 92 377T69 316T57 280Q55 278 41 278H27Q21 284 21 287Z"></path></g></g><rect width="1578" height="60" x="120" y="220"></rect></g><g data-mml-node="msup" transform="translate(6854.6,0)"><g data-mml-node="mi"><path data-c="2207" d="M46 676Q46 679 51 683H781Q786 679 786 676Q786 674 617 326T444 -26Q439 -33 416 -33T388 -26Q385 -22 216 326T46 676ZM697 596Q697 597 445 597T193 596Q195 591 319 336T445 80L697 596Z"></path></g><g data-mml-node="mn" transform="translate(866,413) scale(0.707)"><path data-c="32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z"></path></g></g><g data-mml-node="mi" transform="translate(8124.1,0)"><path data-c="1D713" d="M161 441Q202 441 226 417T250 358Q250 338 218 252T187 127Q190 85 214 61Q235 43 257 37Q275 29 288 29H289L371 360Q455 691 456 692Q459 694 472 694Q492 694 492 687Q492 678 411 356Q329 28 329 27T335 26Q421 26 498 114T576 278Q576 302 568 319T550 343T532 361T524 384Q524 405 541 424T583 443Q602 443 618 425T634 366Q634 337 623 288T605 220Q573 125 492 57T329 -11H319L296 -104Q272 -198 272 -199Q270 -205 252 -205H239Q233 -199 233 -197Q233 -192 256 -102T279 -9Q272 -8 265 -8Q106 14 106 139Q106 174 139 264T173 379Q173 380 173 381Q173 390 173 393T169 400T158 404H154Q131 404 112 385T82 344T65 302T57 280Q55 278 41 278H27Q21 284 21 287Q21 299 34 333T82 404T161 441Z"></path></g><g data-mml-node="mo" transform="translate(8997.3,0)"><path data-c="2B" d="M56 237T56 250T70 270H369V420L370 570Q380 583 389 583Q402 583 409 568V270H707Q722 262 722 250T707 230H409V-68Q401 -82 391 -82H389H387Q375 -82 369 -68V230H70Q56 237 56 250Z"></path></g><g data-mml-node="mi" transform="translate(9997.6,0)"><path data-c="1D449" d="M52 648Q52 670 65 683H76Q118 680 181 680Q299 680 320 683H330Q336 677 336 674T334 656Q329 641 325 637H304Q282 635 274 635Q245 630 242 620Q242 618 271 369T301 118L374 235Q447 352 520 471T595 594Q599 601 599 609Q599 633 555 637Q537 637 537 648Q537 649 539 661Q542 675 545 679T558 683Q560 683 570 683T604 682T668 681Q737 681 755 683H762Q769 676 769 672Q769 655 760 640Q757 637 743 637Q730 636 719 635T698 630T682 623T670 615T660 608T652 599T645 592L452 282Q272 -9 266 -16Q263 -18 259 -21L241 -22H234Q216 -22 216 -15Q213 -9 177 305Q139 623 138 626Q133 637 76 637H59Q52 642 52 648Z"></path></g><g data-mml-node="mi" transform="translate(10766.6,0)"><path data-c="1D713" d="M161 441Q202 441 226 417T250 358Q250 338 218 252T187 127Q190 85 214 61Q235 43 257 37Q275 29 288 29H289L371 360Q455 691 456 692Q459 694 472 694Q492 694 492 687Q492 678 411 356Q329 28 329 27T335 26Q421 26 498 114T576 278Q576 302 568 319T550 343T532 361T524 384Q524 405 541 424T583 443Q602 443 618 425T634 366Q634 337 623 288T605 220Q573 125 492 57T329 -11H319L296 -104Q272 -198 272 -199Q270 -205 252 -205H239Q233 -199 233 -197Q233 -192 256 -102T279 -9Q272 -8 265 -8Q106 14 106 139Q106 174 139 264T173 379Q173 380 173 381Q173 390 173 393T169 400T158 404H154Q131 404 112 385T82 344T65 302T57 280Q55 278 41 278H27Q21 284 21 287Q21 299 34 333T82 404T161 441Z"></path></g></g></g></g></svg><svg data-labels="true" preserveAspectRatio="xMaxYMid" viewBox="1278 -1359 1 2217.9"><g data-labels="true" transform="matrix(1 0 0 -1 0 0)"><g data-mml-node="mtd" id="mjx-eqn:1" transform="translate(0,599)"><text data-id-align="true"></text><g data-idbox="true" transform="translate(0,-750)"><g data-mml-node="mtext"><path data-c="28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z"></path><path data-c="31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z" transform="translate(389,0)"></path><path data-c="29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z" transform="translate(889,0)"></path></g></g></g></g></svg></g></g></g></g></svg></mjx-container></p>
-]]></content>
-      <categories>
-        <category>测试</category>
-      </categories>
-  </entry>
-  <entry>
-    <title>新功能测试</title>
-    <url>/2023/05/16/testNewFunction/</url>
-    <content><![CDATA[<ul>
-<li><p>首页缩略图</p>
-<div class="highlight-container" data-rel="Code"><figure class="iseeu highlight plain"><table><tr><td class="code"><pre><span class="line">thumbnail: &quot;IMAGE_LINK&quot;</span><br></pre></td></tr></table></figure></div>
-</li>
-<li><p>首页文章摘要：</p>
-<div class="highlight-container" data-rel="Code"><figure class="iseeu highlight plain"><table><tr><td class="code"><pre><span class="line">excerpt: &quot;这是文章摘要 This is the excerpt of the post&quot;</span><br></pre></td></tr></table></figure></div>
-<p>or</p>
-<div class="highlight-container" data-rel="Code"><figure class="iseeu highlight plain"><table><tr><td class="code"><pre><span class="line">excerpt: false  # 关闭文章摘要</span><br></pre></td></tr></table></figure></div>
-</li>
-<li><p>文章页头图</p>
-<div class="highlight-container" data-rel="Code"><figure class="iseeu highlight plain"><table><tr><td class="code"><pre><span class="line">cover: &quot;IMAGE_LINK&quot;</span><br></pre></td></tr></table></figure></div>
-<p>或</p>
-<div class="highlight-container" data-rel="Code"><figure class="iseeu highlight plain"><table><tr><td class="code"><pre><span class="line">banner: &quot;IMAGE_LINK&quot;</span><br></pre></td></tr></table></figure></div>
-
-</li>
-</ul>
-<blockquote>
-<p>如果你设置了 首页头图 thumbnail(opens in a new tab) ，文章封面也会自动选择为 thumbnail 链接，当然，banner 和 cover 的优先级最高。<br>如果你不想设置文章封面却想保留首页头图，请把 cover 或者 banner 设置成 false</p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>测试</category>
-      </categories>
-  </entry>
-  <entry>
-    <title>论文略读笔记1-前沿-模拟器加速算法</title>
-    <url>/2023/05/17/literatureNotes1/</url>
-    <content><![CDATA[<h1 id="x1f4d6-《A-Parallel-Algorithm-to-Accelerate-DEVS-Simulations-in-Shared-Memory-Architectures》"><a href="#x1f4d6-《A-Parallel-Algorithm-to-Accelerate-DEVS-Simulations-in-Shared-Memory-Architectures》" class="headerlink" title="📖《A Parallel Algorithm to Accelerate DEVS Simulations in Shared Memory Architectures》"></a><span class="emoji" alias="book" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4d6.png?v8">📖</span>《A Parallel Algorithm to Accelerate DEVS Simulations in Shared Memory Architectures》</h1><blockquote>
-<p>序言：</p>
-<blockquote>
-<p> 写这个系列的目的是督促自己养成阅读论文的习惯，有疏漏或错误之处欢迎指出和讨论。</p>
-</blockquote>
-</blockquote>
-<h2 id="x1f3af-需求"><a href="#x1f3af-需求" class="headerlink" title="🎯需求"></a><span class="emoji" alias="dart" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f3af.png?v8">🎯</span>需求</h2><ul>
-<li>建模和仿真（M&amp;S）成为表示各个学科问题和进行科学探索的重要工具。尽管已经开发了许多M&amp;S方法，但离散事件模拟（其中系统行为被建模为连续时间内事件的时间顺序）现在广泛用于研究各种各样的问题。</li>
-<li>正式的M&amp;S方法允许精确定义模型，进行正式检查并构建更易于验证的模拟器。特别是，离散事件系统规范（DEVS）形式化为离散事件M&amp;S的开发提供了正式的理论框架。</li>
-<li>在不同研究领域模拟复杂的DEVS模型的需求不断增长，导致执行时间增加。</li>
-</ul>
-<h2 id="x1f6a7-现状"><a href="#x1f6a7-现状" class="headerlink" title="🚧现状"></a><span class="emoji" alias="construction" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f6a7.png?v8">🚧</span>现状</h2><ul>
-<li>为了解决模拟时间过长问题，已经多次尝试使用并行离散事件模拟（PDES）方法，实现DEVS的并行执行。然而，在实践中，这些算法会导致复杂的仿真架构，并产生与零前瞻循环和正确性相关的各种问题。</li>
-<li>[<a href="#refer-anchor-2">2</a>]中提出了一种加速 DEVS 仿真的不同方法，该方法允许并行执行仿真协议。这种方法背后的主要思想是通过并行执行同时发生的事件来允许简单且无错误的算法。<ul>
-<li>在这种方法中，作者确定了仿真协议可以并行执行的两种情况：<ul>
-<li>1）当两个或多个组件执行其输出功能时;</li>
-<li>2）当两个或多个组件执行其状态转换功能时。</li>
-</ul>
-</li>
-<li>然而，这种方法在实际应用中显示出有限的加速。</li>
-</ul>
-</li>
-</ul>
-<h2 id="x1f6e9-创新"><a href="#x1f6e9-创新" class="headerlink" title="🛩创新"></a><span class="emoji" alias="small_airplane" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f6e9.png?v8">🛩</span>创新</h2><ul>
-<li>提出了一种在并行共享内存架构上执行离散事件系统规范（DEVS）仿真的新算法。<ul>
-<li>通过并行执行PDEVS仿真协议中的所有任务来执行并行离散事件仿真。该算法的工作原理是在共享内存架构上的不同内核之间分配计算，与分布式内存系统相比，共享内存计算机体系结构可以有效地使用系统资源并且具有较低的通信延迟。</li>
-<li>（在现有方法的基础上，提供额外并行执行机会）</li>
-</ul>
-</li>
-<li>在本文方法中，完整的算法并行执行，在所有场景中都能获得与顺序版本相同的结果。<ul>
-<li>思路是分解任务并将它们分配给一组加速执行的线程。每个任务完成后，线程将同步以确保在启动新任务之前完成任务。</li>
-</ul>
-</li>
-</ul>
-<h2 id="x1f4ca-效果"><a href="#x1f4ca-效果" class="headerlink" title="📊效果"></a><span class="emoji" alias="bar_chart" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4ca.png?v8">📊</span>效果</h2><ul>
-<li>展示了一组使用合成基准的实验结果，以及使用两个独立计算机架构的真实场景。获得的结果显示了算法将模拟加速多达八倍。<ul>
-<li>使用为蜂窝DEVS模型设计的基准和真实世界的案例研究，其中真实案例研究是一个流行病学模型，模拟疾病如何在人群中传播。</li>
-</ul>
-</li>
-<li>此外，实验表明，当增加使用的 CPU 内核数量时，算法能够持续扩展。</li>
-</ul>
-<h2 id="x1f9e0-疑问"><a href="#x1f9e0-疑问" class="headerlink" title="🧠疑问"></a><span class="emoji" alias="brain" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f9e0.png?v8">🧠</span>疑问</h2><ol>
-<li>离散事件系统规范（DEVS）是什么样的标准？与现有的云计算模拟器如CloudSim之间的关系是什么？</li>
-<li>核心思路是什么？还没看懂。</li>
-</ol>
-<h2 id="x1f5fa-参考文献"><a href="#x1f5fa-参考文献" class="headerlink" title="🗺参考文献"></a><span class="emoji" alias="world_map" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f5fa.png?v8">🗺</span>参考文献</h2><div id="refer-anchor-1"></div>
-
-<p>[1] <a class="link" href="https://ieeexplore.ieee.org/document/10068737">G. G. Trabes, G. A. Wainer and V. Gil-Costa, “A Parallel Algorithm to Accelerate DEVS Simulations in Shared Memory Architectures,” in IEEE Transactions on Parallel and Distributed Systems, vol. 34, no. 5, pp. 1609-1620, May 2023, doi: 10.1109/TPDS.2023.3256083. <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-<div id="refer-anchor-2"></div>
-
-<p>[2] <a class="link" href="https://ieeexplore.ieee.org/document/7914577">B. P. Zeigler, “Using the Parallel DEVS Protocol for General Robust Simulation with Near Optimal Performance,” in Computing in Science &amp; Engineering, vol. 19, no. 3, pp. 68-77, May-June 2017, doi: 10.1109/MCSE.2017.52. <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-]]></content>
-      <categories>
-        <category>论文</category>
-        <category>略读</category>
-      </categories>
-      <tags>
-        <tag>模拟器</tag>
-        <tag>架构</tag>
-        <tag>并行加速</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>testpage</title>
-    <url>/2018/07/04/testpage/</url>
-    <content><![CDATA[<h1 id="1"><a href="#1" class="headerlink" title="1"></a>1</h1><h2 id="2"><a href="#2" class="headerlink" title="2"></a>2</h2><h3 id="3"><a href="#3" class="headerlink" title="3"></a>3</h3><h4 id="4"><a href="#4" class="headerlink" title="4"></a>4</h4><h5 id="5"><a href="#5" class="headerlink" title="5"></a>5</h5>]]></content>
-      <categories>
-        <category>测试</category>
-      </categories>
   </entry>
 </search>
