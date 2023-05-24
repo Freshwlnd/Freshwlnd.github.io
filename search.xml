@@ -923,4 +923,84 @@
         <tag>概率DP</tag>
       </tags>
   </entry>
+  <entry>
+    <title>论文略读笔记4-前沿-内存数据库性能</title>
+    <url>/2023/05/24/literatureNotes4/</url>
+    <content><![CDATA[<h1 id="x1f4d6-《Exploring-Fine-Grained-In-Memory-Database-Performance-for-Modern-CPUs》"><a href="#x1f4d6-《Exploring-Fine-Grained-In-Memory-Database-Performance-for-Modern-CPUs》" class="headerlink" title="📖《Exploring Fine-Grained In-Memory Database Performance for Modern CPUs》"></a><span class="emoji" alias="book" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4d6.png?v8">📖</span>《Exploring Fine-Grained In-Memory Database Performance for Modern CPUs》</h1><h2 id="x1f3af-需求"><a href="#x1f3af-需求" class="headerlink" title="🎯需求"></a><span class="emoji" alias="dart" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f3af.png?v8">🎯</span>需求</h2><ul>
+<li>现代CPU为高性能计算平台集成了越来越多的内核和大尺寸缓存，有利于内存数据库提高并行处理能力和缓存局部性，探索不同 CPU 架构的内存数据库性能特征对于内存数据库设计和优化非常重要。<ul>
+<li>最先进的CPU具有多种架构，两个主要路线图是以计算为中心或以缓存为中心的设计，例如大内核数和大高速缓存大小 （AMD x86）、中等内核数和高速缓存大小 （Intel x86）、大内核数和中等高速缓存大小 （ARM）。<ul>
+<li>以计算为中心的 CPU 架构更喜欢将更多内核与小芯片和分解的大型 L3 缓存（如 AMD 罗马/米兰和 ARM CPU）集成；</li>
+<li>以缓存为中心的 CPU 架构将中等内核与中等大小的单片 L3 缓存（如英特尔 Icelake CPU）集成在一起。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>内核和内存之间的“内存墙”差距是内存数据库的主要瓶颈，不同的内核和缓存架构旨在提高内存访问吞吐量并减少内存延迟。<ul>
+<li>从软件角度来看，查询处理性能受多种因素主导，例如运算符性能、处理模型或不同的运算符实现。</li>
+<li>从硬件角度来看，CPU 架构也会以不同的性能模式对性能产生很大影响，例如，join 运算符通常受共享 L3 缓存 （LLC） 的影响，而 GROUP-BY 运算符的性能通常由私有缓存主导。</li>
+<li>因此，对于内存数据库，应该回答以下两个问题：<ul>
+<li>（1）内存数据库在不同架构的CPU上性能如何，不同性能的原因是什么？</li>
+<li>（2） 如何通过 CPU 架构感知设计提高内存数据库性能？对于 CPU 供应商来说，性能特征可以阐明哪种 CPU 架构可以更好地提高内存中数据库性能。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="x1f6a7-现状"><a href="#x1f6a7-现状" class="headerlink" title="🚧现状"></a><span class="emoji" alias="construction" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f6a7.png?v8">🚧</span>现状</h2><ul>
+<li>内存数据库算法通常是硬件感知设计，最具代表性的路线图是硬件遗忘非分区哈希连接和硬件感知基数分区哈希连接，前者更喜欢大而有效的共享L3缓存，而后者则依赖于私有缓存效率。这些比较研究阐明了如何根据底层硬件调整软件性能。近年来出现了许多扩展研究，例如Xeon Phi，GPU，和FPGA平台的优化。</li>
+<li>NPO 和 PRO 算法被广泛接受为连接基准，而实际 OLAP 要求存在一些缺点。<ul>
+<li>首先，工作量不够具有代表性。</li>
+<li>其次，连接算法不够。</li>
+<li>第三，结论不够。</li>
+<li>最后，对硬件与连接算法之间的相关性探讨不够。</li>
+<li>因此，扩展联接算法、真实风格的工作负载、多联接实现以及发现不同架构 CPU 的联接性能模式是本工作的首要目标。</li>
+</ul>
+</li>
+<li>对于系统设计来说，孤立地比较数据库算子是不够的，本工作的第二个目标是构建一个完整的数据库算子基准，对全工作负载进行全面评估，模拟数据库引擎的性能。</li>
+<li>本工作的最后一个目标是构建一个框架来评估数据库工作负载在指定架构 CPU 上的运行情况。</li>
+</ul>
+<h2 id="x1f6e9-创新"><a href="#x1f6e9-创新" class="headerlink" title="🛩创新"></a><span class="emoji" alias="small_airplane" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f6e9.png?v8">🛩</span>创新</h2><ul>
+<li>在本文中，开发了一个细粒度的内存数据库基准测试，以评估不同CPU上每个操作的性能，以探索CPU硬件架构如何影响性能。</li>
+<li>在本文中，重点讨论三个问题：<ul>
+<li>（1）评估最先进的内存数据库在不同架构CPU上的性能，探索哪种CPU架构更适合内存数据库;</li>
+<li>（2）通过细粒度的关系算子基准，我们进一步探讨了CPU架构如何影响每个基础算子的性能，以解释为什么核心数和缓存大小不能主导性能;</li>
+<li>（3）通过细粒度增量实验，我们试图找出每个运营商在不同CPU上的强弱性能区域，这些CPU以CPU架构和微缓存架构为主。为了回答这三个问题，我们设置了宏观和微观基准实验来收集第一手的性能信息，以探索CPU硬件架构与内存数据库算子实现之间的强相关性。</li>
+</ul>
+</li>
+<li>贡献：<ul>
+<li>第一个贡献是提出具有宏和微观内存数据库基准的 CPU 性能评估框架。内存数据库对 CPU 硬件很敏感，可以评估不同设计如何影响性能。</li>
+<li>第二个贡献是发现了一些与流行观点相反的发现：<ul>
+<li>（1）具有更多内核的CPU可能无法达到内存数据库的更高性能，缓存局部性起着重要作用;</li>
+<li>（2）扩大缓存大小未必接近高性能，微缓存架构问题;</li>
+<li>（3）在查询计划中选择性能较高的算子实现可能不会产生更高的性能，查询处理模型主导了多个算子的处理效率。</li>
+</ul>
+</li>
+<li>第三个贡献是开发细粒度的算子基准，给出从简单的单算子查询到复杂的多维OLAP查询的综合数据库性能评估。细粒度的实验结果说明了受不同CPU架构影响的性能特征。操作性能与 CPU 架构之间的相关性可以阐明如何设计 CPU 架构感知算法以及如何为数据库工作负载设计 CPU 架构。</li>
+</ul>
+</li>
+</ul>
+<h2 id="x1f4ca-效果"><a href="#x1f4ca-效果" class="headerlink" title="📊效果"></a><span class="emoji" alias="bar_chart" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4ca.png?v8">📊</span>效果</h2><ul>
+<li>与众所周知的内核数和更大的缓存大小可以实现更高性能的结论不同，我们发现微缓存架构在内核数和缓存大小相反的背景下发挥着重要作用，中等大小的共享单片 L3 缓存优于大型分解 L3 缓存。</li>
+<li>实验还表明，根据不同的CPU架构和微缓存架构，预测不同CPU上的算子性能是困难的，并且每个算子的不同实现并不总是高低，交错的强弱性能区域受CPU硬件架构的影响。<ul>
+<li>英特尔 x86 CPU 代表以高速缓存为中心的处理器设计，而 AMD x86 和 ARM CPU 代表以计算为中心的处理器设计，SSB 的 OLAP 基准实验发现，与 AMD x86 CPU 相比，具有矢量处理模型的 OmniSciDB 和 OLAP 加速器在英特尔 x86 CPU 上表现良好，并且基于 JIT 兼容的 Hyper 更喜欢 AMD x86 CPU 而不是英特尔 x86 CPU。在内存数据库算法设计和平台选择中，应考虑增加内核或改进缓存局部性的 CPU 路线图。</li>
+</ul>
+</li>
+</ul>
+<h2 id="x1f9e0-疑问"><a href="#x1f9e0-疑问" class="headerlink" title="🧠疑问"></a><span class="emoji" alias="brain" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f9e0.png?v8">🧠</span>疑问</h2><ol>
+<li>结论是什么？原因是什么？能否在我们的工作中利用上这些结论？</li>
+<li>内存数据库的应用情况如何？和普通数据库的关系？</li>
+</ol>
+<h1 id="x1f5fa-参考文献"><a href="#x1f5fa-参考文献" class="headerlink" title="🗺参考文献"></a><span class="emoji" alias="world_map" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f5fa.png?v8">🗺</span>参考文献</h1><div id="refer-anchor-1"></div>
+
+<p>[1] <a class="link" href="https://ieeexplore.ieee.org/document/10086665/figures#figures">Z. Liu et al., “Exploring Fine-Grained In-Memory Database Performance for Modern CPUs,” in IEEE Transactions on Parallel and Distributed Systems, vol. 34, no. 6, pp. 1757-1772, June 2023, doi: 10.1109/TPDS.2023.3262782. <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+]]></content>
+      <categories>
+        <category>论文</category>
+        <category>略读</category>
+      </categories>
+      <tags>
+        <tag>内存数据库</tag>
+        <tag>性能刻画</tag>
+      </tags>
+  </entry>
 </search>
