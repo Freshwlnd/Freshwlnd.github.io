@@ -537,13 +537,13 @@
 </ul>
 <h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><div id="refer-anchor-1"></div>
 
-<p>[1] <a class="link"   href="https://blog.csdn.net/rockstics/article/details/110850423" >Centos安装部署Kubernetes（K8s） <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<p><a class="link"   href="https://blog.csdn.net/rockstics/article/details/110850423" >[1] Centos安装部署Kubernetes（K8s） <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
 <div id="refer-anchor-2"></div>
 
-<p>[2] <a class="link"   href="https://blog.csdn.net/zhanremo3062/article/details/114652850" >docker降级操作，20.10降级到19.03版本 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<p><a class="link"   href="https://blog.csdn.net/zhanremo3062/article/details/114652850" >[2] docker降级操作，20.10降级到19.03版本 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
 <div id="refer-anchor-3"></div>
 
-<p>[3] <a class="link"   href="https://blog.csdn.net/weixin_46601322/article/details/126722529" >k8s初始化报错[kubelet-check] Initial timeout of 40s passed. <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<p><a class="link"   href="https://blog.csdn.net/weixin_46601322/article/details/126722529" >[3] k8s初始化报错[kubelet-check] Initial timeout of 40s passed. <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
 ]]></content>
       <categories>
         <category>工程</category>
@@ -567,12 +567,12 @@
 <li>那么先上代码，再慢慢解释KM算法的原理（实际上我也只是听说过该算法，这次也好好学习一下）</li>
 </ul>
 <h2 id="代码："><a href="#代码：" class="headerlink" title="代码："></a><strong>代码：</strong></h2><ul>
-<li>代码根据<a href="##%E5%8F%82%E8%80%83">参考文章[3]</a>进行改进</li>
+<li>代码根据<a href="#refer-anchor-3">参考文章[3]</a>进行改进</li>
 </ul>
 <div class="highlight-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> {</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 建图</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">buildGraph</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt;&amp; edges, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">int</span> numSlots)</span> </span>{</span><br><span class="line">        <span class="keyword">int</span> n = nums.size();</span><br><span class="line">        edges = <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt;(n,<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;(<span class="number">2</span>*numSlots));</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;n; i++) {</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>; j&lt;numSlots; j++) {</span><br><span class="line">                edges[i][j] = edges[i][j+numSlots] = (nums[i]&amp;(j+<span class="number">1</span>));   <span class="comment">// j，j+numSlots 分别表示编号为 j+1 的篮子的两个空位</span></span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="comment">// KM算法寻找最大权匹配</span></span><br><span class="line">    <span class="comment">// 在匈牙利算法的基础上增加期望度机制。</span></span><br><span class="line">        <span class="comment">// 初始化左半图每个number的期望度为该number最大可获得权值，右半图每个slot的期望度为0。</span></span><br><span class="line">        <span class="comment">// 每次匹配时，只考虑边权等于相连number和slot期望度和的边。</span></span><br><span class="line">        <span class="comment">// 当一次匹配中无法成功时，执行期望度更新操作：将涉及的所有number期望度减一、所有slot期望度加一。</span></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">KM</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt;&amp; edges)</span> </span>{</span><br><span class="line">        <span class="keyword">int</span> n = edges.size(), m = edges[<span class="number">0</span>].size();  <span class="comment">// 二分图两边的点数</span></span><br><span class="line">        <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">match</span><span class="params">(m, <span class="number">-1</span>)</span></span>; <span class="comment">// match[i]为teacher[i]匹配的student编号</span></span><br><span class="line">        <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">exNumber</span><span class="params">(n)</span></span>; <span class="comment">// number期望</span></span><br><span class="line">        <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">exSlot</span><span class="params">(m, <span class="number">0</span>)</span></span>; <span class="comment">// slot的期望</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; ++i) {</span><br><span class="line">            exNumber[i] = *max_element(edges[i].begin(), edges[i].end());</span><br><span class="line">        }</span><br><span class="line">        <span class="comment">// 为每个number匹配teacher</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; ++i) {</span><br><span class="line">            <span class="keyword">while</span>(<span class="literal">true</span>) {</span><br><span class="line">                <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">bool</span>&gt; <span class="title">visNumber</span><span class="params">(n, <span class="literal">false</span>)</span></span>;</span><br><span class="line">                <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">bool</span>&gt; <span class="title">visSlot</span><span class="params">(m, <span class="literal">false</span>)</span></span>;</span><br><span class="line">                <span class="keyword">if</span> (dfs(i, m, edges, match, visNumber, visSlot, exNumber, exSlot)) <span class="keyword">break</span>;</span><br><span class="line">                <span class="comment">// 无法匹配降低期望</span></span><br><span class="line">                <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; n; ++j) {</span><br><span class="line">                    <span class="keyword">if</span> (visNumber[j]) exNumber[j]--;</span><br><span class="line">                }</span><br><span class="line">                <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; m; ++j) {</span><br><span class="line">                    <span class="keyword">if</span> (visSlot[j]) exSlot[j]++;</span><br><span class="line">                }</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span> ans = <span class="number">0</span>;</span><br><span class="line">				<span class="comment">// 将每一对匹配的权值加和（这里通过遍历slot的匹配情况来实现）</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; m; ++i) <span class="keyword">if</span>(match[i]!=<span class="number">-1</span>) {</span><br><span class="line">            ans += edges[match[i]][i];</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 匈牙利算法寻找完美匹配</span></span><br><span class="line">    <span class="comment">// 为第i个number寻找匹配的slot。对每个可匹配slot，若已被其他number匹配，则递归为其他number寻找另外的可匹配slot；找不到则为该number匹配其他slot</span></span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span> i, <span class="keyword">int</span> m, <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt;&amp; edges, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; match, <span class="built_in">vector</span>&lt;<span class="keyword">bool</span>&gt;&amp; visNumber, <span class="built_in">vector</span>&lt;<span class="keyword">bool</span>&gt;&amp; visSlot, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; exNumber, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; exSlot)</span> </span>{</span><br><span class="line">        visNumber[i] = <span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; m; ++j) {</span><br><span class="line">            <span class="keyword">if</span> (visSlot[j]) <span class="keyword">continue</span>;</span><br><span class="line">            <span class="keyword">int</span> diff = exNumber[i] + exSlot[j] - edges[i][j];</span><br><span class="line">            <span class="keyword">if</span> (!diff) {</span><br><span class="line">                visSlot[j] = <span class="literal">true</span>;</span><br><span class="line">                <span class="keyword">if</span> (match[j] == <span class="number">-1</span> || dfs(match[j], m, edges, match, visNumber, visSlot, exNumber, exSlot)) {</span><br><span class="line">                    match[j] = i;</span><br><span class="line">                    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">                }</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    }</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">maximumANDSum</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">int</span> numSlots)</span> </span>{</span><br><span class="line">        <span class="comment">/* </span></span><br><span class="line"><span class="comment">         * 问题抽象为 “n个数字 - 2*numSlots个篮子” 的二分图最大匹配问题</span></span><br><span class="line"><span class="comment">         ** 二分图中的点：</span></span><br><span class="line"><span class="comment">         *** n个数字：nums中需要被分配的n个数字</span></span><br><span class="line"><span class="comment">         *** 2*numSlots个篮子：每个篮子最多可以放两个数字</span></span><br><span class="line"><span class="comment">         ** 二分图中的边：</span></span><br><span class="line"><span class="comment">         *** 每个数字和每个篮子间都有一条边，边权为数字与篮子编号的 按位与运算 结果，表示把该数字放到该篮子时可获得的权值</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 建图（用n*2numSlots的邻接矩阵表示图。因为后续算法中只需要考虑边权而不需要考虑点权，故只需保存边权信息。）</span></span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; edges;</span><br><span class="line">        buildGraph(edges,nums,numSlots);</span><br><span class="line">        <span class="comment">// 计算（使用KM算法，计算最优匹配方案权值和）</span></span><br><span class="line">        <span class="keyword">return</span> KM(edges);</span><br><span class="line">    }</span><br><span class="line">};</span><br></pre></td></tr></table></figure></div>
 
 <h2 id="KM算法细节解释："><a href="#KM算法细节解释：" class="headerlink" title="KM算法细节解释："></a>KM算法细节解释：</h2><ul>
-<li>建议先浏览<a href="##%E5%8F%82%E8%80%83">参考文章[1]</a>后再阅读本段，<a href="##%E5%8F%82%E8%80%83">参考文章[1]</a>中以简单的例子介绍了KM算法的整体流程，本段仅以笔者浅薄的知识做一些补充，相当于<a href="##%E5%8F%82%E8%80%83">参考文章[1]</a>的进阶版。</li>
+<li>建议先浏览<a href="#refer-anchor-1">参考文章[1]</a>后再阅读本段，<a href="#refer-anchor-1">参考文章[1]</a>中以简单的例子介绍了KM算法的整体流程，本段仅以笔者浅薄的知识做一些补充，相当于<a href="#refer-anchor-1">参考文章[1]</a>的进阶版。</li>
 <li>KM算法本质上在匈牙利算法的基础上增加期望度机制。<ul>
 <li>初始化左半图每个number的期望度为该number最大可获得权值，右半图每个slot的期望度为0。</li>
 <li>每次匹配时，只考虑边权等于相连number和slot期望度和的边。</li>
@@ -586,10 +586,20 @@
 </ul>
 </li>
 </ul>
-<h2 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h2><ul>
-<li>[1] <a class="link" href="https://www.cnblogs.com/logosG/p/logos.html">https://www.cnblogs.com/logosG/p/logos.html <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
-<li>[2] <a class="link" href="https://www.cnblogs.com/fzl194/p/8834847.html">https://www.cnblogs.com/fzl194/p/8834847.html <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
-<li>[3] <a class="link" href="https://leetcode-cn.com/problems/maximum-compatibility-score-sum/solution/c-km-suan-fa-er-fen-tu-dai-quan-zui-da-p-ztmd/">https://leetcode-cn.com/problems/maximum-compatibility-score-sum/solution/c-km-suan-fa-er-fen-tu-dai-quan-zui-da-p-ztmd/ <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<h2 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h2><div id="refer-anchor-1"></div>
+
+<ul>
+<li><a class="link" href="https://www.cnblogs.com/logosG/p/logos.html">[1] https://www.cnblogs.com/logosG/p/logos.html <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+</ul>
+<div id="refer-anchor-2"></div>
+
+<ul>
+<li><a class="link" href="https://www.cnblogs.com/fzl194/p/8834847.html">[2] https://www.cnblogs.com/fzl194/p/8834847.html <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+</ul>
+<div id="refer-anchor-3"></div>
+
+<ul>
+<li><a class="link" href="https://leetcode-cn.com/problems/maximum-compatibility-score-sum/solution/c-km-suan-fa-er-fen-tu-dai-quan-zui-da-p-ztmd/">[3] https://leetcode-cn.com/problems/maximum-compatibility-score-sum/solution/c-km-suan-fa-er-fen-tu-dai-quan-zui-da-p-ztmd/ <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
 </ul>
 ]]></content>
       <categories>
@@ -652,10 +662,10 @@
 </ol>
 <h2 id="x1f5fa-参考文献"><a href="#x1f5fa-参考文献" class="headerlink" title="🗺参考文献"></a><span class="emoji" alias="world_map" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f5fa.png?v8">🗺</span>参考文献</h2><div id="refer-anchor-1"></div>
 
-<p>[1] <a class="link" href="https://ieeexplore.ieee.org/document/10068737">G. G. Trabes, G. A. Wainer and V. Gil-Costa, “A Parallel Algorithm to Accelerate DEVS Simulations in Shared Memory Architectures,” in IEEE Transactions on Parallel and Distributed Systems, vol. 34, no. 5, pp. 1609-1620, May 2023, doi: 10.1109/TPDS.2023.3256083. <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<p><a class="link" href="https://ieeexplore.ieee.org/document/10068737">[1] G. G. Trabes, G. A. Wainer and V. Gil-Costa, “A Parallel Algorithm to Accelerate DEVS Simulations in Shared Memory Architectures,” in IEEE Transactions on Parallel and Distributed Systems, vol. 34, no. 5, pp. 1609-1620, May 2023, doi: 10.1109/TPDS.2023.3256083. <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
 <div id="refer-anchor-2"></div>
 
-<p>[2] <a class="link" href="https://ieeexplore.ieee.org/document/7914577">B. P. Zeigler, “Using the Parallel DEVS Protocol for General Robust Simulation with Near Optimal Performance,” in Computing in Science &amp; Engineering, vol. 19, no. 3, pp. 68-77, May-June 2017, doi: 10.1109/MCSE.2017.52. <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<p><a class="link" href="https://ieeexplore.ieee.org/document/7914577">[2] B. P. Zeigler, “Using the Parallel DEVS Protocol for General Robust Simulation with Near Optimal Performance,” in Computing in Science &amp; Engineering, vol. 19, no. 3, pp. 68-77, May-June 2017, doi: 10.1109/MCSE.2017.52. <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
 ]]></content>
       <categories>
         <category>论文</category>
@@ -711,7 +721,7 @@
 </ol>
 <h2 id="x1f5fa-参考文献"><a href="#x1f5fa-参考文献" class="headerlink" title="🗺参考文献"></a><span class="emoji" alias="world_map" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f5fa.png?v8">🗺</span>参考文献</h2><div id="refer-anchor-1"></div>
 
-<p>[1] <a class="link" href="https://ieeexplore.ieee.org/document/10024362">X. Li et al., “Topology-Aware Scheduling Framework for Microservice Applications in Cloud,” in IEEE Transactions on Parallel and Distributed Systems, vol. 34, no. 5, pp. 1635-1649, May 2023, doi: 10.1109/TPDS.2023.3238751. <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<p><a class="link" href="https://ieeexplore.ieee.org/document/10024362">[1] X. Li et al., “Topology-Aware Scheduling Framework for Microservice Applications in Cloud,” in IEEE Transactions on Parallel and Distributed Systems, vol. 34, no. 5, pp. 1635-1649, May 2023, doi: 10.1109/TPDS.2023.3238751. <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
 ]]></content>
       <categories>
         <category>论文</category>
@@ -794,7 +804,7 @@
 </ol>
 <h1 id="x1f5fa-参考文献"><a href="#x1f5fa-参考文献" class="headerlink" title="🗺参考文献"></a><span class="emoji" alias="world_map" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f5fa.png?v8">🗺</span>参考文献</h1><div id="refer-anchor-1"></div>
 
-<p>[1] <a class="link" href="https://ieeexplore.ieee.org/document/10086665/figures#figures">Z. Liu et al., “Exploring Fine-Grained In-Memory Database Performance for Modern CPUs,” in IEEE Transactions on Parallel and Distributed Systems, vol. 34, no. 6, pp. 1757-1772, June 2023, doi: 10.1109/TPDS.2023.3262782. <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<p><a class="link" href="https://ieeexplore.ieee.org/document/10086665/figures#figures">[1] Z. Liu et al., “Exploring Fine-Grained In-Memory Database Performance for Modern CPUs,” in IEEE Transactions on Parallel and Distributed Systems, vol. 34, no. 6, pp. 1757-1772, June 2023, doi: 10.1109/TPDS.2023.3262782. <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
 ]]></content>
       <categories>
         <category>论文</category>
@@ -873,7 +883,7 @@
 </ol>
 <h2 id="x1f5fa-参考文献"><a href="#x1f5fa-参考文献" class="headerlink" title="🗺参考文献"></a><span class="emoji" alias="world_map" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f5fa.png?v8">🗺</span>参考文献</h2><div id="refer-anchor-1"></div>
 
-<p>[1] <a class="link" href="https://ieeexplore.ieee.org/document/7987304">M. C. Silva Filho, R. L. Oliveira, C. C. Monteiro, P. R. M. Inácio and M. M. Freire, “CloudSim Plus: A cloud computing simulation framework pursuing software engineering principles for improved modularity, extensibility and correctness,” 2017 IFIP/IEEE Symposium on Integrated Network and Service Management (IM), Lisbon, Portugal, 2017, pp. 400-406, doi: 10.23919/INM.2017.7987304. <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<p><a class="link" href="https://ieeexplore.ieee.org/document/7987304">[1] M. C. Silva Filho, R. L. Oliveira, C. C. Monteiro, P. R. M. Inácio and M. M. Freire, “CloudSim Plus: A cloud computing simulation framework pursuing software engineering principles for improved modularity, extensibility and correctness,” 2017 IFIP/IEEE Symposium on Integrated Network and Service Management (IM), Lisbon, Portugal, 2017, pp. 400-406, doi: 10.23919/INM.2017.7987304. <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
 ]]></content>
       <categories>
         <category>论文</category>
@@ -1001,6 +1011,104 @@
       <tags>
         <tag>DP</tag>
         <tag>概率DP</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>论文略读笔记5-前沿-DRL异构计算适配</title>
+    <url>/2023/05/25/literatureNotes5/</url>
+    <content><![CDATA[<h1 id="x1f4d6-《A-Framework-for-Mapping-DRL-Algorithms-With-Prioritized-Replay-Buffer-Onto-Heterogeneous-Platforms》"><a href="#x1f4d6-《A-Framework-for-Mapping-DRL-Algorithms-With-Prioritized-Replay-Buffer-Onto-Heterogeneous-Platforms》" class="headerlink" title="📖《A Framework for Mapping DRL Algorithms With Prioritized Replay Buffer Onto Heterogeneous Platforms》"></a><span class="emoji" alias="book" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4d6.png?v8">📖</span>《A Framework for Mapping DRL Algorithms With Prioritized Replay Buffer Onto Heterogeneous Platforms》</h1><h2 id="x1f3af-需求"><a href="#x1f3af-需求" class="headerlink" title="🎯需求"></a><span class="emoji" alias="dart" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f3af.png?v8">🎯</span>需求</h2><ul>
+<li>尽管深度强化学习（DRL）最近在自动驾驶汽车、机器人和监控中取得了成功，但训练DRL代理需要大量的时间和计算资源。<ul>
+<li>在 RL 中，代理与环境迭代交互以改进其策略，以便最大化沿轨迹的预期累积奖励。该策略在类 RL 中表示为查找表，而在深度强化学习 （DRL） 中表示为神经网络。</li>
+<li>训练DRL代理非常耗时，因为它需要通过与环境交互和梯度更新来更新表示为神经网络的策略来收敛（例如，AlphaGo）。</li>
+</ul>
+</li>
+<li>最先进的并行DRL框架采用由并行执行者、集中式学习器和优先级经验回放池（Prioritized Replay Buffer）组成的通用架构，如图1（a）所示。<ul>
+<li>并行执行者同时从环境中收集数据，并将数据插入到优先级经验回放池中。</li>
+<li>集中式学习器从优先经验回放池中采样数据，并执行随机梯度下降 （SGD）以更新策略。</li>
+<li>学习后的新优先级由优先级经验回放池更新。每个数据点的优先级与损失函数成正比，采样分布与优先级成正比。缓冲区中每个数据点的优先级存储在 K-ary Sum 树数据结构，可以在O(logN)时间复杂度内完成，其中N是经验回放池中的数据点总数。<br><img lazyload="" src="/images/loading.svg" data-src="https://ieeexplore.ieee.org/mediastore_new/IEEE/content/media/71/10123122/10093111/zhang1-3264823-small.gif" alt="图1"><center>图1</center></li>
+</ul>
+</li>
+<li>具有优先级经验回放池的 DRL 的计算基元包括环境仿真、神经网络推理、从优先级经验回放池采样、更新优先级经验回放池和神经网络训练。运行这些基元的速度因各种 DRL 算法（如深度 Q 网络和深度确定性策略梯度）而异。这使得 DRL 算法的固定映射效率低下。</li>
+<li>由 CPU、FPGA 和 GPU 组成的异构平台有望加速DRL算法。这是因为运行关键 DRL 基元的速度在不同的 DRL 算法之间有很大差异。例如，<ul>
+<li>在 FPGA 上训练小尺寸神经网络比在 CPU 和 GPU 上训练更快，而在 GPU 上训练大尺寸神经网络比在 CPU 和 FPGA 上训练更快。</li>
+<li>小批量采样在 FPGA 上比在 CPU 和 GPU 上更快，而大批量采样在 GPU 上比在 CPU 和 FPGA 上更快。</li>
+</ul>
+</li>
+</ul>
+<h2 id="x1f6a7-现状"><a href="#x1f6a7-现状" class="headerlink" title="🚧现状"></a><span class="emoji" alias="construction" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f6a7.png?v8">🚧</span>现状</h2><ul>
+<li>最近的一些工作集中在DRL算法的硬件加速上。<ul>
+<li>之前的工作要么专注于开发没有硬件加速细节的DRL算法的并行范式，要么仅限于特定的DRL算法加速。</li>
+<li>此外，现有的工作都没有有效地支持内存绑定的原语，如优先重播缓冲区。由于内存瓶颈，这会在这些现有框架实现的吞吐量与同构平台提供的峰值吞吐量之间产生性能差距。</li>
+</ul>
+</li>
+<li>在我们之前的工作中，提出了具有优先重放缓冲区的DRL算法到CPU-FPGA异构平台的映射。当优先重放缓冲器和学习器适合FPGA的片上资源时，该设计可实现最先进的训练吞吐量。<ul>
+<li>但是，它无法处理片上资源不足以满足优先重放缓冲区和学习器的情况。</li>
+</ul>
+</li>
+<li>为了在更广泛的场景中实现最先进的训练吞吐量，在本文中，我们提出了一个框架，用于将具有优先级重放缓冲区的DRL算法映射到CPU-GPU-FPGA异构平台上，以实现给定DRL算法及其输入参数的卓越训练吞吐量。</li>
+</ul>
+<h2 id="x1f6e9-创新"><a href="#x1f6e9-创新" class="headerlink" title="🛩创新"></a><span class="emoji" alias="small_airplane" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f6e9.png?v8">🛩</span>创新</h2><ul>
+<li>在这项工作中，我们提出了一个框架，用于将 DRL 算法映射到由多核 CPU、FPGA 和 GPU 组成的异构平台上。<ul>
+<li>CPU 适用于复杂控制流的计算；</li>
+<li>GPU 适用于大数据并行计算，</li>
+<li>FPGA 适用于内存访问量大、数据依赖细粒度的计算。</li>
+</ul>
+</li>
+<li>我们为 CPU、FPGA 和 GPU 上的每个基元提供了单独的加速器。我们提出了设计空间探索，在给定的DRL算法中选择最佳映射，从而使整体训练吞吐量最大化。此外，我们放宽了优先级更新和在优先级经验回放池中执行的采样之间的数据依赖关系，以完全隐藏 CPU、FPGA 和 GPU 之间数据传输造成的延迟，而不会牺牲使用目标 DRL 算法学习的代理获得的奖励。</li>
+<li>具体而言，我们的主要贡献是：<ul>
+<li>首先，我们为 CPU、FPGA 和 GPU 上的每个基元开发特定的加速器。</li>
+<li>其次，我们放宽优先级更新和在优先级经验回放池中执行的采样之间的数据依赖关系。通过这样做，可以完全隐藏 CPU、FPGA 和 GPU 之间数据传输造成的延迟，而不会牺牲使用目标 DRL 算法学习的代理获得的奖励。</li>
+<li>最后，给定 DRL 算法规范，我们的设计空间探索会根据分析性能模型自动选择各种基元的最佳映射。</li>
+</ul>
+</li>
+<li>具体而言，我们的主要贡献是：<ul>
+<li>在 CPU 上，我们利用 OpenMP 在优先经验回放池的采样和优先级更新中利用数据并行性。我们使用 PyTorch 进行神经网络训练。</li>
+<li>在 GPU 上，我们开发了一个定制的 CUDA 内核，用于基于并行求和缩减的采样和优先级更新。我们使用 PyTorch 和 CuDNN 后端进行神经网络训练。</li>
+<li>在 FPGA 上，我们开发了一个通用的面向吞吐量的学习模块，该模块利用了神经网络模型并行性和数据并行性。我们为重放管理模块 （RMM） 开发了一个通用加速器模板，该模板利用库并行性并可扩展到大批量大小。我们提议的 RMM 支持并行插入、并行采样和并行优先级更新 K-ary Sum 树。我们通过以下方式优化片上数据访问的性能：<ul>
+<li>专用的可变精度定点数据格式，用于在 RMM 中存储优先级值;</li>
+<li>分区支持无冲突并行数据访问的 K-ary Sum 树;</li>
+<li>流水线重放操作，允许并发访问存储 K-ary Sum 树。</li>
+</ul>
+</li>
+<li>为了隐藏用于训练的异构加速器之间的数据传输导致的延迟，我们放宽了优先级更新和优先级经验回放池中采样之间的数据依赖关系。我们凭经验表明，在广泛使用的基准环境中，具有和不具有数据依赖性的DRL算法之间经过训练的代理的性能差异可以忽略不计。</li>
+<li>我们提出了一种设计空间探索和设计自动化工作流程，该工作流程在给定任意DRL算法的情况下，以最佳方式选择每个组件到 CPU-GPU-FPGA 异构系统上的映射。</li>
+<li>对于广泛使用的DRL算法，包括 DQN 和 DDPG，与基线映射相比，我们的框架生成的映射在训练吞吐量方面表现出高达997.3×的加速。</li>
+</ul>
+</li>
+</ul>
+<h2 id="x1f4ca-效果"><a href="#x1f4ca-效果" class="headerlink" title="📊效果"></a><span class="emoji" alias="bar_chart" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4ca.png?v8">📊</span>效果</h2><ul>
+<li>在广泛使用的基准环境中，我们的实验结果表明，与同一异构平台上的基线映射相比，训练吞吐量提高了 997.3×。与最先进的分布式强化学习框架RLlib相比，我们实现了 1.06x~ 训练吞吐量提高 1005×。</li>
+</ul>
+<h2 id="x1f9e0-疑问"><a href="#x1f9e0-疑问" class="headerlink" title="🧠疑问"></a><span class="emoji" alias="brain" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f9e0.png?v8">🧠</span>疑问</h2><ol>
+<li>什么是优先级经验回放池？<ul>
+<li>当我们使用Q-learning算法进行在线方式学习时，会存在两个问题<a href="#refer-anchor-2"><sup>[2]</sup></a>：<ul>
+<li>1.交互得到的样本序列存在一定相关性（在线学习场景下往往刚得到一个样本就将其用于训练）。而机器学习模型对训练样本的假设是独立、同分布的，上述场景下的样本序列打破了这种独立同分布特性，因此效果不佳。</li>
+<li>2.交互样本使用的效率过低。因为每次要使用一定的时间获取一个batch的样本才能完成一次训练，所以对样本的获取是有些慢的，且在线学习场景下往往会将学习后的样本直接丢弃，导致利用效率不高。</li>
+</ul>
+</li>
+<li>因此提出经验回放池结构：用一块有限大小的内存来存储智能体一段时间内和环境交互得<br>到的经验（ <mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.566ex;" xmlns="http://www.w3.org/2000/svg" width="14.223ex" height="2.262ex" role="img" focusable="false" viewBox="0 -750 6286.7 1000"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mo"><path data-c="28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z"></path></g><g data-mml-node="msub" transform="translate(389,0)"><g data-mml-node="mi"><path data-c="1D460" d="M131 289Q131 321 147 354T203 415T300 442Q362 442 390 415T419 355Q419 323 402 308T364 292Q351 292 340 300T328 326Q328 342 337 354T354 372T367 378Q368 378 368 379Q368 382 361 388T336 399T297 405Q249 405 227 379T204 326Q204 301 223 291T278 274T330 259Q396 230 396 163Q396 135 385 107T352 51T289 7T195 -10Q118 -10 86 19T53 87Q53 126 74 143T118 160Q133 160 146 151T160 120Q160 94 142 76T111 58Q109 57 108 57T107 55Q108 52 115 47T146 34T201 27Q237 27 263 38T301 66T318 97T323 122Q323 150 302 164T254 181T195 196T148 231Q131 256 131 289Z"></path></g><g data-mml-node="mi" transform="translate(502,-150) scale(0.707)"><path data-c="1D461" d="M26 385Q19 392 19 395Q19 399 22 411T27 425Q29 430 36 430T87 431H140L159 511Q162 522 166 540T173 566T179 586T187 603T197 615T211 624T229 626Q247 625 254 615T261 596Q261 589 252 549T232 470L222 433Q222 431 272 431H323Q330 424 330 420Q330 398 317 385H210L174 240Q135 80 135 68Q135 26 162 26Q197 26 230 60T283 144Q285 150 288 151T303 153H307Q322 153 322 145Q322 142 319 133Q314 117 301 95T267 48T216 6T155 -11Q125 -11 98 4T59 56Q57 64 57 83V101L92 241Q127 382 128 383Q128 385 77 385H26Z"></path></g></g><g data-mml-node="mo" transform="translate(1196.3,0)"><path data-c="2C" d="M78 35T78 60T94 103T137 121Q165 121 187 96T210 8Q210 -27 201 -60T180 -117T154 -158T130 -185T117 -194Q113 -194 104 -185T95 -172Q95 -168 106 -156T131 -126T157 -76T173 -3V9L172 8Q170 7 167 6T161 3T152 1T140 0Q113 0 96 17Z"></path></g><g data-mml-node="msub" transform="translate(1640.9,0)"><g data-mml-node="mi"><path data-c="1D44E" d="M33 157Q33 258 109 349T280 441Q331 441 370 392Q386 422 416 422Q429 422 439 414T449 394Q449 381 412 234T374 68Q374 43 381 35T402 26Q411 27 422 35Q443 55 463 131Q469 151 473 152Q475 153 483 153H487Q506 153 506 144Q506 138 501 117T481 63T449 13Q436 0 417 -8Q409 -10 393 -10Q359 -10 336 5T306 36L300 51Q299 52 296 50Q294 48 292 46Q233 -10 172 -10Q117 -10 75 30T33 157ZM351 328Q351 334 346 350T323 385T277 405Q242 405 210 374T160 293Q131 214 119 129Q119 126 119 118T118 106Q118 61 136 44T179 26Q217 26 254 59T298 110Q300 114 325 217T351 328Z"></path></g><g data-mml-node="mi" transform="translate(562,-150) scale(0.707)"><path data-c="1D461" d="M26 385Q19 392 19 395Q19 399 22 411T27 425Q29 430 36 430T87 431H140L159 511Q162 522 166 540T173 566T179 586T187 603T197 615T211 624T229 626Q247 625 254 615T261 596Q261 589 252 549T232 470L222 433Q222 431 272 431H323Q330 424 330 420Q330 398 317 385H210L174 240Q135 80 135 68Q135 26 162 26Q197 26 230 60T283 144Q285 150 288 151T303 153H307Q322 153 322 145Q322 142 319 133Q314 117 301 95T267 48T216 6T155 -11Q125 -11 98 4T59 56Q57 64 57 83V101L92 241Q127 382 128 383Q128 385 77 385H26Z"></path></g></g><g data-mml-node="mo" transform="translate(2508.2,0)"><path data-c="2C" d="M78 35T78 60T94 103T137 121Q165 121 187 96T210 8Q210 -27 201 -60T180 -117T154 -158T130 -185T117 -194Q113 -194 104 -185T95 -172Q95 -168 106 -156T131 -126T157 -76T173 -3V9L172 8Q170 7 167 6T161 3T152 1T140 0Q113 0 96 17Z"></path></g><g data-mml-node="msub" transform="translate(2952.9,0)"><g data-mml-node="mi"><path data-c="1D45F" d="M21 287Q22 290 23 295T28 317T38 348T53 381T73 411T99 433T132 442Q161 442 183 430T214 408T225 388Q227 382 228 382T236 389Q284 441 347 441H350Q398 441 422 400Q430 381 430 363Q430 333 417 315T391 292T366 288Q346 288 334 299T322 328Q322 376 378 392Q356 405 342 405Q286 405 239 331Q229 315 224 298T190 165Q156 25 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 114 189T154 366Q154 405 128 405Q107 405 92 377T68 316T57 280Q55 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mi" transform="translate(484,-150) scale(0.707)"><path data-c="1D461" d="M26 385Q19 392 19 395Q19 399 22 411T27 425Q29 430 36 430T87 431H140L159 511Q162 522 166 540T173 566T179 586T187 603T197 615T211 624T229 626Q247 625 254 615T261 596Q261 589 252 549T232 470L222 433Q222 431 272 431H323Q330 424 330 420Q330 398 317 385H210L174 240Q135 80 135 68Q135 26 162 26Q197 26 230 60T283 144Q285 150 288 151T303 153H307Q322 153 322 145Q322 142 319 133Q314 117 301 95T267 48T216 6T155 -11Q125 -11 98 4T59 56Q57 64 57 83V101L92 241Q127 382 128 383Q128 385 77 385H26Z"></path></g></g><g data-mml-node="mo" transform="translate(3742.1,0)"><path data-c="2C" d="M78 35T78 60T94 103T137 121Q165 121 187 96T210 8Q210 -27 201 -60T180 -117T154 -158T130 -185T117 -194Q113 -194 104 -185T95 -172Q95 -168 106 -156T131 -126T157 -76T173 -3V9L172 8Q170 7 167 6T161 3T152 1T140 0Q113 0 96 17Z"></path></g><g data-mml-node="msub" transform="translate(4186.8,0)"><g data-mml-node="mi"><path data-c="1D460" d="M131 289Q131 321 147 354T203 415T300 442Q362 442 390 415T419 355Q419 323 402 308T364 292Q351 292 340 300T328 326Q328 342 337 354T354 372T367 378Q368 378 368 379Q368 382 361 388T336 399T297 405Q249 405 227 379T204 326Q204 301 223 291T278 274T330 259Q396 230 396 163Q396 135 385 107T352 51T289 7T195 -10Q118 -10 86 19T53 87Q53 126 74 143T118 160Q133 160 146 151T160 120Q160 94 142 76T111 58Q109 57 108 57T107 55Q108 52 115 47T146 34T201 27Q237 27 263 38T301 66T318 97T323 122Q323 150 302 164T254 181T195 196T148 231Q131 256 131 289Z"></path></g><g data-mml-node="TeXAtom" transform="translate(502,-150) scale(0.707)" data-mjx-texclass="ORD"><g data-mml-node="mi"><path data-c="1D461" d="M26 385Q19 392 19 395Q19 399 22 411T27 425Q29 430 36 430T87 431H140L159 511Q162 522 166 540T173 566T179 586T187 603T197 615T211 624T229 626Q247 625 254 615T261 596Q261 589 252 549T232 470L222 433Q222 431 272 431H323Q330 424 330 420Q330 398 317 385H210L174 240Q135 80 135 68Q135 26 162 26Q197 26 230 60T283 144Q285 150 288 151T303 153H307Q322 153 322 145Q322 142 319 133Q314 117 301 95T267 48T216 6T155 -11Q125 -11 98 4T59 56Q57 64 57 83V101L92 241Q127 382 128 383Q128 385 77 385H26Z"></path></g><g data-mml-node="mo" transform="translate(361,0)"><path data-c="2B" d="M56 237T56 250T70 270H369V420L370 570Q380 583 389 583Q402 583 409 568V270H707Q722 262 722 250T707 230H409V-68Q401 -82 391 -82H389H387Q375 -82 369 -68V230H70Q56 237 56 250Z"></path></g><g data-mml-node="mn" transform="translate(1139,0)"><path data-c="31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z"></path></g></g></g><g data-mml-node="mo" transform="translate(5897.7,0)"><path data-c="29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z"></path></g></g></g></svg></mjx-container> 元组），每次神经网络需要输入时，会从经验回放池中随机选择一个大小为 minibatch 的经验样本。但是，由于使用随机选择方法，有价值的经验和一般的经验会被以同样的频率回放，可能导致学习效率有限，因此最新研究提出使用基于优先级的经验回放机制。<a href="#refer-anchor-3"><sup>[3]</sup></a>。<br><a class="link" href="https://img-blog.csdnimg.cn/2019060510082610.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L21hcXVuZmk=,size_16,color_FFFFFF,t_70">经验回放池示意图 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a><center>经验回放池示意图</center></li>
+</ul>
+</li>
+<li>FPGA是如何使用的？先自行编码成固定的逻辑，再作为通用组件使用？</li>
+</ol>
+<h1 id="x1f5fa-参考文献"><a href="#x1f5fa-参考文献" class="headerlink" title="🗺参考文献"></a><span class="emoji" alias="world_map" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f5fa.png?v8">🗺</span>参考文献</h1><div id="refer-anchor-1"></div>
+
+<p><a class="link" href="https://ieeexplore.ieee.org/document/10093111">[1] C. Zhang, Y. Meng and V. Prasanna, “A Framework for Mapping DRL Algorithms With Prioritized Replay Buffer Onto Heterogeneous Platforms,” in IEEE Transactions on Parallel and Distributed Systems, vol. 34, no. 6, pp. 1816-1829, June 2023, doi: 10.1109/TPDS.2023.3264823. <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<div id="refer-anchor-2"></div>
+
+<p><a class="link" href="https://blog.csdn.net/maqunfi/article/details/90897587">[2] 强化学习模型-Priority Replay Buffer <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<div id="refer-anchor-3"></div>
+
+<p><a class="link" href="https://cardwing.github.io/files/131270027-%E4%BE%AF%E8%B7%83%E5%8D%97-%E9%99%88%E6%98%A5%E6%9E%97.pdf">[3] 侯跃南, “深度强化学习中基于优先级的经验回放机制研究,” 南京大学本科毕业论文, 2017 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+]]></content>
+      <categories>
+        <category>论文</category>
+        <category>略读</category>
+      </categories>
+      <tags>
+        <tag>DRL</tag>
+        <tag>异构计算</tag>
+        <tag>经验回放池</tag>
       </tags>
   </entry>
 </search>
