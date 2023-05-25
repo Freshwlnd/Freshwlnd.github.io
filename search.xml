@@ -528,6 +528,11 @@
 
 </li>
 </ul>
+<h2 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h2><ul>
+<li>上述信息中提及修改path的多种方式，如果希望对所有系统用户永久生效，将上述最后两行替换为指令重新执行：<a href="#refer-anchor-4"><sup>[4]</sup></a><div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">$ <span class="built_in">echo</span> -e <span class="string">&quot;\n#k8s\nexport KUBECONFIG=/etc/kubernetes/admin.conf&quot;</span> &gt;&gt; /etc/profile</span><br><span class="line">$ <span class="built_in">source</span> /etc/profile</span><br></pre></td></tr></table></figure></div>
+
+</li>
+</ul>
 <h1 id="环境汇总"><a href="#环境汇总" class="headerlink" title="环境汇总"></a>环境汇总</h1><blockquote>
 <p>CentOS Linux release 7.9.2009 (Core)<br>docker_version=20.10.5<br>k8s_version=1.23.6</p>
 </blockquote>
@@ -544,6 +549,9 @@
 <div id="refer-anchor-3"></div>
 
 <p><a class="link"   href="https://blog.csdn.net/weixin_46601322/article/details/126722529" >[3] k8s初始化报错[kubelet-check] Initial timeout of 40s passed. <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<div id="refer-anchor-4"></div>
+
+<p><a class="link"   href="https://blog.csdn.net/huangfei711/article/details/53044539" >[4] CentOS 添加环境变量的三种方法 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
 ]]></content>
       <categories>
         <category>工程</category>
