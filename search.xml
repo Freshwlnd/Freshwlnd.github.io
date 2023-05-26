@@ -514,8 +514,13 @@
 </li>
 </ul>
 <h1 id="集群初始化"><a href="#集群初始化" class="headerlink" title="集群初始化"></a>集群初始化</h1><ul>
-<li>创建并设置配置文件<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">$ kubeadm config <span class="built_in">print</span> init-defaults &gt; kubeadm-config.yaml</span><br><span class="line">$ vim kubeadm-config.yaml</span><br><span class="line">advertiseAddress: 1.2.3.4   <span class="comment"># 修改为本机ip</span></span><br><span class="line">name: node  <span class="comment"># 修改为本机hostname（使用hostname命令查看）</span></span><br><span class="line">imageRepository: registry.aliyuncs.com/google_containers   <span class="comment"># 修改为国内源</span></span><br></pre></td></tr></table></figure></div></li>
-<li>初始化集群<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">$ kubeadm init --config kubeadm-config.yaml <span class="comment"># 初始化集群</span></span><br></pre></td></tr></table></figure></div></li>
+<li>创建并设置配置文件<a href="#refer-anchor-4"><sup>[4]</sup></a><div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">$ kubeadm config <span class="built_in">print</span> init-defaults &gt; kubeadm-config.yaml</span><br><span class="line">$ vim kubeadm-config.yaml</span><br><span class="line">localAPIEndpoint:</span><br><span class="line">  advertiseAddress: 1.2.3.4   <span class="comment"># 修改为本机ip，对应 --apiserver-advertise-address</span></span><br><span class="line">nodeRegistration:</span><br><span class="line">  name: node  <span class="comment"># 修改为本机hostname（使用hostname命令查看）</span></span><br><span class="line">imageRepository: registry.aliyuncs.com/google_containers   <span class="comment"># 修改为国内源</span></span><br><span class="line">networking:</span><br><span class="line">  serviceSubnet: 10.96.0.0.1/12 <span class="comment"># 猜测与 --service-cidr对应 //TODO</span></span><br><span class="line">  podSubnet: 10.100.0.1/24  <span class="comment"># 对应 --pod-network-cidr</span></span><br></pre></td></tr></table></figure></div></li>
+<li>初始化集群<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">$ kubeadm init \</span><br><span class="line">--config kubeadm-config.yaml \</span><br><span class="line">--ignore-preflight-errors=Swap \</span><br><span class="line">--upload-certs | \</span><br><span class="line">tee kubeadm-init.log <span class="comment"># 初始化集群</span></span><br></pre></td></tr></table></figure></div>
+<ul>
+<li><code>--upload-certs</code>：可以在后续执行加入节点时自动分发证书文件</li>
+<li><code>tee kubeadm-init.log</code>：输出日志</li>
+</ul>
+</li>
 <li>初始化成功或后获得信息：<blockquote>
 <p>To start using your cluster, you need to run the following as a regular user:<br>  mkdir -p $HOME/.kube<br>  sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config<br>  sudo chown $(id -u):$(id -g) $HOME/.kube/config</p>
 <p>Alternatively, if you are the root user, you can run:<br>  export KUBECONFIG=/etc/kubernetes/admin.conf</p>
@@ -529,7 +534,21 @@
 </li>
 </ul>
 <h2 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h2><ul>
-<li>上述信息中提及修改path的多种方式，如果希望对所有系统用户永久生效，将上述最后两行替换为指令重新执行：<a href="#refer-anchor-4"><sup>[4]</sup></a><div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">$ <span class="built_in">echo</span> -e <span class="string">&quot;\n#k8s\nexport KUBECONFIG=/etc/kubernetes/admin.conf&quot;</span> &gt;&gt; /etc/profile</span><br><span class="line">$ <span class="built_in">source</span> /etc/profile</span><br></pre></td></tr></table></figure></div>
+<li>上述信息中提及修改path的多种方式，如果希望对所有系统用户永久生效，将上述最后两行替换为指令重新执行：<a href="#refer-anchor-5"><sup>[5]</sup></a><div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">$ <span class="built_in">echo</span> -e <span class="string">&quot;\n#k8s\nexport KUBECONFIG=/etc/kubernetes/admin.conf&quot;</span> &gt;&gt; /etc/profile</span><br><span class="line">$ <span class="built_in">source</span> /etc/profile</span><br></pre></td></tr></table></figure></div>
+
+</li>
+</ul>
+<h1 id="安装网络插件"><a href="#安装网络插件" class="headerlink" title="安装网络插件"></a>安装网络插件</h1><div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 二选一，推荐caligo</span></span><br><span class="line"><span class="comment"># caligo</span></span><br><span class="line">$ kubectl create -f https://docs.projectcalico.org/archive/v3.21/manifests/calico.yaml</span><br><span class="line"><span class="comment"># flannel</span></span><br><span class="line">$ kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml</span><br></pre></td></tr></table></figure></div>
+
+<h2 id="网络参数问题"><a href="#网络参数问题" class="headerlink" title="网络参数问题"></a>网络参数问题</h2><ul>
+<li>如果使用flannel网络插件，必须指定–pod-network-cidr配置选项，否则名为coredns-xxxxxxxxxx-xxxxx的Pod无法启动，一直处于ContainerCreating状态，查看详细信息，可见类似如下错误信息：<a href="#refer-anchor-6"><sup>[6]</sup></a><blockquote>
+<p>networkPlugin cni failed to set up pod “coredns-7f89b7bc75-9vrrl_kube-system” network: open /run/flannel/subnet.env: no such file or directory</p>
+</blockquote>
+</li>
+<li>因为太麻烦，最后决定更换为Caligo网络插件<a href="#refer-anchor-7"><sup>[7]</sup></a></li>
+</ul>
+<h1 id="修改kube-controller-manager参数"><a href="#修改kube-controller-manager参数" class="headerlink" title="修改kube-controller-manager参数"></a>修改kube-controller-manager参数</h1><ul>
+<li>某些情况下会希望修改kube-controller-manager参数，使用以下方法进行修改：<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">$ vim /etc/kubernetes/manifests/kube-controller-manager.yaml</span><br><span class="line">...</span><br><span class="line">进行相应修改</span><br><span class="line">...</span><br><span class="line">$ systemctl restart kubelet</span><br></pre></td></tr></table></figure></div>
 
 </li>
 </ul>
@@ -551,7 +570,16 @@
 <p><a class="link"   href="https://blog.csdn.net/weixin_46601322/article/details/126722529" >[3] k8s初始化报错[kubelet-check] Initial timeout of 40s passed. <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
 <div id="refer-anchor-4"></div>
 
-<p><a class="link"   href="https://blog.csdn.net/huangfei711/article/details/53044539" >[4] CentOS 添加环境变量的三种方法 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<p><a class="link"   href="https://chinalhr.github.io/post/kubeadm-install-kubernetes/" >[4] 使用kubeadm部署Kubernetes集群实践 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<div id="refer-anchor-5"></div>
+
+<p><a class="link"   href="https://blog.csdn.net/huangfei711/article/details/53044539" >[5] CentOS 添加环境变量的三种方法 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<div id="refer-anchor-6"></div>
+
+<p><a class="link"   href="https://blog.csdn.net/m0_60028455/article/details/121694140" >[6] Kubernetes 使用kubeadm创建集群 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<div id="refer-anchor-7"></div>
+
+<p><a class="link"   href="https://www.cnblogs.com/yangzp/p/16835280.html" >[7] Kubernetes 安装网络插件(calico) <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
 ]]></content>
       <categories>
         <category>工程</category>
