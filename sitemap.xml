@@ -2,6 +2,24 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://freshwlnd.github.io/2020/10/17/Quantifying-the-adaptability-of-workflow-based-service-compositions/</loc>
+    
+    <lastmod>2023-05-29</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://freshwlnd.github.io/2023/05/17/literatureNotes2/</loc>
+    
+    <lastmod>2023-05-29</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://freshwlnd.github.io/2023/05/29/literatureNotes6/</loc>
     
     <lastmod>2023-05-29</lastmod>
@@ -39,15 +57,6 @@
   
   <url>
     <loc>https://freshwlnd.github.io/2023/05/17/literatureNotes1/</loc>
-    
-    <lastmod>2023-05-25</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://freshwlnd.github.io/2023/05/17/literatureNotes2/</loc>
     
     <lastmod>2023-05-25</lastmod>
     
@@ -122,15 +131,6 @@
     <loc>https://freshwlnd.github.io/2018/07/17/clique/</loc>
     
     <lastmod>2023-05-19</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://freshwlnd.github.io/2020/10/17/Quantifying-the-adaptability-of-workflow-based-service-compositions/</loc>
-    
-    <lastmod>2023-05-17</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -251,13 +251,6 @@
   
   <url>
     <loc>https://freshwlnd.github.io/tags/%E8%AF%AD%E6%B3%95/</loc>
-    <lastmod>2023-05-29</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://freshwlnd.github.io/tags/service-compositions/</loc>
     <lastmod>2023-05-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -398,6 +391,13 @@
   
   <url>
     <loc>https://freshwlnd.github.io/tags/Serverless/</loc>
+    <lastmod>2023-05-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://freshwlnd.github.io/tags/%E6%9C%8D%E5%8A%A1%E7%BB%84%E5%90%88/</loc>
     <lastmod>2023-05-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>

@@ -248,7 +248,8 @@
         <category>论文</category>
       </categories>
       <tags>
-        <tag>service compositions</tag>
+        <tag>云计算</tag>
+        <tag>服务组合</tag>
       </tags>
   </entry>
   <entry>
@@ -928,6 +929,7 @@
       <tags>
         <tag>模拟器</tag>
         <tag>架构</tag>
+        <tag>云计算</tag>
       </tags>
   </entry>
   <entry>
@@ -1187,6 +1189,8 @@
         <category>略读</category>
       </categories>
       <tags>
+        <tag>云计算</tag>
+        <tag>待精读</tag>
         <tag>Serverless</tag>
       </tags>
   </entry>
