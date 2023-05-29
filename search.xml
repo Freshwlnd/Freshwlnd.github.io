@@ -1145,4 +1145,49 @@
         <tag>经验回放池</tag>
       </tags>
   </entry>
+  <entry>
+    <title>论文略读笔记6-前沿-Serverless综述</title>
+    <url>/2023/05/29/literatureNotes6/</url>
+    <content><![CDATA[<h1 id="x1f4d6-《Serverless-Computing-State-of-the-Art-Challenges-and-Opportunities》"><a href="#x1f4d6-《Serverless-Computing-State-of-the-Art-Challenges-and-Opportunities》" class="headerlink" title="📖《Serverless Computing: State-of-the-Art, Challenges and Opportunities》"></a><span class="emoji" alias="book" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4d6.png?v8">📖</span>《Serverless Computing: State-of-the-Art, Challenges and Opportunities》</h1><h2 id="x1f3af-需求"><a href="#x1f3af-需求" class="headerlink" title="🎯需求"></a><span class="emoji" alias="dart" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f3af.png?v8">🎯</span>需求</h2><ul>
+<li>无服务器计算因其轻量级和管理简单性而越来越受欢迎。它通过将计算单元的粒度降低到功能级别来实现这些优点。<ul>
+<li>无服务器计算作为云计算的一种新的执行模型，由于其轻量级和管理简单性，近年来得到了极大的普及。在无服务器计算中，开发人员只需要用高级语言（如Java、Python）编写云函数，设置几个简单的参数，并将这些函数上传到无服务器平台。然后，他们可以使用返回的 API 或 HTTP 请求来执行其明确定义的计算任务。与服务器计算模型相反，使用无服务器的开发人员不需要关心基础设施资源的管理，因为平台代表他们屏蔽了这些细节。</li>
+<li>通过自动管理和轻量级功能，无服务器计算不仅可以帮助开发人员专注于应用程序的核心逻辑，还可以通过更精细的计费策略使他们受益，该策略可以在运行时以毫秒为单位计算，这可以大大降低开发人员的成本。此外，它还有助于无服务器提供商将闲置资源量减少到几乎为零，以提高资源利用率，从而允许使用固定数量的资源为更多客户提供服务。</li>
+</ul>
+</li>
+<li>总结而言，无服务器允许用户直接关注功能本身，而将其他繁琐的管理和调度问题留给平台提供商，平台提供商负责在高性能调度和低资源成本之间取得平衡。</li>
+<li>作为一种新的计算范式之一，无服务器计算在应用程序特征和运行时环境方面与服务器计算有很大不同。因此，现有技术将面临巨大挑战，需要进行调整以适应无服务器需求。例如，<ul>
+<li>无服务器对网络延迟更敏感，需要更细粒度的调度策略，但无服务器中的网络通信相当复杂，传统架构中调度的粒度也相对较大。因此，现有的方法无法充分满足这些要求。</li>
+</ul>
+</li>
+<li>最紧迫的任务是确定我们在当前的无服务器研究中面临的固有问题，以及哪些潜在的方法可能有效解决这些问题。<ul>
+<li>据我们所知，无服务器计算中的一些挑战已经得到了充分的研究，而其他挑战在很大程度上仍然是开放的。因此，我们需要区分无服务器计算中不同问题的侧重点，并更多地关注那些没有很好地解决的问题。此外，还存在某些领域，例如所谓的无服务器边缘计算，尽管前景广阔，但尚未很好地涉足，因为边缘计算通常对低通信延迟有更高的要求，而无服务器支持的容错能力往往是不够的。因此，它们值得进一步探索和研究。</li>
+</ul>
+</li>
+</ul>
+<h2 id="x1f6e9-本文工作"><a href="#x1f6e9-本文工作" class="headerlink" title="🛩本文工作"></a><span class="emoji" alias="small_airplane" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f6e9.png?v8">🛩</span>本文工作</h2><ul>
+<li>文重点关注无服务器计算的底层基础设施，以找出挑战和机遇的共存。</li>
+<li>为此，我们分析了现有的挑战和一些可以应用于进一步研究的实用方法，并就这些问题是否值得研究发表意见。<ul>
+<li>在本文中，我们对无服务器计算进行了全面调查，特别关注其基础结构特征。从而确定一些现有的挑战，并分析相关的尖端解决方案。</li>
+<li>有了这些结果，我们进一步调查了一些典型的开源框架，并研究它们如何应对已识别的挑战。</li>
+</ul>
+</li>
+<li>然后，我们总结了一些在未来研究中可能很有希望但尚未被广泛注意到的方向。<ul>
+<li>鉴于无服务器计算的巨大优势，预计其部署将主导未来的云平台。因此，我们也设想了一些有前途的研究机会，这些机会需要在未来进一步探索。我们希望本文的工作能够激发那些从事相关领域的研究人员和从业者欣赏无服务器计算，从而踏足这个有前途的领域，并为其发展做出巨大贡献。</li>
+</ul>
+</li>
+</ul>
+<h2 id="x1f9e0-疑问"><a href="#x1f9e0-疑问" class="headerlink" title="🧠疑问"></a><span class="emoji" alias="brain" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f9e0.png?v8">🧠</span>疑问</h2><!-- 1.  -->
+
+<h1 id="x1f5fa-参考文献"><a href="#x1f5fa-参考文献" class="headerlink" title="🗺参考文献"></a><span class="emoji" alias="world_map" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f5fa.png?v8">🗺</span>参考文献</h1><div id="refer-anchor-1"></div>
+
+<p><a class="link" href="https://ieeexplore.ieee.org/document/9756233">[1] Y. Li, Y. Lin, Y. Wang, K. Ye and C. Xu, “Serverless Computing: State-of-the-Art, Challenges and Opportunities,” in IEEE Transactions on Services Computing, vol. 16, no. 2, pp. 1522-1539, 1 March-April 2023, doi: 10.1109/TSC.2022.3166553. <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+]]></content>
+      <categories>
+        <category>论文</category>
+        <category>略读</category>
+      </categories>
+      <tags>
+        <tag>Serverless</tag>
+      </tags>
+  </entry>
 </search>
