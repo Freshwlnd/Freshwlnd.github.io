@@ -1333,4 +1333,68 @@
         <tag>部署</tag>
       </tags>
   </entry>
+  <entry>
+    <title>论文略读笔记9-前沿-Lyra深度学习调度</title>
+    <url>/2023/06/01/literatureNotes9/</url>
+    <content><![CDATA[<h1 id="x1f4d6-《Lyra-Elastic-Scheduling-for-Deep-Learning-Clusters》"><a href="#x1f4d6-《Lyra-Elastic-Scheduling-for-Deep-Learning-Clusters》" class="headerlink" title="📖《Lyra: Elastic Scheduling for Deep Learning Clusters》"></a><span class="emoji" alias="book" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4d6.png?v8">📖</span>《Lyra: Elastic Scheduling for Deep Learning Clusters》</h1><h2 id="x1f3af-需求"><a href="#x1f3af-需求" class="headerlink" title="🎯需求"></a><span class="emoji" alias="dart" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f3af.png?v8">🎯</span>需求</h2><ul>
+<li>最近，深度神经网络 (DNN) 在许多应用中取得了巨大的成功。超大规模在线服务提供商已采用 DNN，并构建大规模 GPU 集群来加速 DNN 的训练和推理工作负载。 GPU 集群调度是通过优化作业资源分配和任务放置来有效利用昂贵的基础设施的一项基本且关键的任务。</li>
+</ul>
+<h2 id="x1f6a7-现状"><a href="#x1f6a7-现状" class="headerlink" title="🚧现状"></a><span class="emoji" alias="construction" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f6a7.png?v8">🚧</span>现状</h2><ul>
+<li>如今，通常的做法是分别构建和管理两种类型的 GPU 集群，一种用于训练，一种用于推理，并使用单独的调度程序来管理它们。这是因为，对于相同的模型，推理比训练需要更少的计算和 GPU 内存，并且不太可能利用训练 GPU 的众多核心。推理集群通常使用较弱的GPU（如Nvidia T4）其资源与训练GPU（如Nvidia V100和A100）相比只是一个很小的部分。<ul>
+<li>这种分离给双方都带来了问题：<ul>
+<li>当流量负载较低时，推理集群的利用率较低；<ul>
+<li>我们的观察基于使用 O(10k) GPU 运行生产集群进行训练甚至更多推理的经验。具体而言，由于昼夜流量模式，推理集群的利用率通常在很长一段时间内都很低 (&lt;40%)。</li>
+</ul>
+</li>
+<li>由于缺乏资源，训练作业经常排长队。<ul>
+<li>训练作业在开始前经历了很长的排队时间，从 50,000 多个作业的 15 天跟踪中可以看出，平均排队时间超过 3,000 秒，95% 分位值接近 10,000 秒。排队时间长是由于集群利用率高和GPU资源碎片化导致的。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="x1f6e9-创新"><a href="#x1f6e9-创新" class="headerlink" title="🛩创新"></a><span class="emoji" alias="small_airplane" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f6e9.png?v8">🛩</span>创新</h2><ul>
+<li>我们引入了 Lyra，一种新的集群调度程序。<ul>
+<li>Lyra 引入了容量借贷（capacity loaning），借出闲置的推理服务器用于训练作业。</li>
+<li>它进一步利用弹性扩展来扩展训练作业的资源分配，以更好地利用借出的服务器。</li>
+</ul>
+</li>
+<li>容量借用和弹性扩展给集群管理带来了新的挑战。<ul>
+<li>当借出的服务器需要归还时，我们需要尽量减少作业抢占；</li>
+<li>当有更多 GPU 可用时，我们需要将它们分配给弹性作业并最小化作业完成时间 (JCT)。</li>
+</ul>
+</li>
+<li>Lyra 通过有原则的启发式方法解决了这些组合问题。<ul>
+<li>它引入了服务器抢占成本的概念，它在服务器回收期间贪婪地降低了成本。</li>
+<li>它进一步依赖于为弹性工作的每个额外工人定义的 JCT 减少值来解决调度问题作为多项选择背包问题。</li>
+</ul>
+</li>
+</ul>
+<h2 id="x1f4ca-效果"><a href="#x1f4ca-效果" class="headerlink" title="📊效果"></a><span class="emoji" alias="bar_chart" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4ca.png?v8">📊</span>效果</h2><ul>
+<li>64 GPU 测试台上的原型实施和对超过 50,000 个生产作业进行 15 天跟踪的大规模模拟表明，Lyra 使平均排队时间和 JCT 分别减少了 1.53 倍和 1.48 倍，并将集群使用率提高了高达 25%。</li>
+</ul>
+<h2 id="x1f9e0-疑问"><a href="#x1f9e0-疑问" class="headerlink" title="🧠疑问"></a><span class="emoji" alias="brain" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f9e0.png?v8">🧠</span>疑问</h2><ol>
+<li>智算应用有什么特点，当设计面向智算应用的调度程序时，有什么可以且应当考虑的特殊需求？<blockquote>
+<p>如今，通常的做法是分别构建和管理两种类型的 GPU 集群，一种用于训练，一种用于推理，并使用单独的调度程序来管理它们。</p>
+</blockquote>
+</li>
+<li>弹性伸缩时需要考虑什么？需要考虑迁移吗？</li>
+</ol>
+<h1 id="x1f5fa-参考文献"><a href="#x1f5fa-参考文献" class="headerlink" title="🗺参考文献"></a><span class="emoji" alias="world_map" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f5fa.png?v8">🗺</span>参考文献</h1><div id="refer-anchor-1"></div>
+
+<p><a class="link" href="https://dl.acm.org/doi/10.1145/3552326.3587445">[1] Jiamin Li, Hong Xu, Yibo Zhu, Zherui Liu, Chuanxiong Guo, and Cong Wang. 2023. Lyra: Elastic Scheduling for Deep Learning Clusters. In Proceedings of the Eighteenth European Conference on Computer Systems (EuroSys ‘23). Association for Computing Machinery, New York, NY, USA, 835–850. <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+]]></content>
+      <categories>
+        <category>论文</category>
+        <category>略读</category>
+      </categories>
+      <tags>
+        <tag>云计算</tag>
+        <tag>调度</tag>
+        <tag>待精读</tag>
+        <tag>智算管理</tag>
+      </tags>
+  </entry>
 </search>
