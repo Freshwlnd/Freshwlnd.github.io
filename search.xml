@@ -545,14 +545,14 @@
 
 </li>
 </ul>
-<h1 id="安装网络插件"><a href="#安装网络插件" class="headerlink" title="安装网络插件"></a>安装网络插件</h1><div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 二选一，推荐caligo</span></span><br><span class="line"><span class="comment"># caligo</span></span><br><span class="line">$ kubectl create -f https://docs.projectcalico.org/archive/v3.21/manifests/calico.yaml</span><br><span class="line"><span class="comment"># flannel</span></span><br><span class="line">$ kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml</span><br></pre></td></tr></table></figure></div>
+<h1 id="安装网络插件"><a href="#安装网络插件" class="headerlink" title="安装网络插件"></a>安装网络插件</h1><div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 二选一，推荐calico</span></span><br><span class="line"><span class="comment"># calico</span></span><br><span class="line">$ kubectl create -f https://docs.projectcalico.org/archive/v3.21/manifests/calico.yaml</span><br><span class="line"><span class="comment"># flannel</span></span><br><span class="line">$ kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml</span><br></pre></td></tr></table></figure></div>
 
 <h2 id="网络参数问题"><a href="#网络参数问题" class="headerlink" title="网络参数问题"></a>网络参数问题</h2><ul>
 <li>如果使用flannel网络插件，必须指定–pod-network-cidr配置选项，否则名为coredns-xxxxxxxxxx-xxxxx的Pod无法启动，一直处于ContainerCreating状态，查看详细信息，可见类似如下错误信息：<a href="#refer-anchor-6"><sup>[6]</sup></a><blockquote>
 <p>networkPlugin cni failed to set up pod “coredns-7f89b7bc75-9vrrl_kube-system” network: open /run/flannel/subnet.env: no such file or directory</p>
 </blockquote>
 </li>
-<li>因为太麻烦，最后决定更换为Caligo网络插件<a href="#refer-anchor-7"><sup>[7]</sup></a></li>
+<li>因为太麻烦，最后决定更换为Calico网络插件<a href="#refer-anchor-7"><sup>[7]</sup></a></li>
 </ul>
 <h1 id="修改kube-controller-manager参数"><a href="#修改kube-controller-manager参数" class="headerlink" title="修改kube-controller-manager参数"></a>修改kube-controller-manager参数</h1><ul>
 <li>某些情况下会希望修改kube-controller-manager参数，使用以下方法进行修改：<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">$ vim /etc/kubernetes/manifests/kube-controller-manager.yaml</span><br><span class="line">...</span><br><span class="line">进行相应修改</span><br><span class="line">...</span><br><span class="line">$ systemctl restart kubelet</span><br></pre></td></tr></table></figure></div>
@@ -590,7 +590,7 @@
 ]]></content>
       <categories>
         <category>工程</category>
-        <category>安装应用</category>
+        <category>环境配置</category>
       </categories>
       <tags>
         <tag>K8S</tag>
@@ -1454,6 +1454,104 @@
       <tags>
         <tag>悉达多</tag>
         <tag>修行</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>故障排除：K8S 下 Calico 网络配置错误</title>
+    <url>/2023/06/05/k8s-debug/</url>
+    <content><![CDATA[<h1 id="🐛-背景：Java-应用无法连接到-Postgresql-容器"><a href="#🐛-背景：Java-应用无法连接到-Postgresql-容器" class="headerlink" title="🐛 背景：Java 应用无法连接到 Postgresql 容器"></a>🐛 背景：Java 应用无法连接到 Postgresql 容器</h1><p>在使用 Kubernetes 部署服务的过程中，我遇到了一个令人头疼的问题：我的 Java 应用无法连接到 Postgresql 容器。我决定展开一系列的 bug 查询和修复，寻找并解决问题的根源。</p>
+<h1 id="🚀-过程"><a href="#🚀-过程" class="headerlink" title="🚀 过程"></a>🚀 过程</h1><h2 id="1️⃣-发现-Java-应用无法连接"><a href="#1️⃣-发现-Java-应用无法连接" class="headerlink" title="1️⃣ 发现 Java 应用无法连接"></a>1️⃣ 发现 Java 应用无法连接</h2><ul>
+<li>一开始，Java 应用报错并显示无法连接到以数据库服务名<code>postgres-service</code>为地址的 Kubernetes Service，因为应用所在的 Pod 无法与数据库建立连接，导致了 Pod 的无限重启。</li>
+<li>通过使用<code>kubectl logs &lt;app-pod-name&gt;</code>，我看到了以下报错：<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">...</span><br><span class="line">Caused by: org.postgresql.util.PSQLException: The connection attempt failed.</span><br><span class="line">	at org.postgresql.core.v3.ConnectionFactoryImpl.openConnectionImpl(ConnectionFactoryImpl.java:272)</span><br><span class="line">	at org.postgresql.core.ConnectionFactory.openConnection(ConnectionFactory.java:51)</span><br><span class="line">	at org.postgresql.jdbc.PgConnection.&lt;init&gt;(PgConnection.java:215)</span><br><span class="line">	at org.postgresql.Driver.makeConnection(Driver.java:404)</span><br><span class="line">	at org.postgresql.Driver.connect(Driver.java:272)</span><br><span class="line">	at com.zaxxer.hikari.util.DriverDataSource.getConnection(DriverDataSource.java:95)</span><br><span class="line">	at com.zaxxer.hikari.util.DriverDataSource.getConnection(DriverDataSource.java:101)</span><br><span class="line">	at com.zaxxer.hikari.pool.PoolBase.newConnection(PoolBase.java:341)</span><br><span class="line">	at com.zaxxer.hikari.pool.HikariPool.checkFailFast(HikariPool.java:506)</span><br><span class="line">	... 115 common frames omitted</span><br><span class="line">Caused by: java.net.UnknownHostException: postgres-service</span><br><span class="line">	at java.net.AbstractPlainSocketImpl.connect(AbstractPlainSocketImpl.java:184)</span><br><span class="line">	at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:392)</span><br><span class="line">	at java.net.Socket.connect(Socket.java:589)</span><br><span class="line">	at org.postgresql.core.PGStream.&lt;init&gt;(PGStream.java:61)</span><br><span class="line">	at org.postgresql.core.v3.ConnectionFactoryImpl.openConnectionImpl(ConnectionFactoryImpl.java:144)</span><br><span class="line">	... 123 common frames omitted</span><br><span class="line">...</span><br></pre></td></tr></table></figure></div>
+
+</li>
+</ul>
+<h2 id="2️⃣-检查-DNS-解析问题"><a href="#2️⃣-检查-DNS-解析问题" class="headerlink" title="2️⃣ 检查 DNS 解析问题"></a>2️⃣ 检查 DNS 解析问题</h2><ul>
+<li>将情况向 GPT 描述并询问后，我获得了以下建议：</li>
+</ul>
+<blockquote>
+<p>请尝试以下方法来解决这个问题：</p>
+<ol>
+<li><p>确保您的应用程序使用正确的服务名称。在您的代码中，您应该使用 <code>postgres-service</code> 作为主机名来访问 PostgreSQL 服务。如果您的应用程序和 PostgreSQL 服务位于同一个命名空间中，您可以直接使用 <code>postgres-service</code>。如果它们位于不同的命名空间中，您需要使用完整的服务名称，例如 <code>postgres-service.&lt;namespace&gt;.svc.cluster.local</code>。</p>
+</li>
+<li><p>检查您的 Kubernetes 集群的 DNS 配置。您可以在应用程序的 Pod 中运行以下命令来检查 DNS 解析是否正常：</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">$ kubectl <span class="built_in">exec</span> -it &lt;your-app-pod-name&gt; -- nslookup postgres-service</span><br></pre></td></tr></table></figure></div>
+<p>如果 DNS 解析正常，您应该能看到类似以下的输出：</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">Server:		10.96.0.10</span><br><span class="line">Address:	10.96.0.10<span class="comment">#53</span></span><br><span class="line"></span><br><span class="line">Name:	postgres-service.default.svc.cluster.local</span><br><span class="line">Address: 10.102.181.13</span><br></pre></td></tr></table></figure></div>
+<p>如果您看到类似 <code>server can't find postgres-service: NXDOMAIN</code> 的错误，那么可能是您的 Kubernetes 集群的 DNS 配置有问题。您需要检查您的集群 DNS 配置并修复它。</p>
+</li>
+<li><p>如果上述方法都无法解决问题，您可以尝试使用 PostgreSQL 服务的 ClusterIP 或者 NodePort 来访问它。您可以通过以下命令获取 ClusterIP 和 NodePort：</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">$ kubectl get svc postgres-service -o jsonpath=<span class="string">'{.spec.clusterIP}{"\n"}{.spec.ports[0].nodePort}{"\n"}'</span></span><br></pre></td></tr></table></figure></div>
+<p>然后在您的应用程序中使用这个 ClusterIP 或者 NodePort 作为主机名和端口号来访问 PostgreSQL 服务。</p>
+</li>
+</ol>
+</blockquote>
+<ul>
+<li>不得不说，GPT 的建议非常有用，在修复本文所提到的 bug 前，我就是使用第三条建议完成的临时修复</li>
+</ul>
+<ul>
+<li>根据 GPT 的建议，我首先验证了应用所在的 Pod 是否能够正常进行 DNS 解析。通过运行相关命令，我发现 DNS 解析确实存在问题。</li>
+</ul>
+<h2 id="3️⃣-定位问题到-Kubernetes-网络组件"><a href="#3️⃣-定位问题到-Kubernetes-网络组件" class="headerlink" title="3️⃣ 定位问题到 Kubernetes 网络组件"></a>3️⃣ 定位问题到 Kubernetes 网络组件</h2><ul>
+<li>进一步通过<code>kubectl get pods -n kube-system</code>查看 Kubernetes 系统组件的 Pod，我发现其中一个 calico-node Pod 的状态不是 READY。这提示了问题可能出现在 Kubernetes 网络组件上。</li>
+</ul>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">NAME                                       READY   STATUS    RESTARTS   AGE</span><br><span class="line">calico-kube-controllers-7f6768fdfb-gfhvb   1/1     Running   4          76d</span><br><span class="line">calico-node-6llk9                          0/1     Running   0          76d</span><br><span class="line">calico-node-rtgpz                          1/1     Running   0          76d</span><br><span class="line">...</span><br></pre></td></tr></table></figure></div>
+
+
+<h2 id="4️⃣-检查-Calico-配置"><a href="#4️⃣-检查-Calico-配置" class="headerlink" title="4️⃣ 检查 Calico 配置"></a>4️⃣ 检查 Calico 配置</h2><ul>
+<li><p>我开始检查 Calico 的配置，通过执行<code>kubectl describe pod xx</code> 和<code>kubectl logs xx</code>查看日志，但没有找到直接的错误提示。受到日志信息误导，在过程中还调整了各种 calico 参数，例如尝试开启 vxlan 模式和 ipip 模式<a href="#refer-anchor-1"><sup>[1]</sup></a>，安装 calicoctl 工具<a href="#refer-anchor-2"><sup>[2]</sup></a>，以及将报错等级调整为 debug<a href="#refer-anchor-3"><sup>[3]</sup></a>，虽然这让我对 calico 有了更多了解，但也花了我大把时间。</p>
+</li>
+<li><p>当时看到的 bug 信息有以下三条：</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">1. </span><br><span class="line">(combined from similar events): Readiness probe failed: calico/node is not ready: BIRD is not ready: BGP not established with  x. Number of node(s) with BGP peering established = 0</span><br><span class="line"></span><br><span class="line">2. </span><br><span class="line">Failed to query VXLAN device error=Link not found </span><br><span class="line"></span><br><span class="line">3. </span><br><span class="line">Failed to cleanup preexisting XDP state error=failed to load BPF program (/tmp/felix-bpf-270596970): <span class="built_in">stat</span> /sys/fs/bpf/calico/xdp/prefilter_v1_calico_tmp_A: no such file or directory</span><br><span class="line">libbpf: failed to get EHDR from /tmp/felix-bpf-270596970</span><br><span class="line">Error: failed to open object file</span><br></pre></td></tr></table></figure></div>
+</li>
+<li><p>顺便总结一下，想修改 calico 配置通常在两处，一是configMap，二是 daemonSet，也可以通过 <code>find</code> 查找相关文件，修改方法分别如下：</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># configMap</span></span><br><span class="line">$ kubectl edit configmap calico-config -n kube-system</span><br><span class="line"><span class="comment"># daemonSet</span></span><br><span class="line">$ kubectl edit daemonset calico-node -n kube-system</span><br><span class="line"><span class="comment"># find</span></span><br><span class="line">$ find / -name <span class="string">"*calico-node.cfg"</span></span><br></pre></td></tr></table></figure></div>
+
+
+</li>
+</ul>
+<h2 id="5️⃣-发现-IP-配置问题"><a href="#5️⃣-发现-IP-配置问题" class="headerlink" title="5️⃣ 发现 IP 配置问题"></a>5️⃣ 发现 IP 配置问题</h2><ul>
+<li><p>最终，我发现了问题所在。我注意到在 master 节点的配置中，IP 地址被错误地设置为 “172.18.0.1”，这导致其他节点无法与 master 节点建立连接。</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">$ calicoctl node status</span><br><span class="line">Calico process is running.</span><br><span class="line"></span><br><span class="line">IPv4 BGP status</span><br><span class="line">+--------------+-------------------+-------+----------+-------------+</span><br><span class="line">| PEER ADDRESS |     PEER TYPE     | STATE |  SINCE   |    INFO     |</span><br><span class="line">+--------------+-------------------+-------+----------+-------------+</span><br><span class="line">| 10.60.150.28 | node-to-node mesh | up    | 14:36:17 | Established |</span><br><span class="line">| 172.18.0.1   | node-to-node mesh | start | 15:29:38 | Passive     |</span><br><span class="line">+--------------+-------------------+-------+----------+-------------+</span><br><span class="line"></span><br><span class="line">IPv6 BGP status</span><br><span class="line">No IPv6 peers found.</span><br></pre></td></tr></table></figure></div>
+</li>
+<li><p>经过进一步排查和调研，发现当 IP 属性被设置为 “autodetect” 时，默认的 “first-found” 算法会导致错误<a href="#refer-anchor-4"><sup>[4]</sup></a>。</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">$ kubectl edit daemonset calico-node -n kube-system</span><br><span class="line">...</span><br><span class="line">spec:</span><br><span class="line">  template:</span><br><span class="line">    spec:</span><br><span class="line">      containers:</span><br><span class="line">      - env:</span><br><span class="line">        - name: IP</span><br><span class="line">          value: autodetect</span><br><span class="line">        - name: IP_AUTODETECTION_METHOD     <span class="comment"># 新增</span></span><br><span class="line">          value: can-reach=114.114.114.114  <span class="comment"># 新增</span></span><br><span class="line">...</span><br></pre></td></tr></table></figure></div>
+</li>
+<li><p>修复完这个问题后，一切恢复了正常（真美好🤣）。</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">$ calicoctl node status</span><br><span class="line">Calico process is running.</span><br><span class="line"></span><br><span class="line">IPv4 BGP status</span><br><span class="line">+--------------+-------------------+-------+----------+-------------+</span><br><span class="line">| PEER ADDRESS |     PEER TYPE     | STATE |  SINCE   |    INFO     |</span><br><span class="line">+--------------+-------------------+-------+----------+-------------+</span><br><span class="line">| 10.60.150.28 | node-to-node mesh | up    | 14:36:17 | Established |</span><br><span class="line">| 10.60.150.56 | node-to-node mesh | up    | 15:33:23 | Established |</span><br><span class="line">+--------------+-------------------+-------+----------+-------------+</span><br><span class="line"></span><br><span class="line">IPv6 BGP status</span><br><span class="line">No IPv6 peers found.</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+
+
+</li>
+</ul>
+<h1 id="🤔-反思"><a href="#🤔-反思" class="headerlink" title="🤔 反思"></a>🤔 反思</h1><ul>
+<li>今天花费了很大一部分时间在漫无头绪的检查上，缺乏系统性和逻辑性。幸好有 GPT 的帮助，我发现它是一个很好的工具，能够帮助梳理思路。类似于小黄鸭调试法，与 GPT 进行交流过程中，由于给予它的信息越详细和具体，它就越能提供有价值的指导和建议，因此会督促我不断整理和理清思路，而且 GPT 的能力也让我的思维更加开阔。</li>
+</ul>
+<hr>
+<ul>
+<li>希望通过分享我的故障排除经历，可以帮助你在类似的问题上更加迅速和高效地解决困扰你的 bug。</li>
+<li>希望这篇博客对你有帮助！如果你有任何问题或需要进一步的帮助，请随时提问。</li>
+<li>如果你喜欢这篇文章，欢迎<a class="link" href="https://github.com/freshwlnd/">动动小手 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>给我一个follow或star。</li>
+</ul>
+<h1 id="x1f5fa-参考文献"><a href="#x1f5fa-参考文献" class="headerlink" title="🗺参考文献"></a><span class="emoji" alias="world_map" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f5fa.png?v8">🗺</span>参考文献</h1><div id="refer-anchor-1"></div>
+
+<p><a class="link" href="https://blog.csdn.net/kjkdd/article/details/128631119#:~:text=%E7%AC%AC%E4%BA%8C%E7%AF%87%EF%BC%9Akubernetes%E9%83%A8%E7%BD%B2calico%E7%BD%91%E7%BB%9C%E6%8F%92%E4%BB%B6%201%201.%20%E4%B8%8B%E8%BD%BDcalico%E7%9A%84yaml%E6%96%87%E4%BB%B6%20%23%E4%B8%8B%E8%BD%BD%E6%96%87%E4%BB%B6%20%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD%E4%BD%8D%E7%BD%AE%EF%BC%9A%20calico.yaml%202,4.%20%E9%AA%8C%E8%AF%81calico%E5%AE%89%E8%A3%85%E7%BB%93%E6%9E%9C%20%E4%B8%8A%E9%9D%A2calico%E8%B5%84%E6%BA%90%E5%AE%89%E8%A3%85%E5%AE%8C%E6%88%90%E5%90%8E%EF%BC%8C%E5%8F%AF%E4%BB%A5%E4%BD%BF%E7%94%A8%E5%91%BD%E4%BB%A4%22kubectl%20get%20pod%20-A%22%E9%AA%8C%E8%AF%81%E7%BB%93%E6%9E%9C%20%E7%BB%93%E6%9E%9C%E5%A6%82%E4%B8%8B%EF%BC%9A%20">[1] 第二篇：kubernetes部署calico网络插件 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<div id="refer-anchor-2"></div>
+
+<p><a class="link" href="https://blog.csdn.net/weixin_45015255/article/details/117207177">[2] kubernetes 中 calico 组件的 calicoctl 工具的使用示例及 BGP 相关配置 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<div id="refer-anchor-3"></div>
+
+<p><a class="link" href="https://blog.csdn.net/qq_24433609/article/details/126411642">[3] 解决 calico-node 无法启动问题 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<div id="refer-anchor-4"></div>
+
+<p><a class="link" href="https://blog.csdn.net/doyzfly/article/details/121038861">[4] k8s 使用 calico 作为 CNI ，calico-node 启动失败 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+]]></content>
+      <categories>
+        <category>工程</category>
+        <category>环境检修</category>
+      </categories>
+      <tags>
+        <tag>K8S</tag>
+        <tag>caloco</tag>
       </tags>
   </entry>
 </search>
