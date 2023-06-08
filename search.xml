@@ -1554,4 +1554,79 @@
         <tag>caloco</tag>
       </tags>
   </entry>
+  <entry>
+    <title>论文略读笔记10-前沿-深度学习集群存算统一调度</title>
+    <url>/2023/06/08/literatureNotes10/</url>
+    <content><![CDATA[<h1 id="x1f4d6-《SiloD-A-Co-design-of-Caching-and-Scheduling-for-Deep-Learning-Clusters》"><a href="#x1f4d6-《SiloD-A-Co-design-of-Caching-and-Scheduling-for-Deep-Learning-Clusters》" class="headerlink" title="📖《SiloD: A Co-design of Caching and Scheduling for Deep Learning Clusters》"></a><span class="emoji" alias="book" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4d6.png?v8">📖</span>《SiloD: A Co-design of Caching and Scheduling for Deep Learning Clusters》</h1><h2 id="x1f3af-需求"><a href="#x1f3af-需求" class="headerlink" title="🎯需求"></a><span class="emoji" alias="dart" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f3af.png?v8">🎯</span>需求</h2><ul>
+<li>随着深度学习（DL）成为一个越来越重要的工作负载，现在主要的云平台提供了深度学习训练的服务。云平台上的深度学习训练通常遵循存储和计算分离的传统。<ul>
+<li>深度学习训练作业在GPU集群上运行，并读取托管在单独集群中的训练数据，提供AWS S3或Azure Blob Storage等存储服务。<ul>
+<li>这样的设置将存储服务与计算服务解耦，使得解决方案是模块化且简单的。</li>
+<li>然而，我们的经验表明，计算和存储服务之间的远程IO可能成为一个瓶颈，特别是随着新一代GPU（如NVIDIA H100）的引入。因此，利用训练集群中的本地存储作为缓存来缓解瓶颈是有益的。</li>
+</ul>
+</li>
+<li>为了缓解潜在的瓶颈，训练集群通常利用其本地存储作为缓存来减少来自存储集群的远程 I/O。</li>
+</ul>
+</li>
+</ul>
+<h2 id="x1f6a7-现状"><a href="#x1f6a7-现状" class="headerlink" title="🚧现状"></a><span class="emoji" alias="construction" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f6a7.png?v8">🚧</span>现状</h2><ul>
+<li>现有的深度学习调度器无法考虑不同训练作业中的各种缓存影响。这可能会显著降低调度质量。<ul>
+<li>（缓存调度器忽略对作业性能考虑）现有的深度学习调度器不管理存储资源，即缓存子系统的运行独立于DL作业调度，对整个集群的作业性能并不了解。</li>
+<li>（作业调度器忽略对缓存影响考虑）同时，最先进的深度学习调度器也没有意识到来自缓存子系统的影响。且他们专注于各自不同的优化目标（如<strong>作业完成时间（JCT）</strong>、<strong>公平性</strong>或<strong>集群利用率</strong>）来仲裁计算资源（例如GPU和CPU）。</li>
+<li>这样的解耦设计导致了非最优的集群性能。<ul>
+<li>例如，当有限的缓存和远程IO成为瓶颈时，一个被集群调度器认为具有高性能的训练作业可能会受到严重影响。这种高估导致了调度质量的下降。这就需要对集群调度和缓存子系统进行共同设计。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>传统上，联合设计调度器和缓存是不难的，但对于深度学习调度器存在以下挑战使系统设计进一步复杂化：<ul>
+<li>首先，如前所述，深度学习调度器有不同的调度目标。每个调度策略的临时解决方案都会增加设计的复杂性，并且难以扩展。</li>
+<li>其次，深度学习训练表现出高度多样化的性能模式：不同的工作带来不同的缓存和IO需求。</li>
+</ul>
+</li>
+<li>我们发现，由于缓存策略忽略了调度的影响，即使是有深度学习意识的缓存系统也可能表现出糟糕的性能。</li>
+</ul>
+<h2 id="x1f6e9-创新"><a href="#x1f6e9-创新" class="headerlink" title="🛩创新"></a><span class="emoji" alias="small_airplane" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f6e9.png?v8">🛩</span>创新</h2><ul>
+<li><p>我们提出了SiloD，这是第一个<strong>共同考虑了计算资源（如GPU）和存储资源（包括缓存和远程IO）全集群资源分配</strong>的深度学习调度框架。</p>
+<ul>
+<li>SiloD将缓存和远程IO视为同等重要的对象，可以在一个统一的调度框架中整合不同的最先进的深度学习调度策略。</li>
+<li>SiloD 开发了一个增强且通用的作业性能估算器，以帮助不同的调度人员共同考虑存储和计算资源分配的影响，同时保留各自的调度目标。<ul>
+<li>尽管目标不同，但大多数深度学习调度器都需要一定的性能估计器。不同策略的调度决策是基于使用不同性能估计器的工作性能估计。</li>
+<li>尽管对于不同的训练作业来说，数据访问模式和计算模式是高度多样化的，但在每个单独的作业中都是高度稳定和可预测的。这使得SiloD可以通过进一步利用数据加载和计算的流水线执行，得出统一的性能估计方法。<ul>
+<li>SiloD增强的性能估计器将联合性能估计转化为一个两步过程。它首先估计数据加载是否会成为整个训练的瓶颈。如果是这样，SiloD将使用IOPerf，这是一个我们引入的性能估计器，用于分析存储的影响，以估计IO瓶颈下的工作性能。IOPerf利用深度学习训练的独特访问模式，在给定缓存和远程IO分配的情况下，得出一个封闭式的分析模型。该分析模型能够捕捉到不同训练作业的高度多样化的性能模式，从而得出多样化的缓存和IO需求。性能感知调度器可以利用分析模型来利用多样性来进一步优化他们的调度目标。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>SiloD增强的性能估计器被整合到不同的调度策略中，并用于做出调度决策。通过这种方式，SiloD能够增强不同的最先进的深度学习调度器，以联合执行缓存和远程IO分配，同时保留这些调度策略的原始目标。</li>
+</ul>
+</li>
+<li><p>综上所述，本文有以下贡献。</p>
+<ul>
+<li>我们提出了一个统一的集群调度框架，该框架扩展了最先进的深度学习调度器，以联合调度计算和存储资源，同时保留原始调度目标。</li>
+<li>我们揭示了作业性能和存储资源之间的闭合关系，可以增强现有集群调度器的性能估计器，以准确预测计算和存储交互的影响。</li>
+<li>我们在SiloD的框架中实现了最先进的调度策略，使用真实的GPU集群和高保真模拟，显示了作业完成时间、集群利用率和公平性的明显改善。</li>
+</ul>
+</li>
+</ul>
+<h2 id="x1f4ca-效果"><a href="#x1f4ca-效果" class="headerlink" title="📊效果"></a><span class="emoji" alias="bar_chart" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4ca.png?v8">📊</span>效果</h2><ul>
+<li>我们在Alluxio和Kubernetes的基础上实现了SiloD，大约分别有3000和2500行代码。在96GPU集群和Azure的存储服务上进行的大量跟踪驱动实验以及高保真模拟表明，通过共同调度计算、缓存和远程IO资源，可以大大提升DL训练的最先进调度策略的性能。</li>
+<li>评估表明，与独立运行的缓存系统和集群调度程序的不同组合相比，SiloD 将平均作业完成时间、集群利用率和公平性分别提高了 7.4 倍、2.57 倍和 1.89 倍。</li>
+</ul>
+<h2 id="x1f9e0-疑问"><a href="#x1f9e0-疑问" class="headerlink" title="🧠疑问"></a><span class="emoji" alias="brain" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f9e0.png?v8">🧠</span>疑问</h2><ol>
+<li>现有工作尚未有考虑计算和存储联合调度的？还是说在深度学习领域尚未有，且深度学习领域存在独特问题？</li>
+</ol>
+<h1 id="x1f5fa-参考文献"><a href="#x1f5fa-参考文献" class="headerlink" title="🗺参考文献"></a><span class="emoji" alias="world_map" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f5fa.png?v8">🗺</span>参考文献</h1><div id="refer-anchor-1"></div>
+
+<p><a class="link" href="https://dl.acm.org/doi/abs/10.1145/3552326.3567499">[1] Zhao H, Han Z, Yang Z, et al. SiloD: A Co-design of Caching and Scheduling for Deep Learning Clusters[C]//Proceedings of the Eighteenth European Conference on Computer Systems. 2023: 883-898. <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+]]></content>
+      <categories>
+        <category>论文</category>
+        <category>略读</category>
+      </categories>
+      <tags>
+        <tag>云计算</tag>
+        <tag>调度</tag>
+        <tag>智算管理</tag>
+      </tags>
+  </entry>
 </search>
