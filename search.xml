@@ -1005,7 +1005,7 @@
 </ol>
 <h2 id="x1f5fa-参考文献"><a href="#x1f5fa-参考文献" class="headerlink" title="🗺参考文献"></a><span class="emoji" alias="world_map" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f5fa.png?v8">🗺</span>参考文献</h2><div id="refer-anchor-1"></div>
 
-<p><a class="link" href="https://ieeexplore.ieee.org/document/7987304">[1] M. C. Silva Filho, R. L. Oliveira, C. C. Monteiro, P. R. M. Inácio and M. M. Freire, “CloudSim Plus: A cloud computing simulation framework pursuing software engineering principles for improved modularity, extensibility and correctness,” 2017 IFIP/IEEE Symposium on Integrated Network and Service Management (IM), Lisbon, Portugal, 2017, pp. 400-406, doi: 10.23919/INM.2017.7987304. <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<p><a class="link" href="https://ieeexplore.ieee.org/document/7987304">[1] M. C. Silva Filho, R. L. Oliveira, C. C. Monteiro, P. R. M. Inácio and M. M. Freire, “CloudSim Plus: A cloud computing simulation framework pursuing software engineering principles for improved modularity, extensibility and correctness,” 2017 IFIP/IEEE Symposium on Integrated Network and Service Management (IM), Lisbon, Portugal, 2017, pp. 400-406, doi: 10.23919/INM.2017.7987304.（CCF-C） <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
 ]]></content>
       <categories>
         <category>论文</category>
@@ -1627,6 +1627,179 @@
       <tags>
         <tag>DP</tag>
         <tag>概率DP</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>论文略读笔记11-前沿-多数据中心迁移</title>
+    <url>/2023/06/11/literatureNotes11/</url>
+    <content><![CDATA[<h1 id="x1f4d6-《Carbon-Management-of-Multi-Datacenter-Based-On-Spatio-Temporal-Task-Migration》"><a href="#x1f4d6-《Carbon-Management-of-Multi-Datacenter-Based-On-Spatio-Temporal-Task-Migration》" class="headerlink" title="📖《Carbon Management of Multi-Datacenter Based On Spatio-Temporal Task Migration》"></a><span class="emoji" alias="book" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4d6.png?v8">📖</span>《Carbon Management of Multi-Datacenter Based On Spatio-Temporal Task Migration》</h1><h2 id="x1f3af-需求"><a href="#x1f3af-需求" class="headerlink" title="🎯需求"></a><span class="emoji" alias="dart" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f3af.png?v8">🎯</span>需求</h2><ul>
+<li>随着地理分布式数据中心（DC）的大规模部署和云服务需求的激增，其高能耗和碳污染问题日益严重。因此，减轻发展中国家碳足迹的有害影响已成为一项重大挑战。<ul>
+<li>云计算技术的快速发展促进了地理分布式数据中心（geo-distributed dc）的建立和互联，满足了数据处理爆发式增长的需求，提供了无中断服务。<ul>
+<li>例如，亚马逊在 25 个地理区域部署了大规模数据中心，以支持 80 个可用区，谷歌在美洲、亚洲和欧洲放置了超过 18 个数据园区来扩展其云服务平台。</li>
+</ul>
+</li>
+<li>云计算基础设施的激增增加了巨大的电力负荷，使碳污染变得更加严重。<ul>
+<li>据估计，到2025年，DC的能源消耗将占全球碳排放量的2.3%，大约相当于航空业的总排放量，到2040年将增加到14%。</li>
+</ul>
+</li>
+<li>电力负荷的持续增长迫使云服务提供商（CSP）探索降低排放水平的方法。风能和光伏（PV）等可再生能源（RES）产生的排放量远低于化石能源，易于获取和自动再生。因此，CSP正在将RES引入DC的供电系统，以缓解能源紧张。<ul>
+<li>谷歌在美洲、欧洲和亚洲签署了 30 多个绿色电力项目，并从 5GW 以上的风能和光伏电站采购能源;位于犹他州鹰山的Facebook DC将由容量为122 MW的光伏发电厂供电。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>然而，可再生能源支持云的挑战正在逐渐浮出水面：RES的时变输出是高度间歇性和波动性的，而由于请求的随机到来，工作量也相当随机，表现出<strong>供需的双重不确定性</strong>，这与可靠性要求（例如，正常运行时间Tier IV）一起限制了DC的绿色发展，并不可避免地依赖传统的化石能源。</li>
+</ul>
+<h2 id="x1f6a7-现状"><a href="#x1f6a7-现状" class="headerlink" title="🚧现状"></a><span class="emoji" alias="construction" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f6a7.png?v8">🚧</span>现状</h2><ul>
+<li>云服务需求激增带来的巨大能源消耗和碳污染激发了许多学者的动力：<ul>
+<li>1）通过灵活的负荷调节策略提高能源使用效率。<ul>
+<li>初步探索了直流电内部的部分负荷，并利用其可控性进行电源管理。动态电压/频率缩放（DVFS）技术已经过充分研究，通过根据用户请求密度调整服务器的工作电压和频率来避免服务器中不必要的电源。</li>
+<li>冷却中的节能是通过应用机器学习算法来解决的，例如，谷歌使用DeepMind节省了40%的冷却成本。相关工作提出了制冷、IT 负载和电能存储的需求响应协作，以调制 DC 的实时功耗。</li>
+</ul>
+</li>
+<li>2）通过提出多种能源供应整合的方法，最大限度地提高RES的利用率。<ul>
+<li>将DC作为一个整体控制目标：Dou等人将碳税视为目标函数的一部分，该函数在延迟容忍工作负载的成本和性能之间进行权衡。</li>
+<li>丁等人考虑了能源价格、电网和发电机的波动风险，承诺通过建立风险和排放之间的权衡，获得电力采购、储能运营和工作量分配的规划方案。</li>
+<li>然而，上述工作都没有考虑全球化DC集群的协同互动。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="x1f6e9-创新"><a href="#x1f6e9-创新" class="headerlink" title="🛩创新"></a><span class="emoji" alias="small_airplane" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f6e9.png?v8">🛩</span>创新</h2><ul>
+<li>这些挑战促使我们从两个角度分析配送中心的实际运营场景。<ul>
+<li>一方面，通过分析RES的输出特性，我们发现不同位置的风电和光伏发电（PV）同时表现出特定的互补特性。</li>
+<li>另一方面，在空间上，地理分布式 DC 之间的互连允许在不同的地理位置处理用户请求。暂时，容延迟任务的功率需求可以通过延迟或在服务级别协议（SLA）权限内激活来调整，即工作负载在时间和空间维度上都是灵活的。</li>
+<li>因此，有机会通过需求响应来超越当前的最佳实践，将运营稳定性和可持续性结合起来：我们建议根据 DC 间工作负载重新分配和 DC 内部工作负载调度，将负载与 RES 可用性实时匹配。</li>
+</ul>
+</li>
+<li>本文迈出了分析全球多区域可再生能源（RES）互补特征的第一步。有机会灵活安排工作量并跟踪RES以减少排放。<ul>
+<li>整合数据中心和DC间网络，形成精细化的排放模型，权衡调度减排效果和工作量迁移的碳成本，提出时空任务迁移机制，在二维上追求低碳：本文将密集工作负载以<strong>粗粒度</strong>转移到RES充足的位置，并调整工作负载的执行时间以响应实时RES波动。因此，排放超额以互补的方式被RES转移和抵消；同时，RES的接受度得到提高。</li>
+</ul>
+</li>
+<li>本文的贡献如下：<ul>
+<li>讨论了全球分散RES的互补特性。据我们所知，这是首次尝试利用时空互补来减轻单站点RES间歇性对DC的负面影响，为碳管理的可行性奠定了基础。</li>
+<li>提出了两个维度上的时空任务迁移机制。与专注于单个DC的现有研究不同，我们通过将地理分布式DC视为一个整体来应对RES的不确定性。整合多数据中心和直流间光网络，形成任务调度减排效应与迁移碳成本平衡的新型发射模型，提出时空任务迁移机制，追求空间域和时域调度的最佳实践。</li>
+<li>利用解耦方法高效求解用于碳排放优化的大规模混合整数规划。针对协同发射优化，采用Benders分解算法对任务迁移决策和光路由方案进行解耦，实现全局最优解。</li>
+</ul>
+</li>
+</ul>
+<h2 id="x1f4ca-效果"><a href="#x1f4ca-效果" class="headerlink" title="📊效果"></a><span class="emoji" alias="bar_chart" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4ca.png?v8">📊</span>效果</h2><ul>
+<li>利用真实数据进行的实验表明，该方法能够与RES最佳协调需求，减轻地理分布DC的碳污染，并在各种参数场景下验证其性能和适用性。</li>
+</ul>
+<h2 id="x1f9e0-疑问"><a href="#x1f9e0-疑问" class="headerlink" title="🧠疑问"></a><span class="emoji" alias="brain" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f9e0.png?v8">🧠</span>疑问</h2><ol>
+<li>使用的是中心式还是去中心式管理架构？<ul>
+<li>中心式，在全局管理时不要求实时性，每 1min 做一次决策。而在局部要求实时性，每 4s 做一次决策。</li>
+</ul>
+</li>
+</ol>
+<h1 id="x1f5fa-参考文献"><a href="#x1f5fa-参考文献" class="headerlink" title="🗺参考文献"></a><span class="emoji" alias="world_map" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f5fa.png?v8">🗺</span>参考文献</h1><div id="refer-anchor-1"></div>
+
+<p><a class="link" href="https://ieeexplore.ieee.org/document/9627522/figures#figures">[1] T. Yang, H. Jiang, Y. Hou and Y. Geng, “Carbon Management of Multi-Datacenter Based On Spatio-Temporal Task Migration,” in IEEE Transactions on Cloud Computing, vol. 11, no. 1, pp. 1078-1090, 1 Jan.-March 2023, doi: 10.1109/TCC.2021.3130644. <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+]]></content>
+      <categories>
+        <category>论文</category>
+        <category>略读</category>
+      </categories>
+      <tags>
+        <tag>云计算</tag>
+        <tag>调度</tag>
+        <tag>多云</tag>
+        <tag>迁移</tag>
+        <tag>碳管理</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>论文略读笔记12-前沿-分散式联合调度</title>
+    <url>/2023/07/06/literatureNotes12/</url>
+    <content><![CDATA[<h1 id="x1f4d6-《Megha-Decentralized-Federated-Scheduling-for-Data-Center-Workloads》"><a href="#x1f4d6-《Megha-Decentralized-Federated-Scheduling-for-Data-Center-Workloads》" class="headerlink" title="📖《Megha: Decentralized Federated Scheduling for Data Center Workloads》"></a><span class="emoji" alias="book" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4d6.png?v8">📖</span>《Megha: Decentralized Federated Scheduling for Data Center Workloads》</h1><h2 id="x1f3af-需求"><a href="#x1f3af-需求" class="headerlink" title="🎯需求"></a><span class="emoji" alias="dart" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f3af.png?v8">🎯</span>需求</h2><ul>
+<li>数据中心的规模和异构性不断增加，导致了联合集群的发展，如KubeFed、Hydra和Pigeon，它们联合了单个数据中心集群。<ul>
+<li>为了满足不断增长的规模需求，组织正在投资拥有数十万台机器的数据中心。这些数据中心根据应用程序或实用程序进一步划分为集群。此基础设施的高利用率可带来更高的投资回报。为了实现高利用率，数据中心中的资源必须作为可共享的统一池呈现给用户，并且必须支持来自该池的细粒度分配。</li>
+<li>由于最近工作负载中普遍存在的异构性和复杂性，调度和资源分配是非同寻常的问题。为了有效地管理大量工作节点，调度框架正在转向联合架构，其中顶级调度程序做出由独立集群调度程序强制执行的高级调度决策。Hydra 和 Pigeon 是两个采用联合架构的调度程序。</li>
+</ul>
+</li>
+</ul>
+<h2 id="x1f6a7-现状"><a href="#x1f6a7-现状" class="headerlink" title="🚧现状"></a><span class="emoji" alias="construction" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f6a7.png?v8">🚧</span>现状</h2><ul>
+<li>调度程序大致可分为集中式、分布式、混合式和分层式调度程序。<ul>
+<li>集中式调度程序，如 YARN，可以做出最佳决策，因为它们具有系统的全局视图。然而，正如先前的研究表明随着数据中心规模的增加，后续处理和收集大量状态会导致瓶颈的形成，因此这些调度程序无法实现所需的调度吞吐量。</li>
+<li>像Sparrow这样的分布式架构依赖于概率来找到具有可用资源的机器。对于每个任务，Sparrow 执行随机采样并将探针插入工作队列，以选择排队时间最短的机器。此方法中的调度开销微不足道。但是，当数据中心负载很高时，选择可用机器的可能性非常低。因此，依赖于随机抽样的分布式调度程序在高利用率条件下性能不佳。</li>
+<li>与Megha最相似的建筑是Pigeon。<ul>
+<li>Pigeon将数据中心划分为更小的组，每个组有一个Master。分布式调度程序在Master节点之间均匀分配作业中的任务。</li>
+<li>在Megha中，GM类似于分布式调度程序，LM类似于Master节点。</li>
+<li>但是，这两种体系结构之间存在三个主要区别。<ul>
+<li>首先，Pigeon不执行细粒度的资源分配。它将工作线程划分为称为插槽的固定资源封装。这种粗粒度的分配将导致资源的碎片化和浪费。</li>
+<li>其次，Pigeon使用加权公平排队和预留来避免长时间的作业匮乏，并确保较低的短作业延迟。Megha 不区分工作类型。然而，由于其分散的性质，Megha 实现了低分配时间，并确保防止任何类别的工作出现线头阻塞和饥饿。</li>
+<li>第三，Pigeon中的组一旦形成是固定的，即分区方案没有灵活性的余地。Megha 允许使用灵活的分区在数据中心的任何地方安排任务。这样可以更好地利用数据中心的资源，尤其是在存在放置约束的情况下，这些限制限制了可以运行任务的合格计算机的数量。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Hydra 是一个联合资源管理框架，由 Microsoft 作为 Apollo 的继任者创建，以支持部署在其数据中心的工作负载所需的每秒高调度决策。<ul>
+<li>Hydra 将其大型集群划分为较小的 YARN 子集群。因此，每个子群集都有一个资源管理器 （RM），用于决定任务放置并执行资源分配。</li>
+<li>Hydra 引入了一个名为 AM-RM 代理的组件，它允许任务跨越多个子集群。</li>
+<li>在Megha中，全局主节点类似于 AM-RM 代理，而本地主节点扮演 RM 的角色。但是，由于每个 Megha GM 都维护整个系统的全局视图的（可能过时的）本地副本，因此每次任务请求到达时都不需要联系集群管理器（LM）。</li>
+</ul>
+</li>
+<li>混合调度器（如 Mercury、Hawk 和 Eagle）使用两组调度程序：<ul>
+<li>一组用于需要资源保证的任务的集中式调度程序，</li>
+<li>另一组用于延迟敏感任务的分布式调度程序。</li>
+<li>但是，这些调度程序遇到了与前面提到的分布式调度程序相同的问题。</li>
+</ul>
+</li>
+<li>PCSsampler 通过缓存响应探测器时收到的状态信息来扩展基于随机采样的方法。<ul>
+<li>缓存状态的有用性在很大程度上取决于探测的工作线程。<ul>
+<li>在高负载的大型集群中，查找具有可用槽的工作线程可能需要多轮探测，从而导致高调度开销。</li>
+</ul>
+</li>
+<li>另一方面，Megha 的 GM 在每次启动请求后收集有关整个 LM 集群的部分状态信息。GM 还使用来自 LM 的定期检测信号更新其存储的全局状态。 Megha 通过让 LM 验证它们来确保其所有决策都是最佳的。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="x1f6e9-创新"><a href="#x1f6e9-创新" class="headerlink" title="🛩创新"></a><span class="emoji" alias="small_airplane" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f6e9.png?v8">🛩</span>创新</h2><ul>
+<li>在我们的论文中，我们介绍了Megha，一个分散的全局调度程序，它使用最终一致性和灵活的分区来克服现有调度程序的局限性。<ul>
+<li>Megha 采用灵活的集群逻辑分区来分配其调度负载，确保以非常低的调度开销满足工作负载的要求。它使用分布式全局调度程序，该调度程序不依赖于集中式数据存储，而是具有最终一致性，这与使用分层体系结构或依赖于集中式数据库的其他调度程序不同。<ul>
+<li>Megha 具有联合架构，并将数据中心划分为较小的集群，每个集群由本地主节点 （LM） 控制。</li>
+<li>它通过将负载分发到多个顶级全局主节点 （GM） 来实现高调度吞吐量。</li>
+<li>每个 GM 使用系统资源的最终一致的全局视图来做出调度决策。</li>
+<li>LM 验证 GM 的决策，并将任务部署到它们处理的集群的工作节点上。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>我们的主要贡献如下。我们：<ul>
+<li>定义分配时间并将其分解为众多组件。我们还分析了不同调度方法中每个组件对分配时间的贡献。</li>
+<li>引入一种新颖的去中心化框架的设计，该框架使用最终一致性和动态分区来克服现有方法的局限性。</li>
+<li>演示与集中式调度程序和分布式调度程序（Sparrow）相比，使用我们的方法调度的任务分配时间的改进。</li>
+</ul>
+</li>
+</ul>
+<h2 id="x1f4ca-效果"><a href="#x1f4ca-效果" class="headerlink" title="📊效果"></a><span class="emoji" alias="bar_chart" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4ca.png?v8">📊</span>效果</h2><ul>
+<li>我们对Megha的实验表明，它可以在资源分配时间短的情况下安排任务，同时考虑到资源需求和放置约束 - 大约几十毫秒。<ul>
+<li>我们的实验是使用真实世界的生产轨迹进行的，以评估Megha的任务分配速度，并将其与集中式和分布式调度方法进行比较。</li>
+<li>结果表明，Megha 可以实现与基于随机抽样的分布式调度程序 Sparrow 相当的中位数分配时间。</li>
+<li>Megha 还报告了比 Sparrow 好两个数量级的 99th 百分位分配时间。</li>
+<li>这些实验还演示了如何通过最终一致的全局状态满足任务放置约束，同时报告比集中式方法更少的分配时间。</li>
+</ul>
+</li>
+</ul>
+<h2 id="x1f9e0-疑问"><a href="#x1f9e0-疑问" class="headerlink" title="🧠疑问"></a><span class="emoji" alias="brain" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f9e0.png?v8">🧠</span>疑问</h2><ol>
+<li>使用全局中心-局部分散的模式时，所需时间情况如何？能否推广至全球大数据中心架构？</li>
+</ol>
+<h1 id="x1f5fa-参考文献"><a href="#x1f5fa-参考文献" class="headerlink" title="🗺参考文献"></a><span class="emoji" alias="world_map" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f5fa.png?v8">🗺</span>参考文献</h1><div id="refer-anchor-1"></div>
+
+<p><a class="link" href="https://ieeexplore.ieee.org/document/10041383">[1] M. Thiyyakat, S. Kalambur and D. Sitaram, “Megha: Decentralized Federated Scheduling for Data Center Workloads,” 2023 15th International Conference on COMmunication Systems &amp; NETworkS (COMSNETS), Bangalore, India, 2023, pp. 278-286, doi: 10.1109/COMSNETS56262.2023.10041383. <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+]]></content>
+      <categories>
+        <category>论文</category>
+        <category>略读</category>
+      </categories>
+      <tags>
+        <tag>云计算</tag>
+        <tag>调度</tag>
+        <tag>多云</tag>
+        <tag>分散式调度</tag>
       </tags>
   </entry>
 </search>
