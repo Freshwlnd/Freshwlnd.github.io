@@ -864,6 +864,7 @@
       <categories>
         <category>论文</category>
         <category>略读</category>
+        <category>模拟器</category>
       </categories>
       <tags>
         <tag>模拟器</tag>
@@ -939,6 +940,7 @@
       <categories>
         <category>论文</category>
         <category>略读</category>
+        <category>云计算</category>
       </categories>
       <tags>
         <tag>云计算</tag>
@@ -1010,6 +1012,7 @@
       <categories>
         <category>论文</category>
         <category>略读</category>
+        <category>云计算</category>
       </categories>
       <tags>
         <tag>云计算</tag>
@@ -1066,6 +1069,7 @@
       <categories>
         <category>论文</category>
         <category>略读</category>
+        <category>云计算</category>
       </categories>
       <tags>
         <tag>云计算</tag>
@@ -1149,6 +1153,7 @@
       <categories>
         <category>论文</category>
         <category>略读</category>
+        <category>数据库</category>
       </categories>
       <tags>
         <tag>内存数据库</tag>
@@ -1244,6 +1249,7 @@
       <categories>
         <category>论文</category>
         <category>略读</category>
+        <category>异构计算</category>
       </categories>
       <tags>
         <tag>DRL</tag>
@@ -1291,6 +1297,7 @@
       <categories>
         <category>论文</category>
         <category>略读</category>
+        <category>云计算</category>
       </categories>
       <tags>
         <tag>云计算</tag>
@@ -1362,6 +1369,7 @@
       <categories>
         <category>论文</category>
         <category>略读</category>
+        <category>云计算</category>
       </categories>
       <tags>
         <tag>云计算</tag>
@@ -1431,6 +1439,7 @@
       <categories>
         <category>论文</category>
         <category>略读</category>
+        <category>云计算</category>
       </categories>
       <tags>
         <tag>云计算</tag>
@@ -1493,6 +1502,7 @@
       <categories>
         <category>论文</category>
         <category>略读</category>
+        <category>云计算</category>
       </categories>
       <tags>
         <tag>云计算</tag>
@@ -1700,6 +1710,7 @@
       <categories>
         <category>论文</category>
         <category>略读</category>
+        <category>云计算</category>
       </categories>
       <tags>
         <tag>云计算</tag>
@@ -1794,6 +1805,7 @@
       <categories>
         <category>论文</category>
         <category>略读</category>
+        <category>云计算</category>
       </categories>
       <tags>
         <tag>云计算</tag>
@@ -1801,5 +1813,92 @@
         <tag>多云</tag>
         <tag>分散式调度</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>论文略读笔记13-前沿-可信虚拟机迁移</title>
+    <url>/2023/07/07/literatureNotes13/</url>
+    <content><![CDATA[<h1 id="x1f4d6-《A-high-applicability-heterogeneous-cloud-data-centers-resource-management-algorithm-based-on-trusted-virtual-machine-migration》"><a href="#x1f4d6-《A-high-applicability-heterogeneous-cloud-data-centers-resource-management-algorithm-based-on-trusted-virtual-machine-migration》" class="headerlink" title="📖《A high-applicability heterogeneous cloud data centers resource management algorithm based on trusted virtual machine migration》"></a><span class="emoji" alias="book" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4d6.png?v8">📖</span>《A high-applicability heterogeneous cloud data centers resource management algorithm based on trusted virtual machine migration》</h1><h2 id="x1f3af-需求"><a href="#x1f3af-需求" class="headerlink" title="🎯需求"></a><span class="emoji" alias="dart" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f3af.png?v8">🎯</span>需求</h2><ul>
+<li>随着云计算技术的不断发展和成熟，云数据中心（CDC）的规模和数量也在不断扩大。这越来越引起人们对CDC高能耗问题的关注。<ul>
+<li>随着虚拟化、并行处理和分布式处理技术的成熟，云计算作为一种新型的互联网计算模式正变得非常流行。根据服务模式，云计算主要分为三个级别：IaaS（基础设施即服务），PaaS（平台即服务）和SaaS（软件即服务）。通过云计算服务，用户可以通过按量付费的方式自由使用计算、存储等服务，根据自己的需求灵活调整资源大小。云服务提供商进一步扩大了CDC的规模，以满足云用户不断增长的性能需求。然而，大规模的CDC不可避免地会消耗大量能量。</li>
+</ul>
+</li>
+<li>动态虚拟机（VM）整合是降低能耗的一种有前途的方法。<ul>
+<li>虚拟机迁移作为一种虚拟机整合技术，可以有效提高物理机利用率，优化CDC调度流程。</li>
+<li>通过虚拟机迁移提高利用率和 PM 数量，最终降低 CDC 的能耗。<ul>
+<li>通过虚拟机迁移，在 CDC 中运行的云任务将集成到少量 PM 中，从而关闭空闲的 PM 以降低能耗。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="x1f6a7-现状"><a href="#x1f6a7-现状" class="headerlink" title="🚧现状"></a><span class="emoji" alias="construction" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f6a7.png?v8">🚧</span>现状</h2><ul>
+<li>然而，在现有的研究中，大多数虚拟机集成算法都旨在提高PM的利用率。PM的过度利用可能会增加在其上运行的虚拟机之间对共享资源的竞争。结果，这些虚拟机的性能下降，云任务的执行时间增加甚至中断。<ul>
+<li>现有学者对虚拟机迁移算法进行了研究，但这些算法没有考虑以下问题：<ol>
+<li>首先，以前的算法在没有考虑集群异构性的情况下解决了齐次聚类的映射问题。</li>
+<li>其次，之前的算法规范化了虚拟和PM的属性。然而，在归一化过程中，权重参数的差异导致结果出现显着偏差。因此，应在实际环境中详细考虑 VM 和 PM 的多维属性。</li>
+<li>第三，之前的研究没有考虑虚拟机迁移带来的性能损失，这是迁移过程中不可忽视的重要因素。PM的高利用率和低利用率都会产生影响。<ul>
+<li>因此，为了确保 VM 的性能，应为 PM 利用率设置上限。</li>
+<li>同时，由于空闲状态下PM的功耗仍约为满载功耗的70%，因此关闭空闲PM或利用率低的PM可以降低功耗。</li>
+</ul>
+</li>
+<li>最后，在降低CDC功耗方面，这些算法在虚拟机整合后往往负载均衡效果较差。</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="x1f6e9-创新"><a href="#x1f6e9-创新" class="headerlink" title="🛩创新"></a><span class="emoji" alias="small_airplane" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f6e9.png?v8">🛩</span>创新</h2><ul>
+<li><p>在这项研究中，首先分析了影响PM能耗的众多因素以及CDC的整体架构。</p>
+</li>
+<li><p>其次，研究了PM利用率对CDC能耗的影响以及虚拟机迁移造成的性能损失。</p>
+</li>
+<li><p>第三，研究了虚拟机的多维特征和CDC的异构特征，提出了一维多维可信虚拟机迁移规则。</p>
+</li>
+<li><p>然后，根据上述规则和CDC架构，提出一种基于可信虚拟机迁移（HTVM2）的高适用性异构CDC资源管理算法。</p>
+<ul>
+<li>该算法不仅解决了同构和异构CDC的一维虚拟机迁移问题，还解决了多维虚拟机的迁移问题。</li>
+<li>这提高了虚拟机迁移的成功率，降低了 CDC 的能耗，并在确保虚拟机性能的同时改善了负载平衡。</li>
+</ul>
+</li>
+<li><p>最后，利用本研究建立的验证平台对算法进行了验证。</p>
+</li>
+<li><p>本文的主要贡献如下：</p>
+<ol>
+<li>系统分析虚拟机迁移对云任务和PM性能的影响，同时确定PM利用率的上限和下限。</li>
+<li>全面分析了能源消耗对多维和异质性CDC的影响。基于此，提出了一维多维可信虚拟机迁移规则。</li>
+<li>基于上述规则提出了HTVM2算法。为了验证算法的有效性，CloudSim中嵌入了由虚拟机生成器、PM发生器和虚拟机初始化模块组成的仿真验证平台，以模拟CDC的真实环境。最后，利用CloudSim验证了HTVM2算法的效果。</li>
+</ol>
+</li>
+</ul>
+<h2 id="x1f4ca-效果"><a href="#x1f4ca-效果" class="headerlink" title="📊效果"></a><span class="emoji" alias="bar_chart" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4ca.png?v8">📊</span>效果</h2><ul>
+<li>利用CloudSim将算法与随机映射算法和比较模块一起实现，模拟VM在CloudSim中的初始部署，验证所提HTVM2算法的效果。通过对比分析，HTVM2算法与GLBC、DTVS和OVMP算法相比，显著提高了虚拟机的迁移成功率和PM的利用率。此外，还减少了使用的 PM 数量，并改善了负载平衡。</li>
+</ul>
+<h2 id="x1f9e0-疑问"><a href="#x1f9e0-疑问" class="headerlink" title="🧠疑问"></a><span class="emoji" alias="brain" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f9e0.png?v8">🧠</span>疑问</h2><ol>
+<li>一维/多维具体指什么？是否有例子？</li>
+<li>可信在其中的意义是什么？<ul>
+<li>指的是防止“迁移过程中数据丢失导致的任务失败”。与预期不符。</li>
+</ul>
+</li>
+<li>如何保障可信的？可信的具体目标是什么？</li>
+</ol>
+<h1 id="x1f5fa-参考文献"><a href="#x1f5fa-参考文献" class="headerlink" title="🗺参考文献"></a><span class="emoji" alias="world_map" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f5fa.png?v8">🗺</span>参考文献</h1><div id="refer-anchor-1"></div>
+
+<p><a class="link" href="https://www.sciencedirect.com/science/article/pii/S0957417422002275?via=ihub">[1] Bin Liang, Xiaoshe Dong, Yufei Wang, Xingjun Zhang, A high-applicability heterogeneous cloud data centers resource management algorithm based on trusted virtual machine migration, Expert Systems with Applications, Vol. 197, 2022, 116762, ISSN 0957-4174, https://doi.org/10.1016/j.eswa.2022.116762. <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+]]></content>
+      <categories>
+        <category>论文</category>
+        <category>略读</category>
+        <category>云计算</category>
+      </categories>
+      <tags>
+        <tag>云计算</tag>
+        <tag>迁移</tag>
+        <tag>虚拟机</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>literatureNotes14</title>
+    <url>/2023/07/07/literatureNotes14/</url>
+    <content><![CDATA[]]></content>
   </entry>
 </search>
