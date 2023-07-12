@@ -1899,13 +1899,14 @@
   <entry>
     <title>论文略读笔记14-前沿-云虚拟机可信</title>
     <url>/2023/07/07/literatureNotes14/</url>
-    <content><![CDATA[<h1 id="x1f4d6-《Cloud-virtual-machine-lifecycle-security-framework-based-on-trusted-computing》"><a href="#x1f4d6-《Cloud-virtual-machine-lifecycle-security-framework-based-on-trusted-computing》" class="headerlink" title="📖《Cloud virtual machine lifecycle security framework based on trusted computing》"></a><span class="emoji" alias="book" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4d6.png?v8">📖</span>《Cloud virtual machine lifecycle security framework based on trusted computing》</h1><h2 id="x1f3af-需求"><a href="#x1f3af-需求" class="headerlink" title="🎯需求"></a><span class="emoji" alias="dart" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f3af.png?v8">🎯</span>需求</h2><ul>
+    <content><![CDATA[<h1 id="book-《Cloud-virtual-machine-lifecycle-security-framework-based-on-trusted-computing》"><a href="#book-《Cloud-virtual-machine-lifecycle-security-framework-based-on-trusted-computing》" class="headerlink" title=":book:《Cloud virtual machine lifecycle security framework based on trusted computing》"></a>:book:《Cloud virtual machine lifecycle security framework based on trusted computing》</h1><h2 id="dart-需求"><a href="#dart-需求" class="headerlink" title=":dart:需求"></a>:dart:需求</h2><ul>
 <li>作为云计算平台的基础组件，虚拟机（VM）面临着众多的安全威胁。<ul>
-<li>虚拟机（VM）凭借其灵活性和可扩展性的优势，已成为云计算环境中租户服务部署的主要模式。虚拟机作为独立的计算实体，除了面临传统的安全威胁外，还面临一些云计算特有的安全威胁，即专门针对虚拟环境不同状态的安全威胁（例如，共存攻击、数据安全威胁、针对虚拟机存储的攻击以及针对虚拟机迁移的攻击）。直观地讲，为了实现安全的环境，需要对虚拟机的各个状态进行全面的保护，即本文所说的生命周期安全保护。</li>
+<li>虚拟机（VM）凭借其灵活性和可扩展性的优势，已成为云计算环境中租户服务部署的主要模式。</li>
+<li>虚拟机作为独立的计算实体，除了面临传统的安全威胁外，还面临一些云计算特有的安全威胁，即专门针对虚拟环境不同状态的安全威胁（例如，共存攻击、数据安全威胁、针对虚拟机存储的攻击以及针对虚拟机迁移的攻击）。直观地讲，为了实现安全的环境，需要对虚拟机的各个状态进行全面的保护，即本文所说的生命周期安全保护。</li>
 </ul>
 </li>
 </ul>
-<h2 id="x1f6a7-现状"><a href="#x1f6a7-现状" class="headerlink" title="🚧现状"></a><span class="emoji" alias="construction" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f6a7.png?v8">🚧</span>现状</h2><ul>
+<h2 id="construction-现状"><a href="#construction-现状" class="headerlink" title=":construction:现状"></a>:construction:现状</h2><ul>
 <li>然而，现有的解决方案往往侧重于解决虚拟机特定状态下的威胁。<ul>
 <li>最近，一些有前途的方法被提出来解决虚拟机在生命周期不同阶段面临的安全问题。这些方法通过在虚拟机的生命周期中采用特定方法来发挥作用，包括<ul>
 <li>（a）身份验证和数据加密，利用隔离技术来保护虚拟机的CPU和内存上下文； </li>
@@ -1925,7 +1926,7 @@
 </li>
 <li>幸运的是，可信计算技术可以通过为虚拟机创建可信环境来克服这些问题。通过将密钥存储在可信平台模块 (TPM) 中来实现密钥的安全存储。此外，可信计算环境为在虚拟机的整个生命周期中保护虚拟机提供了基础。此外，还可以通过可信计算来检查和验证虚拟机运行状态的安全性，从而实现适当的安全评估。</li>
 </ul>
-<h2 id="x1f6e9-创新"><a href="#x1f6e9-创新" class="headerlink" title="🛩创新"></a><span class="emoji" alias="small_airplane" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f6e9.png?v8">🛩</span>创新</h2><ul>
+<h2 id="small-airplane-创新"><a href="#small-airplane-创新" class="headerlink" title=":small_airplane:创新"></a>:small_airplane:创新</h2><ul>
 <li>在本文中，我们研究了虚拟机的安全威胁，旨在提出一种使用可信计算的全面生命周期保护方案，以实现从硬件 TPM 到虚拟机的可信链内的完美安全。这是建立在许多安全要求较高的云平台已经采用可信计算原理的基础上的。<ul>
 <li>我们首先提出了一种新颖的VM生命周期模型，其中根据VM的不同状态划分不同的生命周期状态。然后，我们讨论所提出的生命周期模型实现健全性和安全性的条件和要求，表明为了实现这些目标，虚拟机的每个状态都需要关注并满足某些要求。</li>
 <li>基于该模型，我们进一步研究了虚拟机的安全保护方法，并提出了一种使用可信计算的新解决方案。主要思想是通过将可信链从硬件TPM延伸到VM初始启动器，再延伸到VM的应用程序，将VM建立为可信计算环境。同时，通过建立物理可信基础并与虚拟机实例实现可信关联，保证虚拟可信平台模块（vTPM）实例的安全性和合法性。</li>
@@ -1938,15 +1939,15 @@
 </ul>
 </li>
 </ul>
-<h2 id="x1f4ca-效果"><a href="#x1f4ca-效果" class="headerlink" title="📊效果"></a><span class="emoji" alias="bar_chart" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4ca.png?v8">📊</span>效果</h2><ul>
+<h2 id="bar-chart-效果"><a href="#bar-chart-效果" class="headerlink" title=":bar_chart:效果"></a>:bar_chart:效果</h2><ul>
 <li>理论分析表明，我们提出的框架可以为虚拟机在所有状态下提供全面的安全性。</li>
 <li>此外，实验结果表明，与一些最先进的方案相比，所提出的框架是可行的并且实现了更高水平的安全性。</li>
 </ul>
-<h2 id="x1f9e0-疑问"><a href="#x1f9e0-疑问" class="headerlink" title="🧠疑问"></a><span class="emoji" alias="brain" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f9e0.png?v8">🧠</span>疑问</h2><ol>
+<h2 id="brain-疑问"><a href="#brain-疑问" class="headerlink" title=":brain:疑问"></a>:brain:疑问</h2><ol>
 <li>可信计算下具体运行流程是什么样的？周期性检测？对每一次交互都进行检测？</li>
 <li>VMI 技术在本文中如何使用？有什么好处？</li>
 </ol>
-<h1 id="x1f5fa-参考文献"><a href="#x1f5fa-参考文献" class="headerlink" title="🗺参考文献"></a><span class="emoji" alias="world_map" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f5fa.png?v8">🗺</span>参考文献</h1><div id="refer-anchor-1"></div>
+<h1 id="world-map-参考文献"><a href="#world-map-参考文献" class="headerlink" title=":world_map:参考文献"></a>:world_map:参考文献</h1><div id="refer-anchor-1"></div>
 
 <p><a class="link" href="https://ieeexplore.ieee.org/document/8698209">[1] X. Jin, Q. Wang, X. Li, X. Chen and W. Wang, “Cloud virtual machine lifecycle security framework based on trusted computing,” in Tsinghua Science and Technology, vol. 24, no. 5, pp. 520-534, October 2019, doi: 10.26599/TST.2018.9010129. <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
 ]]></content>
