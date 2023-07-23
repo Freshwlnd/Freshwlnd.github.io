@@ -2077,8 +2077,7 @@
 <li>pod是k8s上最小调度单元，一个pod被删除以后，pod里运行的容器也随之被删除。因此pod里容器产生的数据也存在难以被持久化的问题。</li>
 </ul>
 </li>
-<li>为了解决这个问题，我们先来看看pod的组成<a href="#refer-anchor-1"><sup>[1]</sup></a>：<ul>
-<li><img lazyload="" src="/images/loading.svg" data-src="https://img2020.cnblogs.com/blog/1503305/202012/1503305-20201223205040924-228713033.png" alt="pod的组成"></li>
+<li>为了解决这个问题，我们先来看看pod的组成<a href="#refer-anchor-1"><sup>[1]</sup></a>：<br><img lazyload="" src="/images/loading.svg" data-src="https://img2020.cnblogs.com/blog/1503305/202012/1503305-20201223205040924-228713033.png" alt="pod的组成"><ul>
 <li>在k8s上pod里可以运行一个或多个容器，运行多个容器。<ul>
 <li>其中一个容器我们叫主容器，其他的容器是用来辅助主容器，我们叫做sidecar。</li>
 </ul>
@@ -2086,8 +2085,7 @@
 <li>对于pod来说，不管里面运行多少个容器，在最底层都会运行一个pause容器，该容器最主要用来为pod提供基础架构支撑。并且位于同一个pod中的容器都共享pause容器的网络名称空间以及IPC和UTS。</li>
 </ul>
 </li>
-<li>因此，如果我们要想给pod里的容器提供存储卷，首先要把存储卷关联到pause容器，然后在容器里挂载pause里的存储卷；如下图所示<ul>
-<li><img lazyload="" src="/images/loading.svg" data-src="https://img2020.cnblogs.com/blog/1503305/202012/1503305-20201223223729775-1171257769.png" alt="挂载示意图"></li>
+<li>因此，如果我们要想给pod里的容器提供存储卷，首先要把存储卷关联到pause容器，然后在容器里挂载pause里的存储卷；如下图所示<br><img lazyload="" src="/images/loading.svg" data-src="https://img2020.cnblogs.com/blog/1503305/202012/1503305-20201223223729775-1171257769.png" alt="挂载示意图"><ul>
 <li>提示：<ul>
 <li>对于pause容器来说，可以关联存储A，也可以关联存储B。对于pause关联的某个存储，其位于同一pod中的其他容器就也可以挂载pause里关联的存储目录或文件。</li>
 <li>对于k8s来说，存储本来就不属于k8s内部组件，而是一个外来系统。要想k8s使用外部存储系统，首先要求pause容器有适配其对应存储系统的驱动。如果同一宿主机上运行的多个容器共享同一内核上，即宿主机内核上，有对应存储系统的驱动，pause就可以使用对应的驱动去适配对应的存储。</li>
