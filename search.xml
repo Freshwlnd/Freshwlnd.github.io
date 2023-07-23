@@ -520,7 +520,7 @@
       </categories>
   </entry>
   <entry>
-    <title>故障排除：K8S 下 Calico 网络配置错误</title>
+    <title>K8S集群搭建记录——故障排除：K8S 下 Calico 网络配置错误</title>
     <url>/2023/06/05/k8s-debug/</url>
     <content><![CDATA[<h1 id="🐛-背景：Java-应用无法连接到-Postgresql-容器"><a href="#🐛-背景：Java-应用无法连接到-Postgresql-容器" class="headerlink" title="🐛 背景：Java 应用无法连接到 Postgresql 容器"></a>🐛 背景：Java 应用无法连接到 Postgresql 容器</h1><p>在使用 Kubernetes 部署服务的过程中，我遇到了一个令人头疼的问题：我的 Java 应用无法连接到 Postgresql 容器。我决定展开一系列的 bug 查询和修复，寻找并解决问题的根源。</p>
 <h1 id="🚀-过程"><a href="#🚀-过程" class="headerlink" title="🚀 过程"></a>🚀 过程</h1><h2 id="1️⃣-发现-Java-应用无法连接"><a href="#1️⃣-发现-Java-应用无法连接" class="headerlink" title="1️⃣ 发现 Java 应用无法连接"></a>1️⃣ 发现 Java 应用无法连接</h2><ul>
@@ -595,7 +595,7 @@
 <li>希望这篇博客对你有帮助！如果你有任何问题或需要进一步的帮助，请随时提问。</li>
 <li>如果你喜欢这篇文章，欢迎<a class="link" href="https://github.com/freshwlnd/">动动小手 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>给我一个follow或star。</li>
 </ul>
-<h1 id="world-map-参考文献"><a href="#world-map-参考文献" class="headerlink" title=":world_map:参考文献"></a>:world_map:参考文献</h1><div id="refer-anchor-1"></div>
+<h1 id="x1f5fa-参考文献"><a href="#x1f5fa-参考文献" class="headerlink" title="🗺参考文献"></a><span class="emoji" alias="world_map" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f5fa.png?v8">🗺</span>参考文献</h1><div id="refer-anchor-1"></div>
 
 <p><a class="link" href="https://blog.csdn.net/kjkdd/article/details/128631119#:~:text=%E7%AC%AC%E4%BA%8C%E7%AF%87%EF%BC%9Akubernetes%E9%83%A8%E7%BD%B2calico%E7%BD%91%E7%BB%9C%E6%8F%92%E4%BB%B6%201%201.%20%E4%B8%8B%E8%BD%BDcalico%E7%9A%84yaml%E6%96%87%E4%BB%B6%20%23%E4%B8%8B%E8%BD%BD%E6%96%87%E4%BB%B6%20%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD%E4%BD%8D%E7%BD%AE%EF%BC%9A%20calico.yaml%202,4.%20%E9%AA%8C%E8%AF%81calico%E5%AE%89%E8%A3%85%E7%BB%93%E6%9E%9C%20%E4%B8%8A%E9%9D%A2calico%E8%B5%84%E6%BA%90%E5%AE%89%E8%A3%85%E5%AE%8C%E6%88%90%E5%90%8E%EF%BC%8C%E5%8F%AF%E4%BB%A5%E4%BD%BF%E7%94%A8%E5%91%BD%E4%BB%A4%22kubectl%20get%20pod%20-A%22%E9%AA%8C%E8%AF%81%E7%BB%93%E6%9E%9C%20%E7%BB%93%E6%9E%9C%E5%A6%82%E4%B8%8B%EF%BC%9A%20">[1] 第二篇：kubernetes部署calico网络插件 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
 <div id="refer-anchor-2"></div>
@@ -1721,12 +1721,13 @@
 <li>由于近年来我们业务的快速增长，我们在扩展调度程序（类似于 YARN）的集中式架构方面面临着严峻的挑战，因为我们的集群中的任务和机器大幅增加。如今，我们的一些集群的规模接近 100k 台机器，平均任务提交率约为 40k 任务/秒（在某些月份甚至更高）。这种规模完全超出了单个调度器的容量，升级到分布式调度器架构是不可避免的。</li>
 </ul>
 </li>
-<li>我们需要一种分布式调度器架构的设计，该架构可以<strong>处理集群规模和任务提交率的规模</strong>，同时<strong>实现低延迟和高质量的调度</strong>。所提出的设计<strong>还需要满足两个硬约束</strong>（§2）：向后兼容性和无缝用户透明度。来自这些约束的调度程序的鲁棒性和稳定性对于我们的生产环境至关重要。</li>
+<li>我们需要一种分布式调度器架构的设计，该架构可以<strong>处理集群规模和任务提交率的规模（可扩展性）</strong>，同时<strong>实现低延迟和高质量的调度</strong>。所提出的设计<strong>还需要满足两个硬约束</strong>（§2）：向后兼容性和无缝用户透明度。来自这些约束的调度程序的鲁棒性和稳定性对于我们的生产环境至关重要。</li>
 </ul>
 <h2 id="x1f6a7-现状"><a href="#x1f6a7-现状" class="headerlink" title="🚧现状"></a><span class="emoji" alias="construction" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f6a7.png?v8">🚧</span>现状</h2><ul>
 <li>我们调查了现有的调度程序设计，发现大多数都无法处理我们生产集群的规模，或者可能会危及它们的稳健性。<ul>
 <li>集群调度程序已被广泛研究，我们在第 3 节中讨论了现有调度程序对于集群环境和工作负载的适用性。<ul>
-<li>其中，Omega 中描述的共享状态调度器架构能够处理我们的集群大小并满足两个硬约束，因为它需要最少的侵入性架构更改。<ul>
+<li>其中，Omega 中描述的共享状态调度器架构较符合需求<ul>
+<li>Omega 能够处理我们的集群大小并满足<strong>两个硬约束</strong>，因为它需要最少的侵入性架构更改。<ul>
 <li>在 Omega 中，<ul>
 <li>主节点维护集群状态，该状态指示集群中每台机器的资源可用性。</li>
 <li>有多个调度程序，每个调度程序通过定期与主副本同步来维护集群状态的本地副本。</li>
@@ -1734,7 +1735,12 @@
 <li>由于多个调度程序可能请求同一块资源，这会导致调度冲突。主节点将资源授予第一个请求资源的调度程序，其他调度程序将需要重新调度其任务。</li>
 </ul>
 </li>
+</ul>
+</li>
+<li>Omega 在<strong>可扩展性、低延迟和高调度质量</strong>方面仍不满足需求，<ul>
 <li>当任务提交率较高时，调度冲突和重新调度开销会导致高延迟，我们在第 4 节中使用分析模型和模拟对此进行了验证。我们的结果表明，对优质资源的争夺和本地状态的陈旧性是造成高调度延迟的两个主要因素，因为它们都会大大增加调度冲突。</li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -2036,6 +2042,215 @@
         <tag>智算管理</tag>
         <tag>调度</tag>
         <tag>待精读</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>K8S集群搭建记录——Prometheus持久化设置</title>
+    <url>/2023/07/23/k8s-persistence/</url>
+    <content><![CDATA[<h1 id="🐛-背景：Prometheus数据丢失"><a href="#🐛-背景：Prometheus数据丢失" class="headerlink" title="🐛 背景：Prometheus数据丢失"></a>🐛 背景：Prometheus数据丢失</h1><ul>
+<li>近期项目验收，需要重新操作主动式伸缩云平台，却发现好多数据丢失、系统崩溃的问题，在修复 bug、备份数据的同时，顺便把 Prometheus 升级，配置持久化功能。</li>
+</ul>
+<h1 id="🚀-相关知识"><a href="#🚀-相关知识" class="headerlink" title="🚀 相关知识"></a>🚀 相关知识</h1><p>转载声明：以下内容主要来自于文档<a href="#refer-anchor-1">[2]</a>和<a href="#refer-anchor-2">[2]</a>。</p>
+<h2 id="k8s-之-Volume"><a href="#k8s-之-Volume" class="headerlink" title="k8s 之 Volume"></a>k8s 之 Volume</h2><ul>
+<li><p>先来介绍docker里的volume<a href="#refer-anchor-1"><sup>[1]</sup></a>：</p>
+<ul>
+<li>对于docker容器来说，由于镜像的只读性，难以进行数据持久化。<ul>
+<li>镜像是分层构建的且每一层都是只读的，只读就意味着不能修改数据；</li>
+<li>只有当一个镜像运行为容器以后，在镜像的最顶端才会加上一个可写层。而一旦这个容器被删除，对应可写层上的数据也随之被删除，因此难以数据持久化。</li>
+</ul>
+</li>
+<li>为了解决docker容器上的数据持久化的问题，docker使用了volume。<ul>
+<li>在docker上volume有两种管理方式，<ul>
+<li>第一种是用户手动指定把宿主机（对于宿主机上的目录可能是挂载存储系统上的某目录）上的某个目录挂载到容器某个目录，这种管理方式叫做绑定挂载卷；</li>
+<li>还有一种就是docker自身维护把某个目录挂载到容器某个目录，这种叫docker自己管理的卷。</li>
+</ul>
+</li>
+<li>不管使用哪种方式管理的volume，它都是容器直接关联宿主机上的某个目录或文件。</li>
+<li>docker中的volume解决了容器生命周期内产生的数据在容器终止后能够持久化保存的问题</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>进一步考虑 k8s 的情况：</p>
+<ul>
+<li>k8s也有同样的烦恼，不同的是k8s面对的是pod。<ul>
+<li>pod是k8s上最小调度单元，一个pod被删除以后，pod里运行的容器也随之被删除。因此pod里容器产生的数据也存在难以被持久化的问题。</li>
+</ul>
+</li>
+<li>为了解决这个问题，我们先来看看pod的组成<a href="#refer-anchor-1"><sup>[1]</sup></a>：<ul>
+<li><img lazyload="" src="/images/loading.svg" data-src="https://img2020.cnblogs.com/blog/1503305/202012/1503305-20201223205040924-228713033.png" alt="pod的组成"></li>
+<li>在k8s上pod里可以运行一个或多个容器，运行多个容器。<ul>
+<li>其中一个容器我们叫主容器，其他的容器是用来辅助主容器，我们叫做sidecar。</li>
+</ul>
+</li>
+<li>对于pod来说，不管里面运行多少个容器，在最底层都会运行一个pause容器，该容器最主要用来为pod提供基础架构支撑。并且位于同一个pod中的容器都共享pause容器的网络名称空间以及IPC和UTS。</li>
+</ul>
+</li>
+<li>因此，如果我们要想给pod里的容器提供存储卷，首先要把存储卷关联到pause容器，然后在容器里挂载pause里的存储卷；如下图所示<ul>
+<li><img lazyload="" src="/images/loading.svg" data-src="https://img2020.cnblogs.com/blog/1503305/202012/1503305-20201223223729775-1171257769.png" alt="挂载示意图"></li>
+<li>提示：<ul>
+<li>对于pause容器来说，可以关联存储A，也可以关联存储B。对于pause关联的某个存储，其位于同一pod中的其他容器就也可以挂载pause里关联的存储目录或文件。</li>
+<li>对于k8s来说，存储本来就不属于k8s内部组件，而是一个外来系统。要想k8s使用外部存储系统，首先要求pause容器有适配其对应存储系统的驱动。如果同一宿主机上运行的多个容器共享同一内核上，即宿主机内核上，有对应存储系统的驱动，pause就可以使用对应的驱动去适配对应的存储。</li>
+</ul>
+</li>
+<li></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="k8s-之-PV、PVC、SC-2"><a href="#k8s-之-PV、PVC、SC-2" class="headerlink" title="k8s 之 PV、PVC、SC[2]"></a>k8s 之 PV、PVC、SC<a href="#refer-anchor-2"><sup>[2]</sup></a></h2><ul>
+<li><p>volume的基础使用中，需要我们手动向不同类型存储接口传递不同的参数，才能实现把外部存储映射到k8s上的一个volume对象，使得pod才能正常的挂载对应的存储卷，对应pod里的容器才能正常使用。</p>
+</li>
+<li><p>这种使用方式的前提是用户必须了解对应的存储系统，了解对应类型的存储接口，以及相关参数。这使得用户在k8s上使用存储卷变得有些复杂。</p>
+</li>
+<li><p>为了简化这一过程，在k8s上使用pv和pvc资源来把对应底层存储接口给隐藏了，用户使用存储卷不再关心底层存储系统接口，不管底层是那种类型的存储，用户只需面对一个pvc接口即可。</p>
+</li>
+<li><p><img lazyload="" src="/images/loading.svg" data-src="https://img2020.cnblogs.com/blog/1503305/202012/1503305-20201225143626594-1079301982.png" alt="PV、PVC和K8s集群以及pod的关系"></p>
+</li>
+<li><p>补充：</p>
+<ul>
+<li>NFS 是 Network File System 的缩写，即网络文件系统。功能是通过网络让不同的机器、不同的操作系统能够彼此分享文件。</li>
+<li>Persistent Volume(PV) 是存储卷，它代表了实际存储空间。<ul>
+<li>它主要作用是把后端存储中的某个逻辑单元，映射为k8s上的pv资源。</li>
+<li>pv是集群级别的资源，任意名称空间都可以直接关联某一个pv，关联pv的过程我们叫做绑定pv。</li>
+</ul>
+</li>
+<li>Persistent Volume Claim (PVC) 是存储卷声明，它代表了对存储卷的请求。当容器被重新部署到其他节点时，PVC 会将数据挂载到该节点上，从而确保数据不会丢失。<ul>
+<li>pvc就是持久存储卷申请，在一个名称空间下创建一个pvc就是把对应名称空间同集群上的某一pv做绑定。</li>
+<li>一旦一个名称空间绑定了一个pv后，对应的pv就会从available状态转变成bond状态，其他名称空间将不能再使用，只有对应pv是available状态才能正常的被其他名称空间关联绑定。</li>
+</ul>
+</li>
+<li>用户在创建pod时使用存储卷只需要关心对应名称空间的pvc对象，而对应pv由集群管理管理员定义，后端存储是专门的存储管理员负责管理。而对应名称空间关联某一pv需要使用pvc资源来定义。<ul>
+<li>简单讲pvc和pv的关系是一一对应的，一个pv只能对应一个pvc；至于同一名称空间下的多个pod是否能够同时使用一个PVC取决pv是否允许多路读写，对应pv是否支持多路读写取决后端存储系统。<ul>
+<li>不同类型的存储系统，对应访问模式也有所不同。访问模式有三种，单路读写(ReadWriteOnce简称RWO)，多路读写(ReadWriteMany简称RWX)，多路只读(ReadOnlyMany简称ROX)；</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>下面我们再来说一下sc资源。</p>
+<ul>
+<li>SC 是 StorageClass的缩写，表示存储类。<ul>
+<li>这种资源主要用来对pv资源的自动供给提供接口。<ul>
+<li>所谓自动供给是指用户无需手动创建pv，而是在创建pvc时对应pv会由persistentVolume-controller自动创建并完成pv和pvc的绑定。</li>
+</ul>
+</li>
+<li>使用sc资源的前提是对应后端存储必须支持restful类型接口的管理接口，并且pvc必须指定对应存储类名称来引用SC。</li>
+<li>简单讲SC资源就是用来为后端存储提供自动创建pv并关联对应pvc的接口。如下图<ul>
+<li><img lazyload="" src="/images/loading.svg" data-src="https://img2020.cnblogs.com/blog/1503305/202012/1503305-20201226005642604-183616597.png" alt="SC与 PV、PVC 关系"></li>
+<li>使用sc动态创建pv，对应pvc必须也属于该sc。</li>
+<li>上图主要描述了用户在创建pvc时，引用对应的sc以后，sc会调用底层存储系统的管理接口，创建pv并关联至对应pvc。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="🚢-配置过程"><a href="#🚢-配置过程" class="headerlink" title="🚢 配置过程"></a>🚢 配置过程</h1><ul>
+<li>根据相关文档，我们采用 NFS 创建 SC，再进一步开展 Prometheus 的持久化绑定。</li>
+</ul>
+<h2 id="1️⃣-部署-NFS-Server-3"><a href="#1️⃣-部署-NFS-Server-3" class="headerlink" title="1️⃣ 部署 NFS-Server[3]"></a>1️⃣ 部署 NFS-Server<a href="#refer-anchor-3"><sup>[3]</sup></a></h2><ul>
+<li>在 master 节点部署 NFS</li>
+</ul>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 进入存储卷目录</span></span><br><span class="line">$ <span class="built_in">cd</span> /mnt/data/prometheus_data</span><br><span class="line"></span><br><span class="line"><span class="comment"># 部署 NFS-Server</span></span><br><span class="line">$ yum install nfs-utils -y rpcbind</span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置 nfs 存储目录</span></span><br><span class="line">$ mkdir k8s-volume -p</span><br><span class="line">$ chmod 755 k8s-volume</span><br><span class="line"></span><br><span class="line"><span class="comment"># 编辑 nfs 配置文件</span></span><br><span class="line">$ vim /etc/exports</span><br><span class="line">/mnt/data/prometheus_data/k8s-volume *(rw,no_root_squash,sync)</span><br><span class="line"><span class="comment">#存储目录，*允许所有人连接，rw读写权限，sync文件同时写入硬盘及内存，no_root_squash 使用者root用户自动修改为普通用户</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 启动 rpcbind</span></span><br><span class="line">$ systemctl start rpcbind</span><br><span class="line">$ systemctl <span class="built_in">enable</span> rpcbind</span><br><span class="line">$ systemctl status rpcbind</span><br><span class="line">● rpcbind.service - RPC <span class="built_in">bind</span> service</span><br><span class="line">   Loaded: loaded (/usr/lib/systemd/system/rpcbind.service; enabled; vendor preset: enabled)</span><br><span class="line">   Active: active (running) since 一 2022-08-22 21:31:14 CST; 11 months 0 days ago</span><br><span class="line"> Main PID: 1168 (rpcbind)</span><br><span class="line">   CGroup: /system.slice/rpcbind.service</span><br><span class="line">           └─1168 /sbin/rpcbind -w</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 启动 NFS</span></span><br><span class="line">$ systemctl restart nfs</span><br><span class="line">$ systemctl <span class="built_in">enable</span> nfs</span><br><span class="line">Created symlink from /etc/systemd/system/multi-user.target.wants/nfs-server.service to /usr/lib/systemd/system/nfs-server.service.</span><br><span class="line">$ systemctl status nfs</span><br><span class="line">● nfs-server.service - NFS server and services</span><br><span class="line">   Loaded: loaded (/usr/lib/systemd/system/nfs-server.service; enabled; vendor preset: disabled)</span><br><span class="line">  Drop-In: /run/systemd/generator/nfs-server.service.d</span><br><span class="line">           └─order-with-mounts.conf</span><br><span class="line">   Active: active (exited) since 日 2023-07-23 23:22:56 CST; 15s ago</span><br><span class="line"> Main PID: 14007 (code=exited, status=0/SUCCESS)</span><br><span class="line">    Tasks: 0</span><br><span class="line">   Memory: 0B</span><br><span class="line">   CGroup: /system.slice/nfs-server.service</span><br><span class="line"></span><br><span class="line">7月 23 23:22:55 k8s-node2 systemd[1]: Starting NFS server and services...</span><br><span class="line">7月 23 23:22:56 k8s-node2 systemd[1]: Started NFS server and services.</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#检查 rpcbind 及 nfs 是否正常</span></span><br><span class="line">$ rpcinfo | grep nfs</span><br><span class="line">    100003    3    tcp       0.0.0.0.8.1            nfs        superuser</span><br><span class="line">    100003    4    tcp       0.0.0.0.8.1            nfs        superuser</span><br><span class="line">    100227    3    tcp       0.0.0.0.8.1            nfs_acl    superuser</span><br><span class="line">    100003    3    udp       0.0.0.0.8.1            nfs        superuser</span><br><span class="line">    100227    3    udp       0.0.0.0.8.1            nfs_acl    superuser</span><br><span class="line">    100003    3    tcp6      ::.8.1                 nfs        superuser</span><br><span class="line">    100003    4    tcp6      ::.8.1                 nfs        superuser</span><br><span class="line">    100227    3    tcp6      ::.8.1                 nfs_acl    superuser</span><br><span class="line">    100003    3    udp6      ::.8.1                 nfs        superuser</span><br><span class="line">    100227    3    udp6      ::.8.1                 nfs_acl    superuser</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看nfs目录挂载权限</span></span><br><span class="line">$ cat /var/lib/nfs/etab</span><br><span class="line">/mnt/data/prometheus_data/k8s-volume	*(rw,sync,wdelay,hide,nocrossmnt,secure,no_root_squash,no_all_squash,no_subtree_check,secure_locks,acl,no_pnfs,anonuid=65534,anongid=65534,sec=sys,rw,secure,no_root_squash,no_all_squash)</span><br></pre></td></tr></table></figure></div>
+
+<ul>
+<li>在所有需要 NFS 挂在的集群节点安装</li>
+</ul>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">$ yum install -y nfs-utils rpcbind</span><br><span class="line">$ systemctl start rpcbind</span><br><span class="line">$ systemctl <span class="built_in">enable</span> rpcbind</span><br><span class="line">$ systemctl start nfs</span><br><span class="line">$ systemctl <span class="built_in">enable</span> nfs</span><br><span class="line">Created symlink from /etc/systemd/system/multi-user.target.wants/nfs-server.service to /usr/lib/systemd/system/nfs-server.service.</span><br></pre></td></tr></table></figure></div>
+
+<h2 id="2️⃣-创建-SC-3"><a href="#2️⃣-创建-SC-3" class="headerlink" title="2️⃣ 创建 SC[3]"></a>2️⃣ 创建 SC<a href="#refer-anchor-3"><sup>[3]</sup></a></h2><ul>
+<li>进入存储卷目录</li>
+</ul>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> /mnt/data/prometheus_data</span><br><span class="line">$ mkdir nfs_yaml/</span><br><span class="line">$ <span class="built_in">cd</span> nfs_yaml</span><br></pre></td></tr></table></figure></div>
+
+<ul>
+<li>创建 NFS-Client</li>
+</ul>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># nfs-client.yaml</span></span><br><span class="line"><span class="comment"># 为 prometheus pod 提供支持，避免无法Running</span></span><br><span class="line">kind: Deployment</span><br><span class="line">apiVersion: apps/v1</span><br><span class="line">metadata:</span><br><span class="line">  name: nfs-client-provisioner</span><br><span class="line">  namespace: monitoring</span><br><span class="line">spec:</span><br><span class="line">  replicas: 1</span><br><span class="line">  selector:</span><br><span class="line">    matchLabels:</span><br><span class="line">      app: nfs-client-provisioner</span><br><span class="line">  strategy:</span><br><span class="line">    <span class="built_in">type</span>: Recreate</span><br><span class="line">  template:</span><br><span class="line">    metadata:</span><br><span class="line">      labels:</span><br><span class="line">        app: nfs-client-provisioner</span><br><span class="line">    spec:</span><br><span class="line">      serviceAccountName: nfs-client-provisioner</span><br><span class="line">      containers:</span><br><span class="line">        - name: nfs-client-provisioner</span><br><span class="line">          image: quay.io/external_storage/nfs-client-provisioner:latest</span><br><span class="line">          volumeMounts:</span><br><span class="line">            - name: nfs-client-root</span><br><span class="line">              mountPath: /persistentvolumes</span><br><span class="line">          env:</span><br><span class="line">            - name: PROVISIONER_NAME</span><br><span class="line">              value: fuseim.pri/ifs</span><br><span class="line">            - name: NFS_SERVER</span><br><span class="line">              value: k8s-node2           <span class="comment">#nfs server 地址</span></span><br><span class="line">            - name: NFS_PATH</span><br><span class="line">              value: /mnt/data/prometheus_data/k8s-volume     <span class="comment">#nfs共享目录</span></span><br><span class="line">      volumes:</span><br><span class="line">        - name: nfs-client-root</span><br><span class="line">          nfs:</span><br><span class="line">            server: k8s-node2           <span class="comment">#nfs server 地址</span></span><br><span class="line">            path: /mnt/data/prometheus_data/k8s-volume     <span class="comment">#nfs共享目录</span></span><br></pre></td></tr></table></figure></div>
+
+<ul>
+<li>创建 nfs-client rbac 文件</li>
+</ul>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># nfs-rbac.yaml</span></span><br><span class="line">apiVersion: v1</span><br><span class="line">kind: ServiceAccount</span><br><span class="line">metadata:</span><br><span class="line">  name: nfs-client-provisioner</span><br><span class="line">  namespace: monitoring</span><br><span class="line">---</span><br><span class="line">kind: ClusterRole</span><br><span class="line">apiVersion: rbac.authorization.k8s.io/v1</span><br><span class="line">metadata:</span><br><span class="line">  name: nfs-client-provisioner-runner</span><br><span class="line">  namespace: monitoring</span><br><span class="line">rules:</span><br><span class="line">  - apiGroups: [<span class="string">""</span>]</span><br><span class="line">    resources: [<span class="string">"persistentvolumes"</span>]</span><br><span class="line">    verbs: [<span class="string">"get"</span>,<span class="string">"list"</span>,<span class="string">"watch"</span>,<span class="string">"create"</span>,<span class="string">"delete"</span>]</span><br><span class="line">  - apiGroups: [<span class="string">""</span>]</span><br><span class="line">    resources: [<span class="string">"persistentvolumeclaims"</span>]</span><br><span class="line">    verbs: [<span class="string">"get"</span>,<span class="string">"list"</span>,<span class="string">"watch"</span>,<span class="string">"update"</span>]</span><br><span class="line">  - apiGroups: [<span class="string">"storage.k8s.io"</span>]</span><br><span class="line">    resources: [<span class="string">"storageclasses"</span>]</span><br><span class="line">    verbs: [<span class="string">"get"</span>,<span class="string">"list"</span>,<span class="string">"watch"</span>]</span><br><span class="line">  - apiGroups: [<span class="string">""</span>]</span><br><span class="line">    resources: [<span class="string">"events"</span>]</span><br><span class="line">    verbs: [<span class="string">"list"</span>,<span class="string">"watch"</span>,<span class="string">"create"</span>,<span class="string">"update"</span>,<span class="string">"patch"</span>]</span><br><span class="line">  - apiGroups: [<span class="string">""</span>]</span><br><span class="line">    resources: [<span class="string">"endpoints"</span>]</span><br><span class="line">    verbs: [<span class="string">"create"</span>,<span class="string">"delete"</span>,<span class="string">"get"</span>,<span class="string">"list"</span>,<span class="string">"watch"</span>,<span class="string">"patch"</span>,<span class="string">"update"</span>]</span><br><span class="line">---</span><br><span class="line">kind: ClusterRoleBinding</span><br><span class="line">apiVersion: rbac.authorization.k8s.io/v1</span><br><span class="line">metadata:</span><br><span class="line">  name: run-nfs-client-provisioner</span><br><span class="line">  namespace: monitoring</span><br><span class="line">subjects:</span><br><span class="line">  - kind: ServiceAccount</span><br><span class="line">    name: nfs-client-provisioner</span><br><span class="line">    namespace: monitoring</span><br><span class="line">roleRef:</span><br><span class="line">  kind: ClusterRole</span><br><span class="line">  name: nfs-client-provisioner-runner</span><br><span class="line">  apiGroup: rbac.authorization.k8s.io</span><br></pre></td></tr></table></figure></div>
+
+<ul>
+<li>执行文件，创建对象</li>
+</ul>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">$ kubectl apply -f nfs-rbac.yaml</span><br><span class="line">$ kubectl apply -f nfs-client.yaml</span><br><span class="line">$ kubectl get pod -n tongji-cluster</span><br></pre></td></tr></table></figure></div>
+
+<ul>
+<li>创建StorageClass对象</li>
+</ul>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># prometheus-storageclass.yaml</span></span><br><span class="line">apiVersion: storage.k8s.io/v1</span><br><span class="line">kind: StorageClass</span><br><span class="line">metadata:</span><br><span class="line">  name: prometheus-data-db</span><br><span class="line">  namespace: monitoring</span><br><span class="line">provisioner: fuseim.pri/ifs</span><br></pre></td></tr></table></figure></div>
+<ul>
+<li>声明Storageclass对象，其中<code>provisioner=fuseim.pri/ifs</code>，对应的是本集群中使用NFS作为后端存储</li>
+</ul>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">$ kubectl apply -f prometheus-storageclass.yaml</span><br></pre></td></tr></table></figure></div>
+
+<h2 id="3️⃣4️⃣-Prometheus-持久化绑定"><a href="#3️⃣4️⃣-Prometheus-持久化绑定" class="headerlink" title="3️⃣4️⃣ Prometheus 持久化绑定"></a>3️⃣4️⃣ Prometheus 持久化绑定</h2><ul>
+<li>前提：本文所用集群使用 Prometheus Operator 方式部署监控相关组件。<a href="#refer-anchor-4"><sup>[4]</sup></a></li>
+</ul>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 进入 Prometheus 文件目录</span></span><br><span class="line">$ <span class="built_in">cd</span> /etc/kubernetes/prom_yaml/</span><br><span class="line"><span class="comment"># 修改文件</span></span><br><span class="line">$ vim prometheus/prometheus-prometheus.yaml</span><br></pre></td></tr></table></figure></div>
+
+<ul>
+<li>添加如下配置：</li>
+</ul>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># prometheus/prometheus-prometheus.yaml</span></span><br><span class="line">...</span><br><span class="line">spec: </span><br><span class="line">  storage:</span><br><span class="line">    volumeClaimTemplate:</span><br><span class="line">      spec:</span><br><span class="line">        storageClassName: prometheus-data-db</span><br><span class="line">        resources:</span><br><span class="line">          requests:</span><br><span class="line">            storage: 100Gi</span><br><span class="line">....</span><br><span class="line"> </span><br><span class="line"><span class="comment">#只需要在sepc:中添加对应的信息，storageClassName为刚刚创建的名称，storage为资源对象大小</span></span><br></pre></td></tr></table></figure></div>
+
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 执行修改</span></span><br><span class="line">$ kubectl apply -f prometheus/prometheus-prometheus.yaml</span><br></pre></td></tr></table></figure></div>
+
+<h2 id="4️⃣-查看结果"><a href="#4️⃣-查看结果" class="headerlink" title="4️⃣ 查看结果"></a>4️⃣ 查看结果</h2><div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">$ kubectl get pod -n monitoring</span><br><span class="line">NAME                                     READY   STATUS    RESTARTS   AGE</span><br><span class="line">grafana-6f7b49c756-br788                 1/1     Running   4          344d</span><br><span class="line">kube-state-metrics-78c9d96848-n5748      3/3     Running   6          439d</span><br><span class="line">nfs-client-provisioner-96dc64d6d-lk9m4   1/1     Running   0          4m38s</span><br><span class="line">node-exporter-2mjlt                      2/2     Running   0          439d</span><br><span class="line">node-exporter-fs7nf                      2/2     Running   0          313d</span><br><span class="line">node-exporter-x26l8                      2/2     Running   4          439d</span><br><span class="line">prometheus-k8s-0                         2/2     Running   1          64s</span><br><span class="line">prometheus-k8s-1                         2/2     Running   1          64s</span><br><span class="line">prometheus-operator-547c9cf9fd-cs4kv     2/2     Running   0          154d</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">$ kubectl get pv -n monitoring | grep prom</span><br><span class="line">pvc-e786b1a8-d2ef-453d-9f5d-b1cb4b2b5574   100Gi      RWO            Delete           Bound    monitoring/prometheus-k8s-db-prometheus-k8s-1   prometheus-data-db            3m5s</span><br><span class="line">pvc-fd9f1223-8131-4b0f-b070-661a2bcfd782   100Gi      RWO            Delete           Bound    monitoring/prometheus-k8s-db-prometheus-k8s-0   prometheus-data-db            3m5s</span><br><span class="line"></span><br><span class="line">$ kubectl get pvc -n monitoring</span><br><span class="line">prometheus-k8s-db-prometheus-k8s-0   Bound    pvc-fd9f1223-8131-4b0f-b070-661a2bcfd782   100Gi      RWO            prometheus-data-db   3m20s</span><br><span class="line">prometheus-k8s-db-prometheus-k8s-1   Bound    pvc-e786b1a8-d2ef-453d-9f5d-b1cb4b2b5574   100Gi      RWO            prometheus-data-db   3m20s</span><br></pre></td></tr></table></figure></div>
+
+<ul>
+<li>可以测试一下把 pod 删掉数据是否还保存<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">$ kubectl delete pods -n monitoring prometheus-k8s-0</span><br></pre></td></tr></table></figure></div>
+
+</li>
+</ul>
+<h1 id="🤔-反思"><a href="#🤔-反思" class="headerlink" title="🤔 反思"></a>🤔 反思</h1><ul>
+<li>以目标为导向可以大大提高效率。<ul>
+<li>本次实现过程中，<ul>
+<li>先查询“Prometheus 持久化”发现了些教程，但意识到大部分名词看不懂；</li>
+<li>于是转向查询相关名词。<ul>
+<li>看相关名词的过程中，头脑逐渐迷糊，渐渐忘记主线，开始陷入细节中。</li>
+<li>上了个厕所，复盘发现自己效率有点低，于是立马警醒自己。</li>
+</ul>
+</li>
+<li>接下来回顾最初查到的教程，以看懂教程为目标，缩小名词排查范围，只关注“PV、PVC、SC”等概念，效率回升。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>就我个人而言，很容易陷入细节里。原因就是干着干着会忘记主线，只想把文档里的每个字都看懂，从而积累小小成就感。从大局看，有点捡了芝麻丢了西瓜，还是得时刻问自己“我现在在干什么？”，同时记录工作过程方便自己理清思路。</li>
+</ul>
+<hr>
+<ul>
+<li>希望通过分享我配置k8s持久化的经历，可以帮助你在类似的问题上更加迅速和高效地解决困扰你的问题。</li>
+<li>希望这篇博客对你有帮助！如果你有任何问题或需要进一步的帮助，请随时提问。</li>
+<li>如果你喜欢这篇文章，欢迎<a class="link" href="https://github.com/freshwlnd/">动动小手 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>给我一个follow或star。</li>
+</ul>
+<h1 id="x1f5fa-参考文献"><a href="#x1f5fa-参考文献" class="headerlink" title="🗺参考文献"></a><span class="emoji" alias="world_map" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f5fa.png?v8">🗺</span>参考文献</h1><div id="refer-anchor-1"></div>
+
+<p><a class="link" href="https://www.cnblogs.com/qiuhom-1874/p/14180752.html">[1] 容器编排系统K8s之Volume的基础使用 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<div id="refer-anchor-2"></div>
+
+<p><a class="link" href="https://www.cnblogs.com/qiuhom-1874/p/14188621.html">[2] 容器编排系统K8s之PV、PVC、SC资源 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<div id="refer-anchor-3"></div>
+
+<p><a class="link" href="https://i4t.com/4586.html">[3] Prometheus Operator 持久化存储 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<div id="refer-anchor-4"></div>
+
+<p><a class="link" href="https://www.cnblogs.com/ssgeek/p/14441149.html">[4] 使用kube-prometheus部署k8s监控(最新版) <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+]]></content>
+      <categories>
+        <category>工程</category>
+        <category>环境配置</category>
+      </categories>
+      <tags>
+        <tag>K8S</tag>
       </tags>
   </entry>
 </search>
