@@ -2051,7 +2051,7 @@
 <li>近期项目验收，需要重新操作主动式伸缩云平台，却发现好多数据丢失、系统崩溃的问题，在修复 bug、备份数据的同时，顺便把 Prometheus 升级，配置持久化功能。</li>
 </ul>
 <h1 id="🚀-相关知识"><a href="#🚀-相关知识" class="headerlink" title="🚀 相关知识"></a>🚀 相关知识</h1><p>转载声明：以下内容主要来自于文档<a href="#refer-anchor-1">[2]</a>和<a href="#refer-anchor-2">[2]</a>。</p>
-<h2 id="k8s-之-Volume"><a href="#k8s-之-Volume" class="headerlink" title="k8s 之 Volume"></a>k8s 之 Volume</h2><ul>
+<h2 id="1️⃣-k8s-之-Volume"><a href="#1️⃣-k8s-之-Volume" class="headerlink" title="1️⃣ k8s 之 Volume"></a>1️⃣ k8s 之 Volume</h2><ul>
 <li><p>先来介绍docker里的volume<a href="#refer-anchor-1"><sup>[1]</sup></a>：</p>
 <ul>
 <li>对于docker容器来说，由于镜像的只读性，难以进行数据持久化。<ul>
@@ -2099,7 +2099,7 @@
 </ul>
 </li>
 </ul>
-<h2 id="k8s-之-PV、PVC、SC-2"><a href="#k8s-之-PV、PVC、SC-2" class="headerlink" title="k8s 之 PV、PVC、SC[2]"></a>k8s 之 PV、PVC、SC<a href="#refer-anchor-2"><sup>[2]</sup></a></h2><ul>
+<h2 id="2️⃣-k8s-之-PV、PVC、SC-2"><a href="#2️⃣-k8s-之-PV、PVC、SC-2" class="headerlink" title="2️⃣ k8s 之 PV、PVC、SC[2]"></a>2️⃣ k8s 之 PV、PVC、SC<a href="#refer-anchor-2"><sup>[2]</sup></a></h2><ul>
 <li><p>volume的基础使用中，需要我们手动向不同类型存储接口传递不同的参数，才能实现把外部存储映射到k8s上的一个volume对象，使得pod才能正常的挂载对应的存储卷，对应pod里的容器才能正常使用。</p>
 </li>
 <li><p>这种使用方式的前提是用户必须了解对应的存储系统，了解对应类型的存储接口，以及相关参数。这使得用户在k8s上使用存储卷变得有些复杂。</p>
@@ -2191,7 +2191,7 @@
 </ul>
 <div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">$ kubectl apply -f prometheus-storageclass.yaml</span><br></pre></td></tr></table></figure></div>
 
-<h2 id="3️⃣4️⃣-Prometheus-持久化绑定"><a href="#3️⃣4️⃣-Prometheus-持久化绑定" class="headerlink" title="3️⃣4️⃣ Prometheus 持久化绑定"></a>3️⃣4️⃣ Prometheus 持久化绑定</h2><ul>
+<h2 id="3️⃣-Prometheus-持久化绑定"><a href="#3️⃣-Prometheus-持久化绑定" class="headerlink" title="3️⃣ Prometheus 持久化绑定"></a>3️⃣ Prometheus 持久化绑定</h2><ul>
 <li>前提：本文所用集群使用 Prometheus Operator 方式部署监控相关组件。<a href="#refer-anchor-4"><sup>[4]</sup></a></li>
 </ul>
 <div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 进入 Prometheus 文件目录</span></span><br><span class="line">$ <span class="built_in">cd</span> /etc/kubernetes/prom_yaml/</span><br><span class="line"><span class="comment"># 修改文件</span></span><br><span class="line">$ vim prometheus/prometheus-prometheus.yaml</span><br></pre></td></tr></table></figure></div>
