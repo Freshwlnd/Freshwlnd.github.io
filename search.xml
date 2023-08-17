@@ -2279,15 +2279,16 @@
 </li>
 </ul>
 <h2 id="2️⃣-创建项目"><a href="#2️⃣-创建项目" class="headerlink" title="2️⃣ 创建项目"></a>2️⃣ 创建项目</h2><ul>
-<li><p>根据提示创建 issue（我私自翻译为项目，感觉比较贴切）<br><img  
+<li>根据提示创建 issue（我私自翻译为项目，感觉比较贴切）</li>
+</ul>
+<p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="https://ask.qcloudimg.com/http-save/yehe-2881505/bzeg3bg0sw.png"
+                     data-src="https://p.sda1.dev/12/3148bbc32e51cbc8c21a41229d2699ec/1692279570549.jpg"
                       alt="创建 issue"
                 ></p>
-</li>
-<li><p>在 Sonatype 中 <a class="link"   href="https://issues.sonatype.org/secure/CreateIssue.jspa?issuetype=21&pid=10134" >创建 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> 新项目。</p>
 <ul>
+<li>在 Sonatype 中 <a class="link"   href="https://issues.sonatype.org/secure/CreateIssue.jspa?issuetype=21&pid=10134" >创建 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> 新项目。<ul>
 <li>根据弹出框的提示，填写概要、描述、GroupId、Project URL、SCM url 以及你在 jira 上的用户名。创建完毕后，会被自动跳转到该 issue 的详情页并分配一个唯一的ID，如：OSSRH-33944。余下的时间只需要等待，一般在两个工作日之内，Sonatype 的工作人员就会着手处理，然后他会在该 issue 底下的评论区留言。</li>
 <li><font color='red'>由于项目仍在开发中，尚处于私有状态，暂未进行这一步，等 javadoc 及一系列修改完成后再进行相关操作。</font></li>
 </ul>
@@ -2314,17 +2315,17 @@
 <li>运行 mvn deploy，输入创建密钥时的密码。（以下图片来源于<a href="#refer-anchor-2">[2]</a>）<br><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="https://developer.qcloudimg.com/http-save/2871589/9aeb70c8b6497c3186f4462008423c51.png"
+                     data-src="https://github.com/Freshwlnd/image/blob/blog/java1.png?raw=true"
                       alt="运行 mvn deploy"
                 ><br><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="https://developer.qcloudimg.com/http-save/2871589/95829e3a09495e2504ae5931b8585527.png"
+                     data-src="https://github.com/Freshwlnd/image/blob/blog/java2.png?raw=true"
                       alt="输入密码"
                 ><br><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="https://developer.qcloudimg.com/http-save/2871589/2ec0fa928cd01df7d7aed9040585f97d.png"
+                     data-src="https://github.com/Freshwlnd/image/blob/blog/java3.png?raw=true"
                       alt="创建成功"
                 ></li>
 </ul>
