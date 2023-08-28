@@ -2424,7 +2424,7 @@
 </ol>
 </li>
 <li><input checked="" disabled="" type="checkbox"> <ol start="4">
-<li>json循环引用报错</li>
+<li><a href="/2023/08/28/program_language/java-spring-bug-json-infinite-recursion/" title="json循环引用报错">json循环引用报错</a></li>
 </ol>
 </li>
 <li><input disabled="" type="checkbox"> <ol start="5">
@@ -2617,8 +2617,8 @@
 <li>到底为啥报4xx相关错误</li>
 </ol>
 </li>
-<li><input disabled="" type="checkbox"> <ol start="4">
-<li>json循环引用报错</li>
+<li><input checked="" disabled="" type="checkbox"> <ol start="4">
+<li><a href="/2023/08/28/program_language/java-spring-bug-json-infinite-recursion/" title="json循环引用报错">json循环引用报错</a></li>
 </ol>
 </li>
 <li><input disabled="" type="checkbox"> <ol start="5">
