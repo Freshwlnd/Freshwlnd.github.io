@@ -2656,4 +2656,27 @@
         <tag>spring</tag>
       </tags>
   </entry>
+  <entry>
+    <title>【Spring】java 单体式应用微服务拆分过程 bug 修复：4xx 系列</title>
+    <url>/2023/08/28/program_language/java-spring-bug-4xx/</url>
+    <content><![CDATA[<h1 id="💡简介"><a href="#💡简介" class="headerlink" title="💡简介"></a>💡简介</h1><ul>
+<li><p>将单体式 Spring 应用拆分为微服务式应用过程中，遇到了一系列有关 Spring 框架的问题，将修复过程及相关问题信息分析过程记录下来，便于以后解决同类问题，也顺便提高自己对 Spring 框架的理解。</p>
+</li>
+<li><p>前期还遇到Serialize 类序列化失败等问题，暂未记录下来，未来有机会再回顾并补充相关记录。</p>
+</li>
+</ul>
+<h1 id="🧠问题1️⃣——404"><a href="#🧠问题1️⃣——404" class="headerlink" title="🧠问题1️⃣——404"></a>🧠问题1️⃣——404</h1><h2 id="✏️问题描述"><a href="#✏️问题描述" class="headerlink" title="✏️问题描述"></a>✏️问题描述</h2><ul>
+<li>前期修复 Jackson 相关问题费尽心力，当 jackson 不再报错后，开始出现 404 问题，主要信息为<code>Content type 'application/json;charset=UTF-8' not supported</code>。</li>
+</ul>
+<h3 id="ℹ️报错信息"><a href="#ℹ️报错信息" class="headerlink" title="ℹ️报错信息"></a>ℹ️报错信息</h3><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">feign.FeignException: status 404 reading PostRepositoryRealClient#findAllByPostTypeAndPostStatusAndDeleted(PostParams); </span><br><span class="line">content: {</span><br><span class="line">    status: 404,</span><br><span class="line">    error: Not Found,</span><br><span class="line">    exception: org.springframework.web.HttpMediaTypeNotSupportedException,</span><br><span class="line">    message:org.springframework.web.HttpMediaTypeNotSupportedException: Content type 'application/json;charset=UTF-8' not supported</span><br><span class="line">}</span><br></pre></td></tr></table></figure></div>
+]]></content>
+      <categories>
+        <category>工程</category>
+        <category>环境检修</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+        <tag>spring</tag>
+      </tags>
+  </entry>
 </search>
