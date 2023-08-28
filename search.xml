@@ -2205,182 +2205,6 @@
       </tags>
   </entry>
   <entry>
-    <title>【Spring】java 单体式应用微服务拆分过程 bug 修复</title>
-    <url>/2023/08/25/program_language/java-spring-bug/</url>
-    <content><![CDATA[<h1 id="💡简介"><a href="#💡简介" class="headerlink" title="💡简介"></a>💡简介</h1><ul>
-<li><p>将单体式 Spring 应用拆分为微服务式应用过程中，遇到了一系列有关 Spring 框架的问题，将修复过程及相关问题信息分析过程记录下来，便于以后解决同类问题，也顺便提高自己对 Spring 框架的理解。</p>
-</li>
-<li><p>前期还遇到循环引用导致 JSON 序列化失败、Serialize 类序列化失败等问题，暂未记录下来，未来有机会再回顾并补充相关记录。</p>
-</li>
-</ul>
-<h1 id="🧠问题1️⃣——JSON-parse-error"><a href="#🧠问题1️⃣——JSON-parse-error" class="headerlink" title="🧠问题1️⃣——JSON parse error"></a>🧠问题1️⃣——JSON parse error</h1><ul>
-<li>共出现三类报错，分别对应 Spring Framework <code>org.springframework.data.domain</code> 包中的 <code>Pageable</code>、<code>PageRequest</code>、<code>Sort</code>三个类。</li>
-</ul>
-<h2 id="✏️问题描述"><a href="#✏️问题描述" class="headerlink" title="✏️问题描述"></a>✏️问题描述</h2><ul>
-<li><p>上述三个类是用于处理数据分页和排序的关键类。其中：</p>
-<ul>
-<li><p> <code>Pageable</code> 接口定义了处理分页信息的通用方法，<code>PageRequest</code> 是它的默认实现之一，提供了一个便捷的方式来构造分页请求。<code>Sort</code> 类用于定义数据的排序规则，可以用于单独的查询，也可以与<code>Pageable</code> 一起使用以实现在分页基础上的排序。在数据库查询中，通常会将Pageable和Sort对象传递给查询方法，以指定分页和排序规则，从而从数据库中检索特定范围的数据，并按指定的顺序排列。</p>
-</li>
-<li><p>具体而言：</p>
-<ul>
-<li><p><code>org.springframework.data.domain.Pageable</code>：</p>
-<ul>
-<li>Pageable接口是用于定义数据分页信息的接口。它允许用户指定要检索的页码、每页的数据量以及排序规则。通常用于在数据库查询中限制结果集大小并实现分页功能。</li>
-</ul>
-</li>
-<li><p><code>org.springframework.data.domain.PageRequest</code>：</p>
-<ul>
-<li>PageRequest是Pageable接口的默认实现之一。它提供了一个简便的方法来创建分页请求。用户可以通过构造函数传递页码、每页数据量和排序规则来创建一个PageRequest对象，然后将其用作查询方法的参数。</li>
-</ul>
-</li>
-<li><p><code>org.springframework.data.domain.Sort</code>：</p>
-<ul>
-<li>Sort类用于指定数据排序规则。它允许用户定义一个或多个排序条件，包括属性名和排序方向（升序或降序）。在数据库查询中，Sort对象可以与Pageable一起使用，以便在分页的基础上对数据进行排序。</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h3 id="🤔问题分析"><a href="#🤔问题分析" class="headerlink" title="🤔问题分析"></a>🤔问题分析</h3><ul>
-<li><p>本项目迁移至微服务过程中，一个变为远程调用的函数使用了 <code>Pageable</code> 作为函数参数。</p>
-</li>
-<li><p>在远程调用时，先将相应参数转化为 JSON 格式数据，再将 JSON 数据转换为相应对象。</p>
-<ul>
-<li>经过简单分析得知，问题源于将 JSON 数据转换为对象时出现错误，具体来说， JSON 解析器无法构造 <code>Pageable</code> 实例，因为找不到适合的构造函数或者创造者方法，或者可能需要添加/启用类型信息。（最常见的报错提示缺乏无参构造函数）</li>
-</ul>
-</li>
-<li><p>先展示一下报错信息，再介绍我所尝试的几种解决方案。</p>
-</li>
-</ul>
-<h3 id="ℹ️报错信息-1"><a href="#ℹ️报错信息-1" class="headerlink" title="ℹ️报错信息 1"></a>ℹ️报错信息 1</h3><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">org.springframework.http.converter.HttpMessageNotReadableException: JSON parse error: Cannot construct instance of `org.springframework.data.domain.Pageable` (no Creators, like default construct, exist): abstract types either need to be mapped to concrete types, have custom deserializer, or contain additional type information; nested exception is com.fasterxml.jackson.databind.exc.InvalidDefinitionException: Cannot construct instance of `org.springframework.data.domain.Pageable` (no Creators, like default construct, exist): abstract types either need to be mapped to concrete types, have custom deserializer, or contain additional type information at [Source: java.io.PushbackInputStream@11b5cfbc; line: 1, column: 59] (through reference chain: com.raysmond.blog.common.models.PostParams["pageRequest"])</span><br></pre></td></tr></table></figure></div>
-
-<h3 id="ℹ️报错信息-2"><a href="#ℹ️报错信息-2" class="headerlink" title="ℹ️报错信息 2"></a>ℹ️报错信息 2</h3><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">org.springframework.http.converter.HttpMessageNotReadableException: JSON parse error: Can not construct instance of `org.springframework.data.domain.PageRequest``: no suitable constructor found, can not deserialize from Object value (missing default constructor or creator, or perhaps need to add/enable type information?); nested exception is com.fasterxml.jackson.databind.JsonMappingException: Can not construct instance of org.springframework.data.domain.PageRequest: no suitable constructor found, can not deserialize from Object value (missing default constructor or creator, or perhaps need to add/enable type information?) at [Source: java.io.PushbackInputStream@72267439; line: 1, column: 60] (through reference chain: com.raysmond.blog.common.models.PostParams[\"pageRequest\"])","path":"/PostRepositoryController/error/general"}</span><br></pre></td></tr></table></figure></div>
-
-<h2 id="🛠️相关尝试及解决方案"><a href="#🛠️相关尝试及解决方案" class="headerlink" title="🛠️相关尝试及解决方案"></a>🛠️相关尝试及解决方案</h2><h3 id="🔨尝试方法1️⃣——封装基础类"><a href="#🔨尝试方法1️⃣——封装基础类" class="headerlink" title="🔨尝试方法1️⃣——封装基础类"></a>🔨尝试方法1️⃣——封装基础类</h3><ul>
-<li><p>根据提示可知，缺乏无参构造函数。而基础包中的代码是只读的无法修改，因此采用封装的方式，参考<a href="#refer-anchor-1">[1]</a><a href="#refer-anchor-2">[2]</a>实现一个继承基础类的新类，和基础类相比仅仅多了一个无参构造函数。</p>
-</li>
-<li><p>以 PageRequest 为例，查看源码后构造新类如下：</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">package com.raysmond.blog.common.models;</span><br><span class="line"></span><br><span class="line">import org.springframework.data.domain.Sort;</span><br><span class="line">import org.springframework.data.domain.Sort.Direction;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">public class PageRequest extends org.springframework.data.domain.PageRequest {</span><br><span class="line"></span><br><span class="line">    public PageRequest() {</span><br><span class="line">        super(1, 1);</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    public PageRequest(int page, int size) {</span><br><span class="line">        super(page, size);</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    public PageRequest(int page, int size, Direction direction, String... properties) {</span><br><span class="line">        super(page, size, direction, properties);</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    public PageRequest(int page, int size, Sort sort) {</span><br><span class="line">        super(page, size, sort);</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">}</span><br></pre></td></tr></table></figure></div></li>
-<li><p>实现后，将所有地方的使用的基础类替换为新类，一个简单的方法是查找替换：</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">import com.raysmond.blog.common.models.PageRequest;</span><br><span class="line">// import org.springframework.data.domain.PageRequest;</span><br></pre></td></tr></table></figure></div>
-</li>
-<li><p>修改后似乎解决了该问题，但出现了第二个错误问题——404。因此尝试使用其他解决方案。</p>
-</li>
-</ul>
-<h3 id="🔨尝试方法2️⃣——启用-Jackson-配置"><a href="#🔨尝试方法2️⃣——启用-Jackson-配置" class="headerlink" title="🔨尝试方法2️⃣——启用 Jackson 配置"></a>🔨尝试方法2️⃣——启用 Jackson 配置</h3><ul>
-<li><p>最开始就看到这种方法<a href="#refer-anchor-2"><sup>[2]</sup></a>，但在 application.yaml 中配置时发现对应配置项无法找到，因此搁置。后来检索 <code>Sort</code> 类的问题时再次调研到更细致的配置方法<a href="#refer-anchor-4"><sup>[4]</sup></a>。</p>
-</li>
-<li><p>具体如下：</p>
-<ul>
-<li><p>配置项（在 <code>application</code> 文件中配置）：</p>
-<div class="highlight-container" data-rel="Yml"><figure class="iseeu highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="string">feign.autoconfiguration.jackson.enabled=true</span></span><br></pre></td></tr></table></figure></div>
-</li>
-<li><p>导入包：</p>
-<div class="highlight-container" data-rel="Gradle"><figure class="iseeu highlight gradle"><table><tr><td class="code"><pre><span class="line"># gradle</span><br><span class="line"><span class="keyword">compile</span> <span class="string">'org.springframework.cloud:spring-cloud-openfeign-core:+'</span></span><br></pre></td></tr></table></figure></div>
-<div class="highlight-container" data-rel="Xml"><figure class="iseeu highlight xml"><table><tr><td class="code"><pre><span class="line"># maven</span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-openfeign-core<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.1.3<span class="tag">&lt;/<span class="name">version</span>&gt;</span>    # 根据需要修改</span><br><span class="line">        <span class="tag">&lt;<span class="name">scope</span>&gt;</span>compile<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure></div>
-</li>
-</ul>
-</li>
-<li><p>同样，导入后报错消失，但仍然出现第二个错误问题—— 404 问题。（😵‍💫晕倒）</p>
-</li>
-<li><p>暂且认为是解决了一个问题的第一阶段，先尝试解决第二阶段。</p>
-</li>
-</ul>
-<h1 id="🧠问题2️⃣——404-Not-Found"><a href="#🧠问题2️⃣——404-Not-Found" class="headerlink" title="🧠问题2️⃣——404 Not Found"></a>🧠问题2️⃣——404 Not Found</h1><h2 id="✏️问题描述-1"><a href="#✏️问题描述-1" class="headerlink" title="✏️问题描述"></a>✏️问题描述</h2><ul>
-<li>如上所述，当 jackson 不再报错后，开始出现 404 问题，主要信息为<code>Content type 'application/json;charset=UTF-8' not supported</code>。</li>
-</ul>
-<h3 id="ℹ️报错信息"><a href="#ℹ️报错信息" class="headerlink" title="ℹ️报错信息"></a>ℹ️报错信息</h3><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">feign.FeignException: status 404 reading PostRepositoryRealClient#findAllByPostTypeAndPostStatusAndDeleted(PostParams); </span><br><span class="line">content: {</span><br><span class="line">    status: 404,</span><br><span class="line">    error: Not Found,</span><br><span class="line">    exception: org.springframework.web.HttpMediaTypeNotSupportedException,</span><br><span class="line">    message:org.springframework.web.HttpMediaTypeNotSupportedException: Content type 'application/json;charset=UTF-8' not supported</span><br><span class="line">}</span><br></pre></td></tr></table></figure></div>
-
-
-<h3 id="🤔问题分析-1"><a href="#🤔问题分析-1" class="headerlink" title="🤔问题分析"></a>🤔问题分析</h3><ul>
-<li><p>这个错误表明<strong>服务器不支持传入的Content-Type</strong>，该Content-Type是application/json;charset=UTF-8。</p>
-<ul>
-<li>这可能是因为：<ul>
-<li>服务器端的接口没有正确配置以处理JSON格式的请求，</li>
-<li>或者可能是由于请求的Content-Type与服务器端接口的期望不匹配。</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>由于报错分析过于简单，有点无从下手，检索了一系列文章也没看出个所以然。因此考虑第一步骤为获取更多信息：</p>
-<h3 id="💾尝试方法1️⃣——获取更多信息"><a href="#💾尝试方法1️⃣——获取更多信息" class="headerlink" title="💾尝试方法1️⃣——获取更多信息"></a>💾尝试方法1️⃣——获取更多信息</h3></li>
-<li><p>首先分别测试每个被调用者，看到底是哪个接口开始出错：</p>
-<ul>
-<li><em>发现 Edge 的 检查-&gt;网络控制器 中有类似于 Postman 的工具，正好用于测试。</em></li>
-<li>进行相应测试后发现问题还是出在接收端反序列化上。</li>
-</ul>
-</li>
-<li><p>进行一系列检索后，发现一个相关解答。</p>
-</li>
-</ul>
-<h3 id="💭问题原因"><a href="#💭问题原因" class="headerlink" title="💭问题原因"></a>💭问题原因</h3><ul>
-<li>来源于<a href="#refer-anchor-5">[5]</a>，对于不支持的类型，会报错<code>Content type 'application/json;charset=UTF-8' not supported</code>，含义实际上是无法解析 json 数据。<ul>
-<li>理论上我们已经进行了相关配置，不应该出现该问题。只能怀疑是 spring 版本过低导致的 bug。</li>
-<li>然而如果要升级 spring 只会消耗更多时间精力，因此暂不考虑该方案。</li>
-</ul>
-</li>
-<li>进一步地，<a href="#refer-anchor-5">[5]</a>中导入相关包后仍然报错，根据其报错可以更深了解 spring 这部分原理。<ul>
-<li>spring需要使用方法TypeFactory.type(class)进行解析，当jackson mapper中没有实现方法则会报错。</li>
-</ul>
-</li>
-</ul>
-<h1 id="🧠最终方案——曲线救国"><a href="#🧠最终方案——曲线救国" class="headerlink" title="🧠最终方案——曲线救国"></a>🧠最终方案——曲线救国</h1><ul>
-<li>之前排查过程中其实看到一套方案，但这种方案无法触及当前问题的本质，出于对问题本质的好奇一直没有采用。<ul>
-<li>然而现在已经耗费了太多时间在这个问题上，只能先曲线救国一下了。</li>
-</ul>
-</li>
-<li>方案如下：<blockquote>
-<p>使用默认支持的参数格式：<br>  Spring Data通常会根据请求的参数自动解析分页和排序信息，而无需将它们作为JSON对象传递。例如，在使用Spring MVC时，您可以直接将页码、每页大小和排序参数添加到URL中，Spring Data会自动解析这些参数并应用于查询。这样可以避免直接将分页对象作为JSON传递，从而避免反序列化问题。wd</p>
-</blockquote>
-</li>
-</ul>
-<h2 id="🔨解决方法1️⃣——传递重要参数"><a href="#🔨解决方法1️⃣——传递重要参数" class="headerlink" title="🔨解决方法1️⃣——传递重要参数"></a>🔨解决方法1️⃣——传递重要参数</h2><ul>
-<li>本项目下使用<code>PageRequest</code>作为<code>Pageable</code>的实现类，其创建方式如下：<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">new</span> <span class="title class_">PageRequest</span>(page, pageSize, Sort.Direction.DESC, <span class="string">"createdAt"</span>)</span><br></pre></td></tr></table></figure></div></li>
-<li>显然，只要将各个参数传递后重新创建对象即可，因此实现以下 DTO：<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="meta">@NoArgsConstructor</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">PostParams</span> {</span><br><span class="line">    <span class="keyword">private</span> PostType postType;</span><br><span class="line">    <span class="keyword">private</span> PostStatus postStatus;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">boolean</span> isNullPageRequest;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> page=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> size=<span class="number">5</span>;</span><br><span class="line">    <span class="keyword">private</span> String sortDirection=<span class="string">"DESC"</span>;</span><br><span class="line">    List&lt;String&gt; properties= <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;String&gt;();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> Boolean deleted;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">PostParams</span><span class="params">(PostType postType, PostStatus postStatus, Pageable pageRequest, Boolean deleted)</span> {</span><br><span class="line">        <span class="built_in">this</span>.postType = postType;</span><br><span class="line">        <span class="built_in">this</span>.postStatus = postStatus;</span><br><span class="line">        setPageRequest(pageRequest);</span><br><span class="line">        <span class="built_in">this</span>.deleted = deleted;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">PostParams</span><span class="params">(PostType postType, PostStatus postStatus, Boolean deleted)</span> {</span><br><span class="line">        <span class="built_in">this</span>.postType = postType;</span><br><span class="line">        <span class="built_in">this</span>.postStatus = postStatus;</span><br><span class="line">        setPageRequest(<span class="literal">null</span>);</span><br><span class="line">        <span class="built_in">this</span>.deleted = deleted;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setPageRequest</span><span class="params">(Pageable pageRequest)</span> {</span><br><span class="line">        <span class="keyword">if</span>(pageRequest==<span class="literal">null</span>) {</span><br><span class="line">            <span class="built_in">this</span>.isNullPageRequest = <span class="literal">true</span>;</span><br><span class="line">        } <span class="keyword">else</span> {</span><br><span class="line">            <span class="built_in">this</span>.isNullPageRequest = <span class="literal">false</span>;</span><br><span class="line">            <span class="built_in">this</span>.page = pageRequest.getPageNumber();</span><br><span class="line">            <span class="built_in">this</span>.size = pageRequest.getPageSize();</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> Pageable <span class="title function_">getPageRequest</span><span class="params">()</span> {</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">PageRequest</span>(<span class="built_in">this</span>.page, <span class="built_in">this</span>.size, Sort.Direction.fromString(<span class="built_in">this</span>.sortDirection), <span class="built_in">this</span>.properties.toArray(<span class="keyword">new</span> <span class="title class_">String</span>[<span class="built_in">this</span>.properties.size()]));</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">}</span><br></pre></td></tr></table></figure></div></li>
-<li><del>不得不吐槽一下，Sort 的设计太反人类了，确实是不想让人获取其中的对象（也可能是什么设计模式？）</del>。</li>
-<li>进一步地，在所有接口上封装一层函数以使用 <code>PostParams</code> 对象作为中介即可。</li>
-</ul>
-<h1 id="🏥反思"><a href="#🏥反思" class="headerlink" title="🏥反思"></a>🏥反思</h1><ul>
-<li>对于环境配置的问题总是会花很长时间，一方面是因为这类问题往往涉及复杂的框架，有大片知识盲区，另一方面也受我个人思路影响。<ul>
-<li>第一个“问题”是好奇心，好奇心过重导致我更希望将所有问题的根源都摸清楚。实际上这种状态确实是人类所需要的，但我的问题在于“遇到较大困难时，既磨磨蹭蹭不能往前推进，又拖拖拉拉不肯放弃”。在本次情况中，实际上早就知道可以“曲线救国”，但始终没有把那条路放到面上考虑，而是沉浸在“我在攻克难题”的虚假幻想中。</li>
-<li>第二个问题是过于自信、过于浮躁，主要体现在明明梳理不清思路，却也不愿意花费一些时间写下来（当然最后还是写了，否则也没有这篇博客了）。记录的好处实在是有点太多了，既能帮助捋清思路，又能提高工作成就感进而提高专注度，还能将坑分享给大家节省大家时间（一个人一分钟，四十个人是不是四十分钟了？[doge]）</li>
-</ul>
-</li>
-</ul>
-<h1 id="🚧ToDoList（也许会补上）"><a href="#🚧ToDoList（也许会补上）" class="headerlink" title="🚧ToDoList（也许会补上）"></a>🚧ToDoList（也许会补上）</h1><p>-[ ] 1. Spring 框架基础原理<br>-[ ] 2. Jackson 组件原理及相关注解作用<br>-[ ] 3. 到底为啥报相关错误</p>
-<hr>
-<ul>
-<li>希望这篇博客对你有帮助！如果你有任何问题或需要进一步的帮助，请随时提问。（如果你发现了本问题的核心原因，一定要告诉我！）</li>
-<li>如果你喜欢这篇文章，欢迎<a class="link" href="https://github.com/freshwlnd/">动动小手 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>给我一个follow或star。</li>
-</ul>
-<h1 id="x1f5fa-参考文献"><a href="#x1f5fa-参考文献" class="headerlink" title="🗺参考文献"></a><span class="emoji" alias="world_map" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f5fa.png?v8">🗺</span>参考文献</h1><div id="refer-anchor-1"></div>
-
-<p><a class="link" href="https://blog.csdn.net/qq_22899021/article/details/83380108">[1] JSON parse error: Can not construct instance of org.springframework.data.domain.Page <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-<div id="refer-anchor-2"></div>
-
-<p><a href="https://stackoverflow.com/questions/55965523/error-during-deserialization-of-pageimpl-cannot-construct-instance-of-org-spr">[2] Error during Deserialization of PageImpl : Cannot construct instance of <code>org.springframework.data.domain.PageImpl</code></a></p>
-<div id="refer-anchor-3"></div>
-
-<p><a class="link" href="https://stackoverflow.com/questions/30974286/com-fasterxml-jackson-databind-jsonmappingexception-can-not-deserialize-instanc">[3] com.fasterxml.jackson.databind.JsonMappingException: Can not deserialize instance of org.springframework.data.domain.Sort out of START_ARRAY token <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-<div id="refer-anchor-4"></div>
-
-<p><a class="link" href="https://stackoverflow.com/questions/63924863/jackson-with-feign-cant-deserialized-springs-org-springframework-data-domain-s">[4] Jackson with Feign can’t deserialized Spring’s org.springframework.data.domain.Sort <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-<div id="refer-anchor-5"></div>
-
-<p><a class="link" href="https://www.weizhixi.com/article/5.html">[5] springmvc接收参数异常application/json not supported <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-]]></content>
-      <categories>
-        <category>工程</category>
-        <category>环境检修</category>
-      </categories>
-      <tags>
-        <tag>java</tag>
-        <tag>spring</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>LeetCode第280场周赛 - 数组的最大与和 - 匈牙利算法/KM算法</title>
     <url>/2022/02/14/algorithm/leetcode-weekly-contest-280-4/</url>
     <content><![CDATA[<h1 id="题目："><a href="#题目：" class="headerlink" title="题目："></a><strong>题目：</strong></h1><ul>
@@ -2530,5 +2354,306 @@
       <categories>
         <category>测试</category>
       </categories>
+  </entry>
+  <entry>
+    <title>【Spring】java 单体式应用微服务拆分过程 bug 修复：Json Infinite Recursion</title>
+    <url>/2023/08/28/program_language/java-spring-bug-json-infinite-recursion/</url>
+    <content><![CDATA[<h1 id="💡简介"><a href="#💡简介" class="headerlink" title="💡简介"></a>💡简介</h1><ul>
+<li><p>将单体式 Spring 应用拆分为微服务式应用过程中，遇到了一系列有关 Spring 框架的问题，将修复过程及相关问题信息分析过程记录下来，便于以后解决同类问题，也顺便提高自己对 Spring 框架的理解。</p>
+</li>
+<li><p>前期还遇到Serialize 类序列化失败等问题，暂未记录下来，未来有机会再回顾并补充相关记录。</p>
+</li>
+</ul>
+<h1 id="🧠问题1️⃣——Json-Infinite-Recursion"><a href="#🧠问题1️⃣——Json-Infinite-Recursion" class="headerlink" title="🧠问题1️⃣——Json Infinite Recursion"></a>🧠问题1️⃣——Json Infinite Recursion</h1><h2 id="✏️问题描述"><a href="#✏️问题描述" class="headerlink" title="✏️问题描述"></a>✏️问题描述</h2><ul>
+<li>项目中涉及多个循环引用的类，例如最典型的 <code>Post</code> 和 <code>User</code>，代码如下所示：</li>
+</ul>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Post</span> {</span><br><span class="line">    <span class="meta">@ManyToOne</span></span><br><span class="line">    <span class="keyword">private</span> User user;</span><br><span class="line"></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">}</span><br></pre></td></tr></table></figure></div>
+
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">User</span> {</span><br><span class="line">    <span class="meta">@OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.REMOVE)</span></span><br><span class="line">    <span class="keyword">private</span> Collection&lt;Post&gt; posts = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line"></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">}</span><br></pre></td></tr></table></figure></div>
+
+<ul>
+<li>问题也很明显，当压缩为 JSON 格式数据时，不断循环引用导致出错。</li>
+</ul>
+<h3 id="ℹ️报错信息"><a href="#ℹ️报错信息" class="headerlink" title="ℹ️报错信息"></a>ℹ️报错信息</h3><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">feign.codec.EncodeException: Could not write JSON: Infinite recursion (StackOverflowError); nested exception is com.fasterxml.jackson.databind.JsonMappingException: Infinite recursion (StackOverflowError) (through reference chain: com.raysmond.blog.common.models.User["post"]-&gt;com.raysmond.blog.common.models.Post["seoData"]-&gt;com.raysmond.blog.common.models.User["post"]-&gt;com.raysmond.blog.common.models.Post["seoData"]-&gt;...)</span><br></pre></td></tr></table></figure></div>
+
+<h2 id="🔨解决方法1️⃣——-JsonIgnore"><a href="#🔨解决方法1️⃣——-JsonIgnore" class="headerlink" title="🔨解决方法1️⃣——@JsonIgnore"></a>🔨解决方法1️⃣——@JsonIgnore</h2><ul>
+<li>算是比较粗鲁的方法。</li>
+<li><code>@JsonIgnore</code> 能够在 JSON 序列化时将一些属性忽略<a href="#refer-anchor-1"><sup>[1]</sup></a>，从而避免循环引用。<ul>
+<li>具体而言，将注解标记在属性或者方法上，序列化生成的 JSON 数据中将不包含该属性，反序列化时也不会读取该属性。</li>
+<li>示例：<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Post</span> {</span><br><span class="line">    <span class="meta">@ManyToOne</span></span><br><span class="line">    <span class="keyword">private</span> User user;  <span class="comment">// 保持正常</span></span><br><span class="line"></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">}</span><br></pre></td></tr></table></figure></div>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">User</span> {</span><br><span class="line">    <span class="meta">@OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.REMOVE)</span></span><br><span class="line">    <span class="meta">@JsonIgnore</span>         <span class="comment">// 序列化时忽略</span></span><br><span class="line">    <span class="keyword">private</span> Collection&lt;Post&gt; posts = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line"></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">}</span><br></pre></td></tr></table></figure></div>
+
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="🔨解决方法2️⃣——-JsonManagedReference-和-JsonBackReference"><a href="#🔨解决方法2️⃣——-JsonManagedReference-和-JsonBackReference" class="headerlink" title="🔨解决方法2️⃣——@JsonManagedReference 和 @JsonBackReference"></a>🔨解决方法2️⃣——@JsonManagedReference 和 @JsonBackReference</h2><ul>
+<li>比上一种更合理的方法，不影响数据内容。</li>
+<li>通过将循环引用关系双方中的一方不序列化，来避免出现无限循环，使 Jackson 正常工作。<a href="#refer-anchor-2"><sup>[2]</sup></a><a href="#refer-anchor-3"><sup>[3]</sup></a></li>
+<li>因此，Jackson 会获取引用的前向部分（被标记了 @JsonManagedReference 注解的部分），并将其转换为类似 json 的存储格式；这就是正常 marshalling 过程。然后，Jackson 会查找引用的后向部分（被标记了 @JsonBackReference 注解的部分），不对其进行序列化，这部分关系将在前向引用的反序列化（解Marshalling）过程中正常重新构建，不影响使用。<ul>
+<li><em>marshalling可译作集结、结集、编码、编组、编集、安整、数据打包、列集等，是计算机科学中把一个对象的内存表示变换为适合存储或发送的数据格式的过程。典型用于数据必须在一个程序的两个部分之间移动，或者必须从一个程序移动到另一个程序。Marshalling类似于序列化，可用于一个对象与一个远程对象通信。</em></li>
+<li>示例：<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Post</span> {</span><br><span class="line">    <span class="meta">@ManyToOne</span></span><br><span class="line">    <span class="meta">@JsonManagedReference</span></span><br><span class="line">    <span class="keyword">private</span> User user;  <span class="comment">// 保持正常</span></span><br><span class="line"></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">}</span><br></pre></td></tr></table></figure></div>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">User</span> {</span><br><span class="line">    <span class="meta">@OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.REMOVE)</span></span><br><span class="line">    <span class="meta">@JsonBackReference</span>  <span class="comment">// 序列化时忽略</span></span><br><span class="line">    <span class="keyword">private</span> Collection&lt;Post&gt; posts = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line"></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">}</span><br></pre></td></tr></table></figure></div>
+
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="🔨解决方法3️⃣——-JsonIdentityInfo"><a href="#🔨解决方法3️⃣——-JsonIdentityInfo" class="headerlink" title="🔨解决方法3️⃣——@JsonIdentityInfo"></a>🔨解决方法3️⃣——@JsonIdentityInfo</h2><ul>
+<li>最简单的一种方法（个人认为），因为不用手动设定父子关系，仅需给整个类进行注解标记即可。</li>
+<li>使 Jackson 只在第一次遇到时序列化为完整的对象，之后再遇到同一个对象，都以对象的标识符 ID（或其他属性）代替。这样就不会序列化每个对象都 “扫描 “一次，在多个相互关联的对象之间形成链式循环时非常有用（例如：订单 -&gt; 订单行 -&gt; 用户 -&gt; 订单，如此反复）。<a href="#refer-anchor-2"><sup>[2]</sup></a><ul>
+<li>@JsonIdentityInfo 相关参数定义<a href="#refer-anchor-3"><sup>[3]</sup></a><div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> JsonIdentityInfo</span><br><span class="line">{</span><br><span class="line">    <span class="comment">// Object ID 的 JSON 属性名</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">property</span><span class="params">()</span> <span class="keyword">default</span> <span class="string">"@id"</span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// Object ID 的生成器</span></span><br><span class="line">    <span class="keyword">public</span> Class&lt;? <span class="keyword">extends</span> <span class="title class_">ObjectIdGenerator</span>&lt;?&gt;&gt; generator();</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 将 Object ID 解析回对象的解析器</span></span><br><span class="line">    <span class="keyword">public</span> Class&lt;? <span class="keyword">extends</span> <span class="title class_">ObjectIdResolver</span>&gt; resolver() <span class="keyword">default</span> SimpleObjectIdResolver.class;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> Class&lt;?&gt; scope() <span class="keyword">default</span> Object.class;</span><br><span class="line">}</span><br></pre></td></tr></table></figure></div></li>
+<li>示例：<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = Post.class)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Post</span> {</span><br><span class="line">    <span class="meta">@ManyToOne</span></span><br><span class="line">    <span class="meta">@JsonManagedReference</span></span><br><span class="line">    <span class="keyword">private</span> User user;  <span class="comment">// 保持正常</span></span><br><span class="line"></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">}</span><br></pre></td></tr></table></figure></div>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = User.class)</span><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">User</span> {</span><br><span class="line">    <span class="meta">@OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.REMOVE)</span></span><br><span class="line">    <span class="meta">@JsonBackReference</span>  <span class="comment">// 序列化时忽略</span></span><br><span class="line">    <span class="keyword">private</span> Collection&lt;Post&gt; posts = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line"></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">}</span><br></pre></td></tr></table></figure></div>
+
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="🚧ToDoList（也许会补上）"><a href="#🚧ToDoList（也许会补上）" class="headerlink" title="🚧ToDoList（也许会补上）"></a>🚧ToDoList（也许会补上）</h1><ul>
+<li><input disabled="" type="checkbox"> <ol>
+<li>Spring 框架基础原理</li>
+</ol>
+</li>
+<li><input disabled="" type="checkbox"> <ol start="2">
+<li>Jackson 组件原理及相关注解作用</li>
+</ol>
+</li>
+<li><input disabled="" type="checkbox"> <ol start="3">
+<li>到底为啥4xx报相关错误</li>
+</ol>
+</li>
+<li><input checked="" disabled="" type="checkbox"> <ol start="4">
+<li>json循环引用报错</li>
+</ol>
+</li>
+<li><input disabled="" type="checkbox"> <ol start="5">
+<li>Serialize Json 报错</li>
+</ol>
+</li>
+</ul>
+<hr>
+<ul>
+<li>希望这篇博客对你有帮助！如果你有任何问题或需要进一步的帮助，请随时提问。</li>
+<li>如果你喜欢这篇文章，欢迎<a class="link" href="https://github.com/freshwlnd/">动动小手 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>给我一个follow或star。</li>
+</ul>
+<h1 id="x1f5fa-参考文献"><a href="#x1f5fa-参考文献" class="headerlink" title="🗺参考文献"></a><span class="emoji" alias="world_map" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f5fa.png?v8">🗺</span>参考文献</h1><div id="refer-anchor-1"></div>
+
+<p><a class="link" href="https://blog.csdn.net/liliang_11676/article/details/80209994">[1] 注解@JsonIgnore的使用方法及其效果 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<div id="refer-anchor-2"></div>
+
+<p><a class="link" href="https://stackoverflow.com/questions/3325387/infinite-recursion-with-jackson-json-and-hibernate-jpa-issue">[2] Infinite Recursion with Jackson JSON and Hibernate JPA issue <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<div id="refer-anchor-3"></div>
+
+<p><a class="link" href="https://cloud.tencent.com/developer/article/1711806">[3] Jackson 的 JsonManagedReference 和 JsonBackReference 注解 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<div id="refer-anchor-4"></div>
+
+<p><a class="link" href="https://blog.csdn.net/qq_20919883/article/details/117256836">[4] @JsonIdentityInfo 处理循环引用 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+]]></content>
+      <categories>
+        <category>工程</category>
+        <category>环境检修</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+        <tag>spring</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>【Spring】java 单体式应用微服务拆分过程 bug 修复：Json Parse Error</title>
+    <url>/2023/08/25/program_language/java-spring-bug-json-parse-error/</url>
+    <content><![CDATA[<h1 id="💡简介"><a href="#💡简介" class="headerlink" title="💡简介"></a>💡简介</h1><ul>
+<li><p>将单体式 Spring 应用拆分为微服务式应用过程中，遇到了一系列有关 Spring 框架的问题，将修复过程及相关问题信息分析过程记录下来，便于以后解决同类问题，也顺便提高自己对 Spring 框架的理解。</p>
+</li>
+<li><p>前期还遇到循环引用导致 JSON 序列化失败、Serialize 类序列化失败等问题，暂未记录下来，未来有机会再回顾并补充相关记录。</p>
+</li>
+</ul>
+<h1 id="🧠问题1️⃣——JSON-parse-error"><a href="#🧠问题1️⃣——JSON-parse-error" class="headerlink" title="🧠问题1️⃣——JSON parse error"></a>🧠问题1️⃣——JSON parse error</h1><ul>
+<li>共出现三类报错，分别对应 Spring Framework <code>org.springframework.data.domain</code> 包中的 <code>Pageable</code>、<code>PageRequest</code>、<code>Sort</code>三个类。</li>
+</ul>
+<h2 id="✏️问题描述"><a href="#✏️问题描述" class="headerlink" title="✏️问题描述"></a>✏️问题描述</h2><ul>
+<li><p>上述三个类是用于处理数据分页和排序的关键类。其中：</p>
+<ul>
+<li><p> <code>Pageable</code> 接口定义了处理分页信息的通用方法，<code>PageRequest</code> 是它的默认实现之一，提供了一个便捷的方式来构造分页请求。<code>Sort</code> 类用于定义数据的排序规则，可以用于单独的查询，也可以与<code>Pageable</code> 一起使用以实现在分页基础上的排序。在数据库查询中，通常会将Pageable和Sort对象传递给查询方法，以指定分页和排序规则，从而从数据库中检索特定范围的数据，并按指定的顺序排列。</p>
+</li>
+<li><p>具体而言：</p>
+<ul>
+<li><p><code>org.springframework.data.domain.Pageable</code>：</p>
+<ul>
+<li>Pageable接口是用于定义数据分页信息的接口。它允许用户指定要检索的页码、每页的数据量以及排序规则。通常用于在数据库查询中限制结果集大小并实现分页功能。</li>
+</ul>
+</li>
+<li><p><code>org.springframework.data.domain.PageRequest</code>：</p>
+<ul>
+<li>PageRequest是Pageable接口的默认实现之一。它提供了一个简便的方法来创建分页请求。用户可以通过构造函数传递页码、每页数据量和排序规则来创建一个PageRequest对象，然后将其用作查询方法的参数。</li>
+</ul>
+</li>
+<li><p><code>org.springframework.data.domain.Sort</code>：</p>
+<ul>
+<li>Sort类用于指定数据排序规则。它允许用户定义一个或多个排序条件，包括属性名和排序方向（升序或降序）。在数据库查询中，Sort对象可以与Pageable一起使用，以便在分页的基础上对数据进行排序。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="🤔问题分析"><a href="#🤔问题分析" class="headerlink" title="🤔问题分析"></a>🤔问题分析</h3><ul>
+<li><p>本项目迁移至微服务过程中，一个变为远程调用的函数使用了 <code>Pageable</code> 作为函数参数。</p>
+</li>
+<li><p>在远程调用时，先将相应参数转化为 JSON 格式数据，再将 JSON 数据转换为相应对象。</p>
+<ul>
+<li>经过简单分析得知，问题源于将 JSON 数据转换为对象时出现错误，具体来说， JSON 解析器无法构造 <code>Pageable</code> 实例，因为找不到适合的构造函数或者创造者方法，或者可能需要添加/启用类型信息。（最常见的报错提示缺乏无参构造函数）</li>
+</ul>
+</li>
+<li><p>先展示一下报错信息，再介绍我所尝试的几种解决方案。</p>
+</li>
+</ul>
+<h3 id="ℹ️报错信息-1"><a href="#ℹ️报错信息-1" class="headerlink" title="ℹ️报错信息 1"></a>ℹ️报错信息 1</h3><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">org.springframework.http.converter.HttpMessageNotReadableException: JSON parse error: Cannot construct instance of `org.springframework.data.domain.Pageable` (no Creators, like default construct, exist): abstract types either need to be mapped to concrete types, have custom deserializer, or contain additional type information; nested exception is com.fasterxml.jackson.databind.exc.InvalidDefinitionException: Cannot construct instance of `org.springframework.data.domain.Pageable` (no Creators, like default construct, exist): abstract types either need to be mapped to concrete types, have custom deserializer, or contain additional type information at [Source: java.io.PushbackInputStream@11b5cfbc; line: 1, column: 59] (through reference chain: com.raysmond.blog.common.models.PostParams["pageRequest"])</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="ℹ️报错信息-2"><a href="#ℹ️报错信息-2" class="headerlink" title="ℹ️报错信息 2"></a>ℹ️报错信息 2</h3><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">org.springframework.http.converter.HttpMessageNotReadableException: JSON parse error: Can not construct instance of `org.springframework.data.domain.PageRequest``: no suitable constructor found, can not deserialize from Object value (missing default constructor or creator, or perhaps need to add/enable type information?); nested exception is com.fasterxml.jackson.databind.JsonMappingException: Can not construct instance of org.springframework.data.domain.PageRequest: no suitable constructor found, can not deserialize from Object value (missing default constructor or creator, or perhaps need to add/enable type information?) at [Source: java.io.PushbackInputStream@72267439; line: 1, column: 60] (through reference chain: com.raysmond.blog.common.models.PostParams[\"pageRequest\"])","path":"/PostRepositoryController/error/general"}</span><br></pre></td></tr></table></figure></div>
+
+<h2 id="🛠️相关尝试及解决方案"><a href="#🛠️相关尝试及解决方案" class="headerlink" title="🛠️相关尝试及解决方案"></a>🛠️相关尝试及解决方案</h2><h3 id="🔨尝试方法1️⃣——封装基础类"><a href="#🔨尝试方法1️⃣——封装基础类" class="headerlink" title="🔨尝试方法1️⃣——封装基础类"></a>🔨尝试方法1️⃣——封装基础类</h3><ul>
+<li><p>根据提示可知，缺乏无参构造函数。而基础包中的代码是只读的无法修改，因此采用封装的方式，参考<a href="#refer-anchor-1">[1]</a><a href="#refer-anchor-2">[2]</a>实现一个继承基础类的新类，和基础类相比仅仅多了一个无参构造函数。</p>
+</li>
+<li><p>以 PageRequest 为例，查看源码后构造新类如下：</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">package com.raysmond.blog.common.models;</span><br><span class="line"></span><br><span class="line">import org.springframework.data.domain.Sort;</span><br><span class="line">import org.springframework.data.domain.Sort.Direction;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">public class PageRequest extends org.springframework.data.domain.PageRequest {</span><br><span class="line"></span><br><span class="line">    public PageRequest() {</span><br><span class="line">        super(1, 1);</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    public PageRequest(int page, int size) {</span><br><span class="line">        super(page, size);</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    public PageRequest(int page, int size, Direction direction, String... properties) {</span><br><span class="line">        super(page, size, direction, properties);</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    public PageRequest(int page, int size, Sort sort) {</span><br><span class="line">        super(page, size, sort);</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">}</span><br></pre></td></tr></table></figure></div></li>
+<li><p>实现后，将所有地方的使用的基础类替换为新类，一个简单的方法是查找替换：</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">import com.raysmond.blog.common.models.PageRequest;</span><br><span class="line">// import org.springframework.data.domain.PageRequest;</span><br></pre></td></tr></table></figure></div>
+</li>
+<li><p>修改后似乎解决了该问题，但出现了第二个错误问题——404。因此尝试使用其他解决方案。</p>
+</li>
+</ul>
+<h3 id="🔨尝试方法2️⃣——启用-Jackson-配置"><a href="#🔨尝试方法2️⃣——启用-Jackson-配置" class="headerlink" title="🔨尝试方法2️⃣——启用 Jackson 配置"></a>🔨尝试方法2️⃣——启用 Jackson 配置</h3><ul>
+<li><p>最开始就看到这种方法<a href="#refer-anchor-2"><sup>[2]</sup></a>，但在 application.yaml 中配置时发现对应配置项无法找到，因此搁置。后来检索 <code>Sort</code> 类的问题时再次调研到更细致的配置方法<a href="#refer-anchor-4"><sup>[4]</sup></a>。</p>
+</li>
+<li><p>具体如下：</p>
+<ul>
+<li><p>配置项（在 <code>application</code> 文件中配置）：</p>
+<div class="highlight-container" data-rel="Yml"><figure class="iseeu highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="string">feign.autoconfiguration.jackson.enabled=true</span></span><br></pre></td></tr></table></figure></div>
+</li>
+<li><p>导入包：</p>
+<div class="highlight-container" data-rel="Gradle"><figure class="iseeu highlight gradle"><table><tr><td class="code"><pre><span class="line"># gradle</span><br><span class="line"><span class="keyword">compile</span> <span class="string">'org.springframework.cloud:spring-cloud-openfeign-core:+'</span></span><br></pre></td></tr></table></figure></div>
+<div class="highlight-container" data-rel="Xml"><figure class="iseeu highlight xml"><table><tr><td class="code"><pre><span class="line"># maven</span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-openfeign-core<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.1.3<span class="tag">&lt;/<span class="name">version</span>&gt;</span>    # 根据需要修改</span><br><span class="line">        <span class="tag">&lt;<span class="name">scope</span>&gt;</span>compile<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure></div>
+</li>
+</ul>
+</li>
+<li><p>同样，导入后报错消失，但仍然出现第二个错误问题—— 404 问题。（😵‍💫晕倒）</p>
+</li>
+<li><p>暂且认为是解决了一个问题的第一阶段，先尝试解决第二阶段。</p>
+</li>
+</ul>
+<h1 id="🧠问题2️⃣——404-Not-Found"><a href="#🧠问题2️⃣——404-Not-Found" class="headerlink" title="🧠问题2️⃣——404 Not Found"></a>🧠问题2️⃣——404 Not Found</h1><h2 id="✏️问题描述-1"><a href="#✏️问题描述-1" class="headerlink" title="✏️问题描述"></a>✏️问题描述</h2><ul>
+<li>如上所述，当 jackson 不再报错后，开始出现 404 问题，主要信息为<code>Content type 'application/json;charset=UTF-8' not supported</code>。</li>
+</ul>
+<h3 id="ℹ️报错信息"><a href="#ℹ️报错信息" class="headerlink" title="ℹ️报错信息"></a>ℹ️报错信息</h3><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">feign.FeignException: status 404 reading PostRepositoryRealClient#findAllByPostTypeAndPostStatusAndDeleted(PostParams); </span><br><span class="line">content: {</span><br><span class="line">    status: 404,</span><br><span class="line">    error: Not Found,</span><br><span class="line">    exception: org.springframework.web.HttpMediaTypeNotSupportedException,</span><br><span class="line">    message:org.springframework.web.HttpMediaTypeNotSupportedException: Content type 'application/json;charset=UTF-8' not supported</span><br><span class="line">}</span><br></pre></td></tr></table></figure></div>
+
+
+<h3 id="🤔问题分析-1"><a href="#🤔问题分析-1" class="headerlink" title="🤔问题分析"></a>🤔问题分析</h3><ul>
+<li><p>这个错误表明<strong>服务器不支持传入的Content-Type</strong>，该Content-Type是application/json;charset=UTF-8。</p>
+<ul>
+<li>这可能是因为：<ul>
+<li>服务器端的接口没有正确配置以处理JSON格式的请求，</li>
+<li>或者可能是由于请求的Content-Type与服务器端接口的期望不匹配。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>由于报错分析过于简单，有点无从下手，检索了一系列文章也没看出个所以然。因此考虑第一步骤为获取更多信息：</p>
+<h3 id="💾尝试方法1️⃣——获取更多信息"><a href="#💾尝试方法1️⃣——获取更多信息" class="headerlink" title="💾尝试方法1️⃣——获取更多信息"></a>💾尝试方法1️⃣——获取更多信息</h3></li>
+<li><p>首先分别测试每个被调用者，看到底是哪个接口开始出错：</p>
+<ul>
+<li><em>发现 Edge 的 检查-&gt;网络控制器 中有类似于 Postman 的工具，正好用于测试。</em></li>
+<li>进行相应测试后发现问题还是出在接收端反序列化上。</li>
+</ul>
+</li>
+<li><p>进行一系列检索后，发现一个相关解答。</p>
+</li>
+</ul>
+<h3 id="💭问题原因"><a href="#💭问题原因" class="headerlink" title="💭问题原因"></a>💭问题原因</h3><ul>
+<li>来源于<a href="#refer-anchor-5">[5]</a>，对于不支持的类型，会报错<code>Content type 'application/json;charset=UTF-8' not supported</code>，含义实际上是无法解析 json 数据。<ul>
+<li>理论上我们已经进行了相关配置，不应该出现该问题。只能怀疑是 spring 版本过低导致的 bug。</li>
+<li>然而如果要升级 spring 只会消耗更多时间精力，因此暂不考虑该方案。</li>
+</ul>
+</li>
+<li>进一步地，<a href="#refer-anchor-5">[5]</a>中导入相关包后仍然报错，根据其报错可以更深了解 spring 这部分原理。<ul>
+<li>spring需要使用方法TypeFactory.type(class)进行解析，当jackson mapper中没有实现方法则会报错。</li>
+</ul>
+</li>
+</ul>
+<h1 id="🧠最终方案——曲线救国"><a href="#🧠最终方案——曲线救国" class="headerlink" title="🧠最终方案——曲线救国"></a>🧠最终方案——曲线救国</h1><ul>
+<li>之前排查过程中其实看到一套方案，但这种方案无法触及当前问题的本质，出于对问题本质的好奇一直没有采用。<ul>
+<li>然而现在已经耗费了太多时间在这个问题上，只能先曲线救国一下了。</li>
+</ul>
+</li>
+<li>方案如下：<blockquote>
+<p>使用默认支持的参数格式：<br>  Spring Data通常会根据请求的参数自动解析分页和排序信息，而无需将它们作为JSON对象传递。例如，在使用Spring MVC时，您可以直接将页码、每页大小和排序参数添加到URL中，Spring Data会自动解析这些参数并应用于查询。这样可以避免直接将分页对象作为JSON传递，从而避免反序列化问题。wd</p>
+</blockquote>
+</li>
+</ul>
+<h2 id="🔨解决方法1️⃣——传递重要参数"><a href="#🔨解决方法1️⃣——传递重要参数" class="headerlink" title="🔨解决方法1️⃣——传递重要参数"></a>🔨解决方法1️⃣——传递重要参数</h2><ul>
+<li>本项目下使用<code>PageRequest</code>作为<code>Pageable</code>的实现类，其创建方式如下：<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">new</span> <span class="title class_">PageRequest</span>(page, pageSize, Sort.Direction.DESC, <span class="string">"createdAt"</span>)</span><br></pre></td></tr></table></figure></div></li>
+<li>显然，只要将各个参数传递后重新创建对象即可，因此实现以下 DTO：<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="meta">@NoArgsConstructor</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">PostParams</span> {</span><br><span class="line">    <span class="keyword">private</span> PostType postType;</span><br><span class="line">    <span class="keyword">private</span> PostStatus postStatus;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">boolean</span> isNullPageRequest;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> page=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> size=<span class="number">5</span>;</span><br><span class="line">    <span class="keyword">private</span> String sortDirection=<span class="string">"DESC"</span>;</span><br><span class="line">    List&lt;String&gt; properties= <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;String&gt;();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> Boolean deleted;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">PostParams</span><span class="params">(PostType postType, PostStatus postStatus, Pageable pageRequest, Boolean deleted)</span> {</span><br><span class="line">        <span class="built_in">this</span>.postType = postType;</span><br><span class="line">        <span class="built_in">this</span>.postStatus = postStatus;</span><br><span class="line">        setPageRequest(pageRequest);</span><br><span class="line">        <span class="built_in">this</span>.deleted = deleted;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">PostParams</span><span class="params">(PostType postType, PostStatus postStatus, Boolean deleted)</span> {</span><br><span class="line">        <span class="built_in">this</span>.postType = postType;</span><br><span class="line">        <span class="built_in">this</span>.postStatus = postStatus;</span><br><span class="line">        setPageRequest(<span class="literal">null</span>);</span><br><span class="line">        <span class="built_in">this</span>.deleted = deleted;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setPageRequest</span><span class="params">(Pageable pageRequest)</span> {</span><br><span class="line">        <span class="keyword">if</span>(pageRequest==<span class="literal">null</span>) {</span><br><span class="line">            <span class="built_in">this</span>.isNullPageRequest = <span class="literal">true</span>;</span><br><span class="line">        } <span class="keyword">else</span> {</span><br><span class="line">            <span class="built_in">this</span>.isNullPageRequest = <span class="literal">false</span>;</span><br><span class="line">            <span class="built_in">this</span>.page = pageRequest.getPageNumber();</span><br><span class="line">            <span class="built_in">this</span>.size = pageRequest.getPageSize();</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> Pageable <span class="title function_">getPageRequest</span><span class="params">()</span> {</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">PageRequest</span>(<span class="built_in">this</span>.page, <span class="built_in">this</span>.size, Sort.Direction.fromString(<span class="built_in">this</span>.sortDirection), <span class="built_in">this</span>.properties.toArray(<span class="keyword">new</span> <span class="title class_">String</span>[<span class="built_in">this</span>.properties.size()]));</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">}</span><br></pre></td></tr></table></figure></div></li>
+<li><del>不得不吐槽一下，Sort 的设计太反人类了，确实是不想让人获取其中的对象（也可能是什么设计模式？）</del>。</li>
+<li>进一步地，在所有接口上封装一层函数以使用 <code>PostParams</code> 对象作为中介即可。</li>
+</ul>
+<h1 id="🏥反思"><a href="#🏥反思" class="headerlink" title="🏥反思"></a>🏥反思</h1><ul>
+<li>对于环境配置的问题总是会花很长时间，一方面是因为这类问题往往涉及复杂的框架，有大片知识盲区，另一方面也受我个人思路影响。<ul>
+<li>第一个“问题”是好奇心，好奇心过重导致我更希望将所有问题的根源都摸清楚。实际上这种状态确实是人类所需要的，但我的问题在于“遇到较大困难时，既磨磨蹭蹭不能往前推进，又拖拖拉拉不肯放弃”。在本次情况中，实际上早就知道可以“曲线救国”，但始终没有把那条路放到面上考虑，而是沉浸在“我在攻克难题”的虚假幻想中。</li>
+<li>第二个问题是过于自信、过于浮躁，主要体现在明明梳理不清思路，却也不愿意花费一些时间写下来（当然最后还是写了，否则也没有这篇博客了）。记录的好处实在是有点太多了，既能帮助捋清思路，又能提高工作成就感进而提高专注度，还能将坑分享给大家节省大家时间（一个人一分钟，四十个人是不是四十分钟了？[doge]）</li>
+</ul>
+</li>
+</ul>
+<h1 id="🚧ToDoList（也许会补上）"><a href="#🚧ToDoList（也许会补上）" class="headerlink" title="🚧ToDoList（也许会补上）"></a>🚧ToDoList（也许会补上）</h1><ul>
+<li><input disabled="" type="checkbox"> <ol>
+<li>Spring 框架基础原理</li>
+</ol>
+</li>
+<li><input disabled="" type="checkbox"> <ol start="2">
+<li>Jackson 组件原理及相关注解作用</li>
+</ol>
+</li>
+<li><input disabled="" type="checkbox"> <ol start="3">
+<li>到底为啥报4xx相关错误</li>
+</ol>
+</li>
+<li><input disabled="" type="checkbox"> <ol start="4">
+<li>json循环引用报错</li>
+</ol>
+</li>
+<li><input disabled="" type="checkbox"> <ol start="5">
+<li>Serialize Json 报错</li>
+</ol>
+</li>
+</ul>
+<hr>
+<ul>
+<li>希望这篇博客对你有帮助！如果你有任何问题或需要进一步的帮助，请随时提问。（如果你发现了本问题的核心原因，一定要告诉我！）</li>
+<li>如果你喜欢这篇文章，欢迎<a class="link" href="https://github.com/freshwlnd/">动动小手 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>给我一个follow或star。</li>
+</ul>
+<h1 id="x1f5fa-参考文献"><a href="#x1f5fa-参考文献" class="headerlink" title="🗺参考文献"></a><span class="emoji" alias="world_map" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f5fa.png?v8">🗺</span>参考文献</h1><div id="refer-anchor-1"></div>
+
+<p><a class="link" href="https://blog.csdn.net/qq_22899021/article/details/83380108">[1] JSON parse error: Can not construct instance of org.springframework.data.domain.Page <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<div id="refer-anchor-2"></div>
+
+<p><a href="https://stackoverflow.com/questions/55965523/error-during-deserialization-of-pageimpl-cannot-construct-instance-of-org-spr">[2] Error during Deserialization of PageImpl : Cannot construct instance of <code>org.springframework.data.domain.PageImpl</code></a></p>
+<div id="refer-anchor-3"></div>
+
+<p><a class="link" href="https://stackoverflow.com/questions/30974286/com-fasterxml-jackson-databind-jsonmappingexception-can-not-deserialize-instanc">[3] com.fasterxml.jackson.databind.JsonMappingException: Can not deserialize instance of org.springframework.data.domain.Sort out of START_ARRAY token <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<div id="refer-anchor-4"></div>
+
+<p><a class="link" href="https://stackoverflow.com/questions/63924863/jackson-with-feign-cant-deserialized-springs-org-springframework-data-domain-s">[4] Jackson with Feign can’t deserialized Spring’s org.springframework.data.domain.Sort <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<div id="refer-anchor-5"></div>
+
+<p><a class="link" href="https://www.weizhixi.com/article/5.html">[5] springmvc接收参数异常application/json not supported <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+]]></content>
+      <categories>
+        <category>工程</category>
+        <category>环境检修</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+        <tag>spring</tag>
+      </tags>
   </entry>
 </search>
