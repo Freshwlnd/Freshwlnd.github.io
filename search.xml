@@ -1586,26 +1586,45 @@
 </li>
 </ul>
 <h2 id="🔨解决方法2️⃣——-JsonManagedReference-和-JsonBackReference"><a href="#🔨解决方法2️⃣——-JsonManagedReference-和-JsonBackReference" class="headerlink" title="🔨解决方法2️⃣——@JsonManagedReference 和 @JsonBackReference"></a>🔨解决方法2️⃣——@JsonManagedReference 和 @JsonBackReference</h2><ul>
-<li>比上一种更合理的方法，不影响数据内容。</li>
-<li>通过将循环引用关系双方中的一方不序列化，来避免出现无限循环，使 Jackson 正常工作。<a href="#refer-anchor-2"><sup>[2]</sup></a><a href="#refer-anchor-3"><sup>[3]</sup></a></li>
-<li>因此，Jackson 会获取引用的前向部分（被标记了 @JsonManagedReference 注解的部分），并将其转换为类似 json 的存储格式；这就是正常 marshalling 过程。然后，Jackson 会查找引用的后向部分（被标记了 @JsonBackReference 注解的部分），不对其进行序列化，这部分关系将在前向引用的反序列化（解Marshalling）过程中正常重新构建，不影响使用。<ul>
+<li><p>比上一种更合理的方法，不影响数据内容。</p>
+</li>
+<li><p>通过将循环引用关系双方中的一方不序列化，来避免出现无限循环，使 Jackson 正常工作。<a href="#refer-anchor-2"><sup>[2]</sup></a><a href="#refer-anchor-3"><sup>[3]</sup></a></p>
+</li>
+<li><p>因此，Jackson 会获取引用的前向部分（被标记了 @JsonManagedReference 注解的部分），并将其转换为类似 json 的存储格式；这就是正常 marshalling 过程。然后，Jackson 会查找引用的后向部分（被标记了 @JsonBackReference 注解的部分），不对其进行序列化，这部分关系将在前向引用的反序列化（解Marshalling）过程中正常重新构建，不影响使用。</p>
+<ul>
 <li><em>marshalling可译作集结、结集、编码、编组、编集、安整、数据打包、列集等，是计算机科学中把一个对象的内存表示变换为适合存储或发送的数据格式的过程。典型用于数据必须在一个程序的两个部分之间移动，或者必须从一个程序移动到另一个程序。Marshalling类似于序列化，可用于一个对象与一个远程对象通信。</em></li>
 <li>示例：<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Post</span> {</span><br><span class="line">    <span class="meta">@ManyToOne</span></span><br><span class="line">    <span class="meta">@JsonManagedReference</span></span><br><span class="line">    <span class="keyword">private</span> User user;  <span class="comment">// 保持正常</span></span><br><span class="line"></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">}</span><br></pre></td></tr></table></figure></div>
 <div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">User</span> {</span><br><span class="line">    <span class="meta">@OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.REMOVE)</span></span><br><span class="line">    <span class="meta">@JsonBackReference</span>  <span class="comment">// 序列化时忽略</span></span><br><span class="line">    <span class="keyword">private</span> Collection&lt;Post&gt; posts = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line"></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">}</span><br></pre></td></tr></table></figure></div>
-
 </li>
 </ul>
+</li>
+<li><p>⚠️注：仅对 OneToMany 或 OneToOne 情况适用，ManyToMany 下不适用。</p>
 </li>
 </ul>
 <h2 id="🔨解决方法3️⃣——-JsonIdentityInfo"><a href="#🔨解决方法3️⃣——-JsonIdentityInfo" class="headerlink" title="🔨解决方法3️⃣——@JsonIdentityInfo"></a>🔨解决方法3️⃣——@JsonIdentityInfo</h2><ul>
-<li>最简单的一种方法（个人认为），因为不用手动设定父子关系，仅需给整个类进行注解标记即可。</li>
-<li>使 Jackson 只在第一次遇到时序列化为完整的对象，之后再遇到同一个对象，都以对象的标识符 ID（或其他属性）代替。这样就不会序列化每个对象都 “扫描 “一次，在多个相互关联的对象之间形成链式循环时非常有用（例如：订单 -&gt; 订单行 -&gt; 用户 -&gt; 订单，如此反复）。<a href="#refer-anchor-2"><sup>[2]</sup></a><ul>
+<li><p>最简单的一种方法（个人认为），因为不用手动设定父子关系，仅需给整个类进行注解标记即可。</p>
+</li>
+<li><p>使 Jackson 只在第一次遇到时序列化为完整的对象，之后再遇到同一个对象，都以对象的标识符 ID（或其他属性）代替。这样就不会序列化每个对象都 “扫描 “一次，在多个相互关联的对象之间形成链式循环时非常有用（例如：订单 -&gt; 订单行 -&gt; 用户 -&gt; 订单，如此反复）。<a href="#refer-anchor-2"><sup>[2]</sup></a></p>
+<ul>
 <li>@JsonIdentityInfo 相关参数定义<a href="#refer-anchor-3"><sup>[3]</sup></a><div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> JsonIdentityInfo</span><br><span class="line">{</span><br><span class="line">    <span class="comment">// Object ID 的 JSON 属性名</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">property</span><span class="params">()</span> <span class="keyword">default</span> <span class="string">"@id"</span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// Object ID 的生成器</span></span><br><span class="line">    <span class="keyword">public</span> Class&lt;? <span class="keyword">extends</span> <span class="title class_">ObjectIdGenerator</span>&lt;?&gt;&gt; generator();</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 将 Object ID 解析回对象的解析器</span></span><br><span class="line">    <span class="keyword">public</span> Class&lt;? <span class="keyword">extends</span> <span class="title class_">ObjectIdResolver</span>&gt; resolver() <span class="keyword">default</span> SimpleObjectIdResolver.class;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> Class&lt;?&gt; scope() <span class="keyword">default</span> Object.class;</span><br><span class="line">}</span><br></pre></td></tr></table></figure></div></li>
 <li>示例：<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = Post.class)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Post</span> {</span><br><span class="line">    <span class="meta">@ManyToOne</span></span><br><span class="line">    <span class="meta">@JsonManagedReference</span></span><br><span class="line">    <span class="keyword">private</span> User user;  <span class="comment">// 保持正常</span></span><br><span class="line"></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">}</span><br></pre></td></tr></table></figure></div>
 <div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = User.class)</span><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">User</span> {</span><br><span class="line">    <span class="meta">@OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.REMOVE)</span></span><br><span class="line">    <span class="meta">@JsonBackReference</span>  <span class="comment">// 序列化时忽略</span></span><br><span class="line">    <span class="keyword">private</span> Collection&lt;Post&gt; posts = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line"></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">}</span><br></pre></td></tr></table></figure></div>
-
 </li>
 </ul>
+</li>
+<li><p>⚠️注：</p>
+<ul>
+<li>后续发现当同一个对象被传输两次及以上时，会报错：<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">Failed to read HTTP message: org.springframework.http.converter.HttpMessageNotReadableException: JSON parse error: Already had POJO for id</span><br></pre></td></tr></table></figure></div></li>
+</ul>
+</li>
+<li><p>根据相关回答<a href="#refer-anchor-5"><sup>[5]</sup></a>，问题出在同一个变量出现两次：</p>
+<blockquote>
+<p>The problem is that Jackson fails becouse the same entity is present two times.<br>The solution is send only the plain ID in the second instance, not wrapped in object.</p>
+</blockquote>
+</li>
+<li><p>由于没想好如何跟他一样在第二次传输时修改传输内容，最终选择采用<a href="#%F0%9F%94%A8%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%951%EF%B8%8F%E2%83%A3jsonignore">第一种方案</a>。</p>
+</li>
+<li><p>另外，发现一篇非常全面的好文<a href="#refer-anchor-6"><sup>[6]</sup></a>，里面包含了各种有关 Jackson 序列化的小知识。</p>
 </li>
 </ul>
 <h1 id="🚧ToDoList（也许会补上）"><a href="#🚧ToDoList（也许会补上）" class="headerlink" title="🚧ToDoList（也许会补上）"></a>🚧ToDoList（也许会补上）</h1><ol>
@@ -1632,6 +1651,12 @@
 <div id="refer-anchor-4"></div>
 
 <p><a class="link" href="https://blog.csdn.net/qq_20919883/article/details/117256836">[4] @JsonIdentityInfo 处理循环引用 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<div id="refer-anchor-5"></div>
+
+<p><a class="link" href="https://stackoverflow.com/questions/42558927/serializing-already-had-pojo-for-id-java-lang-string">[5] Serializing Already had POJO for id (java.lang.String) <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<div id="refer-anchor-6"></div>
+
+<p><a class="link" href="https://lanlan2017.github.io/JavaReadingNotes/c7a15d1f/">[6] 14.5 使用Jackson序列化为JSON_XML_MessagePack <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
 ]]></content>
       <categories>
         <category>工程</category>
@@ -1775,7 +1800,7 @@
 <li>结果：功夫不负有心人，变成 <code>400 Bad Requests</code> 了。</li>
 </ul>
 <h1 id="🧠问题3️⃣——400"><a href="#🧠问题3️⃣——400" class="headerlink" title="🧠问题3️⃣——400"></a>🧠问题3️⃣——400</h1><h2 id="✏️问题描述-2"><a href="#✏️问题描述-2" class="headerlink" title="✏️问题描述"></a>✏️问题描述</h2><ul>
-<li>前期修复 Jackson 相关问题费尽心力，当 jackson 不再报错后，开始出现 404 问题，主要信息为<code>Content type &#39;application/json;charset=UTF-8&#39; not supported</code>。</li>
+<li>前期修复后，开始出现 400 问题，主要信息为<code>Bad Request</code>（相当于啥也没有）。</li>
 </ul>
 <h3 id="ℹ️报错信息1️⃣-1"><a href="#ℹ️报错信息1️⃣-1" class="headerlink" title="ℹ️报错信息1️⃣"></a>ℹ️报错信息1️⃣</h3><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">content: &#123;</span><br><span class="line">	&quot;status&quot;:400,</span><br><span class="line">	&quot;error&quot;:&quot;Bad Request&quot;,</span><br><span class="line">	&quot;exception&quot;: &quot;org.springframework.http.converter.HttpMessageNotReadableException&quot;,</span><br><span class="line">	&quot;message&quot;:&quot;Bad Request&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
 
