@@ -1837,9 +1837,12 @@
 </li>
 </ol>
 <h2 id="🛠️相关尝试及解决方案-1"><a href="#🛠️相关尝试及解决方案-1" class="headerlink" title="🛠️相关尝试及解决方案"></a>🛠️相关尝试及解决方案</h2><h3 id="🔍简单检索信息-1"><a href="#🔍简单检索信息-1" class="headerlink" title="🔍简单检索信息"></a>🔍简单检索信息</h3><ul>
-<li>Spring MVC : 400 错误是怎么发生的 ?<a href="#refer-anchor-4"><sup>[4]</sup></a></li>
-<li><code>Spring MVC</code>前置处理器 <code>DispatcherServlet</code> 处理一个请求时，会尝试捕获 <code>handler</code> 匹配过程， <code>handler adapter</code> 匹配过程和 <code>handler</code> 执行过程中的异常，该异常记做 <code>dispatchException</code>。</li>
-<li>具体来说，对请求处理的主体流程可以简单地理解为两个步骤：<ol>
+<li><p>Spring MVC : 400 错误是怎么发生的 ?<a href="#refer-anchor-4"><sup>[4]</sup></a></p>
+</li>
+<li><p><code>Spring MVC</code>前置处理器 <code>org.springframework.web.servlet.DispatcherServlet</code> 处理一个请求时，会在<code>doDispatch</code>方法中尝试捕获 <code>handler</code> 匹配过程， <code>handler adapter</code> 匹配过程和 <code>handler</code> 执行过程中的异常，该异常记做 <code>dispatchException</code>。</p>
+</li>
+<li><p>具体来说，对请求处理的主体流程可以简单地理解为两个步骤：</p>
+<ol>
 <li>寻找 <code>handler</code> 并执行以处理请求（<code>request</code>）。细分为以下几个方面：<ul>
 <li>目标 <code>handler</code> <strong>匹配</strong>过程，</li>
 <li>目标 <code>handler adapter</code> <strong>匹配</strong>过程，</li>
@@ -1851,9 +1854,16 @@
 <li>加工handler请求处理结果做出响应（<code>response</code>）</li>
 </ol>
 </li>
-<li>其中步骤 2 由 <code>processDispatchResult</code> 方法完成。</li>
-<li>若捕获到异常，将调用 <code>processHandlerException</code> 来将异常转换成 <code>ModelAndView</code>。对于常见的 <code>HTTP</code> 状态码，可能对应多种异常。<ul>
+<li><p>其中步骤 2 由 <code>processDispatchResult</code> 方法完成。</p>
+</li>
+<li><p>若捕获到异常，将调用 <code>processHandlerException</code> 来将异常转换成 <code>ModelAndView</code>。对于常见的 <code>HTTP</code> 状态码，可能对应多种异常。</p>
+<ul>
 <li>在本问题中所出现的<code>400 Bad Request</code>可能对应： <code>Servlet</code> 请求参数缺失、 <code>Servlet</code> 请求处理过程中的绑定异常 、类型不匹配、<code>HTTP</code> 消息不可读、<code>Spring</code>验证框架中的绑定异常等。</li>
+</ul>
+</li>
+<li><p>补充：</p>
+<ul>
+<li>对于参数解析错误，一般都在<code>org.springframework.web.method.support.InvocableHandlerMethod</code>的<code>getMethodArgumentValues</code>方法下发生。</li>
 </ul>
 </li>
 </ul>
@@ -1925,8 +1935,61 @@
 </ul>
 </li>
 </ul>
-<h3 id=""><a href="#" class="headerlink" title=""></a></h3><ul>
-<li><font color='red'> 断点标记，明天从这里开始继续更新 </font></li>
+<h1 id="🧠问题4️⃣——400：Already-had-POJO-for-id"><a href="#🧠问题4️⃣——400：Already-had-POJO-for-id" class="headerlink" title="🧠问题4️⃣——400：Already had POJO for id"></a>🧠问题4️⃣——400：Already had POJO for id</h1><h2 id="✏️问题描述-3"><a href="#✏️问题描述-3" class="headerlink" title="✏️问题描述"></a>✏️问题描述</h2><ul>
+<li>对于存在循环引用的对象，传参后出现<code>Already had POJO for id</code>报错。</li>
+</ul>
+<h3 id="ℹ️报错信息1️⃣-2"><a href="#ℹ️报错信息1️⃣-2" class="headerlink" title="ℹ️报错信息1️⃣"></a>ℹ️报错信息1️⃣</h3><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">Failed to read HTTP message: org.springframework.http.converter.HttpMessageNotReadableException: JSON parse error: Already had POJO for id (java.lang.Long) [[ObjectId: key=1, type=com.fasterxml.jackson.databind.deser.impl.PropertyBasedObjectIdGenerator, scope=com.raysmond.blog.common.models.User]]</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="📚问题分析-2"><a href="#📚问题分析-2" class="headerlink" title="📚问题分析"></a>📚问题分析</h3><ul>
+<li>根据前期相应方法，逐步断点，最后定位到报错源：</li>
+</ul>
+<ol>
+<li><code>com.fasterxml.jackson.databind.deser.impl.ObjectIdValueProperty</code>的<code>deserializeSetAndReturn</code>方法希望将<code>ReadableObjectId</code>类型的变量<code>roid</code>与<code>Object</code>类型的变量<code>instance</code>进行绑定。<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="type">ReadableObjectId</span> <span class="variable">roid</span> <span class="operator">=</span> ctxt.findObjectId(id, _objectIdReader.generator, _objectIdReader.resolver);</span><br><span class="line">roid.bindItem(instance);</span><br></pre></td></tr></table></figure></div></li>
+<li><code>com.fasterxml.jackson.databind.deser.impl.ReadableObjectId</code>的<code>bindItem</code>方法调用<code>_resolver</code>变量进行绑定。</li>
+<li><code>com.fasterxml.jackson.annotation.SimpleObjectIdResolver</code>的<code>SimpleObjectIdResolver</code>方法进行最终绑定，代码如下：<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">bindItem</span><span class="params">(IdKey id, Object ob)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span> (_items == <span class="literal">null</span>) &#123;</span><br><span class="line">        _items = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;ObjectIdGenerator.IdKey,Object&gt;();</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (_items.containsKey(id)) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">IllegalStateException</span>(<span class="string">&quot;Already had POJO for id (&quot;</span> + id.key.getClass().getName() + <span class="string">&quot;) [&quot;</span> + id</span><br><span class="line">                + <span class="string">&quot;]&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    _items.put(id, ob);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div></li>
+</ol>
+<ul>
+<li>思考逻辑，希望的逻辑是：先检索是否已经存在该 id 为 key 的对象，如果已存在则不再重新插入。<ul>
+<li>基于该逻辑向前梳理，找“当 id 已存在时 spring 是如何处理的”。</li>
+<li>逐步断点理解流程后突然意识到（受到<a href="#refer-anchor-8">[8]</a>修改 <code>generator</code> 参数的启发），所谓“解决循环引用”的过程，很可能是从标记了<code>@JsonIdentityInfo</code>注解的类开始，对其下每个被标记了该注解的属性对象用 id 代替。而我们的项目中定义了这样一个 DTO 类：<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">PostUserParams</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> Post post;</span><br><span class="line">    <span class="keyword">private</span> User user;</span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">PostUserParams</span><span class="params">(Post post, User user)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.post = post;</span><br><span class="line">        <span class="built_in">this</span>.user = user;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div></li>
+<li>其中的 <code>post</code> 和 <code>user</code> 对象分别在两个<code>@JsonIdentityInfo</code>序列化过程中，而当<code>post</code>的子对象<code>post_user</code>与<code>user</code>相同时则会出现冲突（在两个序列化过程中出现相同，而非同一个序列化过程中出现相同）。</li>
+<li>因此问题应当出在序列化过程而非反序列化过程。</li>
+</ul>
+</li>
+</ul>
+<h3 id="🔨解决方案-1"><a href="#🔨解决方案-1" class="headerlink" title="🔨解决方案"></a>🔨解决方案</h3><ul>
+<li>一种思路是在序列化<code>user</code>的过程中识别该对象是否已被序列化过。</li>
+<li>另一种思路是把<code>user</code>当做没出现过的对象，序列化成其他值。</li>
+<li>前者还没想到怎么使用，后者尝试将<code>@JsonIdentityInfo</code>的<code>generator</code>参数改为<code>ObjectIdGenerators.IntSequenceGenerator.class</code>并删去<code>property</code>属性<a href="#refer-anchor-8"><sup>[8]</sup></a><a href="#refer-anchor-9"><sup>[9]</sup></a>。</li>
+</ul>
+<h3 id="📚相关知识补充"><a href="#📚相关知识补充" class="headerlink" title="📚相关知识补充"></a>📚相关知识补充</h3><ul>
+<li>根据相关资料<a href="#refer-anchor-8"><sup>[8]</sup></a><a href="#refer-anchor-9"><sup>[9]</sup></a>及<code>com.fasterxml.jackson.annotation.ObjectIdGenerators</code>源码，<code>generator</code> 参数有以下几个选项：<ol>
+<li><code>ObjectIdGenerators.IntSequenceGenerator</code>：<ul>
+<li>Simple sequence-number based generator, which uses basic Java ints (starting with value 1) as Object Identifiers. </li>
+<li>基于序列号的简单生成器，使用基本的 Java ints（从值 1 开始）作为对象标识符。</li>
+</ul>
+</li>
+<li><code>ObjectIdGenerators.PropertyGenerator</code>：<ul>
+<li>Abstract place-holder class which is used to denote case where Object Identifier to use comes from a POJO property (getter method or field). If so, value is written directly during serialization, and used as-is during deserialization. Actual implementation class is part of databind package. </li>
+<li>抽象占位类，用于表示要使用的对象标识符来自 POJO 属性（获取方法或字段）的情况。如果是这样，值将在序列化过程中直接写入，并在反序列化过程中按原样使用。实际实现类是 databind 包的一部分。</li>
+</ul>
+</li>
+<li><code>ObjectIdGenerators.StringIdGenerator</code> (since 2.7)：<ul>
+<li>Implementation that will accept arbitrary (but unique) String Ids on deserialization, and (by default) use random UUID generation similar to ObjectIdGenerators.UUIDGenerator for generation ids.</li>
+<li>This generator is most useful for cases where another system creates String Ids (of arbitrary structure, if any), and Jackson only needs to keep track of id-to-Object mapping. Generation also works, although if UUIDs are always used, ObjectIdGenerators.UUIDGenerator is a better match as it will also validate ids being used.</li>
+<li>该实现将在反序列化时接受任意（但唯一）的字符串 Ids，并且（默认情况下）使用类似于 ObjectIdGenerators.UUIDGenerator 的随机 UUID 生成器生成 ID。</li>
+<li>这种生成器最适用于其他系统创建字符串 Ids（任意结构，如果有的话），而 Jackson 只需要跟踪 id 到对象的映射的情况。尽管如果总是使用 UUID，ObjectIdGenerators.UUIDGenerator 也能发挥作用，但它也会验证正在使用的 id。</li>
+</ul>
+</li>
+<li><code>ObjectIdGenerators.UUIDGenerator</code>：<ul>
+<li>Implementation that just uses UUIDs as reliably unique identifiers: downside is that resulting String is 36 characters long.</li>
+<li>One difference to other generators is that scope is always set as Object.class (regardless of arguments): this because UUIDs are globally unique, and scope has no meaning.</li>
+<li>该实现只使用 UUID 作为可靠的唯一标识符：缺点是生成的字符串长达 36 个字符。</li>
+<li>与其他生成器的一个不同之处是，scope 总是设置为 Object.class（与参数无关）：这是因为 UUID 是全局唯一的，而 scope 没有任何意义。</li>
+</ul>
+</li>
+</ol>
+</li>
 </ul>
 <h1 id="🤔思考"><a href="#🤔思考" class="headerlink" title="🤔思考"></a>🤔思考</h1><ul>
 <li>排查 bug 的思路？<ul>
@@ -1963,6 +2026,12 @@
 <div id="refer-anchor-7"></div>
 
 <p><a class="link"   href="https://fasterxml.github.io/jackson-annotations/javadoc/2.5/com/fasterxml/jackson/annotation/JsonIgnore.html" >[7] Annotation Type JsonIgnore <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<div id="refer-anchor-8"></div>
+
+<p><a class="link"   href="https://www.cnblogs.com/rain144576/p/14565060.html" >[8] 公用技术——数据格式——JSON——Jackson类库——复杂对象 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<div id="refer-anchor-9"></div>
+
+<p><a href="https://fasterxml.github.io/jackson-annotations/javadoc/2.8/com/fasterxml/jackson/annotation/ObjectIdGenerator.html">[9] Class ObjectIdGenerator<T></a></p>
 ]]></content>
       <categories>
         <category>工程</category>
