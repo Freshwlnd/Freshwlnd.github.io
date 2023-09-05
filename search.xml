@@ -1692,10 +1692,40 @@
 </li>
 </ul>
 <h1 id="🧠问题1️⃣——404"><a href="#🧠问题1️⃣——404" class="headerlink" title="🧠问题1️⃣——404"></a>🧠问题1️⃣——404</h1><h2 id="✏️问题描述"><a href="#✏️问题描述" class="headerlink" title="✏️问题描述"></a>✏️问题描述</h2><ul>
-<li>前期修复 Jackson 相关问题费尽心力，当 jackson 不再报错后，开始出现 404 问题，主要信息为<code>Content type &#39;application/json;charset=UTF-8&#39; not supported</code>。</li>
+<li>前期修复 Jackson 相关问题费尽心力，当 jackson 不再报错后，开始出现两类 404 问题。<ul>
+<li>第一类主要信息为<code>Content type &#39;application/json;charset=UTF-8&#39; not supported</code>。</li>
+<li>第二类信息很少<code>feign.FeignException: status 404 reading xx#xx(xx); content: &#123;&quot;timestamp&quot;:xx,&quot;status&quot;:404,&quot;error&quot;:&quot;Not Found&quot;,&quot;message&quot;:&quot;Not Found&quot;,&quot;path&quot;:&quot;xx&quot;&#125;</code></li>
 </ul>
-<h3 id="ℹ️报错信息"><a href="#ℹ️报错信息" class="headerlink" title="ℹ️报错信息"></a>ℹ️报错信息</h3><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">feign.FeignException: status 404 reading PostRepositoryRealClient#findAllByPostTypeAndPostStatusAndDeleted(PostParams); </span><br><span class="line">content: &#123;</span><br><span class="line">    status: 404,</span><br><span class="line">    error: Not Found,</span><br><span class="line">    exception: org.springframework.web.HttpMediaTypeNotSupportedException,</span><br><span class="line">    message:org.springframework.web.HttpMediaTypeNotSupportedException: Content type &#x27;application/json;charset=UTF-8&#x27; not supported</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+</li>
+</ul>
+<h3 id="ℹ️报错信息1️⃣"><a href="#ℹ️报错信息1️⃣" class="headerlink" title="ℹ️报错信息1️⃣"></a>ℹ️报错信息1️⃣</h3><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">feign.FeignException: status 404 reading PostRepositoryRealClient#findAllByPostTypeAndPostStatusAndDeleted(PostParams); </span><br><span class="line">content: &#123;</span><br><span class="line">    status: 404,</span><br><span class="line">    error: Not Found,</span><br><span class="line">    exception: org.springframework.web.HttpMediaTypeNotSupportedException,</span><br><span class="line">    message:org.springframework.web.HttpMediaTypeNotSupportedException: Content type &#x27;application/json;charset=UTF-8&#x27; not supported</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
 
+<h3 id="ℹ️报错信息2️⃣"><a href="#ℹ️报错信息2️⃣" class="headerlink" title="ℹ️报错信息2️⃣"></a>ℹ️报错信息2️⃣</h3><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">feign.FeignException: status 404 reading xx#xx(xx); </span><br><span class="line">content:</span><br><span class="line">&#123;</span><br><span class="line">	&quot;status&quot;:404,</span><br><span class="line">	&quot;error&quot;:&quot;Not Found&quot;,</span><br><span class="line">	&quot;message&quot;:&quot;Not Found&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<h2 id="🛠️相关尝试及解决方案"><a href="#🛠️相关尝试及解决方案" class="headerlink" title="🛠️相关尝试及解决方案"></a>🛠️相关尝试及解决方案</h2><h3 id="📚问题分析"><a href="#📚问题分析" class="headerlink" title="📚问题分析"></a>📚问题分析</h3><ul>
+<li>第一类问题：可能导致的原因很多，本次是由于 json 反序列化失败导致的，具体排查方法可见<a href="#%F0%9F%A7%A0%E9%97%AE%E9%A2%983%EF%B8%8F%E2%83%A3400">下文</a>。</li>
+<li>第二类问题：<ul>
+<li>经过断点排查，发现原因如下：<ul>
+<li><code>Spring MVC</code>前置处理器 <code>org.springframework.web.servlet.DispatcherServlet</code>在 handle 处理完成后，会获得一个<code>ModelAndView</code>类对象<code>mv</code>，交由 <code>processDispatchResult</code> 方法进行响应处理。</li>
+<li>此时若被调用函数未加<code>@ResponseBody</code>，则<code>mv</code>不为<code>null</code>，则会调用<code>render(mv, request, response);</code>进行处理，其中会将<code>ModelAndView</code>转为<code>View</code>类型的对象<code>view</code>。</li>
+<li>而当返回值不代表页面（不存在于 View 列表中）时，该转换过程则会报错，并返回<code>404</code>。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="🔨解决方案"><a href="#🔨解决方案" class="headerlink" title="🔨解决方案"></a>🔨解决方案</h3><ul>
+<li><p>第二类问题：</p>
+<ul>
+<li>基于以上分析，在所有函数前标记注解<code>@ResponseBody</code>即可。（哪怕返回值类型是<code>void</code>。怎么觉得不太自然？）</li>
+</ul>
+</li>
+<li><p>⚠️注：</p>
+<ul>
+<li>目前的解决方法还未触及根本，如 <code>ModelAndView</code>是什么？实际工程中如何区分需要<code>View</code>和不需要<code>View</code>的请求？</li>
+</ul>
+</li>
+</ul>
 <h1 id="🧠问题2️⃣——415"><a href="#🧠问题2️⃣——415" class="headerlink" title="🧠问题2️⃣——415"></a>🧠问题2️⃣——415</h1><h2 id="✏️问题描述-1"><a href="#✏️问题描述-1" class="headerlink" title="✏️问题描述"></a>✏️问题描述</h2><ul>
 <li><p>随着不断断点排查，缩小范围，排查后发现以下函数接收不到请求：</p>
 <div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@RequestMapping(value = &quot;/findAllByPostTypeAndPostStatusAndDeleted&quot;, method = RequestMethod.POST)</span></span><br><span class="line"><span class="meta">@ResponseBody</span></span><br><span class="line">Page&lt;Post&gt; <span class="title function_">findAllByPostTypeAndPostStatusAndDeleted</span><span class="params">(<span class="meta">@RequestBody</span> PostParams postPrams)</span> &#123;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
@@ -1705,9 +1735,9 @@
 <li><p>看到以下几条报错信息，简单检索之后开始分析：</p>
 </li>
 </ul>
-<h3 id="ℹ️报错信息1️⃣"><a href="#ℹ️报错信息1️⃣" class="headerlink" title="ℹ️报错信息1️⃣"></a>ℹ️报错信息1️⃣</h3><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">org.springframework.web.util.NestedServletException: Request processing failed; </span><br><span class="line">    nested exception is feign.FeignException: status 415 reading PostRepositoryRealClient#findAllByPostTypeAndPostStatusAndDeleted(PostParams); </span><br><span class="line">content: &#123;</span><br><span class="line">    &quot;status&quot;:415,</span><br><span class="line">    &quot;error&quot;:&quot;Unsupported Media Type&quot;,</span><br><span class="line">    &quot;exception&quot;:&quot;org.springframework.web.HttpMediaTypeNotSupportedException&quot;,</span><br><span class="line">    &quot;message&quot;:&quot;Unsupported Media Type&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<h3 id="ℹ️报错信息1️⃣-1"><a href="#ℹ️报错信息1️⃣-1" class="headerlink" title="ℹ️报错信息1️⃣"></a>ℹ️报错信息1️⃣</h3><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">org.springframework.web.util.NestedServletException: Request processing failed; </span><br><span class="line">    nested exception is feign.FeignException: status 415 reading PostRepositoryRealClient#findAllByPostTypeAndPostStatusAndDeleted(PostParams); </span><br><span class="line">content: &#123;</span><br><span class="line">    &quot;status&quot;:415,</span><br><span class="line">    &quot;error&quot;:&quot;Unsupported Media Type&quot;,</span><br><span class="line">    &quot;exception&quot;:&quot;org.springframework.web.HttpMediaTypeNotSupportedException&quot;,</span><br><span class="line">    &quot;message&quot;:&quot;Unsupported Media Type&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
 
-<h3 id="ℹ️报错信息2️⃣"><a href="#ℹ️报错信息2️⃣" class="headerlink" title="ℹ️报错信息2️⃣"></a>ℹ️报错信息2️⃣</h3><ul>
+<h3 id="ℹ️报错信息2️⃣-1"><a href="#ℹ️报错信息2️⃣-1" class="headerlink" title="ℹ️报错信息2️⃣"></a>ℹ️报错信息2️⃣</h3><ul>
 <li>（额外发现一条 WARNING）<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">WARN  o.s.h.c.j.MappingJackson2HttpMessageConverter - Failed to evaluate Jackson deserialization for type [[simple type, class com.raysmond.blog.common.models.PostParams]]: java.lang.NullPointerException</span><br></pre></td></tr></table></figure></div>
 
 </li>
@@ -1754,7 +1784,7 @@
 
 </li>
 </ol>
-<h2 id="🛠️相关尝试及解决方案"><a href="#🛠️相关尝试及解决方案" class="headerlink" title="🛠️相关尝试及解决方案"></a>🛠️相关尝试及解决方案</h2><h3 id="🔍简单检索信息"><a href="#🔍简单检索信息" class="headerlink" title="🔍简单检索信息"></a>🔍简单检索信息</h3><ul>
+<h2 id="🛠️相关尝试及解决方案-1"><a href="#🛠️相关尝试及解决方案-1" class="headerlink" title="🛠️相关尝试及解决方案"></a>🛠️相关尝试及解决方案</h2><h3 id="🔍简单检索信息"><a href="#🔍简单检索信息" class="headerlink" title="🔍简单检索信息"></a>🔍简单检索信息</h3><ul>
 <li>HTTP请求415错误 – 不支持的媒体类型(Unsupported media type)<a href="#refer-anchor-1"><sup>[1]</sup></a></li>
 <li>通常可以检查以下情况：<ol>
 <li>检查你的 http 请求头信息，比如 因为 User-Agent 被服务器设置拒绝请求了；</li>
@@ -1773,7 +1803,7 @@
 </ol>
 </li>
 </ul>
-<h3 id="📚问题分析"><a href="#📚问题分析" class="headerlink" title="📚问题分析"></a>📚问题分析</h3><ul>
+<h3 id="📚问题分析-1"><a href="#📚问题分析-1" class="headerlink" title="📚问题分析"></a>📚问题分析</h3><ul>
 <li><p>根据相关信息，推测大概率是所传输数据无法解析问题。根据相关信息，优先检查如何解决<a href="#%E2%84%B9%EF%B8%8F%E6%8A%A5%E9%94%99%E4%BF%A1%E6%81%AF2%EF%B8%8F%E2%83%A3">报错信息2️⃣</a>。</p>
 <ul>
 <li>经过简单检索，发现似乎没有相关信息，因此决定基于报错信息查看源码，理解报错原因。</li>
@@ -1802,7 +1832,7 @@
 <h1 id="🧠问题3️⃣——400"><a href="#🧠问题3️⃣——400" class="headerlink" title="🧠问题3️⃣——400"></a>🧠问题3️⃣——400</h1><h2 id="✏️问题描述-2"><a href="#✏️问题描述-2" class="headerlink" title="✏️问题描述"></a>✏️问题描述</h2><ul>
 <li>前期修复后，开始出现 400 问题，主要信息为<code>Bad Request</code>（相当于啥也没有）。</li>
 </ul>
-<h3 id="ℹ️报错信息1️⃣-1"><a href="#ℹ️报错信息1️⃣-1" class="headerlink" title="ℹ️报错信息1️⃣"></a>ℹ️报错信息1️⃣</h3><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">content: &#123;</span><br><span class="line">	&quot;status&quot;:400,</span><br><span class="line">	&quot;error&quot;:&quot;Bad Request&quot;,</span><br><span class="line">	&quot;exception&quot;: &quot;org.springframework.http.converter.HttpMessageNotReadableException&quot;,</span><br><span class="line">	&quot;message&quot;:&quot;Bad Request&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<h3 id="ℹ️报错信息1️⃣-2"><a href="#ℹ️报错信息1️⃣-2" class="headerlink" title="ℹ️报错信息1️⃣"></a>ℹ️报错信息1️⃣</h3><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">content: &#123;</span><br><span class="line">	&quot;status&quot;:400,</span><br><span class="line">	&quot;error&quot;:&quot;Bad Request&quot;,</span><br><span class="line">	&quot;exception&quot;: &quot;org.springframework.http.converter.HttpMessageNotReadableException&quot;,</span><br><span class="line">	&quot;message&quot;:&quot;Bad Request&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
 
 
 <h3 id="ℹ️报错信息2️⃣——DEBUG-日志"><a href="#ℹ️报错信息2️⃣——DEBUG-日志" class="headerlink" title="ℹ️报错信息2️⃣——DEBUG 日志"></a>ℹ️报错信息2️⃣——DEBUG 日志</h3><ul>
@@ -1836,7 +1866,7 @@
 
 </li>
 </ol>
-<h2 id="🛠️相关尝试及解决方案-1"><a href="#🛠️相关尝试及解决方案-1" class="headerlink" title="🛠️相关尝试及解决方案"></a>🛠️相关尝试及解决方案</h2><h3 id="🔍简单检索信息-1"><a href="#🔍简单检索信息-1" class="headerlink" title="🔍简单检索信息"></a>🔍简单检索信息</h3><ul>
+<h2 id="🛠️相关尝试及解决方案-2"><a href="#🛠️相关尝试及解决方案-2" class="headerlink" title="🛠️相关尝试及解决方案"></a>🛠️相关尝试及解决方案</h2><h3 id="🔍简单检索信息-1"><a href="#🔍简单检索信息-1" class="headerlink" title="🔍简单检索信息"></a>🔍简单检索信息</h3><ul>
 <li><p>Spring MVC : 400 错误是怎么发生的 ?<a href="#refer-anchor-4"><sup>[4]</sup></a></p>
 </li>
 <li><p><code>Spring MVC</code>前置处理器 <code>org.springframework.web.servlet.DispatcherServlet</code> 处理一个请求时，会在<code>doDispatch</code>方法中尝试捕获 <code>handler</code> 匹配过程， <code>handler adapter</code> 匹配过程和 <code>handler</code> 执行过程中的异常，该异常记做 <code>dispatchException</code>。</p>
@@ -1867,7 +1897,7 @@
 </ul>
 </li>
 </ul>
-<h3 id="📚问题分析-1"><a href="#📚问题分析-1" class="headerlink" title="📚问题分析"></a>📚问题分析</h3><ul>
+<h3 id="📚问题分析-2"><a href="#📚问题分析-2" class="headerlink" title="📚问题分析"></a>📚问题分析</h3><ul>
 <li><p>根据上述信息，找到<code>DispatcherServlet</code>类（位于<code>org.springframework.web.servlet.DispatcherServlet</code>）的<code>processDispatchResult</code>函数，通过断点截获来确定到底是哪种异常被转换成了<code>400 Bad Request</code>状态码。</p>
 </li>
 <li><p>果不其然，截获后发现了更准确的问题报错：</p>
@@ -1919,7 +1949,7 @@
 </ul>
 </li>
 </ul>
-<h3 id="🔨解决方案"><a href="#🔨解决方案" class="headerlink" title="🔨解决方案"></a>🔨解决方案</h3><ul>
+<h3 id="🔨解决方案-1"><a href="#🔨解决方案-1" class="headerlink" title="🔨解决方案"></a>🔨解决方案</h3><ul>
 <li>定位到问题后，解决就变得非常简单了。</li>
 <li>在 <code>getter</code>、<code>setter</code> 函数上增加 <code>@JsonIgnore</code> 注解即可。</li>
 <li>后续：问题转变为反序列化<code>org.springframework.data.domain.Page</code>失败，相关解决方案已补充至<a href="/2023/08/25/program_language/java-spring-bug-json-parse-error/" title="【Spring】java 单体式应用微服务拆分过程 bug 修复：Json Parse Error">【Spring】java 单体式应用微服务拆分过程 bug 修复：Json Parse Error</a>。</li>
@@ -1938,9 +1968,9 @@
 <h1 id="🧠问题4️⃣——400：Already-had-POJO-for-id"><a href="#🧠问题4️⃣——400：Already-had-POJO-for-id" class="headerlink" title="🧠问题4️⃣——400：Already had POJO for id"></a>🧠问题4️⃣——400：Already had POJO for id</h1><h2 id="✏️问题描述-3"><a href="#✏️问题描述-3" class="headerlink" title="✏️问题描述"></a>✏️问题描述</h2><ul>
 <li>对于存在循环引用的对象，传参后出现<code>Already had POJO for id</code>报错。</li>
 </ul>
-<h3 id="ℹ️报错信息1️⃣-2"><a href="#ℹ️报错信息1️⃣-2" class="headerlink" title="ℹ️报错信息1️⃣"></a>ℹ️报错信息1️⃣</h3><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">Failed to read HTTP message: org.springframework.http.converter.HttpMessageNotReadableException: JSON parse error: Already had POJO for id (java.lang.Long) [[ObjectId: key=1, type=com.fasterxml.jackson.databind.deser.impl.PropertyBasedObjectIdGenerator, scope=com.raysmond.blog.common.models.User]]</span><br></pre></td></tr></table></figure></div>
+<h3 id="ℹ️报错信息1️⃣-3"><a href="#ℹ️报错信息1️⃣-3" class="headerlink" title="ℹ️报错信息1️⃣"></a>ℹ️报错信息1️⃣</h3><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">Failed to read HTTP message: org.springframework.http.converter.HttpMessageNotReadableException: JSON parse error: Already had POJO for id (java.lang.Long) [[ObjectId: key=1, type=com.fasterxml.jackson.databind.deser.impl.PropertyBasedObjectIdGenerator, scope=com.raysmond.blog.common.models.User]]</span><br></pre></td></tr></table></figure></div>
 
-<h3 id="📚问题分析-2"><a href="#📚问题分析-2" class="headerlink" title="📚问题分析"></a>📚问题分析</h3><ul>
+<h3 id="📚问题分析-3"><a href="#📚问题分析-3" class="headerlink" title="📚问题分析"></a>📚问题分析</h3><ul>
 <li>根据前期相应方法，逐步断点，最后定位到报错源：</li>
 </ul>
 <ol>
@@ -1957,7 +1987,7 @@
 </ul>
 </li>
 </ul>
-<h3 id="🔨解决方案-1"><a href="#🔨解决方案-1" class="headerlink" title="🔨解决方案"></a>🔨解决方案</h3><ul>
+<h3 id="🔨解决方案-2"><a href="#🔨解决方案-2" class="headerlink" title="🔨解决方案"></a>🔨解决方案</h3><ul>
 <li>一种思路是在序列化<code>user</code>的过程中识别该对象是否已被序列化过。</li>
 <li>另一种思路是把<code>user</code>当做没出现过的对象，序列化成其他值。</li>
 <li>前者还没想到怎么使用，后者尝试将<code>@JsonIdentityInfo</code>的<code>generator</code>参数改为<code>ObjectIdGenerators.IntSequenceGenerator.class</code>并删去<code>property</code>属性<a href="#refer-anchor-8"><sup>[8]</sup></a><a href="#refer-anchor-9"><sup>[9]</sup></a>。</li>
