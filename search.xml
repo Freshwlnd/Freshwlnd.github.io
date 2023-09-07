@@ -138,11 +138,18 @@
     <title>实验床简介</title>
     <url>/2023/09/06/benchmark/</url>
     <content><![CDATA[<h1 id="实验床（泰）"><a href="#实验床（泰）" class="headerlink" title="实验床（泰）"></a>实验床（泰）</h1><h2 id="💡简介-1"><a href="#💡简介-1" class="headerlink" title="💡简介[1]"></a>💡简介<a href="#refer-anchor-1"><sup>[1]</sup></a></h2><ul>
-<li><p>实验床简介</p>
-<ul>
+<li>实验床简介<ul>
 <li>能提供芯片和系统等基础环境，是面向研究、开发与应用验证的试验装置。</li>
 </ul>
 </li>
+</ul>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://github.com/Freshwlnd/image/blob/blog/testbed_structure.png?raw=true"
+                      alt="泰架构"
+                ></p>
+<ul>
 <li><p>实验床具体介绍</p>
 <ul>
 <li>人工智能新技术实验床（泰）是全球首个大规模开放性AI实验床。该实验床为制定以人工智能为代表的新技术标准提供依据，为验证和展示新技术提供平台，具备大规模复杂场景构建能力，提供新技术实训教育平台和欣秀科教交流工具。</li>
