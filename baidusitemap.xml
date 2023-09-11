@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://freshwlnd.github.io/2023/09/08/program_language/java-spring-feign-generic/</loc>
+    <lastmod>2023-09-11</lastmod>
+  </url>
+  <url>
     <loc>https://freshwlnd.github.io/2023/09/07/CPN-benchmark/</loc>
-    <lastmod>2023-09-07</lastmod>
+    <lastmod>2023-09-08</lastmod>
   </url>
   <url>
     <loc>https://freshwlnd.github.io/2023/09/06/testbed/</loc>
