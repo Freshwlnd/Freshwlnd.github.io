@@ -2731,6 +2731,9 @@
 <div id="refer-anchor-2"></div>
 
 <p><a class="link" href="https://kuboard.cn/install/faq/apiserver-params.html">[2] 修改 Kubernetes apiserver 启动参数 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<div id="refer-anchor-3"></div>
+
+<p><a class="link" href="https://www.cnblogs.com/-abm/p/16629954.html">[3] K8S集群重新初始化 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
 ]]></content>
       <categories>
         <category>工程</category>
