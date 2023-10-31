@@ -2653,7 +2653,7 @@
   <entry>
     <title>K8S集群搭建记录——故障排除：xxx:6443 was refused</title>
     <url>/2023/10/31/k8s/k8s-apiserver/</url>
-    <content><![CDATA[<h1 id="💡简介"><a href="#💡简介" class="headerlink" title="💡简介"></a>💡简介</h1><p>k8s发生崩溃，记录排查及修复过程。</p>
+    <content><![CDATA[<h1 id="💡简介"><a href="#💡简介" class="headerlink" title="💡简介"></a>💡简介</h1><p>搭建基于vm的k8s-on-k8s时发生崩溃，记录排查及修复过程。<br>核心问题在于，vm 中搭建上层 k8s 时将下层配置文件修改了。<br>后续应当考虑 vm 使用独立目录而非和下层服务器共享目录。</p>
 <h1 id="🖼️背景"><a href="#🖼️背景" class="headerlink" title="🖼️背景"></a>🖼️背景</h1><p>使用kubectl控制k8s的任何指令都报错：</p>
 <div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">kubectl get pods</span></span><br><span class="line">The connection to the server xxx.xxx.xxx.xxx:6443 was refused - did you specify the right host or port?</span><br></pre></td></tr></table></figure></div>
 <p>（其中 <code>xxx.xxx.xxx.xxx</code> 是服务器 ip，在此隐去）</p>
