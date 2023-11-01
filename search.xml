@@ -3788,4 +3788,59 @@
         <tag>spring</tag>
       </tags>
   </entry>
+  <entry>
+    <title>论文略读笔记16-经典-大规模强化学习</title>
+    <url>/2023/10/31/literature/literatureNotes16/</url>
+    <content><![CDATA[<h1 id="x1f4d6-《Algorithms-or-Actions-A-Study-in-Large-Scale-Reinforcement-Learning》"><a href="#x1f4d6-《Algorithms-or-Actions-A-Study-in-Large-Scale-Reinforcement-Learning》" class="headerlink" title="📖《Algorithms or Actions? A Study in Large-Scale Reinforcement Learning》"></a><span class="emoji" alias="book" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4d6.png?v8">📖</span>《Algorithms or Actions? A Study in Large-Scale Reinforcement Learning》</h1><h2 id="x1f3af-需求"><a href="#x1f3af-需求" class="headerlink" title="🎯需求"></a><span class="emoji" alias="dart" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f3af.png?v8">🎯</span>需求</h2><ul>
+<li>大型状态和动作空间对于强化学习非常具有挑战性。<ul>
+<li>强化学习旨在开发通用智能体，它通过直接作用于问题动作空间来学习。然而，随着状态和动作空间变大，学习代理很难获得高性能。</li>
+</ul>
+</li>
+<li>但是，在许多领域中，有一组可用的算法，用于估计给定状态（state）的最佳动作（action）。<ul>
+<li>许多领域都有针对特定问题量身定制的现有算法，并且代理可以依赖算法池来代表其行事。</li>
+</ul>
+</li>
+<li>因此，智能体可以直接学习<strong>从状态到操作（from states to actions）</strong>或<strong>从状态到算法（from states to algorithm）</strong>的性能最大化映射。<ul>
+<li>然而，考虑到有限的计算资源，存在一个重要的冲突：我们应该<strong>学习动作（learn over actions）</strong>，训练强化学习代理以发现要采取的最佳动作，还是应该<strong>学习算法（learn over algorithms）</strong>，尝试发现最佳算法来估计在每个状态下的最佳动作？</li>
+</ul>
+</li>
+</ul>
+<h2 id="x1f6a7-现状"><a href="#x1f6a7-现状" class="headerlink" title="🚧现状"></a><span class="emoji" alias="construction" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f6a7.png?v8">🚧</span>现状</h2><ul>
+<li>先前关于抽象动作强化学习的工作已经表明：在学习算法时可能无法实现最优策略，尽管它可能会加速强化学习过程。</li>
+<li>然而，目前还不清楚何时应该首选每种方法。</li>
+<li>此外，当状态空间也非常大时，拥有一组算法可能仍然无法直接应用强化学习技术。特别是，实时策略游戏是人工智能研究的一个重大挑战，因为它们具有巨大的动作和状态空间。</li>
+</ul>
+<h2 id="x1f6e9-创新"><a href="#x1f6e9-创新" class="headerlink" title="🛩创新"></a><span class="emoji" alias="small_airplane" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f6e9.png?v8">🛩</span>创新</h2><ul>
+<li>在这项工作中，<ul>
+<li>我们研究了这种困境的几个方面，显示了在有限数量的训练迭代中，<strong>学习算法优于动作（learning over algorithms to outperform over actions）</strong>的充分条件。<ul>
+<li>评估可用算法是否有足够的强度，评估算法和动作集大小之间的关系，以及可能的底层算法创建过程。</li>
+</ul>
+</li>
+<li>我们提出了合成实验来进一步研究这些系统。合成实验进一步发展了我们的结论。</li>
+<li>最后，我们提出了一种函数逼近方法，证明了在复杂领域（实时战略游戏）中学习算法的有效性。</li>
+</ul>
+</li>
+</ul>
+<h2 id="x1f4ca-效果"><a href="#x1f4ca-效果" class="headerlink" title="📊效果"></a><span class="emoji" alias="bar_chart" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4ca.png?v8">📊</span>效果</h2><ul>
+<li>我们的算法学习模型提供了由理论分析支持的新颖指南。综合实验表明，相对性能随着动作和算法集大小的增加而增加。我们还引入了一种函数逼近方法，用于学习 RTS 游戏中的算法，其性能显着优于最先进的基于搜索的玩家。合成实验和 RTS 实验的源代码分别位于：<a class="link" href="https://github.com/andertavares/syntheticmdps">https://github.com/andertavares/syntheticmdps <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> 和 <a class="link" href="https://github.com/SivaAnbalagan1/micrortsFA%E3%80%82">https://github.com/SivaAnbalagan1/micrortsFA。 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+</ul>
+<h2 id="x1f9e0-疑问"><a href="#x1f9e0-疑问" class="headerlink" title="🧠疑问"></a><span class="emoji" alias="brain" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f9e0.png?v8">🧠</span>疑问</h2><ol>
+<li>学习算法指的是什么？具体流程如何？在一堆算法里选择一个？</li>
+<li>能否学习算法和学习动作相结合？</li>
+</ol>
+<h1 id="x1f5fa-参考文献"><a href="#x1f5fa-参考文献" class="headerlink" title="🗺参考文献"></a><span class="emoji" alias="world_map" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f5fa.png?v8">🗺</span>参考文献</h1><div id="refer-anchor-1"></div>
+
+<p><a class="link" href="https://www.ijcai.org/proceedings/2018/377">[1] Rocha Tavares A, Anbalagan S, Soriano Marcolino L, et al. Algorithms or actions?: A study in large-scale reinforcement learning[C]. International Joint Conferences on Artificial Intelligence, 2018. <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+]]></content>
+      <categories>
+        <category>论文</category>
+        <category>略读</category>
+        <category>AI</category>
+      </categories>
+      <tags>
+        <tag>云计算</tag>
+        <tag>大规模</tag>
+        <tag>强化学习</tag>
+      </tags>
+  </entry>
 </search>
