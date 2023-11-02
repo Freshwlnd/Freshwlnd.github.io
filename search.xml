@@ -3843,4 +3843,80 @@
         <tag>强化学习</tag>
       </tags>
   </entry>
+  <entry>
+    <title>论文略读笔记17-前沿-大规模强化学习组合优化</title>
+    <url>/2023/11/02/literature/literatureNotes17/</url>
+    <content><![CDATA[<h1 id="x1f4d6-《Combinatorial-Optimization-Meets-Reinforcement-Learning-Effective-Taxi-Order-Dispatching-at-Large-Scale》"><a href="#x1f4d6-《Combinatorial-Optimization-Meets-Reinforcement-Learning-Effective-Taxi-Order-Dispatching-at-Large-Scale》" class="headerlink" title="📖《Combinatorial Optimization Meets Reinforcement Learning: Effective Taxi Order Dispatching at Large-Scale》"></a><span class="emoji" alias="book" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4d6.png?v8">📖</span>《Combinatorial Optimization Meets Reinforcement Learning: Effective Taxi Order Dispatching at Large-Scale》</h1><h2 id="x1f3af-需求"><a href="#x1f3af-需求" class="headerlink" title="🎯需求"></a><span class="emoji" alias="dart" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f3af.png?v8">🎯</span>需求</h2><ul>
+<li>网约车已经盛行。网约车平台的核心是出租车订单调度，包括为每个订单推荐合适的司机。<ul>
+<li>网约车服务的核心是出租车订单调度，网约车平台将出租车乘车订单（即需求）分配给适当的出租车司机（即供应）。有效和高效的大规模订单调度对于城市网约车的整体效用（例如，总收入）和服务质量（例如，旅行成本和等待时间）至关重要。</li>
+</ul>
+</li>
+</ul>
+<h2 id="x1f6a7-现状"><a href="#x1f6a7-现状" class="headerlink" title="🚧现状"></a><span class="emoji" alias="construction" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f6a7.png?v8">🚧</span>现状</h2><ul>
+<li>以前的工作使用纯组合优化解决方案进行出租车调度，由于需求和供应的复杂动态以及调度决策之间的时间依赖性，在实践中会受到影响。<ul>
+<li>从数学上讲，订单调度可以建模为二分匹配问题。具体来说，驱动因素和订单被建模为二分图两侧的节点，两个节点之间的边表示潜在的分配。因此，查找司机和订单之间的调度决策将转换为计算二分匹配。从组合优化的角度来看，二分匹配公式自然会得出解决方案。尽管进行了数十年的研究，但基于组合优化的纯策略在实践中仍然<strong>无法提供理论上声称的性能</strong>。实证研究表明，许多方法甚至无法击败简单的贪婪算法。这是因为组合优化解决方案通常是短视的，并且会根据强有力的假设做出回应，从而阻止它们在现实世界的网约车中应对以下挑战。<ul>
+<li>需求和供应的复杂<strong>动态</strong>。大多数组合优化解决方案过度简化了需求和供给的空间分布，例如，假设遵循齐普夫定律的潜在驱动因素，或者根据历史数据拟合一些已知的独立相同分布。在实践中，由于高峰时段、天气、事件等多种因素，出租车需求可能非常不规律和波动。由于驾驶员的怠速巡航，供应也可能在空间中反复无常，这很难建模和预测。</li>
+<li>调度决策之间的<strong>时间依赖性</strong>。组合优化方法倾向于假设独立决策。然而，以前的调度决策可能会影响以后的调度决策，因为先前调度的司机可能会在以后出现在其分配的订单的目的地附近，这可能会改变后续调度时间范围内的供应分配。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>最近的研究试图将数据驱动的方法引入组合优化，希望从历史数据中获得的知识有助于克服这些挑战。在这些尝试中，强化学习的采用显示出巨大的前景，但目前的采用是单向集成，限制了潜在的性能提升。<ul>
+<li>最近的努力利用数据挖掘技术来预测需求和供应，而不是根据订单调度的简化分布假设进行回复。 <ul>
+<li>然而，由于这些方法在后续调度中忽略了前期调度对供应分布的影响，因此其预测往往会偏离实际预测，从而限制了其有效性。</li>
+</ul>
+</li>
+<li>一些先驱研究提出将一批调度决策作为顺序决策问题进行联合优化，可以通过强化学习来解决。在强化学习设置中，平台从供需和调度决策的大历史数据中学习给定时间段的最佳调度策略。此设置不仅消除了对供需的预先假设，而且还明确考虑了调度之间的依赖关系。<ul>
+<li>然而，作为将组合优化与强化学习相结合的早期探索，现有的提案缺乏系统的设计来优化这两种范式之间的相互作用。例如，都只应用强化学习来增强组合优化。这种单向集成限制了潜在的性能提升。此外，强化学习的数据驱动性质可能会给组合优化带来不利影响，甚至会危及性能。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="x1f6e9-创新"><a href="#x1f6e9-创新" class="headerlink" title="🛩创新"></a><span class="emoji" alias="small_airplane" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f6e9.png?v8">🛩</span>创新</h2><ul>
+<li>在这项工作中，提出了 Learning To Dispatch（LTD），这是一种系统化的解决方案，允许强化学习和组合优化的协同整合，用于大规模出租车订单调度。为了有效地将强化学习增强为组合优化，采用在线学习的方式，使学习到的调度策略适应当前情况。为了避免强化学习中的冷启动问题，设计了一种组合疗法，即驾驶员调度。还提出了优化方法，以优化在大规模环境中应用强化学习的效率。<ul>
+<li>证明了在线学习和出租车调度的必要性，以使强化学习与组合优化协同工作，并设计相应的算法。<ul>
+<li>研究了将强化学习与组合优化相结合的问题和解决方案，以用于出租车订单调度。证明了在线学习和出租车调度的必要性，以便强化学习与组合优化协同工作，以实现有效的出租车调度。据我们所知，我们率先探索将这两种方法相结合的网约车服务的最佳实践。</li>
+</ul>
+</li>
+<li>设计了许多技巧来更有效地计算二分匹配。<ul>
+<li>设计了许多技巧来更有效地计算二分匹配。通过采用共享值函数和近似，大大减小了值函数的大小，有助于更好地探索。还使用广度优先搜索将二分图拆分为几个部分，以提高执行效率。这些加速度使算法适用于大规模、高频的调度操作。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="x1f4ca-效果"><a href="#x1f4ca-效果" class="headerlink" title="📊效果"></a><span class="emoji" alias="bar_chart" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4ca.png?v8">📊</span>效果</h2><ul>
+<li>在一家大型网约车平台开发的模拟器上根据真实历史数据进行实验。<ul>
+<li>广泛的评估表明，我们的双向集成在效用和效率方面比所有基线高出 36.4% 和 42.0%。我们还比最先进的方法高出28.7%在效用上。</li>
+<li>该作品的初版获得了KDD杯2020强化学习轨道订单调度任务的冠军。</li>
+</ul>
+</li>
+</ul>
+<h2 id="x1f9e0-疑问"><a href="#x1f9e0-疑问" class="headerlink" title="🧠疑问"></a><span class="emoji" alias="brain" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f9e0.png?v8">🧠</span>疑问</h2><ol>
+<li>本文中是否考虑网约车的移动性与路径？还是抽象成一个无关移动的资源？<ul>
+<li>看起来是后者，那么是否可以迁移到云计算场景？</li>
+</ul>
+</li>
+<li>大规模带来的挑战是什么？论文如何解决的？</li>
+</ol>
+<ul>
+<li>希望这篇博客对你有帮助！如果你有任何问题或需要进一步的帮助，请随时提问。</li>
+<li>如果你喜欢这篇文章，欢迎<a class="link" href="https://github.com/freshwlnd/">动动小手 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>给我一个follow或star。</li>
+</ul>
+<h1 id="x1f5fa-参考文献"><a href="#x1f5fa-参考文献" class="headerlink" title="🗺参考文献"></a><span class="emoji" alias="world_map" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f5fa.png?v8">🗺</span>参考文献</h1><div id="refer-anchor-1"></div>
+
+<p><a class="link" href="https://ieeexplore.ieee.org/document/9611023">[1] Y. Tong, D. Shi, Y. Xu, W. Lv, Z. Qin and X. Tang, “Combinatorial Optimization Meets Reinforcement Learning: Effective Taxi Order Dispatching at Large-Scale,” in IEEE Transactions on Knowledge and Data Engineering, vol. 35, no. 10, pp. 9812-9823, 1 Oct. 2023, doi: 10.1109/TKDE.2021.3127077. <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+]]></content>
+      <categories>
+        <category>论文</category>
+        <category>略读</category>
+        <category>AI</category>
+      </categories>
+      <tags>
+        <tag>大规模</tag>
+        <tag>强化学习</tag>
+        <tag>组合优化</tag>
+      </tags>
+  </entry>
 </search>
