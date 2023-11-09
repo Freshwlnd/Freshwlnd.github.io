@@ -4156,4 +4156,97 @@
         <tag>深度强化学习</tag>
       </tags>
   </entry>
+  <entry>
+    <title>论文略读笔记21-经典-深度强化学习云调度</title>
+    <url>/2023/11/09/literature/literatureNotes21/</url>
+    <content><![CDATA[<h1 id="x1f4d6-《DRL-cloud-Deep-reinforcement-learning-based-resource-provisioning-and-task-scheduling-for-cloud-service-providers》"><a href="#x1f4d6-《DRL-cloud-Deep-reinforcement-learning-based-resource-provisioning-and-task-scheduling-for-cloud-service-providers》" class="headerlink" title="📖《DRL-cloud: Deep reinforcement learning-based resource provisioning and task scheduling for cloud service providers》"></a><span class="emoji" alias="book" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4d6.png?v8">📖</span>《DRL-cloud: Deep reinforcement learning-based resource provisioning and task scheduling for cloud service providers》</h1><h2 id="x1f3af-需求"><a href="#x1f3af-需求" class="headerlink" title="🎯需求"></a><span class="emoji" alias="dart" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f3af.png?v8">🎯</span>需求</h2><ul>
+<li>云计算已成为学术界和工业界颇具吸引力的计算范例。<ul>
+<li>云计算已经成为一种令人信服且强大的范式，它通过互联网以服务形式提供对可配置计算资源共享池的无所不在的按需访问。</li>
+</ul>
+</li>
+<li>通过虚拟化技术，拥有数据中心的云服务提供商（CSP）可以将物理服务器构建为虚拟机（VM），为用户提供服务、资源和基础设施。<ul>
+<li>虚拟化是云计算的基础技术，它使多个操作系统能够在同一物理平台上运行，并将服务器构建为虚拟机（VM）。云服务提供商 (CSP) 使用虚拟机来提供基础架构、平台和资源（例如 CPU、内存、存储等）。</li>
+</ul>
+</li>
+<li>以盈利为导向的CSP通过向用户收取服务接入费和虚拟机租赁费，降低能耗和电费，从而提高利润率。<ul>
+<li>在云计算范式中，CSP 受到向用户<strong>收取云服务访问、资源使用和虚拟机租赁费用</strong>的好处的激励，而用户则被可根据自己的要求<strong>降低其在计算、时间和能耗方面支出</strong>的好出所吸引。</li>
+</ul>
+</li>
+<li>CSPs面临的主要挑战是数据中心能源成本最小化。<ul>
+<li>尽管谷歌应用引擎（GAE）和亚马逊弹性计算云（EC2）等许多知名的CSP取得了成功，但数据中心耗电量方面巨大的能源成本是一个严峻的挑战。预计到2020年，数据中心每年的用电量约为1400亿千瓦时，每年的电费费用为130亿美元。因此，为了提高利润率，同时减少碳足迹，实现可持续发展和节约型社会，最大限度地减少大型光热发电的数据中心电力消耗势在必行。</li>
+<li>根据<a href="#refer-anchor-2">[2]</a>，数据中心的能源使用有两个重要特征：<ul>
+<li>（i）服务器在低利用率下往往更加能源效率低下（大多数服务器的最佳能源效率利用率在70％到80％之间）， </li>
+<li>（ii） 服务器在空闲模式下可能会消耗大量电量。</li>
+</ul>
+</li>
+<li>因此，可以应用<strong>服务器整合和负载平衡</strong>，通过有选择地关闭闲置服务器并提高活动服务器的利用率水平来提高整体能源效率。同时，应一致满足服务级别协议（SLA）中的协议，该协议由 CSP 和用户就隐私、安全、可用性和补偿进行协商。</li>
+<li>降低能源消耗和电力成本对通信服务提供商来说是一个挑战，原因有两个：<ul>
+<li>首先，由于<strong>服务器规模庞大</strong>，每天的传入<strong>请求数量巨大</strong>，而且两者仍在增长，因此支出控制的<strong>可扩展性</strong>至关重要。</li>
+<li>其次，由于用户请求模式可能会在短期（一天之内）和长期（从月/年到月/年）发生<strong>变化</strong>，因此需要能源和电力成本降低方法的<strong>适应性和自学习能力</strong>。<br><img lazyload="" src="/images/loading.svg" data-src="https://d3i71xaburhd42.cloudfront.net/e66e7d5f13606230ea1d2f8eaf2812c996e8a655/2-Figure1-1.png" alt="System model of the cloud platform and structure for DRL-Cloud."></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="x1f6a7-现状"><a href="#x1f6a7-现状" class="headerlink" title="🚧现状"></a><span class="emoji" alias="construction" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f6a7.png?v8">🚧</span>现状</h2><ul>
+<li>先前的工作提出了各种算法来通过资源供应（RP）和/或任务调度（TS）来降低能源成本。然而，他们存在：<ul>
+<li><strong>可扩展性问题</strong>；</li>
+<li>或者<strong>没有考虑具有任务依赖性的TS</strong>，而这是确保任务正确并行执行的关键因素；</li>
+<li>它们的离线算法在处理大尺寸输入和适应变化（例如，处理不同的用户请求模式）方面存在困难。</li>
+</ul>
+</li>
+<li>最近提出的深度强化学习（DRL）技术在玩 Atari 和围棋游戏中取得了成功，通过利用深度神经网络，对具有高维状态空间和低维动作空间的复杂控制问题具有出色的解决能力。受此启发，N. Liu 等人应用DRL（部分）解决云计算中的资源分配问题，无需对具有数据依赖性的任务进行详细调度，这对于保证任务正确执行至关重要。</li>
+</ul>
+<h2 id="x1f6e9-创新"><a href="#x1f6e9-创新" class="headerlink" title="🛩创新"></a><span class="emoji" alias="small_airplane" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f6e9.png?v8">🛩</span>创新</h2><ul>
+<li>为了全面解决能源成本降低问题，我们提出了DRL-Cloud框架，这是第一个基于DRL的高度可扩展和适应性强的RP和TS系统，能够处理大规模数据中心和不断变化的用户请求，可最大限度地降低拥有大量服务器、每天接收大量用户请求的大型 CSP 的能源成本。<ul>
+<li>基于深度 Q 学习的两级 RP-TS 处理器旨在通过学习不断变化的环境（例如用户请求模式和实际电价）来自动生成最佳的长期决策。通过目标网络、经验回放、探索和利用等训练技术，所提出的 DRL-Cloud 实现了极高的能源成本效率、低拒绝率以及快速收敛的低运行时间。</li>
+<li>在本文中，使用了由分时定价（TOUP）和实时定价（RTP）组成的一般类型的现实定价策略。此外，还使用Pay-As-You-Go计费协议（如GAE和EC2中的那样）。所有截止日期都是硬性截止日期，如果违反硬性截止日期，任务将被拒绝。 </li>
+</ul>
+</li>
+<li>DRL-Cloud由两个主要部分组成：<ul>
+<li>i）用户请求接受并解耦为作业队列和任务就绪队列； </li>
+<li>ii）通过我们基于 DRL 的两级 RP-TS 处理器实现能量成本最小化，并通过深度 Q 学习中的训练技术（例如目标网络和经验回放）保证快速收敛。<br><img lazyload="" src="/images/loading.svg" data-src="https://d3i71xaburhd42.cloudfront.net/e66e7d5f13606230ea1d2f8eaf2812c996e8a655/3-Figure2-1.png" alt="The structure of the DRL-Cloud framework"></li>
+</ul>
+</li>
+</ul>
+<p>创新点：</p>
+<ol>
+<li>将 DRL 应用于 RP 和 TS。据我们所知，这是<strong>第一篇</strong>提出基于 DRL 的 RP 和 TS 系统的论文，以最大限度地降低具有大规模数据中心和大量具有依赖性的用户请求的 CSP 的能源成本。基于 DRL 的两级 RP-TS 处理器被设计为通过从不断变化的环境中学习，自动生成最佳动作，以长期获得最低的能源成本，其多级结构使所提出的 DRL-Cloud 具有高效率和高可扩展性。 </li>
+<li>半马尔可夫决策过程(SMDP) 制定。云资源分配和能源成本最小化问题是基于半马尔可夫决策过程制定的，因为DRL-Cloud接收到的用户请求会提高随机性，数据中心的资源利用状态可以制定为MDP。 RP-TS处理器的两个阶段都定义了状态空间和动作空间，这两个空间都很大但有限。 </li>
+<li>收敛速度快，适应性强。所提出的DRL-Cloud可与训练算法完全并行，这使我们的系统具有鲁棒性、高效性和稳定演进的能力。利用经验回放和目标网络等训练技术，使得DRL-Cloud在0.5秒以内收敛，具有高适应性和低运行时间。 </li>
+<li>运行时间极短，能源成本极低。与 FERPTS（考虑历史资源分配和当前服务器利用率的最先进方法之一）相比，DRL-Cloud 实现了高达 3 倍的能源成本效率改进，同时保持高达 2 倍的较低用户请求拒绝率（硬期限违规）率）并减少高达 92 倍的运行时间。与以运行时间极短着称的 Roundrobin 方法相比，DRL-Cloud 的运行时间减少了 12 倍，能源成本效率提高了 2 倍，拒绝的用户请求减少了 15 倍。</li>
+</ol>
+<h2 id="x1f4ca-效果"><a href="#x1f4ca-效果" class="headerlink" title="📊效果"></a><span class="emoji" alias="bar_chart" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4ca.png?v8">📊</span>效果</h2><ul>
+<li>与最先进的节能算法之一相比，所提出的 DRL-Cloud 实现了高达 320% 的能源成本效率提升，同时保持较低的平均废品率。对于具有 5, 000 台服务器和 200, 000 个任务的 CSP 设置示例，与快速循环基准相比，建议的 DRL-Cloud 实现了高达 144% 的运行时间减少。</li>
+</ul>
+<h2 id="x1f9e0-疑问"><a href="#x1f9e0-疑问" class="headerlink" title="🧠疑问"></a><span class="emoji" alias="brain" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f9e0.png?v8">🧠</span>疑问</h2><ol>
+<li>考虑能耗和考虑价格是不是能归纳为一个意思？</li>
+<li>没说现有 DRL 的研究有什么不足？</li>
+<li>本文对于背景需求的描述非常清晰。阅读其他论文时也应当注意梳理其需求，自己写背景时也应当仿照该文的逻辑。</li>
+<li>本文的图画得很好看。</li>
+<li>需要总结：1）相同/相似背景文章对需求、场景、目标的定义；2）相同/相似技术（DRL）在优势方面的表述。</li>
+</ol>
+<hr>
+<hr>
+<ul>
+<li>希望这篇博客对你有帮助！如果你有任何问题或需要进一步的帮助，请随时提问。</li>
+<li>如果你喜欢这篇文章，欢迎<a class="link" href="https://github.com/freshwlnd/">动动小手 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>给我一个follow或star。</li>
+</ul>
+<h1 id="x1f5fa-参考文献"><a href="#x1f5fa-参考文献" class="headerlink" title="🗺参考文献"></a><span class="emoji" alias="world_map" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f5fa.png?v8">🗺</span>参考文献</h1><div id="refer-anchor-1"></div>
+
+<p><a class="link" href="https://ieeexplore.ieee.org/document/8297294">[1] M. Cheng, J. Li and S. Nazarian, “DRL-cloud: Deep reinforcement learning-based resource provisioning and task scheduling for cloud service providers,” 2018 23rd Asia and South Pacific Design Automation Conference (ASP-DAC), Jeju, Korea (South), 2018, pp. 129-134, doi: 10.1109/ASPDAC.2018.8297294. <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<div id="refer-anchor-2"></div>
+
+<p><a class="link" href="https://ieeexplore.ieee.org/document/8297294">[1] M. Cheng, J. Li and S. Nazarian, “DRL-cloud: Deep reinforcement learning-based resource provisioning and task scheduling for cloud service providers,” 2018 23rd Asia and South Pacific Design Automation Conference (ASP-DAC), Jeju, Korea (South), 2018, pp. 129-134, doi: 10.1109/ASPDAC.2018.8297294. <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+]]></content>
+      <categories>
+        <category>论文</category>
+        <category>略读</category>
+        <category>云计算</category>
+      </categories>
+      <tags>
+        <tag>调度</tag>
+        <tag>深度强化学习</tag>
+      </tags>
+  </entry>
 </search>
