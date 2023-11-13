@@ -4237,7 +4237,7 @@
 <p><a class="link" href="https://ieeexplore.ieee.org/document/8297294">[1] M. Cheng, J. Li and S. Nazarian, “DRL-cloud: Deep reinforcement learning-based resource provisioning and task scheduling for cloud service providers,” 2018 23rd Asia and South Pacific Design Automation Conference (ASP-DAC), Jeju, Korea (South), 2018, pp. 129-134, doi: 10.1109/ASPDAC.2018.8297294. <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
 <div id="refer-anchor-2"></div>
 
-<p><a class="link" href="https://ieeexplore.ieee.org/document/8297294">[1] M. Cheng, J. Li and S. Nazarian, “DRL-cloud: Deep reinforcement learning-based resource provisioning and task scheduling for cloud service providers,” 2018 23rd Asia and South Pacific Design Automation Conference (ASP-DAC), Jeju, Korea (South), 2018, pp. 129-134, doi: 10.1109/ASPDAC.2018.8297294. <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<p><a class="link" href="https://link.springer.com/book/10.1007/978-3-031-01761-2">[2] L. A. Barroso, J. Clidaras and U. Hölzle, “The datacenter as a computer: An introduction to the design of warehouse-scale machines”, Synthesis lectures on computer architecture, vol. 8, no. 3, pp. 1-154, 2013. <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
 ]]></content>
       <categories>
         <category>论文</category>
@@ -4247,6 +4247,199 @@
       <tags>
         <tag>调度</tag>
         <tag>深度强化学习</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>论文略读笔记23-前沿-基于模仿学习的在线车载边缘计算任务调度</title>
+    <url>/2023/11/12/literature/literatureNotes23/</url>
+    <content><![CDATA[<h1 id="x1f4d6-《Imitation-Learning-Enabled-Task-Scheduling-for-Online-Vehicular-Edge-Computing》"><a href="#x1f4d6-《Imitation-Learning-Enabled-Task-Scheduling-for-Online-Vehicular-Edge-Computing》" class="headerlink" title="📖《Imitation Learning Enabled Task Scheduling for Online Vehicular Edge Computing》"></a><span class="emoji" alias="book" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4d6.png?v8">📖</span>《Imitation Learning Enabled Task Scheduling for Online Vehicular Edge Computing》</h1><h2 id="x1f3af-需求"><a href="#x1f3af-需求" class="headerlink" title="🎯需求"></a><span class="emoji" alias="dart" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f3af.png?v8">🎯</span>需求</h2><ul>
+<li>车载边缘计算（VEC）是一种基于车联网的有前途的范式，可为终端用户提供计算资源，减<strong>轻蜂窝网络</strong>的繁重流量负担。<ul>
+<li>随着智慧城市的建立和物联网技术的发展，智慧交通、娱乐资源共享、公共安全、应急等具有位置和时延要求的服务和应用正在迅速增加。每天都有海量数据产生，对灵活的网络管理和计算资源有均衡的需求。车载边缘计算（VEC）有望通过将计算密集型任务迁移到网络边缘来应对车联网（IoV）的挑战。路侧单元（RSU）是一种沿道路部署的基础设施，为各种车辆提供网络接入。</li>
+<li>为了建设绿色城市，有效利用能源，为过往车辆提供无缝服务，VEC必须制定<strong>节能政策</strong>。根据名为SMARTer2030的研究报告，利用信息和通信技术引起的二氧化碳排放量正以平均每年6%的速度增长。到2020年底，它们将占全球排放量的12%。此外，纯电动汽车和混合动力汽车将在不久的将来主导汽车市场。因此，网络运营商和车辆的巨大能源需求促使我们研究VEC网络的节能政策。</li>
+<li>目前，VEC的框架可分为 “基于基础设施的VEC” 和 “无基础设施的VEC两种”。<ul>
+<li>对于前者，VEC 服务器总是与 <strong>RSU</strong> 合并以缓存内容或提供计算资源。</li>
+<li>对于后者，可以探索<strong>移动和停放车辆</strong>中的<strong>闲置资源</strong>来支持VEC。由于无基础设施的VEC不需要额外的网络部署，可以有效整合闲置的网络资源，因此近年来越来越受到关注。</li>
+</ul>
+</li>
+<li>尽管<strong>无基础设施的VEC</strong>可以为道路上的用户提供卸载服务，但在<strong>高度动态</strong>的车辆网络中应仔细设计<strong>任务调度</strong>策略。<ul>
+<li>这是因为车载应用总是需要<strong>实时响应</strong>，如何满足VEC网络中对延迟敏感的任务，以及如何在<strong>服务时间有限的动态服务器</strong>之间调度它们，成为一个主要问题。</li>
+<li>然而，考虑到动态提供方服务器的服务时间有限，为无基础设施的VEC设计解决方案是相当困难的。一般来说，网络中参与的车辆可以分为两类，即服务提供车辆（SPV）和服务需求车辆（SDV）。前者充当资源提供者，提供计算服务；后者可以访问网络服务并将任务卸载到 SPV。我们交替提及“SPV”和“VEC服务器”这两个术语，因为VEC服务器是由SPV在我们设计的算法中形成的。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>在本文中，我们考虑了一个具有动态拓扑结构、不稳定连接和不可预测运动的 VEC 网络。<ul>
+<li>车内车辆可以将计算任务卸载到由车载资源形成的可用相邻 VEC 集群，目的是最大限度地<strong>降低系统能耗并满足任务延迟限制</strong>。</li>
+</ul>
+</li>
+</ul>
+<h2 id="x1f6a7-现状"><a href="#x1f6a7-现状" class="headerlink" title="🚧现状"></a><span class="emoji" alias="construction" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f6a7.png?v8">🚧</span>现状</h2><ul>
+<li>对于在线任务调度，现有的研究要么设计启发式算法，要么利用机器学习，例如深度强化学习（DRL）。然而，这些算法对于大规模网络来说<strong>搜索效率低，收敛速度慢，效率不够高</strong>。</li>
+<li>包括多个SPV和SDV在内的<strong>无基础设施VEC</strong>面临的挑战可以总结如下：<ul>
+<li>1）现有研究总是允许 SDV 将其任务卸载到相邻的 SPV，或者将多个副本发送到 SPV 进行处理，以保证任务延迟约束。<ul>
+<li>但一方面，单纯将任务分流给邻居可能会导致 SPV <strong>负担不平衡，资源利用率低</strong>。</li>
+<li>另一方面，发送多个副本会<strong>浪费大量网络资源</strong>。因此，如何有效管理 SPV 上的闲置资源亟待深入研究。</li>
+</ul>
+</li>
+<li>2）在无基础设施的 VEC 中，SPV 定期向周围的 SDV 广播其信息，包括位置、速度和移动方向，SDV 根据这些信息安排其任务。<ul>
+<li>但是，频繁的信息交换会造成较大的<strong>通信开销</strong>，应减少这种开销以提高通信效率。</li>
+</ul>
+</li>
+<li>3）对于在线任务调度，传统算法总是采用启发式搜索策略。<ul>
+<li>然而，在这种高度动态的网络拓扑结构中，它们可能具有<strong>较低的搜索效率和较高的计算复杂性</strong>。</li>
+<li>此外，有限的服务时间、不稳定的VEC服务和动态的车辆运动使得在线任务调度具有相当大的<strong>挑战性</strong>。因此，有必要通过考虑这些不同的参数来找到一种灵活的策略来解决任务调度问题。</li>
+</ul>
+</li>
+<li>4）通常，深度强化学习（DRL）用于解决复杂环境下的任务调度问题。<ul>
+<li>然而，基于 DRL 的算法通常<strong>收敛速度较慢</strong>。此外，由于角色不稳定、运动不确定性和车辆数量庞大等原因导致网络状态的频繁演化，导致 DRL 的状态和动作空间超大。学习算法计算延迟大，导致学习过程中数百万步的网络性能极差，这是在线调度所不能接受的。因此，有必要设计一种收敛速度快的基于学习的算法来保证在线系统性能。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="x1f6e9-创新"><a href="#x1f6e9-创新" class="headerlink" title="🛩创新"></a><span class="emoji" alias="small_airplane" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f6e9.png?v8">🛩</span>创新</h2><ul>
+<li><p>我们提出了一种基于模仿学习的在线任务调度算法，该算法在初始阶段具有接近最优的性能。特别是，专家可以通过离线几个样本求解制定的优化问题来获得最优调度策略。对于在线学习，我们按照专家的演示来训练代理策略，理论上具有可接受的绩效差距。</p>
+<ul>
+<li>针对上述挑战，本文提出了一种在线VEC算法，命名为IELTS。<ul>
+<li>对于第一个挑战，我们建立了VEC模型，并将任务调度问题表述为优化问题。RSU 用于帮助在不同服务器之间调度任务，充当路由器或网关的角色。我们的解决方案仍然没有基础设施，因为它不需要 RSU 来缓存或处理 SDV 的计算任务。在此基础上，分析 SPV 在 RSU 覆盖中的服务能力，并通过整合其闲置资源进行聚类。</li>
+<li>为了应对第二个挑战，每个 RSU 都用于维护集群级别信息，而 SPV 级别信息则在其集群内进行维护。因此，SPV 和 RSU 之间的通信开销可以大大降低。</li>
+<li>为了解决最后两个挑战，我们设计了一种基于模仿学习的方法，以克服传统算法带来的搜索效率低、收敛速度慢等缺点。实际上，模仿学习是一种机器学习方法，允许智能体模仿参考策略（或专家的演示），这些策略是原始问题的有效解决方案。由于时间复杂度高，参考策略无法直接在线执行。因此，应制定学习政策，以便通过培训过程进行模仿。据我们所知，本文是研究高动态VEC网络中边界仿真学习的在线任务调度问题的早期努力。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>我们的贡献可以总结如下：</p>
+<ul>
+<li>我们首先通过考虑通信和计算资源建立系统模型，并将任务调度问题表述为优化问题。为了解决公式化的问题，我们将其分解为两个子问题，即资源聚合和任务调度，目的是将任务分配给合适的SPV集群。</li>
+<li>为了解决第一个子问题，我们分析了本地SPV在RSU覆盖中的服务能力，通过分析，我们发现聚类SPV可以建模为M/G/K/N在服务期间排队系统。在此基础上，可以通过考虑形成的聚类来对所制定的优化问题进行变换。然后，通过模仿专家的策略进行基于集群的任务调度，可以解决第二个子问题，其中收敛时间可以大大缩短。</li>
+<li>我们以理论的方式分析了算法的性能，并证明了我们的算法可以达到与专家提供的性能差距。此外，我们还推导了我们设计的任务调度算法的能耗上限。据我们所知，这项工作在通过模仿学习解决VEC网络中的任务调度问题方面做出了早期努力。</li>
+<li>我们基于包含真实世界出租车轨迹的数据集进行实验。性能结果表明，该算法在平均能耗、本地SPV任务处理率和平均任务执行延迟方面均有优势，与启发式在VEC服务器和远程云之间调度任务的基准相比，提高了50%以上。</li>
+</ul>
+</li>
+</ul>
+<h2 id="x1f4ca-效果"><a href="#x1f4ca-效果" class="headerlink" title="📊效果"></a><span class="emoji" alias="bar_chart" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4ca.png?v8">📊</span>效果</h2><ul>
+<li>性能结果表明，我们的解决方案具有显著优势，与基准相比，改进了 50% 以上。</li>
+</ul>
+<h2 id="x1f9e0-疑问"><a href="#x1f9e0-疑问" class="headerlink" title="🧠疑问"></a><span class="emoji" alias="brain" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f9e0.png?v8">🧠</span>疑问</h2><ol>
+<li></li>
+</ol>
+<hr>
+<hr>
+<ul>
+<li>希望这篇博客对你有帮助！如果你有任何问题或需要进一步的帮助，请随时提问。</li>
+<li>如果你喜欢这篇文章，欢迎<a class="link" href="https://github.com/freshwlnd/">动动小手 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>给我一个follow或star。</li>
+</ul>
+<h1 id="x1f5fa-参考文献"><a href="#x1f5fa-参考文献" class="headerlink" title="🗺参考文献"></a><span class="emoji" alias="world_map" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f5fa.png?v8">🗺</span>参考文献</h1><div id="refer-anchor-1"></div>
+
+<p><a class="link" href="https://ieeexplore.ieee.org/document/9151371">[1] X. Wang, Z. Ning, S. Guo and L. Wang, “Imitation Learning Enabled Task Scheduling for Online Vehicular Edge Computing,” in IEEE Transactions on Mobile Computing, vol. 21, no. 2, pp. 598-611, 1 Feb. 2022, doi: 10.1109/TMC.2020.3012509. <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+]]></content>
+      <categories>
+        <category>论文</category>
+        <category>略读</category>
+        <category>云计算</category>
+      </categories>
+      <tags>
+        <tag>调度</tag>
+        <tag>边缘计算</tag>
+        <tag>深度强化学习</tag>
+        <tag>任务调度</tag>
+        <tag>车联网</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>论文略读笔记22-前沿-深度强化学习节能任务调度</title>
+    <url>/2023/11/11/literature/literatureNotes22/</url>
+    <content><![CDATA[<h1 id="x1f4d6-《Energy-Efficient-Joint-Task-Assignment-and-Migration-in-Data-Centers-A-Deep-Reinforcement-Learning-Approach》"><a href="#x1f4d6-《Energy-Efficient-Joint-Task-Assignment-and-Migration-in-Data-Centers-A-Deep-Reinforcement-Learning-Approach》" class="headerlink" title="📖《Energy-Efficient Joint Task Assignment and Migration in Data Centers: A Deep Reinforcement Learning Approach》"></a><span class="emoji" alias="book" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4d6.png?v8">📖</span>《Energy-Efficient Joint Task Assignment and Migration in Data Centers: A Deep Reinforcement Learning Approach》</h1><h2 id="x1f3af-需求"><a href="#x1f3af-需求" class="headerlink" title="🎯需求"></a><span class="emoji" alias="dart" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f3af.png?v8">🎯</span>需求</h2><ul>
+<li>数据中心的节能任务调度是一个关键问题，引起了人们的广泛关注。<ul>
+<li>随着云计算的快速发展，越来越多的任务可以提交到数据中心进行处理。</li>
+<li>数据中心的严重问题之一是巨大的能源消耗，这会导致高昂的运营成本和大量的二氧化碳（CO2）排放。对于像谷歌这样的大公司来说，能源成本降低 3% 可以转化为超过 100 万美元的成本节约。<strong>统计结果显示，当服务器以非常低的负载运行时，会浪费大量能源。</strong>因此，设计高能效的任务调度算法来降低数据中心的能耗是必不可少的。</li>
+</ul>
+</li>
+<li>但是，任务执行时间是混合的，在实际数据中心中很难估计。</li>
+</ul>
+<h2 id="x1f6a7-现状"><a href="#x1f6a7-现状" class="headerlink" title="🚧现状"></a><span class="emoji" alias="construction" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f6a7.png?v8">🚧</span>现状</h2><ul>
+<li>现有工作明显忽略了在任务到达时间做出的调度决策可能会导致能源浪费或资源闲置。<ul>
+<li>在节能任务调度领域，研究人员专注于到达时间的任务分配。<ul>
+<li>提交新任务时，会将该任务分配给适当的服务器，然后服务器为其启动虚拟机 （VM） 或容器。任务分配可以被认为是一种经典的箱打包问题，有几种启发式算法被设计用于广泛的应用，如循环和最佳拟合。</li>
+<li>在相关文献中，基于深度强化学习（DRL）的算法被设计用于分配任务以实现高性能。以前的一些工作研究了节能任务迁移。在运行时，可以在虚拟机或容器中运行的任务动态迁移到其他服务器进行整合。通过这种方式，可以释放更多的服务器并切换到睡眠模式。</li>
+</ul>
+</li>
+<li>然而，很少有关于<strong>联合任务分配和迁移的研究</strong>能够在任务的整个生命周期内实现更好的能源效率。<ul>
+<li>一方面，由于数据中心的任务时长通常遵循<strong>长尾分布</strong>，因此长时间运行的任务只占任务总数的一小部分，但消耗了大量的资源。<ul>
+<li>仅执行任务分配并不能确保这些长时间运行的任务的能源效率，因为它很难区分长时间运行的任务的到达时间，或者将它们分配给几台服务器进行整合。当任务工作负载减少时，运行时间较短的任务会提前完成，而长时间运行的任务则在服务器上运行，从而导致能源浪费。</li>
+</ul>
+</li>
+<li>另一方面，数据中心正在运行大量<strong>短期任务</strong>，迁移大量短期任务的成本从几秒钟到几分钟不等，这极大地影响了这些短期运行任务的性能。<ul>
+<li>由于任务运行时的估计误差很大，在到达时很难区分长时间运行的任务和短期运行的任务，这使得混合持续时间的任务调度更具挑战性。总之，以前的工作对整个生命周期中混合持续时间的任务调度不够重视。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>以往基于DRL技术的数据中心资源分配工作主要需要对深度神经网络（DNN）进行大量的离线训练，存在以下缺点：<ul>
+<li>（1）需要大量的工作负载跟踪和精心生成的状态转换配置文件来对混合持续时间任务进行建模。</li>
+<li>（2）集装箱资源需求的过渡概率在相对较短的时间内（如1天）是准静态的。几天前收集的历史数据很难反映当前场景的特征，因此在线培训至关重要。</li>
+</ul>
+</li>
+</ul>
+<h2 id="x1f6e9-创新"><a href="#x1f6e9-创新" class="headerlink" title="🛩创新"></a><span class="emoji" alias="small_airplane" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f6e9.png?v8">🛩</span>创新</h2><ul>
+<li><p>为了填补这些空白，本文共同考虑了混合持续时间任务的分配和迁移，提出了混合持续时间任务调度问题。</p>
+<ul>
+<li>任务分配和迁移过程是一系列相关的计划决策。为了反映不同时间调度决策之间的相关性，将调度问题建模为马尔可夫决策过程（MDP）问题。考虑到数据中心中许多同时运行的任务，MDP 问题具有巨大的状态空间。为了处理如此大规模的MDP问题，我们选择了DRL，它可以处理复杂控制问题的巨大状态空间作为底层技术。</li>
+</ul>
+</li>
+<li><p>进一步地，设计了一种新颖的节能任务调度算法。任务分配可以提高资源利用率，当长时间运行的任务在低负载服务器中运行时，需要迁移。</p>
+<ul>
+<li>为了满足时变资源需求，避免DNN繁重的离线训练，我们提出了一种基于在线DRL的任务调度算法（ODTS），该算法由任务分配策略和任务迁移策略组成。<ul>
+<li>任务分配策略在任务到达时将任务分配给适当的服务器。提出了各种优化，使 DNN 以在线方式进行训练。<ul>
+<li>首先，为了更好地评估每个分配决策，奖励被表述为分配前后平均功率之间的差值。</li>
+<li>然后，为了实现在线训练，采用权重共享结构来减少DNN参数的数量，并应用排序模块来识别服务器状态的不同排列。</li>
+<li>此外，通过高效探索加快收敛速度，生成训练数据，缓解稀疏奖励问题。</li>
+</ul>
+</li>
+<li>此外，ODTS启发式地选择几个已经执行了很长时间的任务，以减少同时迁移所有任务的动作空间。<ul>
+<li>然后，应用建议的任务迁移策略，以选择适当的服务器来迁移每个选定的任务。</li>
+<li>最后，为了消除各种任务工作负载的影响，奖励被重新表述为CPU利用率除以平均功耗的积分，而不是能耗和QoS等的线性组合。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>贡献可以总结如下：</p>
+<ul>
+<li>1）为了高效地调度数据中心的混合持续时间任务，我们在任务的整个生命周期中共同考虑任务分配和迁移。我们制定了任务调度问题，并进一步将其建模为MDP问题。</li>
+<li>2）为了解决MDP问题，设计了一种基于DRL的算法。此外，为了满足时变资源需求，我们优化了DNN结构，重新制定了奖励，采用高效的动作选择，并生成训练数据，以实现在线训练。</li>
+<li>3）我们实施ODTS并评估性能。实验表明，在几乎相同的服务质量（QoS）和相同的迁移时间下，所提算法在能耗方面平均比现有基线算法高出14%。</li>
+</ul>
+</li>
+</ul>
+<h2 id="x1f4ca-效果"><a href="#x1f4ca-效果" class="headerlink" title="📊效果"></a><span class="emoji" alias="bar_chart" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4ca.png?v8">📊</span>效果</h2><ul>
+<li>对真实世界数据的实验表明，所提出的算法在能耗方面比现有基线平均高出 14%，同时保持相同的服务质量 （QoS） 水平并实现在线训练。</li>
+</ul>
+<h2 id="x1f9e0-疑问"><a href="#x1f9e0-疑问" class="headerlink" title="🧠疑问"></a><span class="emoji" alias="brain" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f9e0.png?v8">🧠</span>疑问</h2><ol>
+<li></li>
+</ol>
+<hr>
+<hr>
+<ul>
+<li>希望这篇博客对你有帮助！如果你有任何问题或需要进一步的帮助，请随时提问。</li>
+<li>如果你喜欢这篇文章，欢迎<a class="link" href="https://github.com/freshwlnd/">动动小手 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>给我一个follow或star。</li>
+</ul>
+<h1 id="x1f5fa-参考文献"><a href="#x1f5fa-参考文献" class="headerlink" title="🗺参考文献"></a><span class="emoji" alias="world_map" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f5fa.png?v8">🗺</span>参考文献</h1><div id="refer-anchor-1"></div>
+
+<p><a class="link" href="https://ieeexplore.ieee.org/document/9903901">[1] J. Lou, Z. Tang and W. Jia, “Energy-Efficient Joint Task Assignment and Migration in Data Centers: A Deep Reinforcement Learning Approach,” in IEEE Transactions on Network and Service Management, vol. 20, no. 2, pp. 961-973, June 2023, doi: 10.1109/TNSM.2022.3210204. <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+]]></content>
+      <categories>
+        <category>论文</category>
+        <category>略读</category>
+        <category>云计算</category>
+      </categories>
+      <tags>
+        <tag>调度</tag>
+        <tag>深度强化学习</tag>
+        <tag>任务调度</tag>
       </tags>
   </entry>
 </search>
