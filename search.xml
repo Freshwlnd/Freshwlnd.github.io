@@ -4674,36 +4674,69 @@
       </tags>
   </entry>
   <entry>
-    <title>k8s-vcluster</title>
-    <url>/2023/11/16/k8s-vcluster/</url>
-    <content><![CDATA[<h1 id="💡简介"><a href="#💡简介" class="headerlink" title="💡简介"></a>💡简介</h1><h1 id="🖼️背景"><a href="#🖼️背景" class="headerlink" title="🖼️背景"></a>🖼️背景</h1><h1 id="🧠思路"><a href="#🧠思路" class="headerlink" title="🧠思路"></a>🧠思路</h1><h1 id="🔨解决"><a href="#🔨解决" class="headerlink" title="🔨解决"></a>🔨解决</h1><h1 id="🏥反思"><a href="#🏥反思" class="headerlink" title="🏥反思"></a>🏥反思</h1><p><a href="#refer-anchor-1"><sup>[1]</sup></a></p>
-<hr>
-<hr>
-<ul>
-<li>希望这篇博客对你有帮助！如果你有任何问题或需要进一步的帮助，请随时提问。</li>
-<li>如果你喜欢这篇文章，欢迎<a class="link" href="https://github.com/freshwlnd/">动动小手 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>给我一个follow或star。</li>
+    <title>论文略读笔记26-经典-深度强化学习在大规模MEC网络中在线资源调度</title>
+    <url>/2023/11/16/literature/literatureNotes26/</url>
+    <content><![CDATA[<h1 id="x1f4d6-《Stacked-Autoencoder-Based-Deep-Reinforcement-Learning-for-Online-Resource-Scheduling-in-Large-Scale-MEC-Networks》"><a href="#x1f4d6-《Stacked-Autoencoder-Based-Deep-Reinforcement-Learning-for-Online-Resource-Scheduling-in-Large-Scale-MEC-Networks》" class="headerlink" title="📖《Stacked Autoencoder-Based Deep Reinforcement Learning for Online Resource Scheduling in Large-Scale MEC Networks》"></a><span class="emoji" alias="book" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4d6.png?v8">📖</span>《Stacked Autoencoder-Based Deep Reinforcement Learning for Online Resource Scheduling in Large-Scale MEC Networks》</h1><h2 id="x1f3af-需求"><a href="#x1f3af-需求" class="headerlink" title="🎯需求"></a><span class="emoji" alias="dart" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f3af.png?v8">🎯</span>需求</h2><ul>
+<li>近年来，移动电话和物联网（IoT）设备等用户设备（UE）的数量正在迅速增长。同时，增强现实（AR）、虚拟现实（VR）、实时游戏、人脸识别、自然语言处理等资源密集型应用不断涌现。但是，上述有吸引力的应用程序通常需要大量的计算资源，并且对延迟敏感。由于UE的规模和资源有限，可能无法在规定的时间内完成上述任务或满足服务质量（QoS）要求。</li>
+<li>移动边缘计算（MEC）旨在使UE能够将上述任务卸载到边缘服务器，并引起了学术界和工业界的广泛关注。应用 MEC 来协助 UE 有两个主要优势。<ul>
+<li>首先，UE可以降低本地能耗，因为UE可以将计算密集型任务卸载到MEC。</li>
+<li>其次，响应时间可以缩短，因为 MEC 通常比本地设备拥有更多的计算资源，因此可以比本地设备更快地完成任务，从而显着增加用户体验。</li>
 </ul>
-<h1 id="x1f5fa-参考文献"><a href="#x1f5fa-参考文献" class="headerlink" title="🗺参考文献"></a><span class="emoji" alias="world_map" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f5fa.png?v8">🗺</span>参考文献</h1><div id="refer-anchor-1"></div>
-
-<p><a href="">[1] </a></p>
-]]></content>
-  </entry>
-  <entry>
-    <title>论文略读笔记X编号-X经典/前沿-X论文关键描述</title>
-    <url>/2023/11/16/literatureNotes26/</url>
-    <content><![CDATA[<h1 id="x1f4d6-《论文名》"><a href="#x1f4d6-《论文名》" class="headerlink" title="📖《论文名》"></a><span class="emoji" alias="book" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4d6.png?v8">📖</span>《论文名》</h1><h2 id="x1f3af-需求"><a href="#x1f3af-需求" class="headerlink" title="🎯需求"></a><span class="emoji" alias="dart" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f3af.png?v8">🎯</span>需求</h2><ul>
-<li><h2 id="x1f6a7-现状"><a href="#x1f6a7-现状" class="headerlink" title="🚧现状"></a><span class="emoji" alias="construction" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f6a7.png?v8">🚧</span>现状</h2></li>
-<li><p><a href="#refer-anchor-1">[1]</a>中提出了xx</p>
 </li>
-<li><p>相关工作提出了xx<a href="#refer-anchor-1"><sup>[1]</sup></a></p>
+<li>但是，当我们拥有大量用户时，一个 MEC 可能不够强大，因此可以部署多个 MEC。<ul>
+<li>那么，这里的关键问题是我们如何决定用户关联和资源分配，特别是在大规模环境中。</li>
+</ul>
+</li>
+</ul>
+<h2 id="x1f6a7-现状"><a href="#x1f6a7-现状" class="headerlink" title="🚧现状"></a><span class="emoji" alias="construction" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f6a7.png?v8">🚧</span>现状</h2><ul>
+<li>已经提出了一些工作来<strong>优化基于MEC的延迟敏感服务</strong>，即VR应用程序。如：<ul>
+<li>部分人员提出了低延迟 MEC 系统的安全卸载优化框架。</li>
+<li>部分人员研究了具有缓存辅助低延迟系统的MEC。</li>
+<li>此外，部分人员还研究了资源分配的延迟优化。</li>
+<li>此外，部分人员提出了异构多层MEC系统的时延最优任务分配和资源分配方法。</li>
+</ul>
+</li>
+<li>上述问题通常被认为是混合整数非线性规划（MINLP），因为卸载决策始终是整数变量，而资源分配是连续变量。提出了一些传统的方法来解决上述MINLP问题，如：<ul>
+<li>动态规划、分支和边界方法和博弈论。<ul>
+<li>然而，这些方法通常具有<strong>很高的计算复杂性</strong>，尤其是在大规模场景中。</li>
+</ul>
+</li>
+<li>此外，还提出了一些启发式搜索和基于凸的松弛，<ul>
+<li>但这些算法通常需要<strong>多次迭代</strong>才能收敛，因此可能不适合快速决策过程。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>在具有多用户场景的多MEC系统中，时变无线信道在很大程度上影响了最优决策过程，这对于上述传统算法来说非常具有挑战性，因为一旦环境发生变化，这些传统解决方案通常<strong>需要重新运行算法</strong>。</li>
+<li>幸运的是，基于机器学习（ML）的解决方案在通过应用自适应建模和智能学习来解决上述问题方面显示出巨大的潜力。一旦训练完成，通常可以很快获得解决方案，因为只需要少量的代数计算。最近，一些基于ML或深度学习（DL）的算法被提出并应用于MEC系统，如：<ul>
+<li>深度神经网络（DNN）、长短期记忆（LSTM）、CNN、Q-学习、DQN 和 DDPG。<ul>
+<li>然而，一方面，基于深度学习的模型（如DNN、LSTM和CNN）具有出色的预测和推理能力，但它们<strong>需要大量的标记训练数据</strong>。</li>
+<li>另一方面，当 MEC 系统的规模扩大时，基于强化学习（RL）的模型（例如，Q-learning、DQN和DDPG）<strong>无法收敛</strong>，最终结果不稳定。</li>
+</ul>
+</li>
+</ul>
 </li>
 </ul>
 <h2 id="x1f6e9-创新"><a href="#x1f6e9-创新" class="headerlink" title="🛩创新"></a><span class="emoji" alias="small_airplane" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f6e9.png?v8">🛩</span>创新</h2><ul>
-<li><h2 id="x1f4ca-效果"><a href="#x1f4ca-效果" class="headerlink" title="📊效果"></a><span class="emoji" alias="bar_chart" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4ca.png?v8">📊</span>效果</h2></li>
+<li>在上述背景下，本文提出了一个综合框架，用于在部署了多个UE的大规模MEC系统中共同优化计算卸载和资源分配。<ul>
+<li>我们的<strong>目标</strong>是获得一种<strong>在线调度算法</strong>，以<strong>最小化所有 UE 的加权任务延迟总和</strong>。</li>
+<li>为此，我们提出了一个基于深度强化学习（DRL）的框架，该框架包含以下三个组件，即<strong>相关和正则化堆叠自编码器（2r-SAE）</strong>、<strong>自适应模拟退火方法（ASA）</strong>以及<strong>保留和优先体验回放（2p-ER）</strong>。</li>
+</ul>
+</li>
+<li>该文提出一种在线资源调度框架，通过优化大规模移动边缘计算（MEC）系统中的卸载决策、传输功率和资源分配，使所有物联网（IoT）用户的加权任务时延总和最小化。</li>
+<li>为此，提出了一种基于深度强化学习（DRL）的解决方案，其中包括以下组件。<ul>
+<li>1）首先，应用一种具有无监督学习的相关正则化堆叠自编码器（2r-SAE）对高维信道质量信息（CQI）数据进行数据压缩和表示，从而减小DRL的状态空间。</li>
+<li>2）其次，我们提出了一种自适应模拟退火方法（ASA）作为DRL的动作搜索方法，其中自适应h-mutation 用于引导搜索方向，并提出自适应迭代以提高 DRL 过程中的搜索效率。</li>
+<li>3）第三，引入保留优先体验回放（2p-ER），帮助DRL训练策略网络，找到最优的卸载策略。数值结果表明，与现有基准相比，所提算法在实现接近最优性能的同时，显著缩短了计算时间。</li>
+</ul>
+</li>
+</ul>
+<h2 id="x1f4ca-效果"><a href="#x1f4ca-效果" class="headerlink" title="📊效果"></a><span class="emoji" alias="bar_chart" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4ca.png?v8">📊</span>效果</h2><ul>
 <li></li>
 </ul>
 <h2 id="x1f9e0-疑问"><a href="#x1f9e0-疑问" class="headerlink" title="🧠疑问"></a><span class="emoji" alias="brain" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f9e0.png?v8">🧠</span>疑问</h2><ol>
-<li></li>
+<li>所提到的“大规模”具体有多大？</li>
+<li>论文穿肠过，空气心中留🥲。如何能让论文内容真正内化成知识？通过对比总结将一批论文统一编码？</li>
 </ol>
 <hr>
 <hr>
@@ -4713,15 +4746,17 @@
 </ul>
 <h1 id="x1f5fa-参考文献"><a href="#x1f5fa-参考文献" class="headerlink" title="🗺参考文献"></a><span class="emoji" alias="world_map" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f5fa.png?v8">🗺</span>参考文献</h1><div id="refer-anchor-1"></div>
 
-<p><a href="">[1] 论文引用</a></p>
+<p><a class="link" href="https://ieeexplore.ieee.org/document/9070170">[1] F. Jiang, K. Wang, L. Dong, C. Pan and K. Yang, “Stacked Autoencoder-Based Deep Reinforcement Learning for Online Resource Scheduling in Large-Scale MEC Networks,” in IEEE Internet of Things Journal, vol. 7, no. 10, pp. 9278-9290, Oct. 2020, doi: 10.1109/JIOT.2020.2988457. <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
 ]]></content>
       <categories>
         <category>论文</category>
         <category>略读</category>
-        <category>X领域</category>
+        <category>云计算</category>
       </categories>
       <tags>
-        <tag>X论文关键词</tag>
+        <tag>调度</tag>
+        <tag>边缘计算</tag>
+        <tag>强化学习</tag>
       </tags>
   </entry>
 </search>
