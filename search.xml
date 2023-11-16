@@ -4718,21 +4718,44 @@
 </li>
 </ul>
 <h2 id="x1f6e9-创新"><a href="#x1f6e9-创新" class="headerlink" title="🛩创新"></a><span class="emoji" alias="small_airplane" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f6e9.png?v8">🛩</span>创新</h2><ul>
-<li>在上述背景下，本文提出了一个综合框架，用于在部署了多个UE的大规模MEC系统中共同优化计算卸载和资源分配。<ul>
+<li><p>在上述背景下，本文提出了一个综合框架，用于在部署了多个UE的大规模MEC系统中共同优化计算卸载和资源分配。</p>
+<ul>
 <li>我们的<strong>目标</strong>是获得一种<strong>在线调度算法</strong>，以<strong>最小化所有 UE 的加权任务延迟总和</strong>。</li>
-<li>为此，我们提出了一个基于深度强化学习（DRL）的框架，该框架包含以下三个组件，即<strong>相关和正则化堆叠自编码器（2r-SAE）</strong>、<strong>自适应模拟退火方法（ASA）</strong>以及<strong>保留和优先体验回放（2p-ER）</strong>。</li>
-</ul>
-</li>
-<li>该文提出一种在线资源调度框架，通过优化大规模移动边缘计算（MEC）系统中的卸载决策、传输功率和资源分配，使所有物联网（IoT）用户的加权任务时延总和最小化。</li>
-<li>为此，提出了一种基于深度强化学习（DRL）的解决方案，其中包括以下组件。<ul>
+<li>为此，我们提出了一个基于深度强化学习（DRL）的框架，该框架包含以下三个组件，即<strong>相关和正则化堆叠自编码器（2r-SAE）</strong>、<strong>自适应模拟退火方法（ASA）</strong>以及<strong>保留和优先体验回放（2p-ER）</strong>。<ul>
 <li>1）首先，应用一种具有无监督学习的相关正则化堆叠自编码器（2r-SAE）对高维信道质量信息（CQI）数据进行数据压缩和表示，从而减小DRL的状态空间。</li>
 <li>2）其次，我们提出了一种自适应模拟退火方法（ASA）作为DRL的动作搜索方法，其中自适应h-mutation 用于引导搜索方向，并提出自适应迭代以提高 DRL 过程中的搜索效率。</li>
 <li>3）第三，引入保留优先体验回放（2p-ER），帮助DRL训练策略网络，找到最优的卸载策略。数值结果表明，与现有基准相比，所提算法在实现接近最优性能的同时，显著缩短了计算时间。</li>
 </ul>
 </li>
 </ul>
+</li>
+<li><p>与现有作品相比，我们有以下贡献。</p>
+<ul>
+<li>1）首先，我们提出了一种具有无监督学习的2r-SAE，用于<strong>对高维信道质量数据进行数据压缩和表示</strong>。<ul>
+<li>2r-SAE可以为DRL模型提供紧凑的数据表示，从而减少状态空间，提高DRL的学习效率。此外，我们将每个UE的相对误差项添加到损失函数的误差项中，可以同时考虑相对误差和绝对误差，减少特征提取过程中每个UE的信息损失。我们还在损失函数中添加了一个正则化项，以提高 SAE 的泛化性。此外，增量学习用于更新 SAE，以跟踪真实场景的变化。</li>
+</ul>
+</li>
+<li>2）然后，我们提出了一种ASA方法作为启发式搜索方法，以<strong>找到DRL模型的最优动作</strong>，以生成具有相应状态的卸载决策。<ul>
+<li>在ASA中，我们引入了两种自适应机制：<ul>
+<li>一方面，后续解根据信道质量信息（CQI）自适应地变异。</li>
+<li>另一方面，根据DRL的损耗减少，自适应地调整迭代次数。</li>
+</ul>
+</li>
+<li>这两种机制可以在不影响系统性能的情况下，提高SA的效率，减少求解原始优化的时间。</li>
+</ul>
+</li>
+<li>3）最后，提出了一种2p-ER方法<strong>在DRL框架中训练DNN</strong>。<ul>
+<li>具体而言，我们使用保留策略来保护接近当前卸载策略的转换。</li>
+<li>我们还采用优先策略来选择对损失函数的减少做出更大贡献的过渡。</li>
+<li>这两种策略可以加速DRL的收敛，这对于大规模网络非常重要。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
 <h2 id="x1f4ca-效果"><a href="#x1f4ca-效果" class="headerlink" title="📊效果"></a><span class="emoji" alias="bar_chart" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4ca.png?v8">📊</span>效果</h2><ul>
-<li></li>
+<li>数值结果表明，与现有基准相比，所提算法在实现接近最优性能的同时，显著缩短了计算时间。</li>
+<li>结果表明，所提框架能够高精度地同时优化计算卸载和资源分配，使大规模MEC系统的实时资源调度成为可能。</li>
 </ul>
 <h2 id="x1f9e0-疑问"><a href="#x1f9e0-疑问" class="headerlink" title="🧠疑问"></a><span class="emoji" alias="brain" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f9e0.png?v8">🧠</span>疑问</h2><ol>
 <li>所提到的“大规模”具体有多大？</li>
