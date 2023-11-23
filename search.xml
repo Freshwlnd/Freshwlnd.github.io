@@ -3494,7 +3494,7 @@
   </entry>
   <entry>
     <title>论文略读笔记27-前沿-跨地域资源预留调度</title>
-    <url>/2023/11/13/literature/literatureNotes27/</url>
+    <url>/2023/11/23/literature/literatureNotes27/</url>
     <content><![CDATA[<h1 id="x1f4d6-《Characterizing-and-orchestrating-VM-reservation-in-geo-distributed-clouds-to-improve-the-resource-efficiency》"><a href="#x1f4d6-《Characterizing-and-orchestrating-VM-reservation-in-geo-distributed-clouds-to-improve-the-resource-efficiency》" class="headerlink" title="📖《Characterizing and orchestrating VM reservation in geo-distributed clouds to improve the resource efficiency》"></a><span class="emoji" alias="book" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4d6.png?v8">📖</span>《Characterizing and orchestrating VM reservation in geo-distributed clouds to improve the resource efficiency》</h1><h2 id="x1f3af-需求"><a href="#x1f3af-需求" class="headerlink" title="🎯需求"></a><span class="emoji" alias="dart" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f3af.png?v8">🎯</span>需求</h2><ul>
 <li>云提供商通常从不同地理区域的多个数据中心构建<strong>地理分布式云</strong>，为不同位置的租户提供服务。<ul>
 <li>公共云提供商通常在<strong>不同的地理区域构建多个数据中心</strong>，为不同地点的租户提供服务。数据中心中的硬件资源通常被组织成资源池，云提供商通常提供<strong>不同的虚拟机（VM）类型</strong>供租户选择。由于不同的能源费用和虚拟机性能，这些区域和虚拟机类型通常具有不同的资源成本系数。</li>
