@@ -1,8 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://freshwlnd.github.io/2023/12/05/academic-literature/</loc>
+    <lastmod>2023-12-05</lastmod>
+  </url>
+  <url>
     <loc>https://freshwlnd.github.io/2023/11/23/literature/literatureNotes27/</loc>
-    <lastmod>2023-11-23</lastmod>
+    <lastmod>2023-11-26</lastmod>
+  </url>
+  <url>
+    <loc>https://freshwlnd.github.io/2023/11/09/literature/literatureNotes21/</loc>
+    <lastmod>2023-11-26</lastmod>
+  </url>
+  <url>
+    <loc>https://freshwlnd.github.io/2023/11/07/literature/literatureNotes19/</loc>
+    <lastmod>2023-11-26</lastmod>
+  </url>
+  <url>
+    <loc>https://freshwlnd.github.io/2023/11/23/k8s/k8s-kubesphere/</loc>
+    <lastmod>2023-11-26</lastmod>
   </url>
   <url>
     <loc>https://freshwlnd.github.io/2023/11/16/literature/literatureNotes26/</loc>
@@ -25,10 +41,6 @@
     <lastmod>2023-11-12</lastmod>
   </url>
   <url>
-    <loc>https://freshwlnd.github.io/2023/11/09/literature/literatureNotes21/</loc>
-    <lastmod>2023-11-11</lastmod>
-  </url>
-  <url>
     <loc>https://freshwlnd.github.io/2023/11/09/literature/literatureNotes20/</loc>
     <lastmod>2023-11-09</lastmod>
   </url>
@@ -38,10 +50,6 @@
   </url>
   <url>
     <loc>https://freshwlnd.github.io/2023/11/04/literature/literatureNotes18/</loc>
-    <lastmod>2023-11-07</lastmod>
-  </url>
-  <url>
-    <loc>https://freshwlnd.github.io/2023/11/07/literature/literatureNotes19/</loc>
     <lastmod>2023-11-07</lastmod>
   </url>
   <url>
