@@ -1,11 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://freshwlnd.github.io/2023/11/23/literature/literatureNotes27/</loc>
-    <lastmod>2023-12-06</lastmod>
+    <loc>https://freshwlnd.github.io/2023/12/06/literature/literatureNotesIntensive1/</loc>
+    <lastmod>2023-12-08</lastmod>
   </url>
   <url>
-    <loc>https://freshwlnd.github.io/2023/11/23/literature/literatureNotesIntensive1/</loc>
+    <loc>https://freshwlnd.github.io/2018/11/02/program_language/Lua-DataType/</loc>
+    <lastmod>2023-12-08</lastmod>
+  </url>
+  <url>
+    <loc>https://freshwlnd.github.io/2023/09/13/program_language/python/py-yield/</loc>
+    <lastmod>2023-12-08</lastmod>
+  </url>
+  <url>
+    <loc>https://freshwlnd.github.io/2023/12/08/ai-RL-introduction/</loc>
+    <lastmod>2023-12-08</lastmod>
+  </url>
+  <url>
+    <loc>https://freshwlnd.github.io/2023/11/23/literature/literatureNotes27/</loc>
     <lastmod>2023-12-06</lastmod>
   </url>
   <url>
@@ -67,14 +79,6 @@
   <url>
     <loc>https://freshwlnd.github.io/2023/06/05/k8s/k8s-debug/</loc>
     <lastmod>2023-10-31</lastmod>
-  </url>
-  <url>
-    <loc>https://freshwlnd.github.io/2023/09/13/program_language/python/py-yield/</loc>
-    <lastmod>2023-09-13</lastmod>
-  </url>
-  <url>
-    <loc>https://freshwlnd.github.io/2018/11/02/program_language/Lua-DataType/</loc>
-    <lastmod>2023-09-13</lastmod>
   </url>
   <url>
     <loc>https://freshwlnd.github.io/2023/09/08/program_language/java/java-spring-feign-generic/</loc>
