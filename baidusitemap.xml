@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://freshwlnd.github.io/2023/12/08/ai-RL-introduction/</loc>
+    <lastmod>2023-12-12</lastmod>
+  </url>
+  <url>
     <loc>https://freshwlnd.github.io/2018/07/05/algorithm/ShortestPath/</loc>
     <lastmod>2023-12-11</lastmod>
   </url>
@@ -30,10 +34,6 @@
   </url>
   <url>
     <loc>https://freshwlnd.github.io/2023/09/13/program_language/python/py-yield/</loc>
-    <lastmod>2023-12-08</lastmod>
-  </url>
-  <url>
-    <loc>https://freshwlnd.github.io/2023/12/08/ai-RL-introduction/</loc>
     <lastmod>2023-12-08</lastmod>
   </url>
   <url>

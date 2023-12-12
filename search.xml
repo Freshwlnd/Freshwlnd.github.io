@@ -5992,6 +5992,14 @@
 <li>一个是面向产品化而提供高层抽象：RLzoo-面向产品化的RL库<a href="#refer-anchor-16"><sup>[16]</sup></a>（会有一些大型RL案例会放到这里）；</li>
 <li>另一个是面向科研而提供浅层抽象：TL-面向科研的RL库<a href="#refer-anchor-17"><sup>[17]</sup></a>（有常用RL方法的论文列表）。</li>
 </ol>
+<p>最后放个大的：Paper with Code<a href="#refer-anchor-18"><sup>[18]</sup></a>。</p>
+<ul>
+<li>Papers with Code 是一个包含机器学习论文及其代码实现的网站。 大多数论文都是有GitHub代码的，这个网站对机器学习方向做了任务分类，检索对应的论文、数据、代码和精度榜单一目了然。</li>
+<li>目前，网站已包含114,474 篇带代码的论文、 11,915 个基准测试、 4,574 个任务、 15,541 个数据集。<blockquote>
+<p>Papers with Code 的使命是创建一个免费和开放的资源 机器学习论文、代码、数据集、方法和评估表。<br>The mission of Papers with Code is to create a free and open resource with Machine Learning papers, code, datasets, methods and evaluation tables.</p>
+</blockquote>
+</li>
+</ul>
 <hr>
 <hr>
 <ul>
@@ -6082,6 +6090,11 @@
 <div id="refer-anchor-17">
 
 <p><a class="link"   href="https://link.zhihu.com/?target=https://github.com/tensorlayer/tensorlayer/tree/master/examples/reinforcement_learning" >[17] TL：面向科研的RL库 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+</div>
+
+<div id="refer-anchor-18">
+
+<p><a class="link"   href="https://paperswithcode.com/" >[18] Paper with Code <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
 </div>
 ]]></content>
       <categories>
