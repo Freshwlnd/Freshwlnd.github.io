@@ -6194,12 +6194,6 @@
 <div id="refer-anchor-3"></div>
 
 <p><a class="link" href="https://github.com/kubesphere/ks-installer/blob/ef79beead3285698cdce559dd5505c79fe11dbff/roles/ks-monitor/templates/prometheus-prometheus.yaml.j2#L111">[3] 生成prometheus-prometheus.yaml文件的模板 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-<div id="refer-anchor-4"></div>
-
-<p><a class="link" href="https://blog.51cto.com/xiaowangzai/5167661">[4] [kubernetes] 跨云厂商使用公网IP搭建k8s v1.20.9集群 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-<div id="refer-anchor-5"></div>
-
-<p><a class="link" href="https://zhuanlan.zhihu.com/p/638378121">[5] K8S Flannel Pod 无法启动系列问题 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
 ]]></content>
       <categories>
         <category>工程</category>
