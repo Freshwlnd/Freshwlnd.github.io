@@ -6277,7 +6277,7 @@
 <p>在 Node-Export yaml 配置文件中看到几个配置<a href="#refer-anchor-5"><sup>[5]</sup></a><a href="#refer-anchor-6"><sup>[6]</sup></a>：</p>
 <div class="highlight-container" data-rel="Yaml"><figure class="iseeu highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">template:</span></span><br><span class="line">    <span class="attr">spec:</span></span><br><span class="line"><span class="comment">#      dnsPolicy: ClusterFirst</span></span><br><span class="line"><span class="comment">#      hostNetwork: true</span></span><br><span class="line">      <span class="attr">dnsPolicy:</span> <span class="string">ClusterFirstWithHostNet</span></span><br><span class="line">      <span class="attr">hostNetwork:</span> <span class="literal">false</span></span><br></pre></td></tr></table></figure></div>
 <p>发现当 <code>hostNetwork: true</code> 时，<code>localhost:9100/metrics</code> 始终无响应。<br>发现当 <code>dnsPolicy: ClusterFirst</code> 时，<code>其他节点ip:9100/metrics</code> 始终无响应。</p>
-<p>修改为以上配置后，监控恢复正常。</p>
+<p>修改为以上配置后，监控恢复正常。（对该部分调整后似乎数据仍然正常，可能是前期修改了其他配置，还有待进一步确定）</p>
 <h1 id="🏥反思"><a href="#🏥反思" class="headerlink" title="🏥反思"></a>🏥反思</h1><hr>
 <hr>
 <ul>
