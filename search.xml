@@ -6241,7 +6241,7 @@
 <h2 id="3️⃣Service正常暴露"><a href="#3️⃣Service正常暴露" class="headerlink" title="3️⃣Service正常暴露"></a>3️⃣Service正常暴露</h2><p>步骤：</p>
 <ol>
 <li>依次登录每个节点</li>
-<li>访问本节点服务<br>a. <code>curl localhost:9100</code> 均正常响应<br>b. <code>curl $本机ip:9100</code> 均响应<code>Client sent an HTTP request to an HTTPS server.</code><br>c. <code>curl https://$本机ip:9100</code> 均响应<code>curl: (60) Peer's certificate issuer has been marked as not trusted by the user.</code><br>d. <code>curl https://$本机ip:9100 -k</code> 均响应 <code>Unauthorized</code><br>结果：</li>
+<li>访问本节点服务<br>a. <code>curl localhost:9100</code> 均正常响应<br>b. <code>curl ${本机ip}:9100</code> 均响应<code>Client sent an HTTP request to an HTTPS server.</code><br>c. <code>curl https://${本机ip}:9100</code> 均响应<code>curl: (60) Peer's certificate issuer has been marked as not trusted by the user.</code><br>d. <code>curl https://${本机ip}:9100 -k</code> 均响应 <code>Unauthorized</code>，根据<a href="#refer-anchor-4">[4]</a>了解需要增加认证<br>e. <code>curl https://${本机ip}:9100/metrics -k --header 'Authorization: Bearer '$(kubectl exec -it -n kubesphere-monitoring-system prometheus-k8s-0 cat /var/run/secrets/kubernetes.io/serviceaccount/token)</code> 正常响应<br>结果：</li>
 <li>每个服务均正常运行（包括上一步出错的<code>ali-2</code>，所以怀疑是k8s至ali-2的网络配置有问题）</li>
 <li>通过非localhost的访问均失败</li>
 </ol>
@@ -6274,12 +6274,10 @@
 <p>因此，当 <code>node-exporter</code> 容器中的 <code>--web.listen-address</code> 和 <code>kube-rbac-proxy</code> 容器中的 <code>secure-listen-address</code> 参数一样时，会发生冲突。因此设置为不同的端口分别暴露即可。</p>
 <p>ps：至此可以看出，本方法本质上是绕过了 <code>kube-rbac-proxy</code> 容器，直接让 <code>node-exporter</code> 容器暴露端口给Prometheus。因此可能导致不安全的访问（例如数据完全暴露，任何人都可以随意访问）</p>
 <h2 id="🔨方法2：调试-kube-rbac-proxy"><a href="#🔨方法2：调试-kube-rbac-proxy" class="headerlink" title="🔨方法2：调试 kube-rbac-proxy"></a>🔨方法2：调试 <code>kube-rbac-proxy</code></h2><p>恢复原始配置后，根据<a href="#refer-anchor-4">[4]</a>一步步排查：<br><img lazyload="" src="/images/loading.svg" data-src="https://kubesphere.io/forum/assets/files/2023-02-02/1675338865-33039-image.png" alt="node-exporter 故障定位及修复措施"></p>
-<ul>
-<li>然而还没开始排查就发现监控恢复了（就离谱）</li>
-</ul>
-<h2 id="🚧其他问题"><a href="#🚧其他问题" class="headerlink" title="🚧其他问题"></a>🚧其他问题</h2><p>在 Node-Export yaml 配置文件中看到几个配置<a href="#refer-anchor-5"><sup>[5]</sup></a>：</p>
-<div class="highlight-container" data-rel="Yaml"><figure class="iseeu highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="string">...</span></span><br><span class="line">  <span class="attr">template:</span></span><br><span class="line">    <span class="attr">spec:</span></span><br><span class="line">      <span class="attr">dnsPolicy:</span> <span class="string">ClusterFirst</span></span><br><span class="line"><span class="comment">#      dnsPolicy: ClusterFirstWithHostNet</span></span><br><span class="line">      <span class="attr">hostNetwork:</span> <span class="literal">false</span></span><br><span class="line"><span class="comment">#      hostNetwork: true</span></span><br></pre></td></tr></table></figure></div>
-<p>发现当 <code>hostNetwork: true</code> 时，<code>localhost:9100/metrics</code> 始终无响应。</p>
+<p>在 Node-Export yaml 配置文件中看到几个配置<a href="#refer-anchor-5"><sup>[5]</sup></a><a href="#refer-anchor-6"><sup>[6]</sup></a>：</p>
+<div class="highlight-container" data-rel="Yaml"><figure class="iseeu highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">template:</span></span><br><span class="line">    <span class="attr">spec:</span></span><br><span class="line"><span class="comment">#      dnsPolicy: ClusterFirst</span></span><br><span class="line"><span class="comment">#      hostNetwork: true</span></span><br><span class="line">      <span class="attr">dnsPolicy:</span> <span class="string">ClusterFirstWithHostNet</span></span><br><span class="line">      <span class="attr">hostNetwork:</span> <span class="literal">false</span></span><br></pre></td></tr></table></figure></div>
+<p>发现当 <code>hostNetwork: true</code> 时，<code>localhost:9100/metrics</code> 始终无响应。<br>发现当 <code>dnsPolicy: ClusterFirst</code> 时，<code>其他节点ip:9100/metrics</code> 始终无响应。</p>
+<p>修改为以上配置后，监控恢复正常。</p>
 <h1 id="🏥反思"><a href="#🏥反思" class="headerlink" title="🏥反思"></a>🏥反思</h1><hr>
 <hr>
 <ul>
@@ -6301,6 +6299,9 @@
 <div id="refer-anchor-5"></div>
 
 <p><a class="link" href="https://blog.csdn.net/kozazyh/article/details/79468508">[5] kubernetes hostNetwork: true 网络 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<div id="refer-anchor-6"></div>
+
+<p><a class="link" href="https://vividcode.io/fix-context-deadline-exceeded-error-in-prometheus-operator/">[6] Fix Context Deadline Exceeded Error in Prometheus Operator <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
 ]]></content>
       <categories>
         <category>工程</category>
