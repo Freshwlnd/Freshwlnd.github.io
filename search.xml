@@ -6275,10 +6275,36 @@
 <p>ps：至此可以看出，本方法本质上是绕过了 <code>kube-rbac-proxy</code> 容器，直接让 <code>node-exporter</code> 容器暴露端口给Prometheus。因此可能导致不安全的访问（例如数据完全暴露，任何人都可以随意访问）</p>
 <h2 id="🔨方法2：调试-kube-rbac-proxy"><a href="#🔨方法2：调试-kube-rbac-proxy" class="headerlink" title="🔨方法2：调试 kube-rbac-proxy"></a>🔨方法2：调试 <code>kube-rbac-proxy</code></h2><p>恢复原始配置后，根据<a href="#refer-anchor-4">[4]</a>一步步排查：<br><img lazyload="" src="/images/loading.svg" data-src="https://kubesphere.io/forum/assets/files/2023-02-02/1675338865-33039-image.png" alt="node-exporter 故障定位及修复措施"></p>
 <p>在 Node-Export yaml 配置文件中看到几个配置<a href="#refer-anchor-5"><sup>[5]</sup></a><a href="#refer-anchor-6"><sup>[6]</sup></a>：</p>
-<div class="highlight-container" data-rel="Yaml"><figure class="iseeu highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">template:</span></span><br><span class="line">    <span class="attr">spec:</span></span><br><span class="line"><span class="comment">#      dnsPolicy: ClusterFirst</span></span><br><span class="line"><span class="comment">#      hostNetwork: true</span></span><br><span class="line">      <span class="attr">dnsPolicy:</span> <span class="string">ClusterFirstWithHostNet</span></span><br><span class="line">      <span class="attr">hostNetwork:</span> <span class="literal">false</span></span><br></pre></td></tr></table></figure></div>
-<p>发现当 <code>hostNetwork: true</code> 时，<code>localhost:9100/metrics</code> 始终无响应。<br>发现当 <code>dnsPolicy: ClusterFirst</code> 时，<code>其他节点ip:9100/metrics</code> 始终无响应。</p>
-<p>修改为以上配置后，监控恢复正常。（对该部分调整后似乎数据仍然正常，可能是前期修改了其他配置，还有待进一步确定）</p>
-<h1 id="🏥反思"><a href="#🏥反思" class="headerlink" title="🏥反思"></a>🏥反思</h1><hr>
+<div class="highlight-container" data-rel="Yaml"><figure class="iseeu highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">template:</span></span><br><span class="line">    <span class="attr">spec:</span></span><br><span class="line">      <span class="attr">hostNetwork:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure></div>
+
+<ul>
+<li>修改如下：<div class="highlight-container" data-rel="Yaml"><figure class="iseeu highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">template:</span></span><br><span class="line">    <span class="attr">spec:</span></span><br><span class="line"><span class="comment">#      dnsPolicy: ClusterFirst</span></span><br><span class="line"><span class="comment">#      hostNetwork: true</span></span><br><span class="line">      <span class="attr">dnsPolicy:</span> <span class="string">ClusterFirstWithHostNet</span></span><br><span class="line">      <span class="attr">hostNetwork:</span> <span class="literal">false</span></span><br></pre></td></tr></table></figure></div>
+
+</li>
+</ul>
+<p>发现当 <code>hostNetwork: true</code> 时，<code>curl localhost:9100/metrics</code> 始终无响应。<br>发现当 <code>dnsPolicy: ClusterFirst</code> 时，<code>curl 其他节点ip:9100/metrics</code> 始终无响应。（但<code>hostNetwork: false</code>时<code>dnsPolicy</code>应当无效才对）</p>
+<p>修改为以上配置后，监控恢复正常。（对该部分调整后似乎数据仍然正常，可能其实是修改了其他配置导致的修复，还有待进一步确定）</p>
+<h2 id="🔨方法3：检查防火墙"><a href="#🔨方法3：检查防火墙" class="headerlink" title="🔨方法3：检查防火墙"></a>🔨方法3：检查防火墙</h2><p>本方法针对 ali-2 节点的 <code>Get "https://xx.xx.xx.xx:9100/metrics": context deadline exceeded</code> 报错。<br>由于是租用的公有云服务器，因此特意配置了安全组（相当于公有云提供的外部防火墙）开放特定端口，但仍然报错。提交工单咨询售后工程师后，发现服务器内部还有防火墙需要配置。</p>
+<p>对接过程中，检查流程如下：（在明确服务本身正常运行，只可能是网络联通问题的前提下）</p>
+<ol>
+<li>确定出问题的端口号。如本次调试 Node-Exporter 组件，涉及的端口号为<code>9100</code>。</li>
+<li>从外部检测端口联通性。<code>telnet ${ip} ${port}</code>。若不通，首先检查并配置外部防火墙（公有云安全组）。</li>
+<li>从内部检测端口联通性。进入服务器，执行<code>telnet  127.0.0.1 ${port}</code>。若不通，检查内部防火墙，手动开放防火墙端口<code>iptables -I INPUT -p tcp --dport 9100 -j ACCEPT</code>（临时开放端口）。</li>
+<li>检查内部防火墙规则。<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">$ netstat -ntulp</span><br><span class="line">$ firewall-cmd --list-all</span><br><span class="line">$ iptables -nL</span><br></pre></td></tr></table></figure></div></li>
+<li>检查内部防火墙启动情况。<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">systemctl status iptables.service </span><br><span class="line">ufw status</span><br></pre></td></tr></table></figure></div>
+
+</li>
+</ol>
+<p>排查后，首先确认端口被防火墙拦截。进一步检查防火墙型号，发现没有安装 iptables 防火墙，但是安装了 ufw 防火墙。<br>因此，开放端口或关闭防火墙即可。</p>
+<ul>
+<li>开放端口：<code>ufw allow 9100</code></li>
+<li>关闭防火墙：<code>ufw disable</code></li>
+</ul>
+<p>关闭防火墙后，所有 target 状态变绿（Nice！）。</p>
+<h1 id="🏥反思"><a href="#🏥反思" class="headerlink" title="🏥反思"></a>🏥反思</h1><ol>
+<li>构建因果链排错的效率很高，以后要继续保持。</li>
+</ol>
+<hr>
 <hr>
 <ul>
 <li>希望这篇博客对你有帮助！如果你有任何问题或需要进一步的帮助，请随时提问。</li>
@@ -6310,6 +6336,218 @@
       <tags>
         <tag>K8S</tag>
         <tag>NodeExporter</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>论文略读笔记29-前沿-边缘多Agent深度强化学习调度</title>
+    <url>/2024/02/25/literature/literatureNotes29/</url>
+    <content><![CDATA[<h1 id="x1f4d6-《Multi-agent-deep-reinforcement-learning-for-online-request-scheduling-in-edge-cooperation-networks》"><a href="#x1f4d6-《Multi-agent-deep-reinforcement-learning-for-online-request-scheduling-in-edge-cooperation-networks》" class="headerlink" title="📖《Multi-agent deep reinforcement learning for online request scheduling in edge cooperation networks》"></a><span class="emoji" alias="book" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4d6.png?v8">📖</span>《Multi-agent deep reinforcement learning for online request scheduling in edge cooperation networks》</h1><h2 id="x1f3af-需求"><a href="#x1f3af-需求" class="headerlink" title="🎯需求"></a><span class="emoji" alias="dart" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f3af.png?v8">🎯</span>需求</h2><ul>
+<li>边缘计算作为云计算的一种补充模式，通过在网络边缘为移动用户提供多样化服务而受到越来越多的关注。然而，日益复杂的移动应用给边缘网络带来了更大的负荷。<ul>
+<li>随着新一代通信技术的发展，连接的智能设备呈指数级增长，加剧了骨干网络的拥塞。边缘计算应运而生，它通过在网络边缘提供计算、存储和内容资源，来满足智能设备产生的相对复杂的应用（也称为用户请求）。</li>
+<li>边缘计算作为云计算的有力补充，可以避免对延迟敏感的用户请求进行长距离数据传输，这些请求被表示为有向无环图（DAG）。这些用户请求可以分解成一系列具有逻辑关系和时间依赖性的任务。</li>
+<li>一般来说，应为这些用户请求有效调度和分配资源，以满足它们的各种约束条件。</li>
+</ul>
+</li>
+<li>如何为<strong>并发请求</strong>提供高质量的服务处理是一项挑战，尤其是当边缘网络处于<strong>动态变化</strong>时。</li>
+</ul>
+<h2 id="x1f6a7-现状"><a href="#x1f6a7-现状" class="headerlink" title="🚧现状"></a><span class="emoji" alias="construction" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f6a7.png?v8">🚧</span>现状</h2><ul>
+<li>传统的<strong>离线或静态技术</strong>试图根据精确的任务执行时间和当前系统状态信息，找到基于 DAG 的请求调度问题的最优解，其中所有子任务的调度决策都是事先生成的。<ul>
+<li>虽然从不同角度看，这种不考虑系统动态的策略简单有效，但通常无法实现资源优化利用的目标。<ul>
+<li>一方面，边缘网络中的各种资源是分布式的，边缘节点的可用资源随时间动态变化，如何通过分布式边缘节点之间的合作提高网络性能是一个挑战。</li>
+<li>另一方面，与目前大多数关注原子任务的工作不同，基于 DAG 的用户请求调度难度更大。用户请求的复杂结构和并发特性大大增加了边缘网络的工作量。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>本文努力探索动态环境下的在线调度和资源分配方法，以提高分布式网络的长期性能。</li>
+<li><strong>在线策略</strong>通常是动态系统中更有效的调度方法，因为它是为处理边缘系统中网络和计算资源的动态特性以及并发用户请求问题而开发的。根据运行时获得的状态信息对任务进行调度决策，动态地实现系统的全局优化。<ul>
+<li>由于在线策略可以提高资源利用率，因此有研究探讨了边缘网络中在线方式的资源管理和用户请求调度优化，并提出了集中式策略和分布式策略两种主要技术。<ul>
+<li>在面向<strong>集中式</strong>策略的研究中，边缘网络资源管理和用户请求调度需要完整的边缘网络环境状态信息和请求负载信息。<ul>
+<li>然而，当边缘节点数量较多时，收集大规模状态信息会消耗更多网络资源。</li>
+</ul>
+</li>
+<li>与集中式策略相比，在<strong>分布式</strong>策略中，边缘节点有自己的策略，只收集本地环境状态信息来帮助请求调度决策，这有效减轻了骨干网络的信息传输负担。<ul>
+<li>但由于边缘节点的部分可观测特性，这也增加了提高边缘网络整体性能的难度。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>此外，在目前的研究中，在线调度技术都是针对单个基于 DAG 的请求，如何处理大量并发的用户请求仍是一个难题。</li>
+</ul>
+<h2 id="x1f6e9-创新"><a href="#x1f6e9-创新" class="headerlink" title="🛩创新"></a><span class="emoji" alias="small_airplane" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f6e9.png?v8">🛩</span>创新</h2><ul>
+<li><p>为了缓解上述问题，本文研究了边缘合作网络中的在线并发用户请求调度优化问题。</p>
+<ul>
+<li>我们将其建模为一个<strong>在线多阶段决策问题</strong>，其中请求被划分为一组独立且逻辑相关的子任务。</li>
+<li>我们提出了一种基于集中训练分布式执行的多代理深度强化学习技术，以实现边缘节点间的<strong>隐式合作</strong>调度决策策略学习。<ul>
+<li>在该机制的集中训练阶段，采用了基于值分解的策略学习技术，以提高系统的长期性能；</li>
+<li>而在分布式执行阶段，各边缘节点<strong>仅需本地环境状态信息</strong>（如何实现？）即可做出请求调度决策。</li>
+</ul>
+</li>
+<li>我们提出了一种在线分布式请求调度优化机制。具体来说，<ul>
+<li>首先建立一个全局任务队列，及时处理并发用户请求中可执行的部分子任务。</li>
+<li>然后，应用基于间接交互的多代理深度强化学习算法，确保分布式任务调度的实施，有效降低网络中的数据传输成本，提高边缘系统的稳定性和鲁棒性。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>本文的主要贡献总结如下：</p>
+<ul>
+<li>我们试图<strong>解决</strong>具有分布式资源部署特征的边缘网络中并发用户请求的<strong>调度问题</strong>。我们为提出的问题构建了一个多目标优化函数，以最小化边缘网络的长期平均延迟和能耗，同时最大化用户请求的吞吐率。</li>
+<li>我们<strong>提出</strong>了一种名为 “价值分解多代理 DQN（VD-MADQN）”的在线并发用户请求<strong>调度机制</strong>。所提出的机制以集中培训和分布式执行（CTDE）的方式运行，它利用了整体环境状态信息，实现了边缘节点之间的隐式合作。</li>
+<li>为了<strong>评估</strong>所提出的<strong>机制</strong>，我们基于真实世界的开源数据集进行了广泛的实验，并将其与其他基于学习的决策算法在不同的用户请求结构类型下进行了比较。</li>
+</ul>
+</li>
+</ul>
+<h2 id="x1f4ca-效果"><a href="#x1f4ca-效果" class="headerlink" title="📊效果"></a><span class="emoji" alias="bar_chart" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4ca.png?v8">📊</span>效果</h2><ul>
+<li>我们进行了广泛的实验，仿真结果表明，所提出的机制在降低长期平均系统延迟和能耗方面优于其他请求调度机制，同时提高了系统的吞吐率。</li>
+</ul>
+<h2 id="x1f9e0-疑问"><a href="#x1f9e0-疑问" class="headerlink" title="🧠疑问"></a><span class="emoji" alias="brain" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f9e0.png?v8">🧠</span>疑问</h2><ol>
+<li>如何通过“仅需本地环境状态信息”实现全局调度？</li>
+<li>如果每个agent只负责决定子任务放到哪个节点，谁来保证任务间的依赖关系？仅靠黑盒神经网络？</li>
+<li>为什么每个时间段t内，一个agent只给每个节点分配1个任务？</li>
+<li>深度强化学习可以实现仅使用有限信息做出全局较优决策？如果真如此，那这个点还挺有意思。<ol>
+<li>集中训练分布执行CTDE思路下，不需要什么特殊设计就能实现全局较优决策？</li>
+</ol>
+</li>
+<li>论文缺乏“和全局集中式方法”对比这部分实验。（好像也解释得通，因为所需信息比集中式少得多，所以不和他们比。隐含的意思是在质量方面肯定比不过。但最好肯定还是做一下实验并展现出在效率方面的优势。）</li>
+</ol>
+<hr>
+<hr>
+<ul>
+<li>希望这篇博客对你有帮助！如果你有任何问题或需要进一步的帮助，请随时提问。</li>
+<li>如果你喜欢这篇文章，欢迎<a class="link" href="https://github.com/freshwlnd/">动动小手 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>给我一个follow或star。</li>
+</ul>
+<h1 id="x1f5fa-参考文献"><a href="#x1f5fa-参考文献" class="headerlink" title="🗺参考文献"></a><span class="emoji" alias="world_map" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f5fa.png?v8">🗺</span>参考文献</h1><div id="refer-anchor-1"></div>
+
+<p><a class="link" href="https://www.sciencedirect.com/science/article/pii/S0167739X22003788">[1] Yaqiang Zhang, Ruyang Li, Yaqian Zhao, Rengang Li, Yanwei Wang, Zhangbing Zhou, Multi-agent deep reinforcement learning for online request scheduling in edge cooperation networks, Future Generation Computer Systems, Volume 141, 2023, Pages 258-268. <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+]]></content>
+      <categories>
+        <category>论文</category>
+        <category>略读</category>
+        <category>云计算</category>
+      </categories>
+      <tags>
+        <tag>调度</tag>
+        <tag>深度强化学习</tag>
+        <tag>多智能体</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>论文略读笔记28-前沿-复杂拓扑云调度</title>
+    <url>/2024/02/14/literature/literatureNotes28/</url>
+    <content><![CDATA[<h1 id="x1f4d6-《Diktyo-Network-Aware-Scheduling-in-Container-Based-Clouds》"><a href="#x1f4d6-《Diktyo-Network-Aware-Scheduling-in-Container-Based-Clouds》" class="headerlink" title="📖《Diktyo: Network-Aware Scheduling in Container-Based Clouds》"></a><span class="emoji" alias="book" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4d6.png?v8">📖</span>《Diktyo: Network-Aware Scheduling in Container-Based Clouds》</h1><h2 id="x1f3af-需求"><a href="#x1f3af-需求" class="headerlink" title="🎯需求"></a><span class="emoji" alias="dart" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f3af.png?v8">🎯</span>需求</h2><ul>
+<li>容器彻底改变了当前云平台中的应用部署和生命周期管理。应用程序已从单一的单体发展为松散耦合微服务的复杂图。此外，最近的应用对延迟越来越敏感，要求依赖的微服务之间的延迟更低。然而，由于微服务之间存在复杂的相互依赖关系，如何高效分配基于微服务的应用程序是一项挑战。<ul>
+<li>微服务架构已逐渐成为现代云平台应用部署的事实范式。传统的大型单体被分解成多个松散耦合的微服务，独立实施和部署。随着容器的日益普及，当前云平台（如 Kubernetes (K8s)、亚马逊 AWS）中基于微服务的应用需要高效的协调策略。</li>
+<li>然而，下一代应用要求依赖的微服务之间的延迟更低，从而进一步推动了云基础设施的发展。多层网络服务、物联网（IoT）、视频流服务和数据库等应用领域对延迟非常敏感，需要亚毫秒级的端到端（E2E）延迟才能正常运行。</li>
+</ul>
+</li>
+</ul>
+<h2 id="x1f6a7-现状"><a href="#x1f6a7-现状" class="headerlink" title="🚧现状"></a><span class="emoji" alias="construction" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f6a7.png?v8">🚧</span>现状</h2><ul>
+<li>流行的容器编排平台中的调度策略主要是为了提高基础设施的资源效率，但对于延迟敏感型应用来说却不够。<ul>
+<li>目前流行的协调平台中的调度方法主要集中在优化基础设施（如 CPU 和内存）的资源利用率上，不足以满足这些应用的严格要求，尤其是在延迟和带宽方面。K8s 是目前最流行的容器编排平台。它能自动处理容器化应用生命周期中的多个流程，包括部署和扩展。然而，K8s 中缺少网络感知调度策略，无法在容器云中对长期运行应用程序的依赖微服务进行网络感知部署。</li>
+</ul>
+</li>
+<li>物联网和多层网络服务等应用领域将受益于在调度过程中考虑网络延迟和带宽的网络感知策略。以往的研究都是通过理论公式或基于启发式的方法来研究网络感知调度，并通过模拟或小型测试平台进行评估，因此很难将其完全应用于流行平台。<ul>
+<li>减少延迟是一个首要目标，因为用户在使用多层应用时通常会遇到延迟问题，从而影响整体应用性能。这些应用通常包括数十到数百个微服务，它们之间存在复杂的相互依赖关系。<ul>
+<li><strong>网络延迟</strong>通常是罪魁祸首，因为这些微服务在基础设施中调度时没有考虑延迟问题，导致分配依赖微服务的服务器之间距离过远。</li>
+<li>此外，<strong>带宽</strong>优化也起着关键作用，特别是对于那些在微服务间进行大量数据传输的应用。例如，<ul>
+<li>数据库应用中的多个副本可能需要频繁复制以确保数据一致性。</li>
+<li>Spark 作业可能需要在映射器和还原器之间定期传输数据。<ul>
+<li>节点间链路的网络容量不足会导致延迟增加或数据包丢失，从而进一步降低应用程序的服务质量（QoS）。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>网络感知调度策略，除了计算资源（如 CPU 和内存）外，还能根据延迟和带宽指标确定服务位置，这将使这些应用受益匪浅。<ul>
+<li>集群节点之间链路的网络延迟和可用带宽会因节点在底层基础设施中的位置而异。在没有延迟和带宽意识的情况下，在不同节点上部署依赖性微服务会严重影响应用程序的响应时间和整体 QoS。例如，<ul>
+<li>在 Redis 集群应用中，主节点需要定期与从节点同步数据。在调度过程中，需要考虑主节点和从节点之间的依赖关系。否则，主节点和从节点之间的高延迟或低带宽会导致创建、读取、更新和删除（CRUD）操作缓慢。</li>
+<li>同样，在典型的多层网络应用程序（如在线精品电子商务应用程序）中也存在若干依赖关系。在远离依赖微服务的地方部署微服务实例会影响在线精品店的 E2E 延迟。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>以往关于网络感知调度的研究主要集中在理论公式或基于启发式的算法，通常通过模拟或小型测试平台进行评估，从而限制了其在生产系统中的适用性。</li>
+</ul>
+</li>
+</ul>
+<h2 id="x1f6e9-创新"><a href="#x1f6e9-创新" class="headerlink" title="🛩创新"></a><span class="emoji" alias="small_airplane" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f6e9.png?v8">🛩</span>创新</h2><ul>
+<li>本文为流行的 Kubernetes（K8s）平台提出了一种名为 Diktyo 的新型网络感知框架，它能确定长期运行应用程序中依赖微服务的位置，重点是减少应用程序的端到端延迟并保证带宽预留。<ul>
+<li>受 K8s 最近的调度插件架构的启发，本文为 K8s 平台提出了一个新颖的网络感知调度框架，名为 Diktyo。<ul>
+<li>Diktyo 提出了额外的调度插件，旨在为 K8s 集群上调度的应用程序确定低延迟部署方案。</li>
+<li>该框架通过为依赖的微服务选择网络成本低的节点，并根据之前的微服务分配选择带宽容量充足的节点，从而最大限度地减少应用程序的 E2E 延迟。</li>
+<li>考虑到应用的微服务依赖性和底层基础架构拓扑，Diktyo 提供了接近最优的容器放置方式。</li>
+<li>据我们所知，Diktyo超越了当前最先进的技术，因为它是在未来云原生架构中对依赖性微服务进行可扩展网络感知布局的首次尝试。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ol>
+<li>Diktyo 框架：</li>
+</ol>
+<ul>
+<li>网络感知调度框架的设计与实现，该框架将控制平面（调度逻辑）与数据平面（即应用程序微服务依赖关系和集群网络拓扑）分离开来。</li>
+<li>两个异步控制器管理两个自定义资源（CR），定义为 K8s 中的自定义资源定义（CRD）：<ul>
+<li>AppGroup CRD 负责建立应用程序的微服务依赖关系；</li>
+<li>NetworkTopology CRD 负责缓存和更新 K8s 集群拓扑底层区域和区域之间的网络成本。</li>
+</ul>
+</li>
+<li>提议的框架已被 K8s 调度社区开源资源库接纳为替代调度器。研究人员可以使用我们的框架，在 K8s 集群中部署具有网络感知能力的应用程序，并根据当前机制评估其性能。</li>
+</ul>
+<ol start="2">
+<li>混合整数线性规划（MILP）：</li>
+</ol>
+<ul>
+<li>为 K8s 中的容器调度问题制定 MILP 模型，包括应用依赖图和底层集群拓扑的规格说明，以及网络延迟和带宽容量方面的不同链接。</li>
+<li>K8s 允许动态配置不同的插件，以实现有关应用程序调度的不同目标。与最优解决方案相比，之前的工作尚未研究插件组合的性能。</li>
+<li>我们通过评估由 MILP 公式给出的最优方案来回答这一重要问题，该方案是评估 Diktyo 框架和现有 K8s 调度插件性能的理想基准。</li>
+<li>模拟结果表明，在应用程序的 E2E 延迟方面，Diktyo 明显优于现有的调度插件。</li>
+</ul>
+<ol start="3">
+<li>插件实施：</li>
+</ol>
+<ul>
+<li>我们为 Diktyo 框架设计了三个调度插件。这些插件的组合旨在逼近 MILP 模型给出的最优解，重点是以可扩展的方式最大限度地减少应用程序的 E2E 延迟。<ul>
+<li>TopologicalSort 插件根据拓扑信息对微服务进行排序，NodeNetworkCostFit 插件根据微服务的依赖关系筛选出节点，NetworkMinCost 插件根据网络权重对节点进行评分，以确保依赖的微服务之间的低延迟。所有插件的性能都与节点和微服务的数量成对数关系。</li>
+</ul>
+</li>
+</ul>
+<ol start="4">
+<li>微服务应用评估：</li>
+</ol>
+<ul>
+<li>评估考虑了通常用作微服务基准的实际应用：一个名为 “在线精品店”（Online Boutique）的多层网络应用和一个名为 “Redis集群”（Redis cluster）的数据库应用。</li>
+<li>分布式 K8s 集群的实验表明，Diktyo 使 Redis 的吞吐量提高了 22%，使在线精品店的应用响应时间平均缩短了 45%。 </li>
+</ul>
+<h2 id="x1f4ca-效果"><a href="#x1f4ca-效果" class="headerlink" title="📊效果"></a><span class="emoji" alias="bar_chart" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4ca.png?v8">📊</span>效果</h2><ul>
+<li>模拟结果表明，与默认的 K8s 调度插件相比，Diktyo 可以显著降低各种应用在不同基础设施拓扑中的网络延迟。此外，在 K8s 集群中使用微服务基准应用程序进行的实验表明，Diktyo 可以将数据库吞吐量提高 22%，将应用程序响应时间缩短 45%。</li>
+</ul>
+<h2 id="x1f9e0-疑问"><a href="#x1f9e0-疑问" class="headerlink" title="🧠疑问"></a><span class="emoji" alias="brain" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f9e0.png?v8">🧠</span>疑问</h2><ol>
+<li>所提出算法为什么随节点增长成对数关系？具体测试过程如何？</li>
+</ol>
+<hr>
+<hr>
+<ul>
+<li>希望这篇博客对你有帮助！如果你有任何问题或需要进一步的帮助，请随时提问。</li>
+<li>如果你喜欢这篇文章，欢迎<a class="link" href="https://github.com/freshwlnd/">动动小手 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>给我一个follow或star。</li>
+</ul>
+<h1 id="x1f5fa-参考文献"><a href="#x1f5fa-参考文献" class="headerlink" title="🗺参考文献"></a><span class="emoji" alias="world_map" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f5fa.png?v8">🗺</span>参考文献</h1><div id="refer-anchor-1"></div>
+
+<p><a class="link" href="https://ieeexplore.ieee.org/document/10111024">[1] J. Santos, C. Wang, T. Wauters and F. De Turck, “Diktyo: Network-Aware Scheduling in Container-Based Clouds,” in IEEE Transactions on Network and Service Management, vol. 20, no. 4, pp. 4461-4477, Dec. 2023, doi: 10.1109/TNSM.2023.3271415. <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+]]></content>
+      <categories>
+        <category>论文</category>
+        <category>略读</category>
+        <category>云计算</category>
+      </categories>
+      <tags>
+        <tag>调度</tag>
+        <tag>待精读</tag>
+        <tag>复杂拓扑</tag>
       </tags>
   </entry>
 </search>

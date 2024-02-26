@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://freshwlnd.github.io/2024/02/25/literature/literatureNotes29/</loc>
+    <lastmod>2024-02-25</lastmod>
+  </url>
+  <url>
+    <loc>https://freshwlnd.github.io/2024/02/14/literature/literatureNotes28/</loc>
+    <lastmod>2024-02-14</lastmod>
+  </url>
+  <url>
     <loc>https://freshwlnd.github.io/2024/01/24/k8s/k8s-network-node-exporter/</loc>
     <lastmod>2024-01-26</lastmod>
   </url>
