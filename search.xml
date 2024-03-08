@@ -847,7 +847,7 @@
       </tags>
   </entry>
   <entry>
-    <title>K8S集群搭建记录——Prometheus持久化设置</title>
+    <title>【集群】K8S集群搭建记录——Prometheus持久化设置</title>
     <url>/2023/07/23/k8s/k8s-persistence/</url>
     <content><![CDATA[<h1 id="🐛-背景：Prometheus数据丢失"><a href="#🐛-背景：Prometheus数据丢失" class="headerlink" title="🐛 背景：Prometheus数据丢失"></a>🐛 背景：Prometheus数据丢失</h1><ul>
 <li>近期项目验收，需要重新操作主动式伸缩云平台，却发现好多数据丢失、系统崩溃的问题，在修复 bug、备份数据的同时，顺便把 Prometheus 升级，配置持久化功能。</li>
@@ -1219,7 +1219,7 @@
       </tags>
   </entry>
   <entry>
-    <title>K8S集群搭建记录——故障排除：xxx:6443 was refused</title>
+    <title>【集群】K8S集群搭建记录——故障排除：xxx:6443 was refused</title>
     <url>/2023/10/31/k8s/k8s-apiserver/</url>
     <content><![CDATA[<h1 id="💡简介"><a href="#💡简介" class="headerlink" title="💡简介"></a>💡简介</h1><p>搭建基于vm的k8s-on-k8s时发生崩溃，记录排查及修复过程。<br>核心问题在于，vm 中搭建上层 k8s 时将下层配置文件修改了。<br>后续应当考虑 vm 使用独立目录而非和下层服务器共享目录。</p>
 <h1 id="🖼️背景"><a href="#🖼️背景" class="headerlink" title="🖼️背景"></a>🖼️背景</h1><p>使用kubectl控制k8s的任何指令都报错：</p>
@@ -1338,7 +1338,7 @@
       </tags>
   </entry>
   <entry>
-    <title>K8S集群搭建记录——简易单机集群</title>
+    <title>【集群】K8S集群搭建记录——简易单机集群</title>
     <url>/2023/05/22/k8s/k8s-install/</url>
     <content><![CDATA[<h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><ul>
 <li>组内师兄弟不小心把集群玩坏了，我们进行重装时遇到各种奇怪的报错，在此记录一下，避免下次遇到同样的情况浪费时间。</li>
@@ -1637,7 +1637,7 @@
       </tags>
   </entry>
   <entry>
-    <title>K8S集群搭建记录——故障排除：K8S 下 Calico 网络配置错误</title>
+    <title>【集群】K8S集群搭建记录——故障排除：K8S 下 Calico 网络配置错误</title>
     <url>/2023/06/05/k8s/k8s-debug/</url>
     <content><![CDATA[<h1 id="🐛-背景：Java-应用无法连接到-Postgresql-容器"><a href="#🐛-背景：Java-应用无法连接到-Postgresql-容器" class="headerlink" title="🐛 背景：Java 应用无法连接到 Postgresql 容器"></a>🐛 背景：Java 应用无法连接到 Postgresql 容器</h1><p>在使用 Kubernetes 部署服务的过程中，我遇到了一个令人头疼的问题：我的 Java 应用无法连接到 Postgresql 容器。我决定展开一系列的 bug 查询和修复，寻找并解决问题的根源。</p>
 <h1 id="🚀-过程"><a href="#🚀-过程" class="headerlink" title="🚀 过程"></a>🚀 过程</h1><h2 id="1️⃣-发现-Java-应用无法连接"><a href="#1️⃣-发现-Java-应用无法连接" class="headerlink" title="1️⃣ 发现 Java 应用无法连接"></a>1️⃣ 发现 Java 应用无法连接</h2><ul>
@@ -6107,7 +6107,7 @@
       </tags>
   </entry>
   <entry>
-    <title>KubeSphere搭建记录——ks-installer 解析</title>
+    <title>【集群】KubeSphere搭建记录——ks-installer 解析</title>
     <url>/2024/01/19/k8s/k8s-kubesphere-installer/</url>
     <content><![CDATA[<h1 id="💡简介"><a href="#💡简介" class="headerlink" title="💡简介"></a>💡简介</h1><p>KubeSphere 部署后，Prometheus 一直无法正常部署，排查后发现是底层 NFS 系统出了故障，但想修改 Prometheus 的存储配置却无从下手。<br>因此，对 ks-installer 组件自动安装器进行了解析。</p>
 <h1 id="🫎修改配置方法"><a href="#🫎修改配置方法" class="headerlink" title="🫎修改配置方法"></a>🫎修改配置方法</h1><p>根据对 ks-installer 组件极其核心脚本分析，想修改 monitoring 模块的 Prometheus 组件配置方式如下：</p>
@@ -6205,7 +6205,7 @@
       </tags>
   </entry>
   <entry>
-    <title>K8S集群、KubeSphere管理平台搭建记录——故障排除：Node Exporter connection refused</title>
+    <title>【集群】K8S集群、KubeSphere管理平台搭建记录——故障排除：Node Exporter connection refused</title>
     <url>/2024/01/24/k8s/k8s-network-node-exporter/</url>
     <content><![CDATA[<h1 id="💡简介"><a href="#💡简介" class="headerlink" title="💡简介"></a>💡简介</h1><p>在多节点KubeSphere管理的K8S集群上部署监控组件后，通过Prometheus看到NodeExporter出现<code>Get "https://xx.xx.xx.xx:9100/metrics": context deadline exceeded</code>和<code>Get "https://xx.xx.xx.xx:9100/metrics": dial tcp xx.xx.xx.xx:9100: connect: connection refused</code>报错。</p>
 <p>本篇博客将先进行信息收集，构建导致报错的因果链，再基于因果链逐步断点排查。</p>
