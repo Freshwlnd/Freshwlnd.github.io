@@ -1495,7 +1495,7 @@
       </tags>
   </entry>
   <entry>
-    <title>论文略读笔记1-前沿-模拟器加速算法</title>
+    <title>【论文】略读笔记1-前沿-模拟器加速算法</title>
     <url>/2023/05/17/literature/literatureNotes1/</url>
     <content><![CDATA[<h1 id="x1f4d6-《A-Parallel-Algorithm-to-Accelerate-DEVS-Simulations-in-Shared-Memory-Architectures》"><a href="#x1f4d6-《A-Parallel-Algorithm-to-Accelerate-DEVS-Simulations-in-Shared-Memory-Architectures》" class="headerlink" title="📖《A Parallel Algorithm to Accelerate DEVS Simulations in Shared Memory Architectures》"></a><span class="emoji" alias="book" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4d6.png?v8">📖</span>《A Parallel Algorithm to Accelerate DEVS Simulations in Shared Memory Architectures》</h1><blockquote>
 <p>序言：</p>
@@ -1561,7 +1561,7 @@
       </tags>
   </entry>
   <entry>
-    <title>论文略读笔记10-前沿-深度学习集群存算统一调度</title>
+    <title>【论文】略读笔记10-前沿-深度学习集群存算统一调度</title>
     <url>/2023/06/08/literature/literatureNotes10/</url>
     <content><![CDATA[<h1 id="x1f4d6-《SiloD-A-Co-design-of-Caching-and-Scheduling-for-Deep-Learning-Clusters》"><a href="#x1f4d6-《SiloD-A-Co-design-of-Caching-and-Scheduling-for-Deep-Learning-Clusters》" class="headerlink" title="📖《SiloD: A Co-design of Caching and Scheduling for Deep Learning Clusters》"></a><span class="emoji" alias="book" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4d6.png?v8">📖</span>《SiloD: A Co-design of Caching and Scheduling for Deep Learning Clusters》</h1><h2 id="x1f3af-需求"><a href="#x1f3af-需求" class="headerlink" title="🎯需求"></a><span class="emoji" alias="dart" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f3af.png?v8">🎯</span>需求</h2><ul>
 <li>随着深度学习（DL）成为一个越来越重要的工作负载，现在主要的云平台提供了深度学习训练的服务。云平台上的深度学习训练通常遵循存储和计算分离的传统。<ul>
@@ -1735,7 +1735,7 @@
       </tags>
   </entry>
   <entry>
-    <title>论文略读笔记12-前沿-分散式联合调度</title>
+    <title>【论文】略读笔记12-前沿-分散式联合调度</title>
     <url>/2023/07/06/literature/literatureNotes12/</url>
     <content><![CDATA[<h1 id="x1f4d6-《Megha-Decentralized-Federated-Scheduling-for-Data-Center-Workloads》"><a href="#x1f4d6-《Megha-Decentralized-Federated-Scheduling-for-Data-Center-Workloads》" class="headerlink" title="📖《Megha: Decentralized Federated Scheduling for Data Center Workloads》"></a><span class="emoji" alias="book" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4d6.png?v8">📖</span>《Megha: Decentralized Federated Scheduling for Data Center Workloads》</h1><h2 id="x1f3af-需求"><a href="#x1f3af-需求" class="headerlink" title="🎯需求"></a><span class="emoji" alias="dart" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f3af.png?v8">🎯</span>需求</h2><ul>
 <li>数据中心的规模和异构性不断增加，导致了联合集群的发展，如KubeFed、Hydra和Pigeon，它们联合了单个数据中心集群。<ul>
@@ -1829,7 +1829,7 @@
       </tags>
   </entry>
   <entry>
-    <title>论文略读笔记11-前沿-多数据中心迁移</title>
+    <title>【论文】略读笔记11-前沿-多数据中心迁移</title>
     <url>/2023/06/11/literature/literatureNotes11/</url>
     <content><![CDATA[<h1 id="x1f4d6-《Carbon-Management-of-Multi-Datacenter-Based-On-Spatio-Temporal-Task-Migration》"><a href="#x1f4d6-《Carbon-Management-of-Multi-Datacenter-Based-On-Spatio-Temporal-Task-Migration》" class="headerlink" title="📖《Carbon Management of Multi-Datacenter Based On Spatio-Temporal Task Migration》"></a><span class="emoji" alias="book" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4d6.png?v8">📖</span>《Carbon Management of Multi-Datacenter Based On Spatio-Temporal Task Migration》</h1><h2 id="x1f3af-需求"><a href="#x1f3af-需求" class="headerlink" title="🎯需求"></a><span class="emoji" alias="dart" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f3af.png?v8">🎯</span>需求</h2><ul>
 <li>随着地理分布式数据中心（DC）的大规模部署和云服务需求的激增，其高能耗和碳污染问题日益严重。因此，减轻发展中国家碳足迹的有害影响已成为一项重大挑战。<ul>
@@ -1910,7 +1910,7 @@
       </tags>
   </entry>
   <entry>
-    <title>论文略读笔记13-前沿-可信虚拟机迁移</title>
+    <title>【论文】略读笔记13-前沿-可信虚拟机迁移</title>
     <url>/2023/07/07/literature/literatureNotes13/</url>
     <content><![CDATA[<h1 id="x1f4d6-《A-high-applicability-heterogeneous-cloud-data-centers-resource-management-algorithm-based-on-trusted-virtual-machine-migration》"><a href="#x1f4d6-《A-high-applicability-heterogeneous-cloud-data-centers-resource-management-algorithm-based-on-trusted-virtual-machine-migration》" class="headerlink" title="📖《A high-applicability heterogeneous cloud data centers resource management algorithm based on trusted virtual machine migration》"></a><span class="emoji" alias="book" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4d6.png?v8">📖</span>《A high-applicability heterogeneous cloud data centers resource management algorithm based on trusted virtual machine migration》</h1><h2 id="x1f3af-需求"><a href="#x1f3af-需求" class="headerlink" title="🎯需求"></a><span class="emoji" alias="dart" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f3af.png?v8">🎯</span>需求</h2><ul>
 <li>随着云计算技术的不断发展和成熟，云数据中心（CDC）的规模和数量也在不断扩大。这越来越引起人们对CDC高能耗问题的关注。<ul>
@@ -1994,7 +1994,7 @@
       </tags>
   </entry>
   <entry>
-    <title>论文略读笔记14-前沿-云虚拟机可信</title>
+    <title>【论文】略读笔记14-前沿-云虚拟机可信</title>
     <url>/2023/07/07/literature/literatureNotes14/</url>
     <content><![CDATA[<h1 id="x1f4d6-《Cloud-virtual-machine-lifecycle-security-framework-based-on-trusted-computing》"><a href="#x1f4d6-《Cloud-virtual-machine-lifecycle-security-framework-based-on-trusted-computing》" class="headerlink" title="📖《Cloud virtual machine lifecycle security framework based on trusted computing》"></a><span class="emoji" alias="book" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4d6.png?v8">📖</span>《Cloud virtual machine lifecycle security framework based on trusted computing》</h1><h2 id="x1f3af-需求"><a href="#x1f3af-需求" class="headerlink" title="🎯需求"></a><span class="emoji" alias="dart" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f3af.png?v8">🎯</span>需求</h2><ul>
 <li>作为云计算平台的基础组件，虚拟机（VM）面临着众多的安全威胁。<ul>
@@ -2060,7 +2060,7 @@
       </tags>
   </entry>
   <entry>
-    <title>论文略读笔记15-经典-大规模调度</title>
+    <title>【论文】略读笔记15-经典-大规模调度</title>
     <url>/2023/07/19/literature/literatureNotes15/</url>
     <content><![CDATA[<h1 id="x1f4d6-《Scaling-Large-Production-Clusters-with-Partitioned-Synchronization》"><a href="#x1f4d6-《Scaling-Large-Production-Clusters-with-Partitioned-Synchronization》" class="headerlink" title="📖《Scaling Large Production Clusters with Partitioned Synchronization》"></a><span class="emoji" alias="book" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4d6.png?v8">📖</span>《Scaling Large Production Clusters with Partitioned Synchronization》</h1><h2 id="x1f3af-需求"><a href="#x1f3af-需求" class="headerlink" title="🎯需求"></a><span class="emoji" alias="dart" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f3af.png?v8">🎯</span>需求</h2><ul>
 <li>近年来，<strong>计算机集群的规模显着增长</strong>。<ul>
@@ -2142,7 +2142,7 @@
       </tags>
   </entry>
   <entry>
-    <title>论文略读笔记16-经典-大规模强化学习</title>
+    <title>【论文】略读笔记16-经典-大规模强化学习</title>
     <url>/2023/10/31/literature/literatureNotes16/</url>
     <content><![CDATA[<h1 id="x1f4d6-《Algorithms-or-Actions-A-Study-in-Large-Scale-Reinforcement-Learning》"><a href="#x1f4d6-《Algorithms-or-Actions-A-Study-in-Large-Scale-Reinforcement-Learning》" class="headerlink" title="📖《Algorithms or Actions? A Study in Large-Scale Reinforcement Learning》"></a><span class="emoji" alias="book" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4d6.png?v8">📖</span>《Algorithms or Actions? A Study in Large-Scale Reinforcement Learning》</h1><h2 id="x1f3af-需求"><a href="#x1f3af-需求" class="headerlink" title="🎯需求"></a><span class="emoji" alias="dart" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f3af.png?v8">🎯</span>需求</h2><ul>
 <li>大型状态和动作空间对于强化学习非常具有挑战性。<ul>
@@ -2197,7 +2197,7 @@
       </tags>
   </entry>
   <entry>
-    <title>论文略读笔记17-前沿-大规模强化学习组合优化</title>
+    <title>【论文】略读笔记17-前沿-大规模强化学习组合优化</title>
     <url>/2023/11/02/literature/literatureNotes17/</url>
     <content><![CDATA[<h1 id="x1f4d6-《Combinatorial-Optimization-Meets-Reinforcement-Learning-Effective-Taxi-Order-Dispatching-at-Large-Scale》"><a href="#x1f4d6-《Combinatorial-Optimization-Meets-Reinforcement-Learning-Effective-Taxi-Order-Dispatching-at-Large-Scale》" class="headerlink" title="📖《Combinatorial Optimization Meets Reinforcement Learning: Effective Taxi Order Dispatching at Large-Scale》"></a><span class="emoji" alias="book" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4d6.png?v8">📖</span>《Combinatorial Optimization Meets Reinforcement Learning: Effective Taxi Order Dispatching at Large-Scale》</h1><h2 id="x1f3af-需求"><a href="#x1f3af-需求" class="headerlink" title="🎯需求"></a><span class="emoji" alias="dart" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f3af.png?v8">🎯</span>需求</h2><ul>
 <li>网约车已经盛行。网约车平台的核心是出租车订单调度，包括为每个订单推荐合适的司机。<ul>
@@ -2275,7 +2275,7 @@
       </tags>
   </entry>
   <entry>
-    <title>论文略读笔记18-经典-地理分布式云调度</title>
+    <title>【论文】略读笔记18-经典-地理分布式云调度</title>
     <url>/2023/11/04/literature/literatureNotes18/</url>
     <content><![CDATA[<h1 id="x1f4d6-《A-hierarchical-structure-for-optimal-resource-allocation-in-geographically-distributed-clouds》"><a href="#x1f4d6-《A-hierarchical-structure-for-optimal-resource-allocation-in-geographically-distributed-clouds》" class="headerlink" title="📖《A hierarchical structure for optimal resource allocation in geographically distributed clouds》"></a><span class="emoji" alias="book" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4d6.png?v8">📖</span>《A hierarchical structure for optimal resource allocation in geographically distributed clouds》</h1><h2 id="x1f3af-需求"><a href="#x1f3af-需求" class="headerlink" title="🎯需求"></a><span class="emoji" alias="dart" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f3af.png?v8">🎯</span>需求</h2><ul>
 <li><p>由于云计算中用户对各种资源的需求不断增长，优化资源分配是云环境中最重要的挑战之一。如今，大型云服务提供商通过建立大量地理分布的数据中心，为用户提供具有特定服务质量（QoS）的各种云服务，从而提高了性能，与传统数据中心相比，<strong>可靠性更高，成本更低，通信延迟更低</strong>。</p>
@@ -2359,7 +2359,7 @@
       </tags>
   </entry>
   <entry>
-    <title>论文略读笔记19-经典-大规模云计算系统智能学习调度</title>
+    <title>【论文】略读笔记19-经典-大规模云计算系统智能学习调度</title>
     <url>/2023/11/07/literature/literatureNotes19/</url>
     <content><![CDATA[<h1 id="x1f4d6-《Deep-and-reinforcement-learning-for-automated-task-scheduling-in-large-scale-cloud-computing-systems》"><a href="#x1f4d6-《Deep-and-reinforcement-learning-for-automated-task-scheduling-in-large-scale-cloud-computing-systems》" class="headerlink" title="📖《Deep and reinforcement learning for automated task scheduling in large-scale cloud computing systems》"></a><span class="emoji" alias="book" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4d6.png?v8">📖</span>《Deep and reinforcement learning for automated task scheduling in large-scale cloud computing systems》</h1><h2 id="x1f3af-需求"><a href="#x1f3af-需求" class="headerlink" title="🎯需求"></a><span class="emoji" alias="dart" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f3af.png?v8">🎯</span>需求</h2><ul>
 <li>无可否认，云计算正在成为当今主要工作负载的主要计算和存储平台。从物联网和工业 4.0 工作负载到大数据分析和决策工作，云系统每天都会收到大量需要同时有效映射到云资源的任务。<ul>
@@ -2444,7 +2444,7 @@
       </tags>
   </entry>
   <entry>
-    <title>论文略读笔记2-经典-CloudSimPlus</title>
+    <title>【论文】略读笔记2-经典-CloudSimPlus</title>
     <url>/2023/05/17/literature/literatureNotes2/</url>
     <content><![CDATA[<h1 id="x1f4d6-《CloudSim-Plus-A-cloud-computing-simulation-framework-pursuing-software-engineering-principles-for-improved-modularity-extensibility-and-correctness》"><a href="#x1f4d6-《CloudSim-Plus-A-cloud-computing-simulation-framework-pursuing-software-engineering-principles-for-improved-modularity-extensibility-and-correctness》" class="headerlink" title="📖《CloudSim Plus: A cloud computing simulation framework pursuing software engineering principles for improved modularity, extensibility and correctness》"></a><span class="emoji" alias="book" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4d6.png?v8">📖</span>《CloudSim Plus: A cloud computing simulation framework pursuing software engineering principles for improved modularity, extensibility and correctness》</h1><h2 id="x1f3af-需求"><a href="#x1f3af-需求" class="headerlink" title="🎯需求"></a><span class="emoji" alias="dart" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f3af.png?v8">🎯</span>需求</h2><ul>
 <li>云计算是一种成熟的技术，可以按需提供计算资源，目前面临一些挑战。<ul>
@@ -2516,7 +2516,7 @@
       </tags>
   </entry>
   <entry>
-    <title>论文略读笔记20-经典-深度强化学习</title>
+    <title>【论文】略读笔记20-经典-深度强化学习</title>
     <url>/2023/11/09/literature/literatureNotes20/</url>
     <content><![CDATA[<h1 id="x1f4d6-《Deep-Reinforcement-Learning-with-Double-Q-Learning》"><a href="#x1f4d6-《Deep-Reinforcement-Learning-with-Double-Q-Learning》" class="headerlink" title="📖《Deep Reinforcement Learning with Double Q-Learning》"></a><span class="emoji" alias="book" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4d6.png?v8">📖</span>《Deep Reinforcement Learning with Double Q-Learning》</h1><h2 id="x1f3af-需求"><a href="#x1f3af-需求" class="headerlink" title="🎯需求"></a><span class="emoji" alias="dart" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f3af.png?v8">🎯</span>需求</h2><ul>
 <li>众所周知，流行的 Q 学习算法在某些条件下会高估动作值。<ul>
@@ -2584,7 +2584,7 @@
       </tags>
   </entry>
   <entry>
-    <title>论文略读笔记21-经典-深度强化学习云调度</title>
+    <title>【论文】略读笔记21-经典-深度强化学习云调度</title>
     <url>/2023/11/09/literature/literatureNotes21/</url>
     <content><![CDATA[<h1 id="x1f4d6-《DRL-cloud-Deep-reinforcement-learning-based-resource-provisioning-and-task-scheduling-for-cloud-service-providers》"><a href="#x1f4d6-《DRL-cloud-Deep-reinforcement-learning-based-resource-provisioning-and-task-scheduling-for-cloud-service-providers》" class="headerlink" title="📖《DRL-cloud: Deep reinforcement learning-based resource provisioning and task scheduling for cloud service providers》"></a><span class="emoji" alias="book" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4d6.png?v8">📖</span>《DRL-cloud: Deep reinforcement learning-based resource provisioning and task scheduling for cloud service providers》</h1><h2 id="x1f3af-需求"><a href="#x1f3af-需求" class="headerlink" title="🎯需求"></a><span class="emoji" alias="dart" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f3af.png?v8">🎯</span>需求</h2><ul>
 <li>云计算已成为学术界和工业界颇具吸引力的计算范例。<ul>
@@ -2679,7 +2679,7 @@
       </tags>
   </entry>
   <entry>
-    <title>论文略读笔记22-前沿-深度强化学习节能任务调度</title>
+    <title>【论文】略读笔记22-前沿-深度强化学习节能任务调度</title>
     <url>/2023/11/11/literature/literatureNotes22/</url>
     <content><![CDATA[<h1 id="x1f4d6-《Energy-Efficient-Joint-Task-Assignment-and-Migration-in-Data-Centers-A-Deep-Reinforcement-Learning-Approach》"><a href="#x1f4d6-《Energy-Efficient-Joint-Task-Assignment-and-Migration-in-Data-Centers-A-Deep-Reinforcement-Learning-Approach》" class="headerlink" title="📖《Energy-Efficient Joint Task Assignment and Migration in Data Centers: A Deep Reinforcement Learning Approach》"></a><span class="emoji" alias="book" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4d6.png?v8">📖</span>《Energy-Efficient Joint Task Assignment and Migration in Data Centers: A Deep Reinforcement Learning Approach》</h1><h2 id="x1f3af-需求"><a href="#x1f3af-需求" class="headerlink" title="🎯需求"></a><span class="emoji" alias="dart" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f3af.png?v8">🎯</span>需求</h2><ul>
 <li>数据中心的节能任务调度是一个关键问题，引起了人们的广泛关注。<ul>
@@ -2775,7 +2775,7 @@
       </tags>
   </entry>
   <entry>
-    <title>论文略读笔记23-前沿-基于模仿学习的在线车载边缘计算任务调度</title>
+    <title>【论文】略读笔记23-前沿-基于模仿学习的在线车载边缘计算任务调度</title>
     <url>/2023/11/12/literature/literatureNotes23/</url>
     <content><![CDATA[<h1 id="x1f4d6-《Imitation-Learning-Enabled-Task-Scheduling-for-Online-Vehicular-Edge-Computing》"><a href="#x1f4d6-《Imitation-Learning-Enabled-Task-Scheduling-for-Online-Vehicular-Edge-Computing》" class="headerlink" title="📖《Imitation Learning Enabled Task Scheduling for Online Vehicular Edge Computing》"></a><span class="emoji" alias="book" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4d6.png?v8">📖</span>《Imitation Learning Enabled Task Scheduling for Online Vehicular Edge Computing》</h1><h2 id="x1f3af-需求"><a href="#x1f3af-需求" class="headerlink" title="🎯需求"></a><span class="emoji" alias="dart" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f3af.png?v8">🎯</span>需求</h2><ul>
 <li>车载边缘计算（VEC）是一种基于车联网的有前途的范式，可为终端用户提供计算资源，减<strong>轻蜂窝网络</strong>的繁重流量负担。<ul>
@@ -2872,7 +2872,7 @@
       </tags>
   </entry>
   <entry>
-    <title>论文略读笔记24-经典-大规模智算集群任务调度</title>
+    <title>【论文】略读笔记24-经典-大规模智算集群任务调度</title>
     <url>/2023/11/14/literature/literatureNotes24/</url>
     <content><![CDATA[<h1 id="x1f4d6-《Job-scheduling-for-large-scale-machine-learning-clusters》"><a href="#x1f4d6-《Job-scheduling-for-large-scale-machine-learning-clusters》" class="headerlink" title="📖《Job scheduling for large-scale machine learning clusters》"></a><span class="emoji" alias="book" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4d6.png?v8">📖</span>《Job scheduling for large-scale machine learning clusters》</h1><h2 id="x1f3af-需求"><a href="#x1f3af-需求" class="headerlink" title="🎯需求"></a><span class="emoji" alias="dart" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f3af.png?v8">🎯</span>需求</h2><ul>
 <li>随着现代平台上运行的机器学习 (ML) 和深度学习 (DL) 应用程序的快速增长，满足应用程序性能要求（例如按时完成和确保准确性）至关重要。<ul>
@@ -3004,7 +3004,7 @@
       </tags>
   </entry>
   <entry>
-    <title>论文略读笔记25-前沿-基于多智能体图强化学习的大规模机器学习集群调度</title>
+    <title>【论文】略读笔记25-前沿-基于多智能体图强化学习的大规模机器学习集群调度</title>
     <url>/2023/11/16/literature/literatureNotes25/</url>
     <content><![CDATA[<h1 id="x1f4d6-《Large-Scale-Machine-Learning-Cluster-Scheduling-via-Multi-Agent-Graph-Reinforcement-Learning》"><a href="#x1f4d6-《Large-Scale-Machine-Learning-Cluster-Scheduling-via-Multi-Agent-Graph-Reinforcement-Learning》" class="headerlink" title="📖《Large-Scale Machine Learning Cluster Scheduling via Multi-Agent Graph Reinforcement Learning》"></a><span class="emoji" alias="book" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4d6.png?v8">📖</span>《Large-Scale Machine Learning Cluster Scheduling via Multi-Agent Graph Reinforcement Learning》</h1><h2 id="x1f3af-需求"><a href="#x1f3af-需求" class="headerlink" title="🎯需求"></a><span class="emoji" alias="dart" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f3af.png?v8">🎯</span>需求</h2><ul>
 <li>在大型 GPU 集群中<strong>高效调度分布式深度学习（DL）作业</strong>对于资源效率和作业性能至关重要。<ul>
@@ -3103,7 +3103,7 @@
       </tags>
   </entry>
   <entry>
-    <title>论文略读笔记26-经典-深度强化学习在大规模MEC网络中在线资源调度</title>
+    <title>【论文】略读笔记26-经典-深度强化学习在大规模MEC网络中在线资源调度</title>
     <url>/2023/11/16/literature/literatureNotes26/</url>
     <content><![CDATA[<h1 id="x1f4d6-《Stacked-Autoencoder-Based-Deep-Reinforcement-Learning-for-Online-Resource-Scheduling-in-Large-Scale-MEC-Networks》"><a href="#x1f4d6-《Stacked-Autoencoder-Based-Deep-Reinforcement-Learning-for-Online-Resource-Scheduling-in-Large-Scale-MEC-Networks》" class="headerlink" title="📖《Stacked Autoencoder-Based Deep Reinforcement Learning for Online Resource Scheduling in Large-Scale MEC Networks》"></a><span class="emoji" alias="book" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4d6.png?v8">📖</span>《Stacked Autoencoder-Based Deep Reinforcement Learning for Online Resource Scheduling in Large-Scale MEC Networks》</h1><h2 id="x1f3af-需求"><a href="#x1f3af-需求" class="headerlink" title="🎯需求"></a><span class="emoji" alias="dart" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f3af.png?v8">🎯</span>需求</h2><ul>
 <li>近年来，移动电话和物联网（IoT）设备等用户设备（UE）的数量正在迅速增长。同时，增强现实（AR）、虚拟现实（VR）、实时游戏、人脸识别、自然语言处理等资源密集型应用不断涌现。但是，上述有吸引力的应用程序通常需要大量的计算资源，并且对延迟敏感。由于UE的规模和资源有限，可能无法在规定的时间内完成上述任务或满足服务质量（QoS）要求。</li>
@@ -3212,7 +3212,7 @@
       </tags>
   </entry>
   <entry>
-    <title>论文略读笔记4-前沿-内存数据库性能</title>
+    <title>【论文】略读笔记4-前沿-内存数据库性能</title>
     <url>/2023/05/24/literature/literatureNotes4/</url>
     <content><![CDATA[<h1 id="x1f4d6-《Exploring-Fine-Grained-In-Memory-Database-Performance-for-Modern-CPUs》"><a href="#x1f4d6-《Exploring-Fine-Grained-In-Memory-Database-Performance-for-Modern-CPUs》" class="headerlink" title="📖《Exploring Fine-Grained In-Memory Database Performance for Modern CPUs》"></a><span class="emoji" alias="book" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4d6.png?v8">📖</span>《Exploring Fine-Grained In-Memory Database Performance for Modern CPUs》</h1><h2 id="x1f3af-需求"><a href="#x1f3af-需求" class="headerlink" title="🎯需求"></a><span class="emoji" alias="dart" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f3af.png?v8">🎯</span>需求</h2><ul>
 <li>现代CPU为高性能计算平台集成了越来越多的内核和大尺寸缓存，有利于内存数据库提高并行处理能力和缓存局部性，探索不同 CPU 架构的内存数据库性能特征对于内存数据库设计和优化非常重要。<ul>
@@ -3293,7 +3293,7 @@
       </tags>
   </entry>
   <entry>
-    <title>论文略读笔记3-前沿-拓扑感知部署</title>
+    <title>【论文】略读笔记3-前沿-拓扑感知部署</title>
     <url>/2023/05/18/literature/literatureNotes3/</url>
     <content><![CDATA[<h1 id="x1f4d6-《Topology-Aware-Scheduling-Framework-for-Microservice-Applications-in-Cloud》"><a href="#x1f4d6-《Topology-Aware-Scheduling-Framework-for-Microservice-Applications-in-Cloud》" class="headerlink" title="📖《Topology-Aware Scheduling Framework for Microservice Applications in Cloud》"></a><span class="emoji" alias="book" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4d6.png?v8">📖</span>《Topology-Aware Scheduling Framework for Microservice Applications in Cloud》</h1><h2 id="x1f3af-需求"><a href="#x1f3af-需求" class="headerlink" title="🎯需求"></a><span class="emoji" alias="dart" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f3af.png?v8">🎯</span>需求</h2><ul>
 <li>【在容器中运行的松散耦合和高度内聚的微服务正在成为应用程序开发的新范例。】云服务最近开始在架构上从单体到数百或数千个松散耦合的微服务进行重大转变。每个微服务都可以独立实现、部署和更新，而不会影响整个应用程序的完整性。因此，越来越多的团队正在采用微服务架构来提高其应用程序的可扩展性、可移植性、可维护性和可用性。</li>
@@ -3352,7 +3352,7 @@
       </tags>
   </entry>
   <entry>
-    <title>论文略读笔记5-前沿-DRL异构计算适配</title>
+    <title>【论文】略读笔记5-前沿-DRL异构计算适配</title>
     <url>/2023/05/25/literature/literatureNotes5/</url>
     <content><![CDATA[<h1 id="x1f4d6-《A-Framework-for-Mapping-DRL-Algorithms-With-Prioritized-Replay-Buffer-Onto-Heterogeneous-Platforms》"><a href="#x1f4d6-《A-Framework-for-Mapping-DRL-Algorithms-With-Prioritized-Replay-Buffer-Onto-Heterogeneous-Platforms》" class="headerlink" title="📖《A Framework for Mapping DRL Algorithms With Prioritized Replay Buffer Onto Heterogeneous Platforms》"></a><span class="emoji" alias="book" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4d6.png?v8">📖</span>《A Framework for Mapping DRL Algorithms With Prioritized Replay Buffer Onto Heterogeneous Platforms》</h1><h2 id="x1f3af-需求"><a href="#x1f3af-需求" class="headerlink" title="🎯需求"></a><span class="emoji" alias="dart" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f3af.png?v8">🎯</span>需求</h2><ul>
 <li>尽管深度强化学习（DRL）最近在自动驾驶汽车、机器人和监控中取得了成功，但训练DRL代理需要大量的时间和计算资源。<ul>
@@ -3449,7 +3449,7 @@
       </tags>
   </entry>
   <entry>
-    <title>论文略读笔记6-前沿-Serverless综述</title>
+    <title>【论文】略读笔记6-前沿-Serverless综述</title>
     <url>/2023/05/29/literature/literatureNotes6/</url>
     <content><![CDATA[<h1 id="x1f4d6-《Serverless-Computing-State-of-the-Art-Challenges-and-Opportunities》"><a href="#x1f4d6-《Serverless-Computing-State-of-the-Art-Challenges-and-Opportunities》" class="headerlink" title="📖《Serverless Computing: State-of-the-Art, Challenges and Opportunities》"></a><span class="emoji" alias="book" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4d6.png?v8">📖</span>《Serverless Computing: State-of-the-Art, Challenges and Opportunities》</h1><h2 id="x1f3af-需求"><a href="#x1f3af-需求" class="headerlink" title="🎯需求"></a><span class="emoji" alias="dart" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f3af.png?v8">🎯</span>需求</h2><ul>
 <li>无服务器计算因其轻量级和管理简单性而越来越受欢迎。它通过将计算单元的粒度降低到功能级别来实现这些优点。<ul>
@@ -3497,7 +3497,7 @@
       </tags>
   </entry>
   <entry>
-    <title>论文略读笔记27-前沿-跨地域资源预留调度</title>
+    <title>【论文】略读笔记27-前沿-跨地域资源预留调度</title>
     <url>/2023/11/23/literature/literatureNotes27/</url>
     <content><![CDATA[<h1 id="x1f4d6-《Characterizing-and-orchestrating-VM-reservation-in-geo-distributed-clouds-to-improve-the-resource-efficiency》"><a href="#x1f4d6-《Characterizing-and-orchestrating-VM-reservation-in-geo-distributed-clouds-to-improve-the-resource-efficiency》" class="headerlink" title="📖《Characterizing and orchestrating VM reservation in geo-distributed clouds to improve the resource efficiency》"></a><span class="emoji" alias="book" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4d6.png?v8">📖</span>《Characterizing and orchestrating VM reservation in geo-distributed clouds to improve the resource efficiency》</h1><h2 id="x1f3af-需求"><a href="#x1f3af-需求" class="headerlink" title="🎯需求"></a><span class="emoji" alias="dart" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f3af.png?v8">🎯</span>需求</h2><ul>
 <li><strong>云提供商</strong>通常从不同地理区域的多个数据中心构建<strong>地理分布式云</strong>，为不同位置的租户提供服务。<ul>
@@ -3631,7 +3631,7 @@
       </tags>
   </entry>
   <entry>
-    <title>论文略读笔记8-前沿-CoLocateMe聚合部署VM</title>
+    <title>【论文】略读笔记8-前沿-CoLocateMe聚合部署VM</title>
     <url>/2023/05/31/literature/literatureNotes8/</url>
     <content><![CDATA[<h1 id="x1f4d6-《CoLocateMe-Aggregation-Based-Energy-Performance-and-Cost-Aware-VM-Placement-and-Consolidation-in-Heterogeneous-IaaS-Clouds》"><a href="#x1f4d6-《CoLocateMe-Aggregation-Based-Energy-Performance-and-Cost-Aware-VM-Placement-and-Consolidation-in-Heterogeneous-IaaS-Clouds》" class="headerlink" title="📖《CoLocateMe: Aggregation-Based, Energy, Performance and Cost Aware VM Placement and Consolidation in Heterogeneous IaaS Clouds》"></a><span class="emoji" alias="book" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4d6.png?v8">📖</span>《CoLocateMe: Aggregation-Based, Energy, Performance and Cost Aware VM Placement and Consolidation in Heterogeneous IaaS Clouds》</h1><h2 id="x1f3af-需求"><a href="#x1f3af-需求" class="headerlink" title="🎯需求"></a><span class="emoji" alias="dart" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f3af.png?v8">🎯</span>需求</h2><ul>
 <li>云数据中心面临的主要挑战之一是有效地管理计算资源能源和性能。能源消耗会影响我们的环境，并占大笔能源费用，而性能会影响云经济。因此，云服务提供商正专注于设计能源、性能感知计算策略，这也是已投产的计算机集群的高运营成本导致的。可以通过两种不同的方式实现这一目标：<ul>
@@ -3697,7 +3697,7 @@
       </tags>
   </entry>
   <entry>
-    <title>论文略读笔记9-前沿-Lyra深度学习调度</title>
+    <title>【论文】略读笔记9-前沿-Lyra深度学习调度</title>
     <url>/2023/06/01/literature/literatureNotes9/</url>
     <content><![CDATA[<h1 id="x1f4d6-《Lyra-Elastic-Scheduling-for-Deep-Learning-Clusters》"><a href="#x1f4d6-《Lyra-Elastic-Scheduling-for-Deep-Learning-Clusters》" class="headerlink" title="📖《Lyra: Elastic Scheduling for Deep Learning Clusters》"></a><span class="emoji" alias="book" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4d6.png?v8">📖</span>《Lyra: Elastic Scheduling for Deep Learning Clusters》</h1><h2 id="x1f3af-需求"><a href="#x1f3af-需求" class="headerlink" title="🎯需求"></a><span class="emoji" alias="dart" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f3af.png?v8">🎯</span>需求</h2><ul>
 <li>最近，深度神经网络 (DNN) 在许多应用中取得了巨大的成功。超大规模在线服务提供商已采用 DNN，并构建大规模 GPU 集群来加速 DNN 的训练和推理工作负载。 GPU 集群调度是通过优化作业资源分配和任务放置来有效利用昂贵的基础设施的一项基本且关键的任务。</li>
@@ -3783,7 +3783,7 @@
       </categories>
   </entry>
   <entry>
-    <title>论文略读笔记7-前沿-基于图的工作流卸载</title>
+    <title>【论文】略读笔记7-前沿-基于图的工作流卸载</title>
     <url>/2023/05/30/literature/literatureNotes7/</url>
     <content><![CDATA[<h1 id="x1f4d6-《A-Novel-Graph-Based-Computation-Offloading-Strategy-for-Workflow-Applications-in-Mobile-Edge-Computing》"><a href="#x1f4d6-《A-Novel-Graph-Based-Computation-Offloading-Strategy-for-Workflow-Applications-in-Mobile-Edge-Computing》" class="headerlink" title="📖《A Novel Graph-Based Computation Offloading Strategy for Workflow Applications in Mobile Edge Computing》"></a><span class="emoji" alias="book" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4d6.png?v8">📖</span>《A Novel Graph-Based Computation Offloading Strategy for Workflow Applications in Mobile Edge Computing》</h1><h2 id="x1f3af-需求"><a href="#x1f3af-需求" class="headerlink" title="🎯需求"></a><span class="emoji" alias="dart" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f3af.png?v8">🎯</span>需求</h2><ul>
 <li>移动边缘计算（MEC）正被越来越多研究者关注。<ul>
@@ -6339,7 +6339,7 @@
       </tags>
   </entry>
   <entry>
-    <title>论文略读笔记29-前沿-边缘多Agent深度强化学习调度</title>
+    <title>【论文】略读笔记29-前沿-边缘多Agent深度强化学习调度</title>
     <url>/2024/02/25/literature/literatureNotes29/</url>
     <content><![CDATA[<h1 id="x1f4d6-《Multi-agent-deep-reinforcement-learning-for-online-request-scheduling-in-edge-cooperation-networks》"><a href="#x1f4d6-《Multi-agent-deep-reinforcement-learning-for-online-request-scheduling-in-edge-cooperation-networks》" class="headerlink" title="📖《Multi-agent deep reinforcement learning for online request scheduling in edge cooperation networks》"></a><span class="emoji" alias="book" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4d6.png?v8">📖</span>《Multi-agent deep reinforcement learning for online request scheduling in edge cooperation networks》</h1><h2 id="x1f3af-需求"><a href="#x1f3af-需求" class="headerlink" title="🎯需求"></a><span class="emoji" alias="dart" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f3af.png?v8">🎯</span>需求</h2><ul>
 <li>边缘计算作为云计算的一种补充模式，通过在网络边缘为移动用户提供多样化服务而受到越来越多的关注。然而，日益复杂的移动应用给边缘网络带来了更大的负荷。<ul>
@@ -6435,7 +6435,7 @@
       </tags>
   </entry>
   <entry>
-    <title>论文略读笔记28-前沿-复杂拓扑云调度</title>
+    <title>【论文】略读笔记28-前沿-复杂拓扑云调度</title>
     <url>/2024/02/14/literature/literatureNotes28/</url>
     <content><![CDATA[<h1 id="x1f4d6-《Diktyo-Network-Aware-Scheduling-in-Container-Based-Clouds》"><a href="#x1f4d6-《Diktyo-Network-Aware-Scheduling-in-Container-Based-Clouds》" class="headerlink" title="📖《Diktyo: Network-Aware Scheduling in Container-Based Clouds》"></a><span class="emoji" alias="book" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4d6.png?v8">📖</span>《Diktyo: Network-Aware Scheduling in Container-Based Clouds》</h1><h2 id="x1f3af-需求"><a href="#x1f3af-需求" class="headerlink" title="🎯需求"></a><span class="emoji" alias="dart" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f3af.png?v8">🎯</span>需求</h2><ul>
 <li>容器彻底改变了当前云平台中的应用部署和生命周期管理。应用程序已从单一的单体发展为松散耦合微服务的复杂图。此外，最近的应用对延迟越来越敏感，要求依赖的微服务之间的延迟更低。然而，由于微服务之间存在复杂的相互依赖关系，如何高效分配基于微服务的应用程序是一项挑战。<ul>
