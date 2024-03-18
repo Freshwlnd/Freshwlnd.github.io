@@ -6550,4 +6550,115 @@
         <tag>复杂拓扑</tag>
       </tags>
   </entry>
+  <entry>
+    <title>【论文】略读笔记30-前沿-ERP上云可定制SaaS</title>
+    <url>/2024/03/14/literature/literatureNotes30/</url>
+    <content><![CDATA[<h1 id="x1f4d6-《Migrating-monoliths-to-cloud-native-microservices-for-customizable-SaaS》"><a href="#x1f4d6-《Migrating-monoliths-to-cloud-native-microservices-for-customizable-SaaS》" class="headerlink" title="📖《Migrating monoliths to cloud-native microservices for customizable SaaS》"></a><span class="emoji" alias="book" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4d6.png?v8">📖</span>《Migrating monoliths to cloud-native microservices for customizable SaaS》</h1><p>发表于 JCI-1区、中科院-2区 期刊《Information and Software Technology》</p>
+<h2 id="x1f3af-需求"><a href="#x1f3af-需求" class="headerlink" title="🎯需求"></a><span class="emoji" alias="dart" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f3af.png?v8">🎯</span>需求</h2><ul>
+<li>随着云计算的趋势，企业软件供应商正在从单租户本地单体应用程序转向多租户（云原生）SaaS。<ul>
+<li>迁移到微服务架构是实现遗留系统现代化的正确途径。从长远来看，迁移到微服务架构有巨大的好处，例如可维护性和可扩展性，例如，通过采用 DevOps 并受益于云原生弹性。</li>
+</ul>
+</li>
+<li>然而，软件厂商正面临着两大相互交织的挑战：<ul>
+<li>（1）如何将其单体<strong>迁移</strong>到云原生微服务；</li>
+<li>（2）如何在多租户云原生 SaaS 上下文中启用特定于租户的（深度）<strong>自定义</strong>。<ul>
+<li>深度定制可能会影响软件产品的任何部分，包括用户界面 （UI）、业务逻辑 （BL）、数据库模式 （DB） 或超出供应商预测的的任何组合。</li>
+<li>此外，在基于云的多租户SaaS模型中，每个客户都必须运行相同的代码库（主产品），无法在不影响其他客户的情况下为一个客户定制。为每个客户运行不同的版本将直接否定多租户 SaaS 模型的任何规模经济（成本：一次开发，收益：规模化应用）。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>软件供应商迫切需要一种新颖的方法，将其单体架构<strong>迁移</strong>到云原生微服务，同时仍支持多租户 SaaS 模型的<strong>深度定制</strong>。</li>
+</ul>
+<h2 id="x1f6a7-现状"><a href="#x1f6a7-现状" class="headerlink" title="🚧现状"></a><span class="emoji" alias="construction" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f6a7.png?v8">🚧</span>现状</h2><ul>
+<li>在本文中，我们首先探讨了当前在将企业应用程序从单体架构迁移到微服务架构时使用的行业方法，以及将应用程序从单租户过渡到多租户时使用的不同方法。<ul>
+<li>通过回顾现有文献，我们发现了许多不同的方法，它们都实现了这两个目标之一，<ul>
+<li>要么专注于从一种架构类型迁移到另一种架构类型，</li>
+<li>要么从单租户过渡到多租户。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ol>
+<li>大多数现有的可定制 SaaS 方法，如依赖注入、软件产品线、中间件，只能在<strong>设计时</strong>提供<strong>预定义的定制能力</strong>。</li>
+<li>主流的多租户 SaaS 供应商，如 Salesforce 和 Oracle NetSuite，提供了内置脚本语言，可进行<strong>更精细的代码级定制</strong>。为了最大限度地提高定制能力，这两家供应商都开发了非常广泛、复杂的<strong>应用程序接口</strong>和<strong>平台</strong>。</li>
+</ol>
+<ul>
+<li>这种方式需要巨额的前期投资和对开发人员的广泛培训，这不是小型软件供应商所能承受的。</li>
+</ul>
+<ol start="3">
+<li>最近，利用<strong>微服务架构</strong>实现<strong>多租户 SaaS 的深度定制</strong>是一个非常有前景的方向。</li>
+</ol>
+<ul>
+<li>这些基于微服务的定制方法在如何平衡<strong>隔离（isolation）</strong>和<strong>同化（assimilation）</strong>方面各不相同。<ul>
+<li>一般来说，对于任何定制方法，<strong>隔离</strong>都能保证特定租户的定制只影响单个租户，而<strong>同化</strong>则能保证定制能力可以改变主软件产品中的任何内容。</li>
+<li><strong>侵入式微服务</strong>以牺牲安全性（租户隔离）为代价提供紧密的<strong>同化</strong>，</li>
+<li>而被称为 MiSC-Cloud的<strong>非侵入式方法</strong>则以<strong>同化</strong>换取更高的安全性。MiSC-Cloud 通过 API 网关使用微服务协调定制。通过 API 网关，主产品的 API 和实施定制的租户特定微服务的 API 被公开，供租户特定的授权访问。</li>
+</ul>
+</li>
+</ul>
+<h2 id="x1f6e9-创新"><a href="#x1f6e9-创新" class="headerlink" title="🛩创新"></a><span class="emoji" alias="small_airplane" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f6e9.png?v8">🛩</span>创新</h2><ul>
+<li>微服务架构和多租户都为应用程序的最终用户和开发人员提供了额外的好处。结合“迁移到微服务架构”和“支持多租户自定义”这两个原则，我们可以更好地利用SaaS应用程序中的规模经济和资源共享。<ul>
+<li>为此，我们的<strong>第一个贡献</strong>侧重于<strong>迁移</strong>方法，适用于目标应用程序遵循微服务架构的情况，同时还允许租户自定义业务逻辑以更好地满足他们在多租户上下文中的需求。<ul>
+<li>我们的方法侧重于迁移过程中的三个阶段，<ul>
+<li>1）分析应用程序并将其分解为小型边界上下文，</li>
+<li>2）转换现有基础结构以适应新体系结构，并将上下文中的功能实现为单独的微服务，</li>
+<li>3）最后添加必要的组件以支持多租户上下文中特定于租户的自定义。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>我们的<strong>第二个贡献</strong>是将基于事件的非侵入式深度定制方法 与 同步定制方式 相结合。<ul>
+<li>通过启用基于事件的非侵入式深度定制，MiSC-Cloud 框架可以协调主产品的 BL 组件（微服务）以及租户的定制微服务的执行，从而在多租户环境中获得所需的定制效果。</li>
+<li>在定制微服务和主产品 BL 组件之间使用基于事件的通信不仅对微服务架构很重要，对非侵入式深度定制能力也很重要。</li>
+<li>这种异步定制方式意味着定制微服务可以与主产品 BL 组件进行基于事件的通信，以实现定制目的。</li>
+<li>因此，这种基于事件的深度定制方法有助于减少对主产品的 API 调用次数，而这正是软件供应商非常关心的问题。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>与我们以前的工作相比，本文的主要扩展如下：<ul>
+<li><ul>
+<li>我们在本文中不仅介绍了迁移方法，还介绍了全面定制方法，以提供更完整的解决方案，包括从单体迁移到多租户 SaaS，然后定制目标 SaaS。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><ul>
+<li>我们在两个案例研究中应用了我们的全面迁移-定制方法。首先，我们将单体的 SportStore 迁移到多租户的 SportStore-aaS，然后对多租户的 SportStore-aaS 进行定制。其次，我们进一步定制了基于微服务的 eShopOnContainers。</li>
+</ul>
+</li>
+<li><ul>
+<li>我们提出了一种结合同步定制和异步定制的完整定制方法，为实现深度定制提供了灵活的途径。通过 API 调用进行的同步定制适用于用户界面定制，以及在需要时从主软件产品中查询更多 “上下文 “进行定制。通过事件协调的异步定制适用于 BL 定制，尤其是当主软件产品的微服务通过事件进行通信时。基于事件的定制有助于减少主软件产品的 API 调用次数。通过 API 调用进行的同步定制还有助于触发基于事件的定制，适用于无法使用主产品中的事件作为触发器的定制场景。</li>
+</ul>
+</li>
+</ul>
+<h2 id="x1f4ca-效果"><a href="#x1f4ca-效果" class="headerlink" title="📊效果"></a><span class="emoji" alias="bar_chart" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4ca.png?v8">📊</span>效果</h2><ul>
+<li><h2 id="x1f9e0-疑问"><a href="#x1f9e0-疑问" class="headerlink" title="🧠疑问"></a><span class="emoji" alias="brain" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f9e0.png?v8">🧠</span>疑问</h2></li>
+</ul>
+<ol>
+<li>隔离和定制具体如何实现？</li>
+</ol>
+<hr>
+<hr>
+<ul>
+<li>希望这篇博客对你有帮助！如果你有任何问题或需要进一步的帮助，请随时提问。</li>
+<li>如果你喜欢这篇文章，欢迎<a class="link" href="https://github.com/freshwlnd/">动动小手 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>给我一个follow或star。</li>
+</ul>
+<h1 id="x1f5fa-参考文献"><a href="#x1f5fa-参考文献" class="headerlink" title="🗺参考文献"></a><span class="emoji" alias="world_map" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f5fa.png?v8">🗺</span>参考文献</h1><div id="refer-anchor-1"></div>
+
+<p><a class="link" href="https://www.sciencedirect.com/science/article/pii/S0950584923000848?via=ihub">[1] Espen Tønnessen Nordli, Sindre Grønstøl Haugeland, Phu H. Nguyen, Hui Song, Franck Chauvel, Migrating monoliths to cloud-native microservices for customizable SaaS, Information and Software Technology, Volume 160, 2023, 107230, ISSN 0950-5849, https://doi.org/10.1016/j.infsof.2023.107230. <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+]]></content>
+      <categories>
+        <category>论文</category>
+        <category>略读</category>
+        <category>迁移</category>
+      </categories>
+      <tags>
+        <tag>迁移</tag>
+        <tag>ERP</tag>
+        <tag>SaaS</tag>
+      </tags>
+  </entry>
 </search>
