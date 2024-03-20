@@ -6661,4 +6661,177 @@
         <tag>SaaS</tag>
       </tags>
   </entry>
+  <entry>
+    <title>【论文】略读笔记32-经典-边缘博弈用户分配</title>
+    <url>/2024/03/20/literature/literatureNotes32/</url>
+    <content><![CDATA[<h1 id="x1f4d6-《A-Game-Theoretical-Approach-for-User-Allocation-in-Edge-Computing-Environment》"><a href="#x1f4d6-《A-Game-Theoretical-Approach-for-User-Allocation-in-Edge-Computing-Environment》" class="headerlink" title="📖《A Game-Theoretical Approach for User Allocation in Edge Computing Environment》"></a><span class="emoji" alias="book" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4d6.png?v8">📖</span>《A Game-Theoretical Approach for User Allocation in Edge Computing Environment》</h1><h2 id="x1f3af-需求"><a href="#x1f3af-需求" class="headerlink" title="🎯需求"></a><span class="emoji" alias="dart" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f3af.png?v8">🎯</span>需求</h2><ul>
+<li><p>在过去的十年中，移动和物联网 （IoT） 设备，包括手机、可穿戴设备、平板电脑等，变得越来越流行。</p>
+<ul>
+<li>根据爱立信的报告，预计到2023年将有约200亿台移动和物联网设备。</li>
+</ul>
+</li>
+<li><p>移动和物联网设备的快速增长和进步推动了移动和物联网应用程序（以下统称为应用程序）的多样性和复杂性。</p>
+<ul>
+<li>许多应用程序资源密集、计算密集型和高能耗。</li>
+</ul>
+</li>
+<li><p>由于计算能力和电池电量有限，移动和物联网设备运行此类应用程序变得越来越困难和不切实际。为了解决这个问题，移动和物联网设备可以将计算任务卸载到云端，以利用其可配置且强大的计算能力。</p>
+</li>
+<li><p>近年来，出现了需要低延迟的应用程序，例如人脸识别、自然语言处理、互动游戏等。</p>
+<ul>
+<li>由于通常不可预测的网络延迟和昂贵的带宽，云通常无法满足此类延迟敏感型应用程序的严格要求。这是云计算范式的一个明显弱点，因为人类对延迟非常敏感，这在广域网规模上很难减少。</li>
+</ul>
+</li>
+<li><p>边缘计算作为促进5G移动网络的关键技术，允许将计算任务从移动和物联网设备转移到具有类似云计算能力的边缘服务器。</p>
+<ul>
+<li>这些边缘服务器由一台或多台物理机提供支持，部署在地理位置靠近应用用户的基站上。</li>
+<li>应用程序用户可以将计算任务卸载到附近的边缘服务器，而不是云端。边缘计算范式为需要低延迟的应用程序铺平了道路。</li>
+</ul>
+</li>
+<li><p>在过去的几年里，人们对边缘计算环境中的计算卸载进行了广泛的研究。</p>
+</li>
+<li><p>虽然现有的研究侧重于从边缘基础设施提供商或移动和物联网设备的角度减少延迟和/或节能，但本文从移动和物联网应用程序供应商的角度研究了一个关键问题。</p>
+<ul>
+<li>边缘计算范式允许移动和物联网应用程序供应商（称为<strong>应用程序供应商</strong>）在边缘基础设施提供商（例如 AT&amp;T、Telstra 等）的边缘服务器上租用计算能力，例如 CPU、内存、带宽。然后，可以将他们的服务部署在这些边缘服务器上，以低延迟为附近的应用程序用户提供服务。</li>
+<li>通常，边缘服务器覆盖特定的地理区域，以便其覆盖范围内的应用程序用户可以通过无线访问连接到它。<ul>
+<li>因此，边缘服务器以分布式方式部署 - 通常在蜂窝基站附近 - 以便它们可以覆盖不同的地理区域。</li>
+<li>相邻边缘服务器的覆盖区域通常相交，以避免任何边缘服务器未覆盖的空白区域。</li>
+<li>位于交叉区域的应用用户可以连接到附近具有足够计算容量（容量限制）（如 CPU、内存和带宽）的边缘服务器之一（邻近限制）。</li>
+</ul>
+</li>
+<li>给定特定区域中的多个应用用户，可以通过多种方式将他们分配给覆盖该区域的边缘服务器。<ul>
+<li>不适当的分配可能会导致大量应用用户未分配到任何边缘服务器。</li>
+<li>因此，从应用供应商的角度来看，一个直接而重要的目标是最大限度地增加分配给边缘服务器的用户数量。</li>
+<li>按照即用即付定价模式，应用供应商为从边缘基础设施提供商处租用的边缘服务器的计算能力付费。因此，应用程序供应商的另一个重要目标是最大限度地降低为应用程序用户提供服务的整体系统成本。</li>
+</ul>
+</li>
+<li>此问题称为边缘用户分配 （EUA） 问题。</li>
+</ul>
+</li>
+</ul>
+<h2 id="x1f6a7-现状"><a href="#x1f6a7-现状" class="headerlink" title="🚧现状"></a><span class="emoji" alias="construction" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f6a7.png?v8">🚧</span>现状</h2><ul>
+<li>云计算范式支持多租户，能够基于单个应用程序实例同时为多个租户提供服务。它允许多个租户比单租户更有效地共享计算资源，即为每个租户运行一个应用程序实例。<ul>
+<li>例如，在相同的工作负载下，多租户 Web 应用程序比单租户 Web 应用程序实现更高的吞吐量，因为用户工作负载的整合通常可以实现高服务器利用率。</li>
+</ul>
+</li>
+<li>边缘计算继承了云计算范式的多租户，因此允许应用程序供应商在边缘计算环境中为其EUA问题实现具有成本效益的解决方案。关键是要<strong>充分利用多租户</strong>，即将最大数量的应用用户分配给最少数量的边缘服务器。</li>
+<li>在边缘计算环境中，应用程序供应商通常需要在特定区域容纳大量应用程序用户。因此，由于上述EUA问题的邻近性和容量限制，寻找集中式最优解决方案将具有高度的复杂性。而博弈论在分布式计算领域得到了广泛的应用。它是设计去中心化机制的有力工具。</li>
+</ul>
+<h2 id="x1f6e9-创新"><a href="#x1f6e9-创新" class="headerlink" title="🛩创新"></a><span class="emoji" alias="small_airplane" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f6e9.png?v8">🛩</span>创新</h2><ul>
+<li><p>在本文中，我们介绍了EUAGame，这是一种寻找EUA问题解决方案的博弈论方法。</p>
+<ul>
+<li>EUAGame 通过为应用程序用户单独做出分配决策来减轻集中优化的负担，同时实现集体满意的分配解决方案。</li>
+<li>此外，EUAGame 允许应用程序用户在不同的计算能力维度上指定他们的个人（通常是差异化的）兴趣。</li>
+<li>EUAGame 将应用供应商的 EUA 问题建模为 EUA 博弈。在这个博弈中，每个应用程序用户都被模拟为游戏中的玩家，他们找到附近的边缘服务器来卸载其计算任务。然后，EUAGame 采用去中心化算法为应用程序用户做出分配决策，以实现博弈的纳什均衡。</li>
+</ul>
+</li>
+<li><p>本文的主要贡献如下：</p>
+<ul>
+<li>我们首先将EUA问题建模为约束优化问题，并证明找到集中最优解是NP困难的。</li>
+<li>为了以分布式方式解决EUA问题，我们将其表述为一个博弈，其中考虑了应用程序用户的利益，多租户的利益和整体系统成本。该博弈的目的是最大限度地增加分配的应用程序用户数量，并最大限度地降低整体系统成本，同时满足所有邻近限制和容量限制。</li>
+<li>我们分析了EUA博弈，并证明这是一个承认纳什均衡的潜在博弈。</li>
+<li>我们提出了一种去中心化算法，用于在EUA博弈中找到纳什均衡。</li>
+<li>我们从理论和实验上分析了该算法的性能。</li>
+</ul>
+</li>
+</ul>
+<h2 id="x1f4ca-效果"><a href="#x1f4ca-效果" class="headerlink" title="📊效果"></a><span class="emoji" alias="bar_chart" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4ca.png?v8">📊</span>效果</h2><ul>
+<li><h2 id="x1f9e0-疑问"><a href="#x1f9e0-疑问" class="headerlink" title="🧠疑问"></a><span class="emoji" alias="brain" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f9e0.png?v8">🧠</span>疑问</h2></li>
+</ul>
+<ol>
+<li>效率是否过低？</li>
+</ol>
+<hr>
+<hr>
+<ul>
+<li>希望这篇博客对你有帮助！如果你有任何问题或需要进一步的帮助，请随时提问。</li>
+<li>如果你喜欢这篇文章，欢迎<a class="link" href="https://github.com/freshwlnd/">动动小手 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>给我一个follow或star。</li>
+</ul>
+<h1 id="x1f5fa-参考文献"><a href="#x1f5fa-参考文献" class="headerlink" title="🗺参考文献"></a><span class="emoji" alias="world_map" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f5fa.png?v8">🗺</span>参考文献</h1><div id="refer-anchor-1"></div>
+
+<p><a class="link" href="https://ieeexplore.ieee.org/document/8823046">[1] Q. He et al., “A Game-Theoretical Approach for User Allocation in Edge Computing Environment,” in IEEE Transactions on Parallel and Distributed Systems, vol. 31, no. 3, pp. 515-529, 1 March 2020, doi: 10.1109/TPDS.2019.2938944. <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+]]></content>
+      <categories>
+        <category>论文</category>
+        <category>略读</category>
+        <category>调度</category>
+      </categories>
+      <tags>
+        <tag>边缘计算</tag>
+        <tag>博弈</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>【论文】略读笔记31-经典-去中心化调度</title>
+    <url>/2024/03/20/literature/literatureNotes31/</url>
+    <content><![CDATA[<h1 id="x1f4d6-《Multi-Agent-Imitation-Learning-for-Pervasive-Edge-Computing：-A-Decentralized-Computation-Offloading-Algorithm》"><a href="#x1f4d6-《Multi-Agent-Imitation-Learning-for-Pervasive-Edge-Computing：-A-Decentralized-Computation-Offloading-Algorithm》" class="headerlink" title="📖《Multi-Agent Imitation Learning for Pervasive Edge Computing： A Decentralized Computation Offloading Algorithm》"></a><span class="emoji" alias="book" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4d6.png?v8">📖</span>《Multi-Agent Imitation Learning for Pervasive Edge Computing： A Decentralized Computation Offloading Algorithm》</h1><h2 id="x1f3af-需求"><a href="#x1f3af-需求" class="headerlink" title="🎯需求"></a><span class="emoji" alias="dart" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f3af.png?v8">🎯</span>需求</h2><ul>
+<li>普适边缘计算是指仅依靠具有感知、存储和通信能力的边缘设备，实现点对点卸载，无需集中管理的一种边缘计算。<ul>
+<li>边缘计算通过利用网络边缘的计算和存储资源来扩展传统的云计算架构。云可以安排任务由边缘设备在本地处理，而无需远程传输。</li>
+<li>随着5G和网络技术的发展，终端设备已经演进，具有强大的感知、计算和存储能力，为实现普适边缘计算（无处不在的边缘计算，Pervasive Edge Computing）铺平了道路。实际上，它是一种新颖的边缘计算，它只是利用边缘设备进行计算和存储，而无需集中管理。</li>
+<li>传统的边缘计算是云计算的补充，云计算和存储资源由边缘服务器提供，决策在后端做出。相比之下，普适边缘计算允许数据存储、处理和调度决策全部在网络边缘执行。因此，传统的边缘计算策略并不适合普适边缘计算环境，需要以完全去中心化的方式进行新的算法设计。</li>
+<li>普适边缘计算与传统边缘计算相比带来的优势可以归纳为四个方面。<ul>
+<li>1）首先，它无需基础设施即可部署和维护专用云后端。</li>
+<li>2）其次，无需与云端通信，因为数据可以在用户附近处理，大大降低了传输延迟。</li>
+<li>3）此外，它通过在对等设备之间实现通信而不需要互联网连接，从而独立于连接。</li>
+<li>4）最后，不需要中央机构，设备可以自由地决定如何与他人协作，以及以何种方式实现可行和多样化的网络应用程序。</li>
+</ul>
+</li>
+<li>普适边缘计算的应用从娱乐到工业的广泛应用。<ul>
+<li>例如，在现场篮球比赛的现场，坐在不同位置的观众可以通过点对点通信从他们的角度与他人分享他们录制的视频。然后，通过聚合不同的片段，可以形成一个多角度观看的游戏视频。不同地点的观众可以全景观看现场比赛。另一个例子是协同驾驶，基于短距离通信技术，道路状况和事故现场的实时视频流可以直接在车辆之间共享。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="x1f6a7-现状"><a href="#x1f6a7-现状" class="headerlink" title="🚧现状"></a><span class="emoji" alias="construction" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f6a7.png?v8">🚧</span>现状</h2><ul>
+<li>尽管普适边缘计算可以为用户带来各种优势和便利，但通过考虑普适边缘计算网络中多个设备的效用公益，设计可行的计算卸载算法具有挑战性。挑战可归纳如下：<ul>
+<li>1）与传统边缘计算相比，普适边缘计算允许设备在网络边缘做出决策，而无需集中管理。设备很难仅依靠点对点通信来获取<strong>整个网络状态</strong>。因此，对于他们来说，选择合适的边缘服务器（由其他设备组成）来根据<strong>部分观察</strong>来卸载任务是具有挑战性的。受此影响，如果没有合理的任务分配策略，很难保证任务完成时间。</li>
+<li>2）在多设备环境中，每个设备都打算<strong>最大限度地提高自己的效用</strong>。现有的研究总是开发博弈论模型来计算纳什均衡。对于每个设备，它都会根据系统状态的全局知识与其他设备讨价还价。然而，在无处不在的边缘计算网络中，设备<strong>无法获取全局信息</strong>，因此如何在完全去中心化的环境中保证设备的<strong>公平性</strong>值得研究。</li>
+<li>3）在局部观察下，它适用于设计基于学习的方法，通过与环境的交互来获得良好的策略。但一方面，现有的无模型学习方法在<strong>起步阶段的性能总是较差</strong>，不适合在线调度。另一方面，它们的<strong>收敛速度很慢</strong>，尤其是在具有多个智能体的部分可观测环境中。因此，有必要设计一种收敛速度快且可以分散方式执行的学习方法。</li>
+</ul>
+</li>
+</ul>
+<h2 id="x1f6e9-创新"><a href="#x1f6e9-创新" class="headerlink" title="🛩创新"></a><span class="emoji" alias="small_airplane" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f6e9.png?v8">🛩</span>创新</h2><ul>
+<li>针对上述挑战，该文提出一种基于终端智能体的计算卸载算法MILP，旨在<strong>最小化设备的平均任务完成时间</strong>。它们可以将任务卸载到其他设备进行计算，也可以在本地处理它们，完全取决于他们自己的观察和决策。<ul>
+<li>据我们所知，本文是研究<strong>基于多智能体模仿学习的普适边缘计算计算卸载问题</strong>的早期努力。<ul>
+<li>一般来说，模仿学习是一种机器学习方法，它允许学习主体模仿专家策略，可以有效解决原始问题，但由于其时间复杂度高，无法以在线方式进行。因此，设计了一个培训过程，通过实现专家的模仿来学习代理策略。</li>
+<li>此外，多智能体模仿学习允许多个智能体模仿相应专家的行为，并且可以在智能体之间达到纳什均衡。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>具体而言，我们的贡献可以总结如下：<ul>
+<li>1）通过考虑边缘设备的通信和计算能力，将普适边缘计算环境中的任务调度问题<strong>表述为优化问题</strong>。为了解决这一问题，我们通过指定博弈要素，如进化的玩家、状态和状态转换可能性，建立原始优化问题与随机博弈之间的关系，并将优化问题转化为奖励最大化问题。</li>
+<li>2）为了<strong>解决奖励最大化问题</strong>，我们放宽了普适边缘计算网络带来的约束，提出了一种基于多智能体模仿学习的<strong>计算卸载算法</strong>，该算法允许多个学习智能体模仿相应专家的行为，以获得良好的调度策略。据我们所知，这是第一个将多智能体广义对抗模仿学习（GAIL）与普适边缘计算相结合以解决流量调度问题的工作。</li>
+<li>3）为了<strong>形成专家策略</strong>，我们采用Actor-Critic和Kronecker-factored Trust Region（ACKTR）算法，在对系统状态的充分观察的基础上找到专家的最优策略。对于<strong>智能体策略</strong>，提出了一种基于部分观测值的每种设备的新神经网络模型。它全面集成了卷积神经网络（CNN）、生成对抗网络（GAN）和ACKTR来接近专家性能，并且可以在线方式执行。</li>
+<li>4）我们从理论和实验两个角度证明了该算法的优越性。理论结果表明，该算法能够保证器件的公平性，并在完全和部分观测的基础上达到纳什均衡。性能结果表明，该算法在平均任务完成时间、收敛时间和卸载率方面均具有优势。</li>
+</ul>
+</li>
+</ul>
+<h2 id="x1f4ca-效果"><a href="#x1f4ca-效果" class="headerlink" title="📊效果"></a><span class="emoji" alias="bar_chart" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4ca.png?v8">📊</span>效果</h2><ul>
+<li>我们从理论和实验两个角度证明了该算法的优越性。理论结果表明，该算法能够保证器件的公平性，并在完全和部分观测的基础上达到纳什均衡。性能结果表明，该算法在平均任务完成时间、收敛时间和卸载率方面均具有优势。</li>
+</ul>
+<h2 id="x1f9e0-疑问"><a href="#x1f9e0-疑问" class="headerlink" title="🧠疑问"></a><span class="emoji" alias="brain" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f9e0.png?v8">🧠</span>疑问</h2><ol>
+<li>算法调度时间多少？看起来需要多次迭代，应该速度不快？单任务执行时间又只有零点几秒，这个情况如何解释？</li>
+</ol>
+<hr>
+<hr>
+<ul>
+<li>希望这篇博客对你有帮助！如果你有任何问题或需要进一步的帮助，请随时提问。</li>
+<li>如果你喜欢这篇文章，欢迎<a class="link" href="https://github.com/freshwlnd/">动动小手 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>给我一个follow或star。</li>
+</ul>
+<h1 id="x1f5fa-参考文献"><a href="#x1f5fa-参考文献" class="headerlink" title="🗺参考文献"></a><span class="emoji" alias="world_map" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f5fa.png?v8">🗺</span>参考文献</h1><div id="refer-anchor-1"></div>
+
+<p><a class="link" href="https://ieeexplore.ieee.org/document/9197692">[1] X. Wang, Z. Ning and S. Guo, “Multi-Agent Imitation Learning for Pervasive Edge Computing: A Decentralized Computation Offloading Algorithm,” in IEEE Transactions on Parallel and Distributed Systems, vol. 32, no. 2, pp. 411-425, 1 Feb. 2021, doi: 10.1109/TPDS.2020.3023936. <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+]]></content>
+      <categories>
+        <category>论文</category>
+        <category>略读</category>
+        <category>调度</category>
+      </categories>
+      <tags>
+        <tag>多智能体</tag>
+        <tag>去中心化调度</tag>
+      </tags>
+  </entry>
 </search>
