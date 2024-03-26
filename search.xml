@@ -5008,7 +5008,7 @@
       </tags>
   </entry>
   <entry>
-    <title>论文精读笔记1-前沿-跨地域资源预留调度</title>
+    <title>【论文】精读笔记1-前沿-跨地域资源预留调度</title>
     <url>/2023/12/06/literature/literatureNotesIntensive1/</url>
     <content><![CDATA[<h1 id="x1f4d6-《Characterizing-and-orchestrating-VM-reservation-in-geo-distributed-clouds-to-improve-the-resource-efficiency》"><a href="#x1f4d6-《Characterizing-and-orchestrating-VM-reservation-in-geo-distributed-clouds-to-improve-the-resource-efficiency》" class="headerlink" title="&#x1f4d6;《Characterizing and orchestrating VM reservation in geo-distributed clouds to improve the resource efficiency》"></a><span class="emoji" alias="book" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4d6.png?v8">&#x1f4d6;</span>《Characterizing and orchestrating VM reservation in geo-distributed clouds to improve the resource efficiency》</h1><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><h3 id="对象"><a href="#对象" class="headerlink" title="对象"></a>对象</h3><ul>
 <li>供应商-租户<ul>
