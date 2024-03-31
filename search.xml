@@ -6834,4 +6834,110 @@
         <tag>去中心化调度</tag>
       </tags>
   </entry>
+  <entry>
+    <title>【论文】略读笔记33-经典-虚拟机迁移</title>
+    <url>/2024/03/31/literature/literatureNotes33/</url>
+    <content><![CDATA[<h1 id="x1f4d6-《Cost-and-Delay-Aware-Dynamic-Resource-Allocation-in-Federated-Vehicular-Clouds》"><a href="#x1f4d6-《Cost-and-Delay-Aware-Dynamic-Resource-Allocation-in-Federated-Vehicular-Clouds》" class="headerlink" title="📖《Cost-and-Delay Aware Dynamic Resource Allocation in Federated Vehicular Clouds》"></a><span class="emoji" alias="book" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4d6.png?v8">📖</span>《Cost-and-Delay Aware Dynamic Resource Allocation in Federated Vehicular Clouds》</h1><h2 id="x1f3af-需求"><a href="#x1f3af-需求" class="headerlink" title="🎯需求"></a><span class="emoji" alias="dart" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f3af.png?v8">🎯</span>需求</h2><ul>
+<li><p>早期的<strong>车辆自组网（VANET）</strong>由带有车载单元的车辆组成，这些单元可以通信和共享信息以增强驾驶体验。</p>
+<ul>
+<li>随着越来越多地使用云计算来支持<strong>资源密集型应用程序</strong>，这些应用程序正在呈现出新的形式，否则这些应用程序将无法与车上有限的资源一起使用。</li>
+</ul>
+</li>
+<li><p><strong>现代</strong>车辆应用程序是资源密集型的，并且具有不同的服务质量 （QoS） 要求。在这个方向上，车载云计算（VCC）已成为在云中托管此类应用程序的新范式。</p>
+<ul>
+<li><strong>车载云计算 （VCC）</strong> 是一种技术，其中带有网关路边单元 （RSU） 的 VANET 和云计算一起用于托管新兴的车辆应用在VCC的帮助下，可以支持实时导航、视频监控、实时交通分析、远程车辆诊断、虚拟现实和移动社交网络等多种应用。</li>
+<li>然而，<strong>联网车辆的数量</strong>正在迅速增加，预计到 2023 年，约 98% 的新车将连接到互联网。预计这将大大改善安全服务以及信息娱乐应用的交付。同时，联网车辆数量的急剧增长及其高机动性对云提供商（CP）的要求构成了严峻的挑战，以满足所有请求的要求。</li>
+</ul>
+</li>
+<li><p>在这种情况下，联合云通过将多个 CP 的数据中心 （DC） 集成到一个虚拟的单一云中，提供了一种经济高效的解决方案。在本文中，我们将 VCC 范式扩展到包括联合，其中来自多个云提供商的数据中心被汇集在一起，以支持单个提供商无法支持的应用程序。</p>
+<ul>
+<li>在车载网络中利用<strong>联合云</strong>为用户和车载服务提供商带来了许多好处。<ul>
+<li>1）使用联合云，车辆服务提供商可以通过<strong>将过载暂时转移到相邻的 CP</strong> 来避免针对峰值工作负载的基础设施扩展。这也允许服务提供商在所需的延迟和成本要求内为更多用户提供服务，从而带来更高的收入。<strong>【提供海量资源】</strong><ul>
+<li>例如，一个区域中可能有<strong>大量</strong>用户无法由单个 DC 提供服务。另一种情况是在高峰时段车辆密度突然增加。</li>
+</ul>
+</li>
+<li>2）联合中 CP 的地理多样性还具有其他优势，例如<strong>成本效益和低延迟</strong>。<strong>【提供低价资源】</strong><ul>
+<li>例如，车辆服务提供商可能以<strong>低于本地处理请求的价格</strong>从其他 CP 获取资源。这有助于CP最小化其运营成本并最大化其利润。</li>
+</ul>
+</li>
+<li>3）联合还有助于处理<strong>移动性</strong>，这通常是通过将虚拟机 （VM） 迁移到更近的 DC 来完成的，以最大程度地减少延迟。它还有利于小型 CP 通过从其他 CP 租用资源来提供高可用性和可伸缩性。<strong>【提供动态资源】</strong></li>
+</ul>
+</li>
+<li>在本文中，我们建议使用联邦车载云计算（FVCC）来利用上述优势来托管车载应用。</li>
+</ul>
+</li>
+<li><p>VCC中的应用程序可以根据其延迟要求分为两类：</p>
+<ul>
+<li>延迟敏感型应用，如安全消息的传递，</li>
+<li>以及延迟容忍型应用，如支持社交网络消息。</li>
+</ul>
+</li>
+<li><p>对于CP来说，<strong>资源分配</strong>是一项具有挑战性的任务，其中</p>
+<ul>
+<li>1）必须满足应用要求，</li>
+<li>2）同时将用户成本降至最低，</li>
+<li>3）同时将CP的运营成本降至最低。</li>
+<li>4）此外，联合中每个CP的主要目标是在满足用户QoS要求的同时实现自身利润最大化。</li>
+</ul>
+</li>
+<li><p>由于<strong>用户移动性</strong>和<strong>车辆应用的延迟敏感性</strong>，VCC的问题变得更加具有挑战性。服务提供商需要持续监控网络延迟，并在需要时触发虚拟机迁移，以满足延迟要求。</p>
+<ul>
+<li>FVCC中的<strong>动态资源分配</strong>包括：1）初始VM放置和2）VM迁移，以优化系统中的资源分配。</li>
+</ul>
+</li>
+</ul>
+<h2 id="x1f6a7-现状"><a href="#x1f6a7-现状" class="headerlink" title="🚧现状"></a><span class="emoji" alias="construction" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f6a7.png?v8">🚧</span>现状</h2><ul>
+<li>现有研究A考虑了<strong>移动用户</strong>，并建议将一些<strong>请求外包</strong>给云以提高可扩展性。他们将资源分配问题表述为优化问题，目的是实现成本最小化。在B中，作者试图将VCC系统的<strong>能耗成本</strong>降至最低。但是，这些工作没有考虑<strong>虚拟机迁移</strong>来处理延迟要求，而只关注优化成本。</li>
+<li>C中的工作在分层云架构中提出了各种调度策略来<strong>减少延迟</strong>，但在减少延迟的同时<strong>没有考虑成本</strong>。</li>
+<li>D中的工作纯粹集中在<strong>车载网络的延迟</strong>上，但没有考虑优化<strong>云中的延迟或运营成本</strong>。</li>
+</ul>
+<h2 id="x1f6e9-创新"><a href="#x1f6e9-创新" class="headerlink" title="🛩创新"></a><span class="emoji" alias="small_airplane" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f6e9.png?v8">🛩</span>创新</h2><ul>
+<li>我们解决了联合车辆云中的动态资源分配问题。<ul>
+<li>1）现代车辆应用对资源和延迟感知非常敏感。随着用户密度和移动性的增加，我们认为FVCC是处理此类应用程序的前进方向，而提供商则试图最大化其利润。据我们所知，文献中<strong>没有现有的工作将联合云用于车辆应用</strong>，以证明其对CP和用户的好处。</li>
+<li>2）我们还从文献中观察到，大多数工作要么优化了 VCC 架构中资源分配期间的成本，要么优化了延迟（而不是在联合场景中）。我们认为，<strong>两者都应该共同优化</strong>，以满足CP和用户的目标。</li>
+<li>3）此外，理想的动态分配策略应根据车辆应用程序的延迟要求<strong>对车辆应用程序进行分类</strong>，并<strong>迁移虚拟机</strong>以处理 VCC 中的移动性。</li>
+<li>眼前的问题是，托管车载服务的 <strong>CP</strong> 如何在<strong>联合云环境</strong>中<strong>动态分配资源</strong>，以最大限度地<strong>降低运营成本</strong>，同时<strong>确保</strong>用户在网络上<strong>移动</strong>的<strong>延迟要求</strong>。</li>
+</ul>
+</li>
+<li>我们工作的主要贡献总结如下：<ul>
+<li>我们<strong>引入了联合车辆云计算 （FVCC） 架构</strong>，以解决跨多个 CP 的动态资源分配问题。对于拟议的架构，我们<strong>分析了处理请求时产生的端到端延迟</strong>，并提出了 CP 之间资源共享的动态定价模型。</li>
+<li>我们将联合云中车载应用的动态资源分配问题<strong>表述为优化问题</strong>，目的是在满足应用时延要求的同时，最大限度地降低服务商的成本。</li>
+<li>我们<strong>提出了一种成本和延迟感知的动态资源分配算法</strong>，用于对用户请求进行分类并执行在线资源分配，并在需要时迁移虚拟机（基于移动性和延迟要求）。</li>
+<li>我们评估了所提出的算法，以展示联合云在满足服务提供商和最终用户需求方面的优势。<!-- * 我们提出了一种动态资源定价模型，用于在云提供商之间共享资源，并在此基础上将资源分配表述为优化问题。其目的是在满足不同车辆应用的延迟限制的同时，最大限度地降低车辆服务提供商的成本，为此提出了一种成本和延迟感知多项式时间算法。 -->
+
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="x1f4ca-效果"><a href="#x1f4ca-效果" class="headerlink" title="📊效果"></a><span class="emoji" alias="bar_chart" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4ca.png?v8">📊</span>效果</h2><ul>
+<li>与基线方法相比，所提出的算法被认为可以满足延迟要求，并显着降低提供商的成本高达 50%。</li>
+<li>我们还表明，所提出的算法可以以更低的成本和更少的虚拟机迁移为90%以上的请求提供服务。它将 VM 迁移次数减少了 72%。</li>
+</ul>
+<h2 id="x1f9e0-疑问"><a href="#x1f9e0-疑问" class="headerlink" title="🧠疑问"></a><span class="emoji" alias="brain" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f9e0.png?v8">🧠</span>疑问</h2><ol>
+<li>单个云资源不够这个假设是否通用？还是说仅在车联网场景下适用，且此时“云资源”指的是局部数据中心？</li>
+<li>用户成本最低、运营商成本最低，是两个方面？更直接地说，本文应该仅关注最小化运营商成本才对。</li>
+<li>多个CP的结构下，是否存在公平性问题？多个CP利益冲突怎么办？</li>
+<li>虚拟机是资源层面的管理单位，与“用户延迟要求”具有直接关系吗？作为优化目标如何解释？</li>
+<li>摘要中提到的“dynamic resource pricing model”（定价模型）如何理解？本文似乎与定价没有任何关系。</li>
+<li>虚拟机启动的时间很长，在本文中请求到达后供应商启动虚拟机，这不会导致超时吗？没有看到对该问题的解释。</li>
+</ol>
+<hr>
+<hr>
+<ul>
+<li>希望这篇博客对你有帮助！如果你有任何问题或需要进一步的帮助，请随时提问。</li>
+<li>如果你喜欢这篇文章，欢迎<a class="link" href="https://github.com/freshwlnd/">动动小手 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>给我一个follow或star。</li>
+</ul>
+<h1 id="x1f5fa-参考文献"><a href="#x1f5fa-参考文献" class="headerlink" title="🗺参考文献"></a><span class="emoji" alias="world_map" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f5fa.png?v8">🗺</span>参考文献</h1><div id="refer-anchor-1"></div>
+
+<p><a class="link" href="https://ieeexplore.ieee.org/document/9430741">[1] M. Najm, M. Patra and V. Tamarapalli, “Cost-and-Delay Aware Dynamic Resource Allocation in Federated Vehicular Clouds,” in IEEE Transactions on Vehicular Technology, vol. 70, no. 6, pp. 6159-6171, June 2021, doi: 10.1109/TVT.2021.3079912 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+]]></content>
+      <categories>
+        <category>论文</category>
+        <category>略读</category>
+        <category>云计算</category>
+      </categories>
+      <tags>
+        <tag>迁移</tag>
+      </tags>
+  </entry>
 </search>
