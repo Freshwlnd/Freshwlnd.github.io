@@ -6941,4 +6941,135 @@
         <tag>spring</tag>
       </tags>
   </entry>
+  <entry>
+    <title>【论文】略读笔记34-前沿-地理分布式成本优化调度</title>
+    <url>/2024/05/07/literature/literatureNotes34/</url>
+    <content><![CDATA[<h1 id="x1f4d6-《TanGo-A-Cost-Optimization-Framework-for-Tenant-Task-Placement-in-Geo-distributed-Clouds》"><a href="#x1f4d6-《TanGo-A-Cost-Optimization-Framework-for-Tenant-Task-Placement-in-Geo-distributed-Clouds》" class="headerlink" title="📖《TanGo: A Cost Optimization Framework for Tenant Task Placement in Geo-distributed Clouds》"></a><span class="emoji" alias="book" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4d6.png?v8">📖</span>《TanGo: A Cost Optimization Framework for Tenant Task Placement in Geo-distributed Clouds》</h1><h2 id="x1f3af-需求"><a href="#x1f3af-需求" class="headerlink" title="🎯需求"></a><span class="emoji" alias="dart" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f3af.png?v8">🎯</span>需求</h2><ul>
+<li>云基础设施逐渐呈现地理分布的趋势，以实现全球租户的随时随地连接。<ul>
+<li>将企业用户应用程序部署到共享和多区域云基础设施已成为一种新常态，以满足应用程序要求，包括延迟（例如，视频流为 100-150 毫秒）和数据主权法规（例如，欧盟 GDPR）。</li>
+<li>这种地理分布式部署模式要求云提供商（例如AWS、Microsoft Azure和Google Cloud）在全球范围内构建多区域和大规模基础设施，在各大洲建立数十个数据中心，通过专门构建的高带宽光纤将它们连接到全球骨干网络中，或从ISP租用带宽。<ul>
+<li>在人口稠密地区附近建造超大规模云数据中心既不环保也不经济，因为在电力传输过程中浪费了能源（例如，从美国中西部到东海岸，或从中国西部到中国东部的低成本电力供应）。云消耗的电力与服务器数量的激增和每台服务器上托管的密集型工作负载相关，一直在快速增长，占总运营成本的 60%-70%。因此，现有的云部署模式远非理想，需要一套创新的设计，以更具成本效益和环保的云部署。</li>
+<li>为了实现这一雄心勃勃的目标，我们的论文旨在回答一个有意义但尚未探索的问题：是否有可能以跨区域的方式安排和安排租户任务，以便在满足所需租户/应用程序要求的同时显着降低整体电力成本？</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>地理分布云中租户任务的放置涉及三个关键而相互关联的因素：<strong>电价的区域差异</strong>、<strong>租户的访问延迟</strong>以及<strong>任务间流量需求</strong>，因此在多区域多租户云中实现高效的任务放置是一项艰巨的任务。<ul>
+<li><strong>电价的区域差异</strong>：根据电力来源（例如水力发电、风能或天然气）和与发电厂的传输距离，位于不同地区的数据中心的电力单价可能会有很大差异。例如，高峰定价的年平均前一天为32.57/MWhintheUSNorthwestcomparedto纽约为62.71/MWh。</li>
+<li><strong>租户访问延迟</strong>：指客户端与部署在云中的租户应用程序/服务之间的往返访问延迟。所需的延迟由租户任务的类型决定（例如，时间敏感型与不时间敏感型），实际延迟根据客户端和云区域之间的地理距离而有很大差异。</li>
+<li><strong>任务间流量需求</strong>是指同一租户的多个任务之间所需的时延/带宽。所需的延迟/带宽还取决于租户任务的类型，例如，MapReduce 和分布式机器学习 等新计算范式需要任务之间的高带宽。如果部署在不同的位置（例如，一个在美国东部，另一个在美国南部），任务之间的大量流量可能与数据中心之间的有限带宽容量相矛盾。</li>
+</ul>
+</li>
+</ul>
+<h2 id="x1f6a7-现状"><a href="#x1f6a7-现状" class="headerlink" title="🚧现状"></a><span class="emoji" alias="construction" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f6a7.png?v8">🚧</span>现状</h2><ul>
+<li>现有研究要么忽视了地区电价的差异，要么忽视了地理分布云中租户的需求，从而导致了运营成本的增加或用户服务质量的降低。<ul>
+<li>例如，已经提出了一些任务放置解决方案，通过利用多个区域之间的电价差异来最小化总电力成本。但是，这些工作忽略了任务之间的各种流量需求。当应用程序对任务间通信（例如，分布式训练）提出很高的要求时，最好将任务放在同一区域，否则任务放置可以更灵活。忽视通信需求可能会导致更高的运营成本。</li>
+</ul>
+</li>
+</ul>
+<h2 id="x1f6e9-创新"><a href="#x1f6e9-创新" class="headerlink" title="🛩创新"></a><span class="emoji" alias="small_airplane" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f6e9.png?v8">🛩</span>创新</h2><ul>
+<li>我们设计了一个针对地理分布云中租户任务放置的成本优化框架，称为TanGo。<ul>
+<li>其中租户可以指定他们对任务的各种需求，云提供商可以以经济高效的方式放置租户任务。</li>
+<li>TanGo的核心是一种近乎最优的任务放置算法，它可以在满足所有需求和约束的同时将总成本降至最低。</li>
+</ul>
+</li>
+<li>我们做出了以下贡献：<ol>
+<li>我们提出了TanGo，这是一个成本优化框架，其中包括地理分布任务放置问题的数学模型。TanGo最大限度地降低了整体电力成本，同时满足了所有不同的需求。</li>
+<li>我们将任务放置问题中的电费最小化问题表述为混合整数非线性优化问题，并给出了一个基于子模的解。我们证明了我们的算法接近最优，并受到 （1 − 1/e） 的严格近似因子的限制。</li>
+</ol>
+</li>
+</ul>
+<h2 id="x1f4ca-效果"><a href="#x1f4ca-效果" class="headerlink" title="📊效果"></a><span class="emoji" alias="bar_chart" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4ca.png?v8">📊</span>效果</h2><ul>
+<li>基于真实数据集的深入模拟结果显示了我们算法的有效性，以及与通常采用的替代方案相比，电费总体减少了10%-30%。<ul>
+<li>场景<ul>
+<li>选择美国十个城市作为数据中心位置，用户从美国100个城市随机访问这些数据中心。</li>
+<li>电力数据基于美国联邦能源监管委员会定价数据。</li>
+<li>时延根据欧几里得距离获得，贷款默认都设置为50Gbps。（带宽没有价格）</li>
+<li>任务使用阿里巴巴、谷歌数据集。总共有29天内2500w个任务（平均10个/s），选择其中12h任务。</li>
+</ul>
+</li>
+<li>指标<ul>
+<li>只比较了电价成本。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="x1f9e0-疑问"><a href="#x1f9e0-疑问" class="headerlink" title="🧠疑问"></a><span class="emoji" alias="brain" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f9e0.png?v8">🧠</span>疑问</h2><ol>
+<li>带宽不收费，该假设的合理性？</li>
+<li>算法性能？</li>
+</ol>
+<hr>
+<hr>
+<ul>
+<li>希望这篇博客对你有帮助！如果你有任何问题或需要进一步的帮助，请随时提问。</li>
+<li>如果你喜欢这篇文章，欢迎<a class="link" href="https://github.com/freshwlnd/">动动小手 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>给我一个follow或star。</li>
+</ul>
+<h1 id="x1f5fa-参考文献"><a href="#x1f5fa-参考文献" class="headerlink" title="🗺参考文献"></a><span class="emoji" alias="world_map" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f5fa.png?v8">🗺</span>参考文献</h1><div id="refer-anchor-1"></div>
+
+<p><a class="link" href="https://ieeexplore.ieee.org/document/10229004">[1] L. Luo, G. Zhao, H. Xu, Z. Yu and L. Xie, “TanGo: A Cost Optimization Framework for Tenant Task Placement in Geo-distributed Clouds,” IEEE INFOCOM 2023 - IEEE Conference on Computer Communications, New York City, NY, USA, 2023, pp. 1-10, doi: 10.1109/INFOCOM53939.2023.10229004. <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+]]></content>
+      <categories>
+        <category>论文</category>
+        <category>略读</category>
+        <category>云计算</category>
+      </categories>
+      <tags>
+        <tag>调度</tag>
+        <tag>地理分布式</tag>
+        <tag>成本优化</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>【论文】略读笔记35-前沿-地理分布式云租户任务分配的成本优化</title>
+    <url>/2024/05/07/literature/literatureNotes35/</url>
+    <content><![CDATA[<h1 id="x1f4d6-《Achieving-Cost-Optimization-for-Tenant-Task-Placement-in-Geo-distributed-Clouds》"><a href="#x1f4d6-《Achieving-Cost-Optimization-for-Tenant-Task-Placement-in-Geo-distributed-Clouds》" class="headerlink" title="📖《Achieving Cost Optimization for Tenant Task Placement in Geo-distributed Clouds》"></a><span class="emoji" alias="book" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4d6.png?v8">📖</span>《Achieving Cost Optimization for Tenant Task Placement in Geo-distributed Clouds》</h1><h2 id="x1f3af-需求"><a href="#x1f3af-需求" class="headerlink" title="🎯需求"></a><span class="emoji" alias="dart" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f3af.png?v8">🎯</span>需求</h2><ul>
+<li>和<a href="./literatureNotes34.md">另一篇文章</a>完全一致</li>
+</ul>
+<h2 id="x1f6a7-现状"><a href="#x1f6a7-现状" class="headerlink" title="🚧现状"></a><span class="emoji" alias="construction" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f6a7.png?v8">🚧</span>现状</h2><ul>
+<li>和<a href="./literatureNotes34.md">另一篇文章</a>完全一致</li>
+</ul>
+<h2 id="x1f6e9-创新"><a href="#x1f6e9-创新" class="headerlink" title="🛩创新"></a><span class="emoji" alias="small_airplane" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f6e9.png?v8">🛩</span>创新</h2><ul>
+<li>和<a href="./literatureNotes34.md">另一篇文章</a>几乎一致</li>
+<li>将原算法扩展至“任务重复部署”问题<br><img lazyload="" src="/images/loading.svg" data-src="https://ieeexplore.ieee.org/mediastore_new/IEEE/content/media/90/10505042/10273228/xu4ab-3319434-small.gif" alt="重复部署策略示例"></li>
+</ul>
+<h2 id="x1f4ca-效果"><a href="#x1f4ca-效果" class="headerlink" title="📊效果"></a><span class="emoji" alias="bar_chart" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4ca.png?v8">📊</span>效果</h2><ul>
+<li>和<a href="./literatureNotes34.md">另一篇文章</a>几乎一致</li>
+<li>补充了重复部署测试<ul>
+<li>场景：租户在不同位置有不同需求</li>
+<li>对比：对比算法通过贪心选择重复部署</li>
+<li>指标：重复部署数量（本方法最少）、成本（本方法最优）</li>
+</ul>
+</li>
+<li>补充了性能测试<ul>
+<li>场景：请求数量20-&gt;240</li>
+<li>对比：最优IP求解器</li>
+<li>指标：运行时间（本方法200个请求就需要10s）、准确度（与IP最优解损失在10%以内）</li>
+</ul>
+</li>
+</ul>
+<h2 id="x1f9e0-疑问"><a href="#x1f9e0-疑问" class="headerlink" title="🧠疑问"></a><span class="emoji" alias="brain" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f9e0.png?v8">🧠</span>疑问</h2><ol>
+<li>和<a href="./literatureNotes34.md">另一篇文章</a>几乎完全一致？而新增加的部分在introduction部分并未显著提及。</li>
+</ol>
+<hr>
+<hr>
+<ul>
+<li>希望这篇博客对你有帮助！如果你有任何问题或需要进一步的帮助，请随时提问。</li>
+<li>如果你喜欢这篇文章，欢迎<a class="link" href="https://github.com/freshwlnd/">动动小手 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>给我一个follow或star。</li>
+</ul>
+<h1 id="x1f5fa-参考文献"><a href="#x1f5fa-参考文献" class="headerlink" title="🗺参考文献"></a><span class="emoji" alias="world_map" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f5fa.png?v8">🗺</span>参考文献</h1><div id="refer-anchor-1"></div>
+
+<p><a href="">[1] 论文引用</a></p>
+]]></content>
+      <categories>
+        <category>论文</category>
+        <category>略读</category>
+        <category>云计算</category>
+      </categories>
+      <tags>
+        <tag>调度</tag>
+        <tag>地理分布式</tag>
+        <tag>成本优化</tag>
+      </tags>
+  </entry>
 </search>
