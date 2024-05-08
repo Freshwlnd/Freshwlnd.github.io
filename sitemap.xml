@@ -2,6 +2,24 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://freshwlnd.github.io/2024/05/08/literature/literatureNotes36/</loc>
+    
+    <lastmod>2024-05-08</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://freshwlnd.github.io/2024/05/08/literature/literatureNotes37/</loc>
+    
+    <lastmod>2024-05-08</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://freshwlnd.github.io/2024/05/07/literature/literatureNotes34/</loc>
     
     <lastmod>2024-05-08</lastmod>
@@ -1131,6 +1149,20 @@
   
   <url>
     <loc>https://freshwlnd.github.io/tags/%E6%88%90%E6%9C%AC%E4%BC%98%E5%8C%96/</loc>
+    <lastmod>2024-05-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://freshwlnd.github.io/tags/%E8%AF%B7%E6%B1%82%E8%B0%83%E5%BA%A6/</loc>
+    <lastmod>2024-05-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://freshwlnd.github.io/tags/%E8%B5%84%E6%BA%90%E8%B0%83%E9%85%8D/</loc>
     <lastmod>2024-05-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
