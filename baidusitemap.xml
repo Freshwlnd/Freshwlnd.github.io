@@ -1,15 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://freshwlnd.github.io/2025/03/27/fault-tolerance/</loc>
+    <lastmod>2025-03-27</lastmod>
+  </url>
+  <url>
+    <loc>https://freshwlnd.github.io/2025/03/25/k8s-vs-k3s/</loc>
+    <lastmod>2025-03-27</lastmod>
+  </url>
+  <url>
     <loc>https://freshwlnd.github.io/2025/03/23/mkv-mp4-ffmpeg/</loc>
     <lastmod>2025-03-25</lastmod>
   </url>
   <url>
     <loc>https://freshwlnd.github.io/2025/01/07/literature/literatureNotes77/</loc>
-    <lastmod>2025-03-25</lastmod>
-  </url>
-  <url>
-    <loc>https://freshwlnd.github.io/2025/03/25/k8s-vs-k3s/</loc>
     <lastmod>2025-03-25</lastmod>
   </url>
   <url>
@@ -97,7 +101,7 @@
     <lastmod>2024-10-08</lastmod>
   </url>
   <url>
-    <loc>https://freshwlnd.github.io/2023/06/08/literature/literatureNotes10/</loc>
+    <loc>https://freshwlnd.github.io/2023/10/31/literature/literatureNotes16/</loc>
     <lastmod>2024-10-08</lastmod>
   </url>
   <url>
@@ -105,11 +109,11 @@
     <lastmod>2024-10-08</lastmod>
   </url>
   <url>
-    <loc>https://freshwlnd.github.io/2023/10/31/literature/literatureNotes16/</loc>
+    <loc>https://freshwlnd.github.io/2023/05/17/literature/literatureNotes2/</loc>
     <lastmod>2024-10-08</lastmod>
   </url>
   <url>
-    <loc>https://freshwlnd.github.io/2023/05/17/literature/literatureNotes2/</loc>
+    <loc>https://freshwlnd.github.io/2023/06/08/literature/literatureNotes10/</loc>
     <lastmod>2024-10-08</lastmod>
   </url>
   <url>
@@ -125,11 +129,11 @@
     <lastmod>2024-10-08</lastmod>
   </url>
   <url>
-    <loc>https://freshwlnd.github.io/2023/11/16/literature/literatureNotes25/</loc>
+    <loc>https://freshwlnd.github.io/2023/11/14/literature/literatureNotes24/</loc>
     <lastmod>2024-10-08</lastmod>
   </url>
   <url>
-    <loc>https://freshwlnd.github.io/2023/11/14/literature/literatureNotes24/</loc>
+    <loc>https://freshwlnd.github.io/2023/11/16/literature/literatureNotes25/</loc>
     <lastmod>2024-10-08</lastmod>
   </url>
   <url>
@@ -137,11 +141,15 @@
     <lastmod>2024-10-08</lastmod>
   </url>
   <url>
+    <loc>https://freshwlnd.github.io/2024/02/14/literature/literatureNotes28/</loc>
+    <lastmod>2024-10-08</lastmod>
+  </url>
+  <url>
     <loc>https://freshwlnd.github.io/2023/11/23/literature/literatureNotes27/</loc>
     <lastmod>2024-10-08</lastmod>
   </url>
   <url>
-    <loc>https://freshwlnd.github.io/2024/02/14/literature/literatureNotes28/</loc>
+    <loc>https://freshwlnd.github.io/2023/05/18/literature/literatureNotes3/</loc>
     <lastmod>2024-10-08</lastmod>
   </url>
   <url>
@@ -153,11 +161,11 @@
     <lastmod>2024-10-08</lastmod>
   </url>
   <url>
-    <loc>https://freshwlnd.github.io/2024/03/31/literature/literatureNotes33/</loc>
+    <loc>https://freshwlnd.github.io/2024/05/07/literature/literatureNotes34/</loc>
     <lastmod>2024-10-08</lastmod>
   </url>
   <url>
-    <loc>https://freshwlnd.github.io/2024/05/07/literature/literatureNotes34/</loc>
+    <loc>https://freshwlnd.github.io/2024/03/31/literature/literatureNotes33/</loc>
     <lastmod>2024-10-08</lastmod>
   </url>
   <url>
@@ -233,7 +241,7 @@
     <lastmod>2024-10-08</lastmod>
   </url>
   <url>
-    <loc>https://freshwlnd.github.io/2023/05/18/literature/literatureNotes3/</loc>
+    <loc>https://freshwlnd.github.io/2024/07/19/literature/literatureNotes54/</loc>
     <lastmod>2024-10-08</lastmod>
   </url>
   <url>
@@ -241,11 +249,11 @@
     <lastmod>2024-10-08</lastmod>
   </url>
   <url>
-    <loc>https://freshwlnd.github.io/2024/07/19/literature/literatureNotes54/</loc>
+    <loc>https://freshwlnd.github.io/2024/09/14/literature/literatureNotes59/</loc>
     <lastmod>2024-10-08</lastmod>
   </url>
   <url>
-    <loc>https://freshwlnd.github.io/2024/09/14/literature/literatureNotes59/</loc>
+    <loc>https://freshwlnd.github.io/2023/05/29/literature/literatureNotes6/</loc>
     <lastmod>2024-10-08</lastmod>
   </url>
   <url>
@@ -266,10 +274,6 @@
   </url>
   <url>
     <loc>https://freshwlnd.github.io/2023/05/30/literature/literatureNotes7/</loc>
-    <lastmod>2024-10-08</lastmod>
-  </url>
-  <url>
-    <loc>https://freshwlnd.github.io/2023/05/29/literature/literatureNotes6/</loc>
     <lastmod>2024-10-08</lastmod>
   </url>
   <url>
@@ -373,15 +377,15 @@
     <lastmod>2024-03-08</lastmod>
   </url>
   <url>
+    <loc>https://freshwlnd.github.io/2023/11/04/literature/literatureNotes18/</loc>
+    <lastmod>2024-03-08</lastmod>
+  </url>
+  <url>
     <loc>https://freshwlnd.github.io/2023/11/07/literature/literatureNotes19/</loc>
     <lastmod>2024-03-08</lastmod>
   </url>
   <url>
     <loc>https://freshwlnd.github.io/2024/02/25/literature/literatureNotes29/</loc>
-    <lastmod>2024-03-08</lastmod>
-  </url>
-  <url>
-    <loc>https://freshwlnd.github.io/2023/11/04/literature/literatureNotes18/</loc>
     <lastmod>2024-03-08</lastmod>
   </url>
   <url>
