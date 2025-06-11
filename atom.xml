@@ -64,9 +64,9 @@
     
     <category term="云计算" scheme="https://freshwlnd.github.io/tags/%E4%BA%91%E8%AE%A1%E7%AE%97/"/>
     
-    <category term="集群调度" scheme="https://freshwlnd.github.io/tags/%E9%9B%86%E7%BE%A4%E8%B0%83%E5%BA%A6/"/>
-    
     <category term="数据集" scheme="https://freshwlnd.github.io/tags/%E6%95%B0%E6%8D%AE%E9%9B%86/"/>
+    
+    <category term="集群调度" scheme="https://freshwlnd.github.io/tags/%E9%9B%86%E7%BE%A4%E8%B0%83%E5%BA%A6/"/>
     
   </entry>
   
@@ -122,9 +122,9 @@
     
     <category term="Volcano" scheme="https://freshwlnd.github.io/tags/Volcano/"/>
     
-    <category term="批处理" scheme="https://freshwlnd.github.io/tags/%E6%89%B9%E5%A4%84%E7%90%86/"/>
-    
     <category term="调度" scheme="https://freshwlnd.github.io/tags/%E8%B0%83%E5%BA%A6/"/>
+    
+    <category term="批处理" scheme="https://freshwlnd.github.io/tags/%E6%89%B9%E5%A4%84%E7%90%86/"/>
     
     <category term="HPC" scheme="https://freshwlnd.github.io/tags/HPC/"/>
     
@@ -155,9 +155,9 @@
     
     <category term="Volcano" scheme="https://freshwlnd.github.io/tags/Volcano/"/>
     
-    <category term="批处理" scheme="https://freshwlnd.github.io/tags/%E6%89%B9%E5%A4%84%E7%90%86/"/>
-    
     <category term="调度" scheme="https://freshwlnd.github.io/tags/%E8%B0%83%E5%BA%A6/"/>
+    
+    <category term="批处理" scheme="https://freshwlnd.github.io/tags/%E6%89%B9%E5%A4%84%E7%90%86/"/>
     
     <category term="HPC" scheme="https://freshwlnd.github.io/tags/HPC/"/>
     
