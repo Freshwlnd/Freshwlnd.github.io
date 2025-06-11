@@ -5226,90 +5226,6 @@
       </tags>
   </entry>
   <entry>
-    <title>【论文】略读笔记18-经典-地理分布式云调度</title>
-    <url>/2023/11/04/literature/literatureNotes18/</url>
-    <content><![CDATA[<h1 id="x1f4d6-《A-hierarchical-structure-for-optimal-resource-allocation-in-geographically-distributed-clouds》"><a href="#x1f4d6-《A-hierarchical-structure-for-optimal-resource-allocation-in-geographically-distributed-clouds》" class="headerlink" title="📖《A hierarchical structure for optimal resource allocation in geographically distributed clouds》"></a><span class="emoji" alias="book" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4d6.png?v8">📖</span>《A hierarchical structure for optimal resource allocation in geographically distributed clouds》</h1><h2 id="x1f3af-需求"><a href="#x1f3af-需求" class="headerlink" title="🎯需求"></a><span class="emoji" alias="dart" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f3af.png?v8">🎯</span>需求</h2><ul>
-<li><p>由于云计算中用户对各种资源的需求不断增长，优化资源分配是云环境中最重要的挑战之一。如今，大型云服务提供商通过建立大量地理分布的数据中心，为用户提供具有特定服务质量（QoS）的各种云服务，从而提高了性能，与传统数据中心相比，<strong>可靠性更高，成本更低，通信延迟更低</strong>。</p>
-<ul>
-<li>然而，云提供商面临的最重要挑战是通过考虑<ul>
-<li>（1）满足用户需求（目标）和</li>
-<li>（2）其资源限制</li>
-</ul>
-</li>
-<li>来管理资源，这对<strong>提供商的利用率</strong>和<strong>用户满意度</strong>产生重要影响。<ul>
-<li>在地理上分散的云中，这一挑战比集中式云更复杂，因为数据中心规模小（？），具有合格资源的候选数据中心数量多，导致通信延迟很大。此外，在地理位置分散的云中，有时需要多个数据中心来响应用户请求，因为一个数据中心可能没有足够的资源来满足请求。因此，分配器必须考虑多个按地理位置分布的数据中心。</li>
-</ul>
-</li>
-<li>通过考虑服务级别协议 （SLA） 中规定的用户要求和资源提供的服务质量 （QoS），可以实现最佳资源分配。由于某些用户需求（目标）与其他一些用户需求（目标）发生冲突，因此在选择资源时需要在它们之间进行最佳权衡。<ul>
-<li>具体而言，在本文中，面临的挑战是考虑一个数据中心中存在足够数量的请求资源的可能性，数据中心之间存在大量候选资源，以及包括响应时间、成本、 一方面减少网络流量，另一方面提高可靠性和可用性。云管理员应根据每个数据中心的可用虚拟机提供的服务质量 （QoS） 和用户要求，考虑云配置文件，选择一组数据中心，以便能够托管虚拟机（虚拟机）。</li>
-</ul>
-</li>
-<li>因此，从所有可能的排列中找到一个或多个排列组合，获得这样的权衡是一个复杂且NP困难的问题，因为我们可能会提出许多具有所需QoS的资源排列（选择）。</li>
-</ul>
-</li>
-<li><p>本文考虑的用户要求是资源的可用性和可靠性应最大化，资源成本和响应时间应最小化，以及网络流量最小化。</p>
-<ul>
-<li>需求的最大化和最小化相互冲突；因此，需要在它们之间进行权衡。</li>
-</ul>
-</li>
-</ul>
-<h2 id="x1f6a7-现状"><a href="#x1f6a7-现状" class="headerlink" title="🚧现状"></a><span class="emoji" alias="construction" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f6a7.png?v8">🚧</span>现状</h2><ul>
-<li>解决此类问题的一种方法是使用多目标启发式算法，在本文这项研究中也使用了该算法。</li>
-<li>现有研究已经提出了各种算法来分配数据中心的虚拟机，目的是降低能耗和网络感知。但是，这些算法通常被提议用于传统数据中心。</li>
-</ul>
-<h2 id="x1f6e9-创新"><a href="#x1f6e9-创新" class="headerlink" title="🛩创新"></a><span class="emoji" alias="small_airplane" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f6e9.png?v8">🛩</span>创新</h2><ul>
-<li>提出了分层架构。本文采用单纯形线性规划（SLP）方法和GrEA两种资源选择方法的分层结构，其中分层结构用于表示分布式数据中心之间的连接，该方法用于在数据中心之间选择最优资源。<ul>
-<li>分层结构最重要的功能是防止在数据中心发生请求累积，从而提高查找最佳 VM 的速率。</li>
-</ul>
-</li>
-<li>考虑了多种服务质量用户需求。在大多数关于地理分布云的研究中，为了优化资源选择，考虑了一种用户需求；但是，在本研究中，数据中心是根据四种用户需求以及网络流量选择的：考虑了最大限度地提高可用性和可靠性以及最小化成本、响应时间和流量的目标。<ul>
-<li>由于满足所提出的目标在云环境中很重要，因此本研究将这些目标于流量考虑因素一并关注。在选择虚拟机时，将追求以下目标：<ul>
-<li>用户可以根据他/她的要求支付尽可能低的费用，</li>
-<li>云提供商可以提供尽可能高的可靠性，</li>
-<li>云提供商可以提供尽可能高的可用性，</li>
-<li>根据用户和提供商之间的距离，可以存在尽可能短的延迟时间，从而实现尽可能短的响应时间，</li>
-<li>尽可能少的流量。</li>
-</ul>
-</li>
-<li>在上述目标中，”可能性”指的是考虑一个项目与其他项目之间的关系，即在相互冲突的目标之间进行权衡。为了在相互冲突的目标之间提供最佳权衡，通常使用多目标启发式算法。</li>
-</ul>
-</li>
-<li>考虑了多个用户请求。在大多数研究中，一次考虑一个用户的请求，但这项工作会同时处理多个用户的请求。</li>
-<li>提高了用户满意度。本研究通过使用 LP 算法来选择地理位置分散的数据中心，并使用称为 GrEA 的多目标算法来选择所选数据中心中的 VM，从而实现了这一点。为了分析所提出的方法，考虑了 6 个工作负载，包括 3 个模拟工作负载和 3 个真实工作负载。</li>
-</ul>
-<h2 id="x1f4ca-效果"><a href="#x1f4ca-效果" class="headerlink" title="📊效果"></a><span class="emoji" alias="bar_chart" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4ca.png?v8">📊</span>效果</h2><ul>
-<li>我们的结果显示，在用户冲突需求和资源利用率之间进行了 92% 的最佳权衡。</li>
-<li>此外，与相关研究相比，绩效指标覆盖率和最大价差指数表现出更强的表现。</li>
-</ul>
-<h2 id="x1f9e0-疑问"><a href="#x1f9e0-疑问" class="headerlink" title="🧠疑问"></a><span class="emoji" alias="brain" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f9e0.png?v8">🧠</span>疑问</h2><ol>
-<li>地理分布式云的“可靠性更高”体现在什么方面？</li>
-<li>这篇文章站在什么角度？中介？</li>
-<li>该架构具体如何调度？</li>
-<li>优化目标是什么？“服务质量”具体指什么？如何权衡？</li>
-<li>为什么 Introduction 敢断言“和集中式云相比数据中心规模小”？</li>
-</ol>
-<hr>
-<hr>
-<ul>
-<li>希望这篇博客对你有帮助！如果你有任何问题或需要进一步的帮助，请随时提问。</li>
-<li>如果你喜欢这篇文章，欢迎<a class="link" href="https://github.com/freshwlnd/">动动小手<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>给我一个follow或star。</li>
-</ul>
-<h1 id="x1f5fa-参考文献"><a href="#x1f5fa-参考文献" class="headerlink" title="🗺参考文献"></a><span class="emoji" alias="world_map" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f5fa.png?v8">🗺</span>参考文献</h1><div id="refer-anchor-1"></div>
-
-<p><a class="link" href="https://www.sciencedirect.com/science/article/pii/S0167739X17328844">[1] Hasan Ziafat, Seyed Morteza Babamir, A hierarchical structure for optimal resource allocation in geographically distributed clouds, Future Generation Computer Systems, Volume 90, 2019, Pages 539-568<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
-]]></content>
-      <categories>
-        <category>论文</category>
-        <category>略读</category>
-        <category>云计算</category>
-      </categories>
-      <tags>
-        <tag>云计算</tag>
-        <tag>跨地域</tag>
-        <tag>资源调度</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>【论文】略读笔记19-经典-大规模云计算系统智能学习调度</title>
     <url>/2023/11/07/literature/literatureNotes19/</url>
     <content><![CDATA[<h1 id="x1f4d6-《Deep-and-reinforcement-learning-for-automated-task-scheduling-in-large-scale-cloud-computing-systems》"><a href="#x1f4d6-《Deep-and-reinforcement-learning-for-automated-task-scheduling-in-large-scale-cloud-computing-systems》" class="headerlink" title="📖《Deep and reinforcement learning for automated task scheduling in large-scale cloud computing systems》"></a><span class="emoji" alias="book" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4d6.png?v8">📖</span>《Deep and reinforcement learning for automated task scheduling in large-scale cloud computing systems》</h1><h2 id="x1f3af-需求"><a href="#x1f3af-需求" class="headerlink" title="🎯需求"></a><span class="emoji" alias="dart" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f3af.png?v8">🎯</span>需求</h2><ul>
@@ -5392,6 +5308,90 @@
         <tag>调度</tag>
         <tag>大规模</tag>
         <tag>深度学习</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>【论文】略读笔记18-经典-地理分布式云调度</title>
+    <url>/2023/11/04/literature/literatureNotes18/</url>
+    <content><![CDATA[<h1 id="x1f4d6-《A-hierarchical-structure-for-optimal-resource-allocation-in-geographically-distributed-clouds》"><a href="#x1f4d6-《A-hierarchical-structure-for-optimal-resource-allocation-in-geographically-distributed-clouds》" class="headerlink" title="📖《A hierarchical structure for optimal resource allocation in geographically distributed clouds》"></a><span class="emoji" alias="book" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4d6.png?v8">📖</span>《A hierarchical structure for optimal resource allocation in geographically distributed clouds》</h1><h2 id="x1f3af-需求"><a href="#x1f3af-需求" class="headerlink" title="🎯需求"></a><span class="emoji" alias="dart" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f3af.png?v8">🎯</span>需求</h2><ul>
+<li><p>由于云计算中用户对各种资源的需求不断增长，优化资源分配是云环境中最重要的挑战之一。如今，大型云服务提供商通过建立大量地理分布的数据中心，为用户提供具有特定服务质量（QoS）的各种云服务，从而提高了性能，与传统数据中心相比，<strong>可靠性更高，成本更低，通信延迟更低</strong>。</p>
+<ul>
+<li>然而，云提供商面临的最重要挑战是通过考虑<ul>
+<li>（1）满足用户需求（目标）和</li>
+<li>（2）其资源限制</li>
+</ul>
+</li>
+<li>来管理资源，这对<strong>提供商的利用率</strong>和<strong>用户满意度</strong>产生重要影响。<ul>
+<li>在地理上分散的云中，这一挑战比集中式云更复杂，因为数据中心规模小（？），具有合格资源的候选数据中心数量多，导致通信延迟很大。此外，在地理位置分散的云中，有时需要多个数据中心来响应用户请求，因为一个数据中心可能没有足够的资源来满足请求。因此，分配器必须考虑多个按地理位置分布的数据中心。</li>
+</ul>
+</li>
+<li>通过考虑服务级别协议 （SLA） 中规定的用户要求和资源提供的服务质量 （QoS），可以实现最佳资源分配。由于某些用户需求（目标）与其他一些用户需求（目标）发生冲突，因此在选择资源时需要在它们之间进行最佳权衡。<ul>
+<li>具体而言，在本文中，面临的挑战是考虑一个数据中心中存在足够数量的请求资源的可能性，数据中心之间存在大量候选资源，以及包括响应时间、成本、 一方面减少网络流量，另一方面提高可靠性和可用性。云管理员应根据每个数据中心的可用虚拟机提供的服务质量 （QoS） 和用户要求，考虑云配置文件，选择一组数据中心，以便能够托管虚拟机（虚拟机）。</li>
+</ul>
+</li>
+<li>因此，从所有可能的排列中找到一个或多个排列组合，获得这样的权衡是一个复杂且NP困难的问题，因为我们可能会提出许多具有所需QoS的资源排列（选择）。</li>
+</ul>
+</li>
+<li><p>本文考虑的用户要求是资源的可用性和可靠性应最大化，资源成本和响应时间应最小化，以及网络流量最小化。</p>
+<ul>
+<li>需求的最大化和最小化相互冲突；因此，需要在它们之间进行权衡。</li>
+</ul>
+</li>
+</ul>
+<h2 id="x1f6a7-现状"><a href="#x1f6a7-现状" class="headerlink" title="🚧现状"></a><span class="emoji" alias="construction" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f6a7.png?v8">🚧</span>现状</h2><ul>
+<li>解决此类问题的一种方法是使用多目标启发式算法，在本文这项研究中也使用了该算法。</li>
+<li>现有研究已经提出了各种算法来分配数据中心的虚拟机，目的是降低能耗和网络感知。但是，这些算法通常被提议用于传统数据中心。</li>
+</ul>
+<h2 id="x1f6e9-创新"><a href="#x1f6e9-创新" class="headerlink" title="🛩创新"></a><span class="emoji" alias="small_airplane" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f6e9.png?v8">🛩</span>创新</h2><ul>
+<li>提出了分层架构。本文采用单纯形线性规划（SLP）方法和GrEA两种资源选择方法的分层结构，其中分层结构用于表示分布式数据中心之间的连接，该方法用于在数据中心之间选择最优资源。<ul>
+<li>分层结构最重要的功能是防止在数据中心发生请求累积，从而提高查找最佳 VM 的速率。</li>
+</ul>
+</li>
+<li>考虑了多种服务质量用户需求。在大多数关于地理分布云的研究中，为了优化资源选择，考虑了一种用户需求；但是，在本研究中，数据中心是根据四种用户需求以及网络流量选择的：考虑了最大限度地提高可用性和可靠性以及最小化成本、响应时间和流量的目标。<ul>
+<li>由于满足所提出的目标在云环境中很重要，因此本研究将这些目标于流量考虑因素一并关注。在选择虚拟机时，将追求以下目标：<ul>
+<li>用户可以根据他/她的要求支付尽可能低的费用，</li>
+<li>云提供商可以提供尽可能高的可靠性，</li>
+<li>云提供商可以提供尽可能高的可用性，</li>
+<li>根据用户和提供商之间的距离，可以存在尽可能短的延迟时间，从而实现尽可能短的响应时间，</li>
+<li>尽可能少的流量。</li>
+</ul>
+</li>
+<li>在上述目标中，”可能性”指的是考虑一个项目与其他项目之间的关系，即在相互冲突的目标之间进行权衡。为了在相互冲突的目标之间提供最佳权衡，通常使用多目标启发式算法。</li>
+</ul>
+</li>
+<li>考虑了多个用户请求。在大多数研究中，一次考虑一个用户的请求，但这项工作会同时处理多个用户的请求。</li>
+<li>提高了用户满意度。本研究通过使用 LP 算法来选择地理位置分散的数据中心，并使用称为 GrEA 的多目标算法来选择所选数据中心中的 VM，从而实现了这一点。为了分析所提出的方法，考虑了 6 个工作负载，包括 3 个模拟工作负载和 3 个真实工作负载。</li>
+</ul>
+<h2 id="x1f4ca-效果"><a href="#x1f4ca-效果" class="headerlink" title="📊效果"></a><span class="emoji" alias="bar_chart" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4ca.png?v8">📊</span>效果</h2><ul>
+<li>我们的结果显示，在用户冲突需求和资源利用率之间进行了 92% 的最佳权衡。</li>
+<li>此外，与相关研究相比，绩效指标覆盖率和最大价差指数表现出更强的表现。</li>
+</ul>
+<h2 id="x1f9e0-疑问"><a href="#x1f9e0-疑问" class="headerlink" title="🧠疑问"></a><span class="emoji" alias="brain" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f9e0.png?v8">🧠</span>疑问</h2><ol>
+<li>地理分布式云的“可靠性更高”体现在什么方面？</li>
+<li>这篇文章站在什么角度？中介？</li>
+<li>该架构具体如何调度？</li>
+<li>优化目标是什么？“服务质量”具体指什么？如何权衡？</li>
+<li>为什么 Introduction 敢断言“和集中式云相比数据中心规模小”？</li>
+</ol>
+<hr>
+<hr>
+<ul>
+<li>希望这篇博客对你有帮助！如果你有任何问题或需要进一步的帮助，请随时提问。</li>
+<li>如果你喜欢这篇文章，欢迎<a class="link" href="https://github.com/freshwlnd/">动动小手<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>给我一个follow或star。</li>
+</ul>
+<h1 id="x1f5fa-参考文献"><a href="#x1f5fa-参考文献" class="headerlink" title="🗺参考文献"></a><span class="emoji" alias="world_map" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f5fa.png?v8">🗺</span>参考文献</h1><div id="refer-anchor-1"></div>
+
+<p><a class="link" href="https://www.sciencedirect.com/science/article/pii/S0167739X17328844">[1] Hasan Ziafat, Seyed Morteza Babamir, A hierarchical structure for optimal resource allocation in geographically distributed clouds, Future Generation Computer Systems, Volume 90, 2019, Pages 539-568<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
+]]></content>
+      <categories>
+        <category>论文</category>
+        <category>略读</category>
+        <category>云计算</category>
+      </categories>
+      <tags>
+        <tag>云计算</tag>
+        <tag>跨地域</tag>
+        <tag>资源调度</tag>
       </tags>
   </entry>
   <entry>
@@ -12639,287 +12639,6 @@
       </tags>
   </entry>
   <entry>
-    <title>【论文】精读笔记2-前沿-用RL进行VM重调度以整理碎片VMR2L-A-整体逻辑精解</title>
-    <url>/2025/05/11/literature/literatureNotesIntensive2/</url>
-    <content><![CDATA[<h1 id="x1f4d6-《Towards-VM-Rescheduling-Optimization-Through-Deep-Reinforcement-Learning》"><a href="#x1f4d6-《Towards-VM-Rescheduling-Optimization-Through-Deep-Reinforcement-Learning》" class="headerlink" title="📖《Towards VM Rescheduling Optimization Through Deep Reinforcement Learning》"></a><span class="emoji" alias="book" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4d6.png?v8">📖</span>《Towards VM Rescheduling Optimization Through Deep Reinforcement Learning》</h1><p>2025 年 UC Merced大学、 UC Berkeley大学、字节跳动团队 发表于 CCF-A 类会议 EuroSys。</p>
-<p>系列博客：</p>
-<ol>
-<li><a href="/2025/04/28/literature/literatureNotes82/" title="VMR2L-初步略读笔记">VMR2L-初步略读笔记</a></li>
-<li><a href="/2025/05/11/literature/literatureNotesIntensive2/" title="VMR2L-整体逻辑精解笔记">VMR2L-整体逻辑精解笔记</a></li>
-<li><a href="/2025/05/14/literature/literatureNotesIntensive3/" title="VMR2L-相关工作发展脉络梳理笔记">VMR2L-相关工作发展脉络梳理笔记</a>
-
-</li>
-</ol>
-<p>此外，本篇也已发布于我们团队整理的<a class="link" href="https://github.com/Tongji-Large-Scale-Research-Group/Awesome-Cloud/tree/main">Awesome Cloud<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>。这是一个关于云计算领域中最优质的论文、工具和信息的精选列表，适合开发者和研究人员参考。欢迎大家前来点赞、star和交流。</p>
-<hr>
-<h2 id="1-为什么"><a href="#1-为什么" class="headerlink" title="1. 为什么 "></a>1. 为什么 <a id="为什么"></a></h2><p>业界数据中心需要管理大量资源，尤其需要应对大量资源碎片。</p>
-<ul>
-<li><p>业界存在大规模虚拟机管理需求，具体而言，所涉及对象包括：</p>
-<ul>
-<li>资源需求：<strong>最终用户（End-users）</strong>需要大量计算资源。</li>
-<li>资源供应：<strong>云服务提供商（Cloud Service Providers）</strong>采用资源虚拟化来最大化硬件利用率，将资源分配给最终用户。业界数据中心通常组织成<strong>集群（Cluster）</strong>，每个集群都有数百种<strong>物理机器（PMs）</strong>，每个PM可以托管多个独立运行的<strong>虚拟机（VMs）</strong>。</li>
-</ul>
-</li>
-<li><p>在此前提下，出现大量资源碎片现象。</p>
-<ul>
-<li>如果PM已经托管了多个VM，并且PM上的其余资源无法满足额外的VM请求，则不能使用剩余的资源称为碎片（fragments）。</li>
-<li>由于VM的不断创建和释放，许多小型资源碎片散布在PMs之间。导致了资源的严重浪费。</li>
-<li>需要通过重调度等机制应对资源碎片问题。</li>
-</ul>
-</li>
-</ul>
-<h3 id="1-1-需求"><a href="#1-1-需求" class="headerlink" title="1.1 需求 "></a>1.1 需求 <a id="需求"></a></h3><p>解决资源碎片的方案：VM重调度。</p>
-<p>本文论证了 VM 重调度在业界实践的可行性，具体包括：</p>
-<ul>
-<li>可行性：前提-请求量有低谷<ul>
-<li>VMR 可以在非高峰时段的清晨执行，如图 1 中的红点所示，清晨的 VM 变动较少。这样就有更宽松的时间，可以使用先进算法。</li>
-</ul>
-</li>
-<li>可行性：保底-重调度失败影响小<ul>
-<li>如果重新调度操作失败，虚拟机只需停留在原来的 PM 上，不会影响最终用户。</li>
-</ul>
-</li>
-<li>可行性：过程-重调度耗时短<ul>
-<li>VMR 可通过实时迁移高效执行，确保停机时间最短。</li>
-<li>由于大多数数据中心在管理虚拟机时都将计算与存储分离（即使用云磁盘），因此只需传输内存。具体来说，<ul>
-<li>初始复制：我们首先将虚拟机的内存状态从源 PM 复制到目标 PM，同时继续在源 PM 上运行。</li>
-<li>后续同步：在此过程中，虚拟机内存的变化（称为 “脏页”）会被跟踪并逐步重新复制，直到剩余的变化很小为止。此时，虚拟机会短暂暂停，进行最终同步。</li>
-</ul>
-</li>
-<li>由于现代数据中心使用高带宽网络进行内部文件传输，因此 VMR 过程产生的开销较低。<br><figure class="image-caption"><img lazyload="" src="/images/loading.svg" data-src="https://github.com/Tongji-Large-Scale-Research-Group/Awesome-Cloud/blob/main/images/issue-17-1.png?raw=true" alt="图 1"><figcaption>图 1</figcaption></figure></li>
-</ul>
-</li>
-</ul>
-<h3 id="1-2-研究现状"><a href="#1-2-研究现状" class="headerlink" title="1.2 研究现状 "></a>1.2 研究现状 <a id="研究现状"></a></h3><h4 id="研究综述"><a href="#研究综述" class="headerlink" title="研究综述"></a>研究综述</h4><p>a. 转化为装箱问题的最优化方法：</p>
-<ul>
-<li>现状：基于成熟的MIP求解器进行求解加速[48,66]，无法满足严格的延迟要求（5s）。</li>
-<li>问题：数据中心中VM和PM的总数很容易达到数千个或更多[63]，远远超过通常不超过几百个对象的装箱问题的典型规模[41,67]。</li>
-</ul>
-<p>b. 转化为装箱问题的启发式方法：</p>
-<ul>
-<li>现状：依赖人为设计的启发式方法[27]，导致次优解决方案。</li>
-<li>问题：<ul>
-<li>首先，VM重调度问题涉及动态调整VM对PM的初始分配，需要考虑已有的VM关系，现有的装箱解决方案通常不考虑这些关系。</li>
-<li>其次，重新平衡已经装入箱子中的物品在其他装箱应用的背景下很少受到关注。</li>
-</ul>
-</li>
-</ul>
-<p>c. 面向优化问题的强化学习方法：</p>
-<ul>
-<li>现状：RL被广泛用于选择分支变量等场景[23,25,26]，也可以应用于MIP问题下启发式方法的质量优化[9,58]。</li>
-<li>问题：但都只面向传统简单场景，难以在VM重调度问题下获得较好训练结果。</li>
-</ul>
-<h4 id="不足"><a href="#不足" class="headerlink" title="不足"></a>不足</h4><ul>
-<li>前两类研究中，存在复杂性过高或求解质量差问题。</li>
-<li>最后一类研究中，存在泛化性和复杂性表现较差问题。</li>
-</ul>
-<h3 id="1-3-研究挑战"><a href="#1-3-研究挑战" class="headerlink" title="1.3 研究挑战 "></a>1.3 研究挑战 <a id="研究挑战"></a></h3><p>【挑战一】：效率与质量兼顾——在有限的时间内（5s）实现较优的调度效果</p>
-<ul>
-<li>与大多数组合优化任务不同，VM重调度算法的计算时间显著影响其性能，因为在此期间VM状态发生了动态变化。这要求算法具有极低的计算时间，导致现有方法的扩展性很差。</li>
-</ul>
-<p>【挑战二】：RL效率——求解缓慢，动作空间过大</p>
-<ul>
-<li>共<mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: 0;" xmlns="http://www.w3.org/2000/svg" width="2.009ex" height="1.545ex" role="img" focusable="false" viewBox="0 -683 888 683"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D441" d="M234 637Q231 637 226 637Q201 637 196 638T191 649Q191 676 202 682Q204 683 299 683Q376 683 387 683T401 677Q612 181 616 168L670 381Q723 592 723 606Q723 633 659 637Q635 637 635 648Q635 650 637 660Q641 676 643 679T653 683Q656 683 684 682T767 680Q817 680 843 681T873 682Q888 682 888 672Q888 650 880 642Q878 637 858 637Q787 633 769 597L620 7Q618 0 599 0Q585 0 582 2Q579 5 453 305L326 604L261 344Q196 88 196 79Q201 46 268 46H278Q284 41 284 38T282 19Q278 6 272 0H259Q228 2 151 2Q123 2 100 2T63 2T46 1Q31 1 31 10Q31 14 34 26T39 40Q41 46 62 46Q130 49 150 85Q154 91 221 362L289 634Q287 635 234 637Z"></path></g></g></g></svg></mjx-container>个VM、<mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: 0;" xmlns="http://www.w3.org/2000/svg" width="2.378ex" height="1.545ex" role="img" focusable="false" viewBox="0 -683 1051 683"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D440" d="M289 629Q289 635 232 637Q208 637 201 638T194 648Q194 649 196 659Q197 662 198 666T199 671T201 676T203 679T207 681T212 683T220 683T232 684Q238 684 262 684T307 683Q386 683 398 683T414 678Q415 674 451 396L487 117L510 154Q534 190 574 254T662 394Q837 673 839 675Q840 676 842 678T846 681L852 683H948Q965 683 988 683T1017 684Q1051 684 1051 673Q1051 668 1048 656T1045 643Q1041 637 1008 637Q968 636 957 634T939 623Q936 618 867 340T797 59Q797 55 798 54T805 50T822 48T855 46H886Q892 37 892 35Q892 19 885 5Q880 0 869 0Q864 0 828 1T736 2Q675 2 644 2T609 1Q592 1 592 11Q592 13 594 25Q598 41 602 43T625 46Q652 46 685 49Q699 52 704 61Q706 65 742 207T813 490T848 631L654 322Q458 10 453 5Q451 4 449 3Q444 0 433 0Q418 0 415 7Q413 11 374 317L335 624L267 354Q200 88 200 79Q206 46 272 46H282Q288 41 289 37T286 19Q282 3 278 1Q274 0 267 0Q265 0 255 0T221 1T157 2Q127 2 95 1T58 0Q43 0 39 2T35 11Q35 13 38 25T43 40Q45 46 65 46Q135 46 154 86Q158 92 223 354T289 629Z"></path></g></g></g></svg></mjx-container>个PM时，同时重调度<mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: 0;" xmlns="http://www.w3.org/2000/svg" width="5.928ex" height="1.545ex" role="img" focusable="false" viewBox="0 -683 2620 683"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D440" d="M289 629Q289 635 232 637Q208 637 201 638T194 648Q194 649 196 659Q197 662 198 666T199 671T201 676T203 679T207 681T212 683T220 683T232 684Q238 684 262 684T307 683Q386 683 398 683T414 678Q415 674 451 396L487 117L510 154Q534 190 574 254T662 394Q837 673 839 675Q840 676 842 678T846 681L852 683H948Q965 683 988 683T1017 684Q1051 684 1051 673Q1051 668 1048 656T1045 643Q1041 637 1008 637Q968 636 957 634T939 623Q936 618 867 340T797 59Q797 55 798 54T805 50T822 48T855 46H886Q892 37 892 35Q892 19 885 5Q880 0 869 0Q864 0 828 1T736 2Q675 2 644 2T609 1Q592 1 592 11Q592 13 594 25Q598 41 602 43T625 46Q652 46 685 49Q699 52 704 61Q706 65 742 207T813 490T848 631L654 322Q458 10 453 5Q451 4 449 3Q444 0 433 0Q418 0 415 7Q413 11 374 317L335 624L267 354Q200 88 200 79Q206 46 272 46H282Q288 41 289 37T286 19Q282 3 278 1Q274 0 267 0Q265 0 255 0T221 1T157 2Q127 2 95 1T58 0Q43 0 39 2T35 11Q35 13 38 25T43 40Q45 46 65 46Q135 46 154 86Q158 92 223 354T289 629Z"></path></g><g data-mml-node="mi" transform="translate(1051,0)"><path data-c="1D441" d="M234 637Q231 637 226 637Q201 637 196 638T191 649Q191 676 202 682Q204 683 299 683Q376 683 387 683T401 677Q612 181 616 168L670 381Q723 592 723 606Q723 633 659 637Q635 637 635 648Q635 650 637 660Q641 676 643 679T653 683Q656 683 684 682T767 680Q817 680 843 681T873 682Q888 682 888 672Q888 650 880 642Q878 637 858 637Q787 633 769 597L620 7Q618 0 599 0Q585 0 582 2Q579 5 453 305L326 604L261 344Q196 88 196 79Q201 46 268 46H278Q284 41 284 38T282 19Q278 6 272 0H259Q228 2 151 2Q123 2 100 2T63 2T46 1Q31 1 31 10Q31 14 34 26T39 40Q41 46 62 46Q130 49 150 85Q154 91 221 362L289 634Q287 635 234 637Z"></path></g><g data-mml-node="mi" transform="translate(1939,0)"><path data-c="1D43F" d="M228 637Q194 637 192 641Q191 643 191 649Q191 673 202 682Q204 683 217 683Q271 680 344 680Q485 680 506 683H518Q524 677 524 674T522 656Q517 641 513 637H475Q406 636 394 628Q387 624 380 600T313 336Q297 271 279 198T252 88L243 52Q243 48 252 48T311 46H328Q360 46 379 47T428 54T478 72T522 106T564 161Q580 191 594 228T611 270Q616 273 628 273H641Q647 264 647 262T627 203T583 83T557 9Q555 4 553 3T537 0T494 -1Q483 -1 418 -1T294 0H116Q32 0 32 10Q32 17 34 24Q39 43 44 45Q48 46 59 46H65Q92 46 125 49Q139 52 144 61Q147 65 216 339T285 628Q285 635 228 637Z"></path></g></g></g></svg></mjx-container>个VM，动作空间大小为 <mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.566ex;" xmlns="http://www.w3.org/2000/svg" width="14.013ex" height="2.738ex" role="img" focusable="false" viewBox="0 -960 6193.6 1210"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D442" d="M740 435Q740 320 676 213T511 42T304 -22Q207 -22 138 35T51 201Q50 209 50 244Q50 346 98 438T227 601Q351 704 476 704Q514 704 524 703Q621 689 680 617T740 435ZM637 476Q637 565 591 615T476 665Q396 665 322 605Q242 542 200 428T157 216Q157 126 200 73T314 19Q404 19 485 98T608 313Q637 408 637 476Z"></path></g><g data-mml-node="mo" transform="translate(763,0)"><path data-c="28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z"></path></g><g data-mml-node="msup" transform="translate(1152,0)"><g data-mml-node="TeXAtom" data-mjx-texclass="ORD"><g data-mml-node="mo"><path data-c="28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z"></path></g><g data-mml-node="mi" transform="translate(389,0)"><path data-c="1D440" d="M289 629Q289 635 232 637Q208 637 201 638T194 648Q194 649 196 659Q197 662 198 666T199 671T201 676T203 679T207 681T212 683T220 683T232 684Q238 684 262 684T307 683Q386 683 398 683T414 678Q415 674 451 396L487 117L510 154Q534 190 574 254T662 394Q837 673 839 675Q840 676 842 678T846 681L852 683H948Q965 683 988 683T1017 684Q1051 684 1051 673Q1051 668 1048 656T1045 643Q1041 637 1008 637Q968 636 957 634T939 623Q936 618 867 340T797 59Q797 55 798 54T805 50T822 48T855 46H886Q892 37 892 35Q892 19 885 5Q880 0 869 0Q864 0 828 1T736 2Q675 2 644 2T609 1Q592 1 592 11Q592 13 594 25Q598 41 602 43T625 46Q652 46 685 49Q699 52 704 61Q706 65 742 207T813 490T848 631L654 322Q458 10 453 5Q451 4 449 3Q444 0 433 0Q418 0 415 7Q413 11 374 317L335 624L267 354Q200 88 200 79Q206 46 272 46H282Q288 41 289 37T286 19Q282 3 278 1Q274 0 267 0Q265 0 255 0T221 1T157 2Q127 2 95 1T58 0Q43 0 39 2T35 11Q35 13 38 25T43 40Q45 46 65 46Q135 46 154 86Q158 92 223 354T289 629Z"></path></g><g data-mml-node="mi" transform="translate(1440,0)"><path data-c="1D441" d="M234 637Q231 637 226 637Q201 637 196 638T191 649Q191 676 202 682Q204 683 299 683Q376 683 387 683T401 677Q612 181 616 168L670 381Q723 592 723 606Q723 633 659 637Q635 637 635 648Q635 650 637 660Q641 676 643 679T653 683Q656 683 684 682T767 680Q817 680 843 681T873 682Q888 682 888 672Q888 650 880 642Q878 637 858 637Q787 633 769 597L620 7Q618 0 599 0Q585 0 582 2Q579 5 453 305L326 604L261 344Q196 88 196 79Q201 46 268 46H278Q284 41 284 38T282 19Q278 6 272 0H259Q228 2 151 2Q123 2 100 2T63 2T46 1Q31 1 31 10Q31 14 34 26T39 40Q41 46 62 46Q130 49 150 85Q154 91 221 362L289 634Q287 635 234 637Z"></path></g><g data-mml-node="mo" transform="translate(2328,0)"><path data-c="29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z"></path></g></g><g data-mml-node="TeXAtom" transform="translate(2750,477.1) scale(0.707)" data-mjx-texclass="ORD"><g data-mml-node="mi"><path data-c="1D440" d="M289 629Q289 635 232 637Q208 637 201 638T194 648Q194 649 196 659Q197 662 198 666T199 671T201 676T203 679T207 681T212 683T220 683T232 684Q238 684 262 684T307 683Q386 683 398 683T414 678Q415 674 451 396L487 117L510 154Q534 190 574 254T662 394Q837 673 839 675Q840 676 842 678T846 681L852 683H948Q965 683 988 683T1017 684Q1051 684 1051 673Q1051 668 1048 656T1045 643Q1041 637 1008 637Q968 636 957 634T939 623Q936 618 867 340T797 59Q797 55 798 54T805 50T822 48T855 46H886Q892 37 892 35Q892 19 885 5Q880 0 869 0Q864 0 828 1T736 2Q675 2 644 2T609 1Q592 1 592 11Q592 13 594 25Q598 41 602 43T625 46Q652 46 685 49Q699 52 704 61Q706 65 742 207T813 490T848 631L654 322Q458 10 453 5Q451 4 449 3Q444 0 433 0Q418 0 415 7Q413 11 374 317L335 624L267 354Q200 88 200 79Q206 46 272 46H282Q288 41 289 37T286 19Q282 3 278 1Q274 0 267 0Q265 0 255 0T221 1T157 2Q127 2 95 1T58 0Q43 0 39 2T35 11Q35 13 38 25T43 40Q45 46 65 46Q135 46 154 86Q158 92 223 354T289 629Z"></path></g><g data-mml-node="mi" transform="translate(1051,0)"><path data-c="1D441" d="M234 637Q231 637 226 637Q201 637 196 638T191 649Q191 676 202 682Q204 683 299 683Q376 683 387 683T401 677Q612 181 616 168L670 381Q723 592 723 606Q723 633 659 637Q635 637 635 648Q635 650 637 660Q641 676 643 679T653 683Q656 683 684 682T767 680Q817 680 843 681T873 682Q888 682 888 672Q888 650 880 642Q878 637 858 637Q787 633 769 597L620 7Q618 0 599 0Q585 0 582 2Q579 5 453 305L326 604L261 344Q196 88 196 79Q201 46 268 46H278Q284 41 284 38T282 19Q278 6 272 0H259Q228 2 151 2Q123 2 100 2T63 2T46 1Q31 1 31 10Q31 14 34 26T39 40Q41 46 62 46Q130 49 150 85Q154 91 221 362L289 634Q287 635 234 637Z"></path></g><g data-mml-node="mi" transform="translate(1939,0)"><path data-c="1D43F" d="M228 637Q194 637 192 641Q191 643 191 649Q191 673 202 682Q204 683 217 683Q271 680 344 680Q485 680 506 683H518Q524 677 524 674T522 656Q517 641 513 637H475Q406 636 394 628Q387 624 380 600T313 336Q297 271 279 198T252 88L243 52Q243 48 252 48T311 46H328Q360 46 379 47T428 54T478 72T522 106T564 161Q580 191 594 228T611 270Q616 273 628 273H641Q647 264 647 262T627 203T583 83T557 9Q555 4 553 3T537 0T494 -1Q483 -1 418 -1T294 0H116Q32 0 32 10Q32 17 34 24Q39 43 44 45Q48 46 59 46H65Q92 46 125 49Q139 52 144 61Q147 65 216 339T285 628Q285 635 228 637Z"></path></g></g></g><g data-mml-node="mo" transform="translate(5804.6,0)"><path data-c="29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z"></path></g></g></g></svg></mjx-container> 。</li>
-<li>当RL代理选择将VM从其源PM重新调度到目标PM时存在复杂约束，导致计算动作惩罚的掩码操作缓慢。如：<ul>
-<li>PM必须有足够的可用CPU和内存来托管VM。</li>
-<li>在实际场景中为确保服务稳定性，应用程序可能要求某些VM跨不同PM托管，需要反亲和性约束。</li>
-</ul>
-</li>
-</ul>
-<p>【挑战三】：RL质量——表征与收敛困难，需要大量训练数据</p>
-<ul>
-<li>为了有效重调度，必须对状态观察进行表征，其中包括每个单独的PM和VM的特征以及它们的从属关系特征。<ul>
-<li>即使在同一个集群中，VM的数量也可能差异很大。这意味着每个时间步的特征大小也是高度动态的。</li>
-<li>为了对这些特征进行编码，一种选择是将所有VM和PM的特征连接成一个长向量。然而，这种方法无法处理任意数量的VM，因为神经网络通常需要固定大小的输入，并且还需要具有许多难以训练的参数的模型。</li>
-</ul>
-</li>
-</ul>
-<hr>
-<h2 id="2-做什么"><a href="#2-做什么" class="headerlink" title="2. 做什么 "></a>2. 做什么 <a id="做什么"></a></h2><h3 id="2-1-创新点"><a href="#2-1-创新点" class="headerlink" title="2.1 创新点 "></a>2.1 创新点 <a id="创新点"></a></h3><p>【挑战一】：效率与质量兼顾——在有限的时间内（5s）实现较优的调度效果 -&gt; 【创新点 1】：转化为RL适用的问题表述，从而便于使用 RL 解决</p>
-<p>【挑战二】：RL效率——求解缓慢，动作空间过大 -&gt; 【创新点 2】：两阶段RL求解框架</p>
-<p>【挑战三】：RL质量——表征与收敛困难，需要大量训练数据 -&gt; 【创新点 3】：大型数据中心&amp;VMs特征提取模块</p>
-<h3 id="2-2-总体框架"><a href="#2-2-总体框架" class="headerlink" title="2.2 总体框架 "></a>2.2 总体框架 <a id="总体框架"></a></h3><p><figure class="image-caption"><img lazyload="" src="/images/loading.svg" data-src="https://github.com/Tongji-Large-Scale-Research-Group/Awesome-Cloud/blob/main/images/issue-17-2.png?raw=true" alt="图 2"><figcaption>图 2</figcaption></figure></p>
-<hr>
-<h2 id="3-做的效果"><a href="#3-做的效果" class="headerlink" title="3. 做的效果 "></a>3. 做的效果 <a id="做的效果"></a></h2><h3 id="3-1-实验设置"><a href="#3-1-实验设置" class="headerlink" title="3.1 实验设置 "></a>3.1 实验设置 <a id="实验设置"></a></h3><h4 id="对比方法"><a href="#对比方法" class="headerlink" title="对比方法"></a>对比方法</h4><ul>
-<li>【最优化】<ul>
-<li>MIP最优化算法</li>
-</ul>
-</li>
-<li>【启发式】<ul>
-<li>基于过滤的启发式算法（HA）</li>
-<li>向量装箱问题（𝛼 -VBPP）：将装箱调度问题的经典解决方法VBPP[49]，推广到重调度问题。</li>
-<li>分区优化问题（POP）[47]：将问题随机拆分为子问题（每个子问题包含VM和PM的子集），对每个子问题应用MIP求解器，使能够满足五秒的限制。</li>
-<li>蒙特卡洛树搜索（MCTS）[67]：使用DDTS[67]来修剪搜索空间，在推理时间内多次搜索。</li>
-</ul>
-</li>
-<li>【RL】<ul>
-<li>Decima[44]：使用图神经网络对VM和PM信息进行编码，分解为二阶段动作并使用深度RL进行训练。</li>
-<li>NeuPlan[66]：在第一阶段以图作为输入接收，并生成前几个VM迁移以修剪搜索空间。在第二阶段，使用MIP求解器求解剩余MNL（待迁移数量）。</li>
-</ul>
-</li>
-</ul>
-<h4 id="实验内容（非常丰富）"><a href="#实验内容（非常丰富）" class="headerlink" title="实验内容（非常丰富）"></a>实验内容（非常丰富）</h4><ul>
-<li>【整体实验】本方法与现有最先进算法的差距（§5.2）</li>
-<li>【消融实验】每个组件具体能够提高多少效率&amp;质量（§5.3）</li>
-<li>【消融实验】两阶段框架如何适应不同的约束：（§5.4）<ul>
-<li>i）对原始Medium数据集的约束</li>
-<li>ii）多维资源约束</li>
-<li>iii）服务亲和性约束？</li>
-</ul>
-</li>
-<li>【扩展性】VMR2L能否优化：（§5.5）<ul>
-<li>i）除碎片率FR以外的目标</li>
-<li>ii）定义了多种资源类型的混合目标</li>
-</ul>
-</li>
-<li>【扩展性】如何推广到：（§5.6）<ul>
-<li>i）不同于训练数据分布的工作负载</li>
-<li>ii）在推理时使用不同的MNL（重调度数量）</li>
-<li>iii）更多PM和VM</li>
-<li>iv）不同的集群、不同工作负载</li>
-<li>v）具有不同MNL的不同工作负载？</li>
-</ul>
-</li>
-<li>【扩展性】学习更大的集群更困难吗？（§5.7）</li>
-<li>【核心亮点】直觉上的改进来自哪里？（§5.8）</li>
-</ul>
-<p>可以看出实验内容的丰富性是这篇论文的一大优点，本次暂不详细分析，下次有机会再结合具体研究内容展开介绍。</p>
-<h3 id="3-2-实验结果"><a href="#3-2-实验结果" class="headerlink" title="3.2 实验结果 "></a>3.2 实验结果 <a id="实验结果"></a></h3><h4 id="数据集产出"><a href="#数据集产出" class="headerlink" title="数据集产出"></a>数据集产出</h4><ul>
-<li>从真实的行业规模数据中心收集两个数据集：<ul>
-<li>一个包含多达2089个虚拟机和280个PMs的中等数据集；</li>
-<li>一个包含多达4546个虚拟机和1176个PMs的大型数据集。</li>
-</ul>
-</li>
-<li>每个数据集包含4400个映射，它们表示在不同时间点VM到PM的分配。</li>
-<li>为了在确保商业运营机密性和避免潜在的训练/测试泄漏的同时发布这些数据集，我们通过随机删除一些现有虚拟机并将虚拟机重新部署到它们可以适应的任何PM来匿名化每个映射。</li>
-<li>在实验中，本文将4400个映射分成4000个用于训练，200个用于验证，200个用于测试。</li>
-<li>本文设计了一个遵循OpenAI Gym环境[11]的模拟器，允许我们离线训练，模拟器直接支持数据集格式。</li>
-</ul>
-<blockquote>
-<p>据我们所知，这些是基于真实跟踪进行VM重新安排的最大数据集，对社区非常有用。</p>
-</blockquote>
-<h4 id="实验结果"><a href="#实验结果" class="headerlink" title="实验结果"></a>实验结果</h4><ul>
-<li>暂不赘述，感兴趣的同学可以自行精读论文。</li>
-</ul>
-<hr>
-<h2 id="4-展望"><a href="#4-展望" class="headerlink" title="4. 展望 "></a>4. 展望 <a id="展望"></a></h2><h3 id="4-1-未来方向"><a href="#4-1-未来方向" class="headerlink" title="4.1 未来方向 "></a>4.1 未来方向 <a id="未来方向"></a></h3><ul>
-<li>总结一：可变数量表征 应用于算力网络场景<ul>
-<li>面向具有复杂拓扑的请求时，同样存在“可变数量表征”难题以及“拓扑矩阵稀疏”难题。</li>
-<li>需要探究如何用少量信息表征最重要的内容，并解决数量可变问题。</li>
-</ul>
-</li>
-<li>总结二：性能干扰场景研究<ul>
-<li>数据中心管理的一个挑战是由嘈杂的邻居（Noisy Neighbors）引起的性能干扰，这些邻居是大量占用共享资源的虚拟机，导致同一PM上的其他VM性能降级。</li>
-<li>这种情况下也会需要重调度以避免性能降级，但需研究何种VM共置会产生性能干扰。</li>
-</ul>
-</li>
-</ul>
-<h3 id="4-2-EuroSys论文风格"><a href="#4-2-EuroSys论文风格" class="headerlink" title="4.2 EuroSys论文风格 "></a>4.2 EuroSys论文风格 <a id="EuroSys论文风格"></a></h3><ul>
-<li><p>总结一：不重视现状&amp;挑战&amp;创新总结</p>
-<ul>
-<li>关于现状不足和研究挑战，在引言仅提及“最优化方法效率低+启发式方法质量差”，完全没有提及使用RL时会存在什么困难。实际存在较多挑战，但在方法设计部分才零零散散提出。</li>
-<li>显得创新性很弱，仅从摘要引言看起来“平平无奇”。阅读挑战大，需自行花大量时间总结。</li>
-<li>（仅代表个人意见，如有其他意见欢迎指教！）</li>
-</ul>
-</li>
-<li><p>总结二：撰写风格偏工程</p>
-<ul>
-<li>在本文引言部分，花费了大量篇幅介绍调度、重调度相关的工程性实践细节。</li>
-<li>做了非常丰富的实验和数据分析（7/16页，8个小节），提供了开源数据集。</li>
-</ul>
-</li>
-<li><p>本文引言中囊括了丰富的工程性实践细节！</p>
-<ul>
-<li>任务：存在两类典型任务<ul>
-<li>重调度主要应用于使用硬件虚拟化的VM集群，这些VM提供强大的隔离性并具有高启动成本，使其适用于长时间运行的工作负载，例如开发机器[46]。<ul>
-<li>较小的VM（例如代理服务器或例行监控/测试）很容易使用碎片化资源创建，几乎没有供应中断的风险。</li>
-<li>相反，许多直接面向消费者的高优先级任务需要中大型虚拟机。因此，我们的研究重点关注16核碎片率，以满足ByteDance的运营需求，其中16核是开发机器的默认VM类型。</li>
-</ul>
-</li>
-<li>对于其他短期任务，如CI/CD或CronJob，重调度是不必要的。它们通过K8s在单独的集群中进行管理，通过操作系统级虚拟化提供快速启动[36]。</li>
-</ul>
-</li>
-<li>资源：通常在集群内少量迁移<ul>
-<li>为了系统稳定性，重调度通常仅限于同一集群。一个集群通常涉及不超过几百个PM，因为<ul>
-<li>它允许将专用资源分配给不同的用户组，其中特定配置可以更好地优化；</li>
-<li>每个集群可以独立监控和管理，允许一个集群升级而不影响其他集群[1]。</li>
-</ul>
-</li>
-<li>设置迁移数量限制（MNL）以控制要迁移的VM数量，通常选择为所有VM的2~3%。</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h3 id="4-3-论文创新性思考"><a href="#4-3-论文创新性思考" class="headerlink" title="4.3 论文创新性思考 "></a>4.3 论文创新性思考 <a id="论文创新性思考"></a></h3><p><figure class="image-caption"><img lazyload="" src="/images/loading.svg" data-src="https://github.com/Tongji-Large-Scale-Research-Group/Awesome-Cloud/blob/main/images/issue-17-3.png?raw=true" alt="图 3"><figcaption>图 3</figcaption></figure></p>
-<ul>
-<li><p>联系最近看到一片篇个人认为非常有意思的<a class="link" href="https://github.com/zibuyu/research_tao/blob/master/03_finding_idea.md">文章<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>，作以下总结：</p>
-</li>
-<li><p>总结一：不确定性→确定性</p>
-<ul>
-<li>一个想法“新不新”，本质上就是“是否从不确定走向了确定”。</li>
-<li>一个开放问题有无数种答案，验证了其中一种，就是推动了确定性，也就是新。</li>
-</ul>
-</li>
-<li><p>总结二：方法新 or 结论新</p>
-<ul>
-<li><strong>方法新</strong>：是高校主流的（传统的）“新”，重在理论，体现在能否找到一个“新问题”、能否提出一个“新方法”。</li>
-<li><strong>结论新</strong>：重在实践，体现在能否通过实践操作得到“新发现”、获得“新结果”。</li>
-<li>不必拘泥于前者，后者也很重要。二者相辅相成。</li>
-</ul>
-</li>
-<li><p>总结三：两种创新路线</p>
-<ul>
-<li>dh 同学（初学者可参考）：从一个反直觉发现出发，逐步落实。</li>
-<li>ljw 同学（有积累后可参考）：好奇心驱动，对于好奇的问题不断调研和实验分析。</li>
-</ul>
-</li>
-</ul>
-<hr>
-<h2 id="问答环节记录"><a href="#问答环节记录" class="headerlink" title="问答环节记录"></a>问答环节记录</h2><ol>
-<li>有没有做真实实验？  </li>
-</ol>
-<ul>
-<li>没有，因为目标是碎片率，所以使用真实数据集做模拟实验绰绰有余。  </li>
-</ul>
-<ol start="2">
-<li>迁移多花的时间有多长？  </li>
-</ol>
-<ul>
-<li>本论文没细讲。  </li>
-</ul>
-<ol start="3">
-<li>是否可以没有冷启动？  </li>
-</ol>
-<ul>
-<li>整个内存迁移可能没有冷启动。  </li>
-</ul>
-<ol start="4">
-<li>热迁移是否会因为内存变化太快而失败？  </li>
-</ol>
-<ul>
-<li>会的，可能有保底机制（太长时间不成功就直接冷迁移）。  </li>
-</ul>
-<hr>
-<hr>
-<ul>
-<li>希望这篇博客对你有帮助！如果你有任何问题或需要进一步的帮助，请随时提问。</li>
-<li>如果你喜欢这篇文章，欢迎<a class="link" href="https://github.com/freshwlnd/">动动小手<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>给我一个follow或star。</li>
-</ul>
-<h1 id="x1f5fa-参考文献"><a href="#x1f5fa-参考文献" class="headerlink" title="🗺参考文献"></a><span class="emoji" alias="world_map" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f5fa.png?v8">🗺</span>参考文献</h1><div id="refer-anchor-1"></div>
-
-<p><a class="link" href="https://dl.acm.org/doi/10.1145/3689031.3717476">[1] Xianzhong Ding, Yunkai Zhang, Binbin Chen, Donghao Ying, Tieying Zhang, Jianjun Chen, Lei Zhang, Alberto Cerpa, and Wan Du. 2025. Towards VM Rescheduling Optimization Through Deep Reinforcement Learning. In Proceedings of the Twentieth European Conference on Computer Systems (EuroSys ‘25). Association for Computing Machinery, New York, NY, USA, 686–701. https://doi.org/10.1145/3689031.3717476<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
-]]></content>
-      <categories>
-        <category>论文</category>
-        <category>精读</category>
-        <category>云计算</category>
-      </categories>
-      <tags>
-        <tag>迁移</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>【论文】精读笔记1-前沿-跨地域资源预留调度</title>
     <url>/2023/12/06/literature/literatureNotesIntensive1/</url>
     <content><![CDATA[<h1 id="x1f4d6-《Characterizing-and-orchestrating-VM-reservation-in-geo-distributed-clouds-to-improve-the-resource-efficiency》"><a href="#x1f4d6-《Characterizing-and-orchestrating-VM-reservation-in-geo-distributed-clouds-to-improve-the-resource-efficiency》" class="headerlink" title="&#x1f4d6;《Characterizing and orchestrating VM reservation in geo-distributed clouds to improve the resource efficiency》"></a><span class="emoji" alias="book" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4d6.png?v8">&#x1f4d6;</span>《Characterizing and orchestrating VM reservation in geo-distributed clouds to improve the resource efficiency》</h1><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><h3 id="对象"><a href="#对象" class="headerlink" title="对象"></a>对象</h3><ul>
@@ -13867,6 +13586,287 @@
       </tags>
   </entry>
   <entry>
+    <title>【论文】精读笔记2-前沿-用RL进行VM重调度以整理碎片VMR2L-A-整体逻辑精解</title>
+    <url>/2025/05/11/literature/literatureNotesIntensive2/</url>
+    <content><![CDATA[<h1 id="x1f4d6-《Towards-VM-Rescheduling-Optimization-Through-Deep-Reinforcement-Learning》"><a href="#x1f4d6-《Towards-VM-Rescheduling-Optimization-Through-Deep-Reinforcement-Learning》" class="headerlink" title="📖《Towards VM Rescheduling Optimization Through Deep Reinforcement Learning》"></a><span class="emoji" alias="book" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4d6.png?v8">📖</span>《Towards VM Rescheduling Optimization Through Deep Reinforcement Learning》</h1><p>2025 年 UC Merced大学、 UC Berkeley大学、字节跳动团队 发表于 CCF-A 类会议 EuroSys。</p>
+<p>系列博客：</p>
+<ol>
+<li><a href="/2025/04/28/literature/literatureNotes82/" title="VMR2L-初步略读笔记">VMR2L-初步略读笔记</a></li>
+<li><a href="/2025/05/11/literature/literatureNotesIntensive2/" title="VMR2L-整体逻辑精解笔记">VMR2L-整体逻辑精解笔记</a></li>
+<li><a href="/2025/05/14/literature/literatureNotesIntensive3/" title="VMR2L-相关工作发展脉络梳理笔记">VMR2L-相关工作发展脉络梳理笔记</a>
+
+</li>
+</ol>
+<p>此外，本篇也已发布于我们团队整理的<a class="link" href="https://github.com/Tongji-Large-Scale-Research-Group/Awesome-Cloud/tree/main">Awesome Cloud<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>。这是一个关于云计算领域中最优质的论文、工具和信息的精选列表，适合开发者和研究人员参考。欢迎大家前来点赞、star和交流。</p>
+<hr>
+<h2 id="1-为什么"><a href="#1-为什么" class="headerlink" title="1. 为什么 "></a>1. 为什么 <a id="为什么"></a></h2><p>业界数据中心需要管理大量资源，尤其需要应对大量资源碎片。</p>
+<ul>
+<li><p>业界存在大规模虚拟机管理需求，具体而言，所涉及对象包括：</p>
+<ul>
+<li>资源需求：<strong>最终用户（End-users）</strong>需要大量计算资源。</li>
+<li>资源供应：<strong>云服务提供商（Cloud Service Providers）</strong>采用资源虚拟化来最大化硬件利用率，将资源分配给最终用户。业界数据中心通常组织成<strong>集群（Cluster）</strong>，每个集群都有数百种<strong>物理机器（PMs）</strong>，每个PM可以托管多个独立运行的<strong>虚拟机（VMs）</strong>。</li>
+</ul>
+</li>
+<li><p>在此前提下，出现大量资源碎片现象。</p>
+<ul>
+<li>如果PM已经托管了多个VM，并且PM上的其余资源无法满足额外的VM请求，则不能使用剩余的资源称为碎片（fragments）。</li>
+<li>由于VM的不断创建和释放，许多小型资源碎片散布在PMs之间。导致了资源的严重浪费。</li>
+<li>需要通过重调度等机制应对资源碎片问题。</li>
+</ul>
+</li>
+</ul>
+<h3 id="1-1-需求"><a href="#1-1-需求" class="headerlink" title="1.1 需求 "></a>1.1 需求 <a id="需求"></a></h3><p>解决资源碎片的方案：VM重调度。</p>
+<p>本文论证了 VM 重调度在业界实践的可行性，具体包括：</p>
+<ul>
+<li>可行性：前提-请求量有低谷<ul>
+<li>VMR 可以在非高峰时段的清晨执行，如图 1 中的红点所示，清晨的 VM 变动较少。这样就有更宽松的时间，可以使用先进算法。</li>
+</ul>
+</li>
+<li>可行性：保底-重调度失败影响小<ul>
+<li>如果重新调度操作失败，虚拟机只需停留在原来的 PM 上，不会影响最终用户。</li>
+</ul>
+</li>
+<li>可行性：过程-重调度耗时短<ul>
+<li>VMR 可通过实时迁移高效执行，确保停机时间最短。</li>
+<li>由于大多数数据中心在管理虚拟机时都将计算与存储分离（即使用云磁盘），因此只需传输内存。具体来说，<ul>
+<li>初始复制：我们首先将虚拟机的内存状态从源 PM 复制到目标 PM，同时继续在源 PM 上运行。</li>
+<li>后续同步：在此过程中，虚拟机内存的变化（称为 “脏页”）会被跟踪并逐步重新复制，直到剩余的变化很小为止。此时，虚拟机会短暂暂停，进行最终同步。</li>
+</ul>
+</li>
+<li>由于现代数据中心使用高带宽网络进行内部文件传输，因此 VMR 过程产生的开销较低。<br><figure class="image-caption"><img lazyload="" src="/images/loading.svg" data-src="https://github.com/Tongji-Large-Scale-Research-Group/Awesome-Cloud/blob/main/images/issue-17-1.png?raw=true" alt="图 1"><figcaption>图 1</figcaption></figure></li>
+</ul>
+</li>
+</ul>
+<h3 id="1-2-研究现状"><a href="#1-2-研究现状" class="headerlink" title="1.2 研究现状 "></a>1.2 研究现状 <a id="研究现状"></a></h3><h4 id="研究综述"><a href="#研究综述" class="headerlink" title="研究综述"></a>研究综述</h4><p>a. 转化为装箱问题的最优化方法：</p>
+<ul>
+<li>现状：基于成熟的MIP求解器进行求解加速[48,66]，无法满足严格的延迟要求（5s）。</li>
+<li>问题：数据中心中VM和PM的总数很容易达到数千个或更多[63]，远远超过通常不超过几百个对象的装箱问题的典型规模[41,67]。</li>
+</ul>
+<p>b. 转化为装箱问题的启发式方法：</p>
+<ul>
+<li>现状：依赖人为设计的启发式方法[27]，导致次优解决方案。</li>
+<li>问题：<ul>
+<li>首先，VM重调度问题涉及动态调整VM对PM的初始分配，需要考虑已有的VM关系，现有的装箱解决方案通常不考虑这些关系。</li>
+<li>其次，重新平衡已经装入箱子中的物品在其他装箱应用的背景下很少受到关注。</li>
+</ul>
+</li>
+</ul>
+<p>c. 面向优化问题的强化学习方法：</p>
+<ul>
+<li>现状：RL被广泛用于选择分支变量等场景[23,25,26]，也可以应用于MIP问题下启发式方法的质量优化[9,58]。</li>
+<li>问题：但都只面向传统简单场景，难以在VM重调度问题下获得较好训练结果。</li>
+</ul>
+<h4 id="不足"><a href="#不足" class="headerlink" title="不足"></a>不足</h4><ul>
+<li>前两类研究中，存在复杂性过高或求解质量差问题。</li>
+<li>最后一类研究中，存在泛化性和复杂性表现较差问题。</li>
+</ul>
+<h3 id="1-3-研究挑战"><a href="#1-3-研究挑战" class="headerlink" title="1.3 研究挑战 "></a>1.3 研究挑战 <a id="研究挑战"></a></h3><p>【挑战一】：效率与质量兼顾——在有限的时间内（5s）实现较优的调度效果</p>
+<ul>
+<li>与大多数组合优化任务不同，VM重调度算法的计算时间显著影响其性能，因为在此期间VM状态发生了动态变化。这要求算法具有极低的计算时间，导致现有方法的扩展性很差。</li>
+</ul>
+<p>【挑战二】：RL效率——求解缓慢，动作空间过大</p>
+<ul>
+<li>共<mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: 0;" xmlns="http://www.w3.org/2000/svg" width="2.009ex" height="1.545ex" role="img" focusable="false" viewBox="0 -683 888 683"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D441" d="M234 637Q231 637 226 637Q201 637 196 638T191 649Q191 676 202 682Q204 683 299 683Q376 683 387 683T401 677Q612 181 616 168L670 381Q723 592 723 606Q723 633 659 637Q635 637 635 648Q635 650 637 660Q641 676 643 679T653 683Q656 683 684 682T767 680Q817 680 843 681T873 682Q888 682 888 672Q888 650 880 642Q878 637 858 637Q787 633 769 597L620 7Q618 0 599 0Q585 0 582 2Q579 5 453 305L326 604L261 344Q196 88 196 79Q201 46 268 46H278Q284 41 284 38T282 19Q278 6 272 0H259Q228 2 151 2Q123 2 100 2T63 2T46 1Q31 1 31 10Q31 14 34 26T39 40Q41 46 62 46Q130 49 150 85Q154 91 221 362L289 634Q287 635 234 637Z"></path></g></g></g></svg></mjx-container>个VM、<mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: 0;" xmlns="http://www.w3.org/2000/svg" width="2.378ex" height="1.545ex" role="img" focusable="false" viewBox="0 -683 1051 683"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D440" d="M289 629Q289 635 232 637Q208 637 201 638T194 648Q194 649 196 659Q197 662 198 666T199 671T201 676T203 679T207 681T212 683T220 683T232 684Q238 684 262 684T307 683Q386 683 398 683T414 678Q415 674 451 396L487 117L510 154Q534 190 574 254T662 394Q837 673 839 675Q840 676 842 678T846 681L852 683H948Q965 683 988 683T1017 684Q1051 684 1051 673Q1051 668 1048 656T1045 643Q1041 637 1008 637Q968 636 957 634T939 623Q936 618 867 340T797 59Q797 55 798 54T805 50T822 48T855 46H886Q892 37 892 35Q892 19 885 5Q880 0 869 0Q864 0 828 1T736 2Q675 2 644 2T609 1Q592 1 592 11Q592 13 594 25Q598 41 602 43T625 46Q652 46 685 49Q699 52 704 61Q706 65 742 207T813 490T848 631L654 322Q458 10 453 5Q451 4 449 3Q444 0 433 0Q418 0 415 7Q413 11 374 317L335 624L267 354Q200 88 200 79Q206 46 272 46H282Q288 41 289 37T286 19Q282 3 278 1Q274 0 267 0Q265 0 255 0T221 1T157 2Q127 2 95 1T58 0Q43 0 39 2T35 11Q35 13 38 25T43 40Q45 46 65 46Q135 46 154 86Q158 92 223 354T289 629Z"></path></g></g></g></svg></mjx-container>个PM时，同时重调度<mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: 0;" xmlns="http://www.w3.org/2000/svg" width="5.928ex" height="1.545ex" role="img" focusable="false" viewBox="0 -683 2620 683"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D440" d="M289 629Q289 635 232 637Q208 637 201 638T194 648Q194 649 196 659Q197 662 198 666T199 671T201 676T203 679T207 681T212 683T220 683T232 684Q238 684 262 684T307 683Q386 683 398 683T414 678Q415 674 451 396L487 117L510 154Q534 190 574 254T662 394Q837 673 839 675Q840 676 842 678T846 681L852 683H948Q965 683 988 683T1017 684Q1051 684 1051 673Q1051 668 1048 656T1045 643Q1041 637 1008 637Q968 636 957 634T939 623Q936 618 867 340T797 59Q797 55 798 54T805 50T822 48T855 46H886Q892 37 892 35Q892 19 885 5Q880 0 869 0Q864 0 828 1T736 2Q675 2 644 2T609 1Q592 1 592 11Q592 13 594 25Q598 41 602 43T625 46Q652 46 685 49Q699 52 704 61Q706 65 742 207T813 490T848 631L654 322Q458 10 453 5Q451 4 449 3Q444 0 433 0Q418 0 415 7Q413 11 374 317L335 624L267 354Q200 88 200 79Q206 46 272 46H282Q288 41 289 37T286 19Q282 3 278 1Q274 0 267 0Q265 0 255 0T221 1T157 2Q127 2 95 1T58 0Q43 0 39 2T35 11Q35 13 38 25T43 40Q45 46 65 46Q135 46 154 86Q158 92 223 354T289 629Z"></path></g><g data-mml-node="mi" transform="translate(1051,0)"><path data-c="1D441" d="M234 637Q231 637 226 637Q201 637 196 638T191 649Q191 676 202 682Q204 683 299 683Q376 683 387 683T401 677Q612 181 616 168L670 381Q723 592 723 606Q723 633 659 637Q635 637 635 648Q635 650 637 660Q641 676 643 679T653 683Q656 683 684 682T767 680Q817 680 843 681T873 682Q888 682 888 672Q888 650 880 642Q878 637 858 637Q787 633 769 597L620 7Q618 0 599 0Q585 0 582 2Q579 5 453 305L326 604L261 344Q196 88 196 79Q201 46 268 46H278Q284 41 284 38T282 19Q278 6 272 0H259Q228 2 151 2Q123 2 100 2T63 2T46 1Q31 1 31 10Q31 14 34 26T39 40Q41 46 62 46Q130 49 150 85Q154 91 221 362L289 634Q287 635 234 637Z"></path></g><g data-mml-node="mi" transform="translate(1939,0)"><path data-c="1D43F" d="M228 637Q194 637 192 641Q191 643 191 649Q191 673 202 682Q204 683 217 683Q271 680 344 680Q485 680 506 683H518Q524 677 524 674T522 656Q517 641 513 637H475Q406 636 394 628Q387 624 380 600T313 336Q297 271 279 198T252 88L243 52Q243 48 252 48T311 46H328Q360 46 379 47T428 54T478 72T522 106T564 161Q580 191 594 228T611 270Q616 273 628 273H641Q647 264 647 262T627 203T583 83T557 9Q555 4 553 3T537 0T494 -1Q483 -1 418 -1T294 0H116Q32 0 32 10Q32 17 34 24Q39 43 44 45Q48 46 59 46H65Q92 46 125 49Q139 52 144 61Q147 65 216 339T285 628Q285 635 228 637Z"></path></g></g></g></svg></mjx-container>个VM，动作空间大小为 <mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.566ex;" xmlns="http://www.w3.org/2000/svg" width="14.013ex" height="2.738ex" role="img" focusable="false" viewBox="0 -960 6193.6 1210"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D442" d="M740 435Q740 320 676 213T511 42T304 -22Q207 -22 138 35T51 201Q50 209 50 244Q50 346 98 438T227 601Q351 704 476 704Q514 704 524 703Q621 689 680 617T740 435ZM637 476Q637 565 591 615T476 665Q396 665 322 605Q242 542 200 428T157 216Q157 126 200 73T314 19Q404 19 485 98T608 313Q637 408 637 476Z"></path></g><g data-mml-node="mo" transform="translate(763,0)"><path data-c="28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z"></path></g><g data-mml-node="msup" transform="translate(1152,0)"><g data-mml-node="TeXAtom" data-mjx-texclass="ORD"><g data-mml-node="mo"><path data-c="28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z"></path></g><g data-mml-node="mi" transform="translate(389,0)"><path data-c="1D440" d="M289 629Q289 635 232 637Q208 637 201 638T194 648Q194 649 196 659Q197 662 198 666T199 671T201 676T203 679T207 681T212 683T220 683T232 684Q238 684 262 684T307 683Q386 683 398 683T414 678Q415 674 451 396L487 117L510 154Q534 190 574 254T662 394Q837 673 839 675Q840 676 842 678T846 681L852 683H948Q965 683 988 683T1017 684Q1051 684 1051 673Q1051 668 1048 656T1045 643Q1041 637 1008 637Q968 636 957 634T939 623Q936 618 867 340T797 59Q797 55 798 54T805 50T822 48T855 46H886Q892 37 892 35Q892 19 885 5Q880 0 869 0Q864 0 828 1T736 2Q675 2 644 2T609 1Q592 1 592 11Q592 13 594 25Q598 41 602 43T625 46Q652 46 685 49Q699 52 704 61Q706 65 742 207T813 490T848 631L654 322Q458 10 453 5Q451 4 449 3Q444 0 433 0Q418 0 415 7Q413 11 374 317L335 624L267 354Q200 88 200 79Q206 46 272 46H282Q288 41 289 37T286 19Q282 3 278 1Q274 0 267 0Q265 0 255 0T221 1T157 2Q127 2 95 1T58 0Q43 0 39 2T35 11Q35 13 38 25T43 40Q45 46 65 46Q135 46 154 86Q158 92 223 354T289 629Z"></path></g><g data-mml-node="mi" transform="translate(1440,0)"><path data-c="1D441" d="M234 637Q231 637 226 637Q201 637 196 638T191 649Q191 676 202 682Q204 683 299 683Q376 683 387 683T401 677Q612 181 616 168L670 381Q723 592 723 606Q723 633 659 637Q635 637 635 648Q635 650 637 660Q641 676 643 679T653 683Q656 683 684 682T767 680Q817 680 843 681T873 682Q888 682 888 672Q888 650 880 642Q878 637 858 637Q787 633 769 597L620 7Q618 0 599 0Q585 0 582 2Q579 5 453 305L326 604L261 344Q196 88 196 79Q201 46 268 46H278Q284 41 284 38T282 19Q278 6 272 0H259Q228 2 151 2Q123 2 100 2T63 2T46 1Q31 1 31 10Q31 14 34 26T39 40Q41 46 62 46Q130 49 150 85Q154 91 221 362L289 634Q287 635 234 637Z"></path></g><g data-mml-node="mo" transform="translate(2328,0)"><path data-c="29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z"></path></g></g><g data-mml-node="TeXAtom" transform="translate(2750,477.1) scale(0.707)" data-mjx-texclass="ORD"><g data-mml-node="mi"><path data-c="1D440" d="M289 629Q289 635 232 637Q208 637 201 638T194 648Q194 649 196 659Q197 662 198 666T199 671T201 676T203 679T207 681T212 683T220 683T232 684Q238 684 262 684T307 683Q386 683 398 683T414 678Q415 674 451 396L487 117L510 154Q534 190 574 254T662 394Q837 673 839 675Q840 676 842 678T846 681L852 683H948Q965 683 988 683T1017 684Q1051 684 1051 673Q1051 668 1048 656T1045 643Q1041 637 1008 637Q968 636 957 634T939 623Q936 618 867 340T797 59Q797 55 798 54T805 50T822 48T855 46H886Q892 37 892 35Q892 19 885 5Q880 0 869 0Q864 0 828 1T736 2Q675 2 644 2T609 1Q592 1 592 11Q592 13 594 25Q598 41 602 43T625 46Q652 46 685 49Q699 52 704 61Q706 65 742 207T813 490T848 631L654 322Q458 10 453 5Q451 4 449 3Q444 0 433 0Q418 0 415 7Q413 11 374 317L335 624L267 354Q200 88 200 79Q206 46 272 46H282Q288 41 289 37T286 19Q282 3 278 1Q274 0 267 0Q265 0 255 0T221 1T157 2Q127 2 95 1T58 0Q43 0 39 2T35 11Q35 13 38 25T43 40Q45 46 65 46Q135 46 154 86Q158 92 223 354T289 629Z"></path></g><g data-mml-node="mi" transform="translate(1051,0)"><path data-c="1D441" d="M234 637Q231 637 226 637Q201 637 196 638T191 649Q191 676 202 682Q204 683 299 683Q376 683 387 683T401 677Q612 181 616 168L670 381Q723 592 723 606Q723 633 659 637Q635 637 635 648Q635 650 637 660Q641 676 643 679T653 683Q656 683 684 682T767 680Q817 680 843 681T873 682Q888 682 888 672Q888 650 880 642Q878 637 858 637Q787 633 769 597L620 7Q618 0 599 0Q585 0 582 2Q579 5 453 305L326 604L261 344Q196 88 196 79Q201 46 268 46H278Q284 41 284 38T282 19Q278 6 272 0H259Q228 2 151 2Q123 2 100 2T63 2T46 1Q31 1 31 10Q31 14 34 26T39 40Q41 46 62 46Q130 49 150 85Q154 91 221 362L289 634Q287 635 234 637Z"></path></g><g data-mml-node="mi" transform="translate(1939,0)"><path data-c="1D43F" d="M228 637Q194 637 192 641Q191 643 191 649Q191 673 202 682Q204 683 217 683Q271 680 344 680Q485 680 506 683H518Q524 677 524 674T522 656Q517 641 513 637H475Q406 636 394 628Q387 624 380 600T313 336Q297 271 279 198T252 88L243 52Q243 48 252 48T311 46H328Q360 46 379 47T428 54T478 72T522 106T564 161Q580 191 594 228T611 270Q616 273 628 273H641Q647 264 647 262T627 203T583 83T557 9Q555 4 553 3T537 0T494 -1Q483 -1 418 -1T294 0H116Q32 0 32 10Q32 17 34 24Q39 43 44 45Q48 46 59 46H65Q92 46 125 49Q139 52 144 61Q147 65 216 339T285 628Q285 635 228 637Z"></path></g></g></g><g data-mml-node="mo" transform="translate(5804.6,0)"><path data-c="29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z"></path></g></g></g></svg></mjx-container> 。</li>
+<li>当RL代理选择将VM从其源PM重新调度到目标PM时存在复杂约束，导致计算动作惩罚的掩码操作缓慢。如：<ul>
+<li>PM必须有足够的可用CPU和内存来托管VM。</li>
+<li>在实际场景中为确保服务稳定性，应用程序可能要求某些VM跨不同PM托管，需要反亲和性约束。</li>
+</ul>
+</li>
+</ul>
+<p>【挑战三】：RL质量——表征与收敛困难，需要大量训练数据</p>
+<ul>
+<li>为了有效重调度，必须对状态观察进行表征，其中包括每个单独的PM和VM的特征以及它们的从属关系特征。<ul>
+<li>即使在同一个集群中，VM的数量也可能差异很大。这意味着每个时间步的特征大小也是高度动态的。</li>
+<li>为了对这些特征进行编码，一种选择是将所有VM和PM的特征连接成一个长向量。然而，这种方法无法处理任意数量的VM，因为神经网络通常需要固定大小的输入，并且还需要具有许多难以训练的参数的模型。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="2-做什么"><a href="#2-做什么" class="headerlink" title="2. 做什么 "></a>2. 做什么 <a id="做什么"></a></h2><h3 id="2-1-创新点"><a href="#2-1-创新点" class="headerlink" title="2.1 创新点 "></a>2.1 创新点 <a id="创新点"></a></h3><p>【挑战一】：效率与质量兼顾——在有限的时间内（5s）实现较优的调度效果 -&gt; 【创新点 1】：转化为RL适用的问题表述，从而便于使用 RL 解决</p>
+<p>【挑战二】：RL效率——求解缓慢，动作空间过大 -&gt; 【创新点 2】：两阶段RL求解框架</p>
+<p>【挑战三】：RL质量——表征与收敛困难，需要大量训练数据 -&gt; 【创新点 3】：大型数据中心&amp;VMs特征提取模块</p>
+<h3 id="2-2-总体框架"><a href="#2-2-总体框架" class="headerlink" title="2.2 总体框架 "></a>2.2 总体框架 <a id="总体框架"></a></h3><p><figure class="image-caption"><img lazyload="" src="/images/loading.svg" data-src="https://github.com/Tongji-Large-Scale-Research-Group/Awesome-Cloud/blob/main/images/issue-17-2.png?raw=true" alt="图 2"><figcaption>图 2</figcaption></figure></p>
+<hr>
+<h2 id="3-做的效果"><a href="#3-做的效果" class="headerlink" title="3. 做的效果 "></a>3. 做的效果 <a id="做的效果"></a></h2><h3 id="3-1-实验设置"><a href="#3-1-实验设置" class="headerlink" title="3.1 实验设置 "></a>3.1 实验设置 <a id="实验设置"></a></h3><h4 id="对比方法"><a href="#对比方法" class="headerlink" title="对比方法"></a>对比方法</h4><ul>
+<li>【最优化】<ul>
+<li>MIP最优化算法</li>
+</ul>
+</li>
+<li>【启发式】<ul>
+<li>基于过滤的启发式算法（HA）</li>
+<li>向量装箱问题（𝛼 -VBPP）：将装箱调度问题的经典解决方法VBPP[49]，推广到重调度问题。</li>
+<li>分区优化问题（POP）[47]：将问题随机拆分为子问题（每个子问题包含VM和PM的子集），对每个子问题应用MIP求解器，使能够满足五秒的限制。</li>
+<li>蒙特卡洛树搜索（MCTS）[67]：使用DDTS[67]来修剪搜索空间，在推理时间内多次搜索。</li>
+</ul>
+</li>
+<li>【RL】<ul>
+<li>Decima[44]：使用图神经网络对VM和PM信息进行编码，分解为二阶段动作并使用深度RL进行训练。</li>
+<li>NeuPlan[66]：在第一阶段以图作为输入接收，并生成前几个VM迁移以修剪搜索空间。在第二阶段，使用MIP求解器求解剩余MNL（待迁移数量）。</li>
+</ul>
+</li>
+</ul>
+<h4 id="实验内容（非常丰富）"><a href="#实验内容（非常丰富）" class="headerlink" title="实验内容（非常丰富）"></a>实验内容（非常丰富）</h4><ul>
+<li>【整体实验】本方法与现有最先进算法的差距（§5.2）</li>
+<li>【消融实验】每个组件具体能够提高多少效率&amp;质量（§5.3）</li>
+<li>【消融实验】两阶段框架如何适应不同的约束：（§5.4）<ul>
+<li>i）对原始Medium数据集的约束</li>
+<li>ii）多维资源约束</li>
+<li>iii）服务亲和性约束？</li>
+</ul>
+</li>
+<li>【扩展性】VMR2L能否优化：（§5.5）<ul>
+<li>i）除碎片率FR以外的目标</li>
+<li>ii）定义了多种资源类型的混合目标</li>
+</ul>
+</li>
+<li>【扩展性】如何推广到：（§5.6）<ul>
+<li>i）不同于训练数据分布的工作负载</li>
+<li>ii）在推理时使用不同的MNL（重调度数量）</li>
+<li>iii）更多PM和VM</li>
+<li>iv）不同的集群、不同工作负载</li>
+<li>v）具有不同MNL的不同工作负载？</li>
+</ul>
+</li>
+<li>【扩展性】学习更大的集群更困难吗？（§5.7）</li>
+<li>【核心亮点】直觉上的改进来自哪里？（§5.8）</li>
+</ul>
+<p>可以看出实验内容的丰富性是这篇论文的一大优点，本次暂不详细分析，下次有机会再结合具体研究内容展开介绍。</p>
+<h3 id="3-2-实验结果"><a href="#3-2-实验结果" class="headerlink" title="3.2 实验结果 "></a>3.2 实验结果 <a id="实验结果"></a></h3><h4 id="数据集产出"><a href="#数据集产出" class="headerlink" title="数据集产出"></a>数据集产出</h4><ul>
+<li>从真实的行业规模数据中心收集两个数据集：<ul>
+<li>一个包含多达2089个虚拟机和280个PMs的中等数据集；</li>
+<li>一个包含多达4546个虚拟机和1176个PMs的大型数据集。</li>
+</ul>
+</li>
+<li>每个数据集包含4400个映射，它们表示在不同时间点VM到PM的分配。</li>
+<li>为了在确保商业运营机密性和避免潜在的训练/测试泄漏的同时发布这些数据集，我们通过随机删除一些现有虚拟机并将虚拟机重新部署到它们可以适应的任何PM来匿名化每个映射。</li>
+<li>在实验中，本文将4400个映射分成4000个用于训练，200个用于验证，200个用于测试。</li>
+<li>本文设计了一个遵循OpenAI Gym环境[11]的模拟器，允许我们离线训练，模拟器直接支持数据集格式。</li>
+</ul>
+<blockquote>
+<p>据我们所知，这些是基于真实跟踪进行VM重新安排的最大数据集，对社区非常有用。</p>
+</blockquote>
+<h4 id="实验结果"><a href="#实验结果" class="headerlink" title="实验结果"></a>实验结果</h4><ul>
+<li>暂不赘述，感兴趣的同学可以自行精读论文。</li>
+</ul>
+<hr>
+<h2 id="4-展望"><a href="#4-展望" class="headerlink" title="4. 展望 "></a>4. 展望 <a id="展望"></a></h2><h3 id="4-1-未来方向"><a href="#4-1-未来方向" class="headerlink" title="4.1 未来方向 "></a>4.1 未来方向 <a id="未来方向"></a></h3><ul>
+<li>总结一：可变数量表征 应用于算力网络场景<ul>
+<li>面向具有复杂拓扑的请求时，同样存在“可变数量表征”难题以及“拓扑矩阵稀疏”难题。</li>
+<li>需要探究如何用少量信息表征最重要的内容，并解决数量可变问题。</li>
+</ul>
+</li>
+<li>总结二：性能干扰场景研究<ul>
+<li>数据中心管理的一个挑战是由嘈杂的邻居（Noisy Neighbors）引起的性能干扰，这些邻居是大量占用共享资源的虚拟机，导致同一PM上的其他VM性能降级。</li>
+<li>这种情况下也会需要重调度以避免性能降级，但需研究何种VM共置会产生性能干扰。</li>
+</ul>
+</li>
+</ul>
+<h3 id="4-2-EuroSys论文风格"><a href="#4-2-EuroSys论文风格" class="headerlink" title="4.2 EuroSys论文风格 "></a>4.2 EuroSys论文风格 <a id="EuroSys论文风格"></a></h3><ul>
+<li><p>总结一：不重视现状&amp;挑战&amp;创新总结</p>
+<ul>
+<li>关于现状不足和研究挑战，在引言仅提及“最优化方法效率低+启发式方法质量差”，完全没有提及使用RL时会存在什么困难。实际存在较多挑战，但在方法设计部分才零零散散提出。</li>
+<li>显得创新性很弱，仅从摘要引言看起来“平平无奇”。阅读挑战大，需自行花大量时间总结。</li>
+<li>（仅代表个人意见，如有其他意见欢迎指教！）</li>
+</ul>
+</li>
+<li><p>总结二：撰写风格偏工程</p>
+<ul>
+<li>在本文引言部分，花费了大量篇幅介绍调度、重调度相关的工程性实践细节。</li>
+<li>做了非常丰富的实验和数据分析（7/16页，8个小节），提供了开源数据集。</li>
+</ul>
+</li>
+<li><p>本文引言中囊括了丰富的工程性实践细节！</p>
+<ul>
+<li>任务：存在两类典型任务<ul>
+<li>重调度主要应用于使用硬件虚拟化的VM集群，这些VM提供强大的隔离性并具有高启动成本，使其适用于长时间运行的工作负载，例如开发机器[46]。<ul>
+<li>较小的VM（例如代理服务器或例行监控/测试）很容易使用碎片化资源创建，几乎没有供应中断的风险。</li>
+<li>相反，许多直接面向消费者的高优先级任务需要中大型虚拟机。因此，我们的研究重点关注16核碎片率，以满足ByteDance的运营需求，其中16核是开发机器的默认VM类型。</li>
+</ul>
+</li>
+<li>对于其他短期任务，如CI/CD或CronJob，重调度是不必要的。它们通过K8s在单独的集群中进行管理，通过操作系统级虚拟化提供快速启动[36]。</li>
+</ul>
+</li>
+<li>资源：通常在集群内少量迁移<ul>
+<li>为了系统稳定性，重调度通常仅限于同一集群。一个集群通常涉及不超过几百个PM，因为<ul>
+<li>它允许将专用资源分配给不同的用户组，其中特定配置可以更好地优化；</li>
+<li>每个集群可以独立监控和管理，允许一个集群升级而不影响其他集群[1]。</li>
+</ul>
+</li>
+<li>设置迁移数量限制（MNL）以控制要迁移的VM数量，通常选择为所有VM的2~3%。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="4-3-论文创新性思考"><a href="#4-3-论文创新性思考" class="headerlink" title="4.3 论文创新性思考 "></a>4.3 论文创新性思考 <a id="论文创新性思考"></a></h3><p><figure class="image-caption"><img lazyload="" src="/images/loading.svg" data-src="https://github.com/Tongji-Large-Scale-Research-Group/Awesome-Cloud/blob/main/images/issue-17-3.png?raw=true" alt="图 3"><figcaption>图 3</figcaption></figure></p>
+<ul>
+<li><p>联系最近看到一片篇个人认为非常有意思的<a class="link" href="https://github.com/zibuyu/research_tao/blob/master/03_finding_idea.md">文章<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>，作以下总结：</p>
+</li>
+<li><p>总结一：不确定性→确定性</p>
+<ul>
+<li>一个想法“新不新”，本质上就是“是否从不确定走向了确定”。</li>
+<li>一个开放问题有无数种答案，验证了其中一种，就是推动了确定性，也就是新。</li>
+</ul>
+</li>
+<li><p>总结二：方法新 or 结论新</p>
+<ul>
+<li><strong>方法新</strong>：是高校主流的（传统的）“新”，重在理论，体现在能否找到一个“新问题”、能否提出一个“新方法”。</li>
+<li><strong>结论新</strong>：重在实践，体现在能否通过实践操作得到“新发现”、获得“新结果”。</li>
+<li>不必拘泥于前者，后者也很重要。二者相辅相成。</li>
+</ul>
+</li>
+<li><p>总结三：两种创新路线</p>
+<ul>
+<li>dh 同学（初学者可参考）：从一个反直觉发现出发，逐步落实。</li>
+<li>ljw 同学（有积累后可参考）：好奇心驱动，对于好奇的问题不断调研和实验分析。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="问答环节记录"><a href="#问答环节记录" class="headerlink" title="问答环节记录"></a>问答环节记录</h2><ol>
+<li>有没有做真实实验？  </li>
+</ol>
+<ul>
+<li>没有，因为目标是碎片率，所以使用真实数据集做模拟实验绰绰有余。  </li>
+</ul>
+<ol start="2">
+<li>迁移多花的时间有多长？  </li>
+</ol>
+<ul>
+<li>本论文没细讲。  </li>
+</ul>
+<ol start="3">
+<li>是否可以没有冷启动？  </li>
+</ol>
+<ul>
+<li>整个内存迁移可能没有冷启动。  </li>
+</ul>
+<ol start="4">
+<li>热迁移是否会因为内存变化太快而失败？  </li>
+</ol>
+<ul>
+<li>会的，可能有保底机制（太长时间不成功就直接冷迁移）。  </li>
+</ul>
+<hr>
+<hr>
+<ul>
+<li>希望这篇博客对你有帮助！如果你有任何问题或需要进一步的帮助，请随时提问。</li>
+<li>如果你喜欢这篇文章，欢迎<a class="link" href="https://github.com/freshwlnd/">动动小手<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>给我一个follow或star。</li>
+</ul>
+<h1 id="x1f5fa-参考文献"><a href="#x1f5fa-参考文献" class="headerlink" title="🗺参考文献"></a><span class="emoji" alias="world_map" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f5fa.png?v8">🗺</span>参考文献</h1><div id="refer-anchor-1"></div>
+
+<p><a class="link" href="https://dl.acm.org/doi/10.1145/3689031.3717476">[1] Xianzhong Ding, Yunkai Zhang, Binbin Chen, Donghao Ying, Tieying Zhang, Jianjun Chen, Lei Zhang, Alberto Cerpa, and Wan Du. 2025. Towards VM Rescheduling Optimization Through Deep Reinforcement Learning. In Proceedings of the Twentieth European Conference on Computer Systems (EuroSys ‘25). Association for Computing Machinery, New York, NY, USA, 686–701. https://doi.org/10.1145/3689031.3717476<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
+]]></content>
+      <categories>
+        <category>论文</category>
+        <category>精读</category>
+        <category>云计算</category>
+      </categories>
+      <tags>
+        <tag>迁移</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>【论文】精读笔记3-前沿-用RL进行VM重调度以整理碎片-B-相关工作发展脉络梳理</title>
     <url>/2025/05/14/literature/literatureNotesIntensive3/</url>
     <content><![CDATA[<h1 id="x1f4d6-《Towards-VM-Rescheduling-Optimization-Through-Deep-Reinforcement-Learning》"><a href="#x1f4d6-《Towards-VM-Rescheduling-Optimization-Through-Deep-Reinforcement-Learning》" class="headerlink" title="📖《Towards VM Rescheduling Optimization Through Deep Reinforcement Learning》"></a><span class="emoji" alias="book" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4d6.png?v8">📖</span>《Towards VM Rescheduling Optimization Through Deep Reinforcement Learning》</h1><p>2025 年 UC Merced大学、 UC Berkeley大学、字节跳动团队 发表于 CCF-A 类会议 EuroSys。</p>
@@ -14379,6 +14379,92 @@
       </tags>
   </entry>
   <entry>
+    <title>【C++】结构化绑定（Structured Binding）详解</title>
+    <url>/2025/03/31/program_language/cpp/cpp-structured-binding/</url>
+    <content><![CDATA[<h1 id="💡简介"><a href="#💡简介" class="headerlink" title="💡简介"></a>💡简介</h1><p>在C++中，结构化绑定（Structured Binding）是一种简洁优雅的语法糖，允许开发者直接解构复杂类型的返回值，例如<code>std::pair</code>或<code>std::tuple</code>，从而使代码更易读、更易维护。本文将详细介绍这种语法的专业名词、引入版本、拓展用法以及类似的语法糖。</p>
+<h1 id="🖼️背景"><a href="#🖼️背景" class="headerlink" title="🖼️背景"></a>🖼️背景</h1><p>在使用C++时，常常需要处理返回值为<code>std::pair</code>或<code>std::tuple</code>的函数。传统方法需要显式声明类型并通过<code>std::get</code>访问元素，这种方式既冗长又不直观。例如：</p>
+<div class="code-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="code"><pre><span class="line">std::pair&lt;<span class="type">int</span>, <span class="type">int</span>&gt; result = <span class="built_in">func</span>();</span><br><span class="line"><span class="type">int</span> x = result.first;</span><br><span class="line"><span class="type">int</span> y = result.second;</span><br></pre></td></tr></table></figure></div>
+
+<p>C++17引入了结构化绑定语法，使得我们可以直接使用<code>[x, y] = func()</code>来解构返回值，极大地提升了代码的可读性和简洁性。</p>
+<h1 id="🧠思路"><a href="#🧠思路" class="headerlink" title="🧠思路"></a>🧠思路</h1><ol>
+<li>了解结构化绑定的专业名词及其引入版本。</li>
+<li>探讨结构化绑定的常见用法及拓展场景。</li>
+<li>介绍其他类似的语法糖，帮助开发者编写更优雅的代码。</li>
+</ol>
+<h1 id="🔨解决"><a href="#🔨解决" class="headerlink" title="🔨解决"></a>🔨解决</h1><h2 id="什么是结构化绑定？"><a href="#什么是结构化绑定？" class="headerlink" title="什么是结构化绑定？"></a>什么是结构化绑定？</h2><p>结构化绑定（Structured Binding）是C++17引入的一种语法糖，是指在一次声明中同时引入多个变量，同时绑定初始化表达式的各个子对象的语法形式。<a href="#refer-anchor-4"><sup>[4]</sup></a></p>
+<p>结构化绑定声明使用auto来声明多个变量，所有变量都必须用中括号括起来。</p>
+<p>允许开发者将复杂类型（如<code>std::pair</code>、<code>std::tuple</code>或用户自定义结构体）的成员解构为多个变量。其语法形式允许开发者直接将返回值的成员绑定到局部变量中，而无需显式声明类型或调用特定方法。</p>
+<p>其语法形式如下：</p>
+<div class="code-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="code"><pre><span class="line">cv-<span class="keyword">auto</span>+引用 [变量<span class="number">1</span>, 变量<span class="number">2</span>, ... 变量n ] = 初始化表达式;</span><br><span class="line">cv-<span class="keyword">auto</span>+引用 [变量<span class="number">1</span>, 变量<span class="number">2</span>, ... 变量n ] (初始化表达式);</span><br><span class="line">cv-<span class="keyword">auto</span>+引用 [变量<span class="number">1</span>, 变量<span class="number">2</span>, ... 变量n ] &#123;初始化表达式&#125;;</span><br><span class="line"><span class="comment">// 这里 cv-auto+引用 包含 auto, auto const, auto &amp;, auto&amp;&amp; 等等形式</span></span><br></pre></td></tr></table></figure></div>
+
+<p>在这里，<code>[x, y]</code>会自动绑定到<code>func()</code>返回的<code>std::pair</code>的两个成员。</p>
+<hr>
+<h2 id="结构化绑定的引入版本"><a href="#结构化绑定的引入版本" class="headerlink" title="结构化绑定的引入版本"></a>结构化绑定的引入版本</h2><p>结构化绑定是从 <strong>C++17</strong> 开始引入的。要使用这一特性，请确保你的编译器支持C++17或更高版本，并在编译时添加<code>-std=c++17</code>选项。例如：</p>
+<div class="code-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="code"><pre><span class="line">g++ -std=c+<span class="number">+17</span> -o main main.cpp</span><br></pre></td></tr></table></figure></div>
+
+<hr>
+<h2 id="常见用法"><a href="#常见用法" class="headerlink" title="常见用法"></a>常见用法</h2><h3 id="1-解构std-pair或std-tuple"><a href="#1-解构std-pair或std-tuple" class="headerlink" title="1. 解构std::pair或std::tuple"></a>1. 解构<code>std::pair</code>或<code>std::tuple</code></h3><p>结构化绑定可以直接解构<code>std::pair</code>或<code>std::tuple</code>，避免显式调用方法访问其成员。</p>
+<div class="code-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;tuple&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function">std::pair&lt;<span class="type">int</span>, <span class="type">int</span>&gt; <span class="title">func</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;<span class="number">1</span>, <span class="number">2</span>&#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">auto</span> [x, y] = <span class="built_in">func</span>();</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;x: &quot;</span> &lt;&lt; x &lt;&lt; <span class="string">&quot;, y: &quot;</span> &lt;&lt; y &lt;&lt; std::endl;</span><br><span class="line"></span><br><span class="line">    std::tuple&lt;<span class="type">int</span>, <span class="type">double</span>, std::string&gt; t = &#123;<span class="number">42</span>, <span class="number">3.14</span>, <span class="string">&quot;Hello&quot;</span>&#125;;</span><br><span class="line">    <span class="keyword">auto</span> [a, b, c] = t;</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;a: &quot;</span> &lt;&lt; a &lt;&lt; <span class="string">&quot;, b: &quot;</span> &lt;&lt; b &lt;&lt; <span class="string">&quot;, c: &quot;</span> &lt;&lt; c &lt;&lt; std::endl;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="2-解构用户自定义结构体"><a href="#2-解构用户自定义结构体" class="headerlink" title="2. 解构用户自定义结构体"></a>2. 解构用户自定义结构体</h3><p>如果结构体的成员是<code>public</code>，可以直接使用结构化绑定来解构。</p>
+<div class="code-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">Point</span> &#123;</span><br><span class="line">    <span class="type">int</span> x;</span><br><span class="line">    <span class="type">int</span> y;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    Point p = &#123;<span class="number">3</span>, <span class="number">4</span>&#125;;</span><br><span class="line">    <span class="keyword">auto</span> [x, y] = p;</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;x: &quot;</span> &lt;&lt; x &lt;&lt; <span class="string">&quot;, y: &quot;</span> &lt;&lt; y &lt;&lt; std::endl;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="3-遍历std-map或std-unordered-map"><a href="#3-遍历std-map或std-unordered-map" class="headerlink" title="3. 遍历std::map或std::unordered_map"></a>3. 遍历<code>std::map</code>或<code>std::unordered_map</code></h3><p>结构化绑定可以简化对键值对容器的遍历，使代码更加简洁。</p>
+<div class="code-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;map&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    std::map&lt;std::string, <span class="type">int</span>&gt; m = &#123;&#123;<span class="string">&quot;Alice&quot;</span>, <span class="number">25</span>&#125;, &#123;<span class="string">&quot;Bob&quot;</span>, <span class="number">30</span>&#125;&#125;;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">const</span> <span class="keyword">auto</span>&amp; [key, value] : m) &#123;</span><br><span class="line">        std::cout &lt;&lt; key &lt;&lt; <span class="string">&quot;: &quot;</span> &lt;&lt; value &lt;&lt; std::endl;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<hr>
+<h2 id="拓展用法"><a href="#拓展用法" class="headerlink" title="拓展用法"></a>拓展用法</h2><h3 id="1-与范围for循环结合"><a href="#1-与范围for循环结合" class="headerlink" title="1. 与范围for循环结合"></a>1. 与范围<code>for</code>循环结合</h3><p>结构化绑定可以与范围<code>for</code>循环结合，简化对容器中复杂类型的遍历。</p>
+<div class="code-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    std::vector&lt;std::pair&lt;<span class="type">int</span>, <span class="type">int</span>&gt;&gt; v = &#123;&#123;<span class="number">1</span>, <span class="number">2</span>&#125;, &#123;<span class="number">3</span>, <span class="number">4</span>&#125;, &#123;<span class="number">5</span>, <span class="number">6</span>&#125;&#125;;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">const</span> <span class="keyword">auto</span>&amp; [x, y] : v) &#123;</span><br><span class="line">        std::cout &lt;&lt; <span class="string">&quot;x: &quot;</span> &lt;&lt; x &lt;&lt; <span class="string">&quot;, y: &quot;</span> &lt;&lt; y &lt;&lt; std::endl;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="2-解构数组"><a href="#2-解构数组" class="headerlink" title="2. 解构数组"></a>2. 解构数组</h3><p>结构化绑定也支持解构数组，允许开发者直接将数组的元素绑定到多个变量。</p>
+<div class="code-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span> arr[<span class="number">3</span>] = &#123;<span class="number">10</span>, <span class="number">20</span>, <span class="number">30</span>&#125;;</span><br><span class="line">    <span class="keyword">auto</span> [a, b, c] = arr;</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;a: &quot;</span> &lt;&lt; a &lt;&lt; <span class="string">&quot;, b: &quot;</span> &lt;&lt; b &lt;&lt; <span class="string">&quot;, c: &quot;</span> &lt;&lt; c &lt;&lt; std::endl;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<hr>
+<h2 id="类似的语法糖"><a href="#类似的语法糖" class="headerlink" title="类似的语法糖"></a>类似的语法糖</h2><h3 id="1-auto关键字"><a href="#1-auto关键字" class="headerlink" title="1. auto关键字"></a>1. <code>auto</code>关键字</h3><p><code>auto</code>是C++11引入的语法糖，用于自动推导变量类型。例如：</p>
+<div class="code-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">auto</span> x = <span class="number">42</span>; <span class="comment">// 自动推导为 int</span></span><br></pre></td></tr></table></figure></div>
+
+<h3 id="2-范围for循环"><a href="#2-范围for循环" class="headerlink" title="2. 范围for循环"></a>2. 范围<code>for</code>循环</h3><p>C++11引入了范围<code>for</code>循环，用于简化容器的遍历：</p>
+<div class="code-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    std::vector&lt;<span class="type">int</span>&gt; v = &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>&#125;;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">auto</span> x : v) &#123;</span><br><span class="line">        std::cout &lt;&lt; x &lt;&lt; std::endl;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="3-初始化列表"><a href="#3-初始化列表" class="headerlink" title="3. 初始化列表"></a>3. 初始化列表</h3><p>C++11引入了初始化列表语法，简化了容器的初始化：</p>
+<div class="code-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vector&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    std::vector&lt;<span class="type">int</span>&gt; v = &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>&#125;; <span class="comment">// 使用初始化列表</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<hr>
+<h1 id="🏥反思"><a href="#🏥反思" class="headerlink" title="🏥反思"></a>🏥反思</h1><p>结构化绑定是C++17引入的一项重要特性，它极大地简化了对复杂类型的解构操作，使代码更加简洁和易读。在实际开发中，合理使用结构化绑定和其他语法糖（如<code>auto</code>、范围<code>for</code>循环）可以显著提升代码的可维护性和开发效率。</p>
+<p>未来有空时，还会继续整理其它有意思的语法糖<a href="#refer-anchor-5"><sup>[5]</sup></a>的用法。</p>
+<hr>
+<ul>
+<li>希望这篇博客对你有帮助！如果你有任何问题或需要进一步的帮助，请随时提问。</li>
+<li>如果你喜欢这篇文章，欢迎<a class="link"   href="https://github.com/freshwlnd/" >动动小手<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>给我一个follow或star。</li>
+</ul>
+<h1 id="x1f5fa-参考文献"><a href="#x1f5fa-参考文献" class="headerlink" title="&#x1f5fa;参考文献"></a><span class="emoji" alias="world_map" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f5fa.png?v8">&#x1f5fa;</span>参考文献</h1><div id="refer-anchor-1"></div>
+
+<p><a class="link"   href="https://en.cppreference.com/w/cpp/language/structured_binding" >[1] C++17 Structured Bindings<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>  </p>
+<div id="refer-anchor-2"></div>
+
+<p><a class="link"   href="https://en.cppreference.com/w/cpp/17" >[2] C++17 Features<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>  </p>
+<div id="refer-anchor-3"></div>
+
+<p><a class="link"   href="https://www.packtpub.com/product/modern-c-programming-cookbook-second-edition/9781839211966" >[3] Modern C++ Programming Cookbook<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
+<div id="refer-anchor-4"></div>
+
+<p><a class="link"   href="https://blog.csdn.net/zwvista/article/details/78111346" >[4] C++17尝鲜：结构化绑定声明（Structured Binding Declaration）<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
+<div id="refer-anchor-4"></div>
+
+<p><a class="link"   href="https://www.luogu.com.cn/article/l86yn4aw" >[5] 从 C++98 到 C++20，寻觅甜甜的语法糖们<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
+]]></content>
+      <categories>
+        <category>工程</category>
+        <category>编程语言</category>
+        <category>C++</category>
+      </categories>
+      <tags>
+        <tag>C++</tag>
+        <tag>结构化绑定</tag>
+        <tag>语法糖</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>【论文】精读笔记5-前沿-字节跳动统一调度架构Gödel-C-研究方案梳理</title>
     <url>/2025/05/21/literature/literatureNotesIntensive5/</url>
     <content><![CDATA[<h1 id="x1f4d6-《Godel-Unified-Large-Scale-Resource-Management-and-Scheduling-at-ByteDance》"><a href="#x1f4d6-《Godel-Unified-Large-Scale-Resource-Management-and-Scheduling-at-ByteDance》" class="headerlink" title="📖《Gödel: Unified Large-Scale Resource Management and Scheduling at ByteDance》"></a><span class="emoji" alias="book" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f4d6.png?v8">📖</span>《Gödel: Unified Large-Scale Resource Management and Scheduling at ByteDance》</h1><p>2023 年 Virginia大学、字节跳动团队 发表于 CCF-B 类云计算顶级会议 SoCC。</p>
@@ -14723,92 +14809,6 @@
       </tags>
   </entry>
   <entry>
-    <title>【C++】结构化绑定（Structured Binding）详解</title>
-    <url>/2025/03/31/program_language/cpp/cpp-structured-binding/</url>
-    <content><![CDATA[<h1 id="💡简介"><a href="#💡简介" class="headerlink" title="💡简介"></a>💡简介</h1><p>在C++中，结构化绑定（Structured Binding）是一种简洁优雅的语法糖，允许开发者直接解构复杂类型的返回值，例如<code>std::pair</code>或<code>std::tuple</code>，从而使代码更易读、更易维护。本文将详细介绍这种语法的专业名词、引入版本、拓展用法以及类似的语法糖。</p>
-<h1 id="🖼️背景"><a href="#🖼️背景" class="headerlink" title="🖼️背景"></a>🖼️背景</h1><p>在使用C++时，常常需要处理返回值为<code>std::pair</code>或<code>std::tuple</code>的函数。传统方法需要显式声明类型并通过<code>std::get</code>访问元素，这种方式既冗长又不直观。例如：</p>
-<div class="code-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="code"><pre><span class="line">std::pair&lt;<span class="type">int</span>, <span class="type">int</span>&gt; result = <span class="built_in">func</span>();</span><br><span class="line"><span class="type">int</span> x = result.first;</span><br><span class="line"><span class="type">int</span> y = result.second;</span><br></pre></td></tr></table></figure></div>
-
-<p>C++17引入了结构化绑定语法，使得我们可以直接使用<code>[x, y] = func()</code>来解构返回值，极大地提升了代码的可读性和简洁性。</p>
-<h1 id="🧠思路"><a href="#🧠思路" class="headerlink" title="🧠思路"></a>🧠思路</h1><ol>
-<li>了解结构化绑定的专业名词及其引入版本。</li>
-<li>探讨结构化绑定的常见用法及拓展场景。</li>
-<li>介绍其他类似的语法糖，帮助开发者编写更优雅的代码。</li>
-</ol>
-<h1 id="🔨解决"><a href="#🔨解决" class="headerlink" title="🔨解决"></a>🔨解决</h1><h2 id="什么是结构化绑定？"><a href="#什么是结构化绑定？" class="headerlink" title="什么是结构化绑定？"></a>什么是结构化绑定？</h2><p>结构化绑定（Structured Binding）是C++17引入的一种语法糖，是指在一次声明中同时引入多个变量，同时绑定初始化表达式的各个子对象的语法形式。<a href="#refer-anchor-4"><sup>[4]</sup></a></p>
-<p>结构化绑定声明使用auto来声明多个变量，所有变量都必须用中括号括起来。</p>
-<p>允许开发者将复杂类型（如<code>std::pair</code>、<code>std::tuple</code>或用户自定义结构体）的成员解构为多个变量。其语法形式允许开发者直接将返回值的成员绑定到局部变量中，而无需显式声明类型或调用特定方法。</p>
-<p>其语法形式如下：</p>
-<div class="code-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="code"><pre><span class="line">cv-<span class="keyword">auto</span>+引用 [变量<span class="number">1</span>, 变量<span class="number">2</span>, ... 变量n ] = 初始化表达式;</span><br><span class="line">cv-<span class="keyword">auto</span>+引用 [变量<span class="number">1</span>, 变量<span class="number">2</span>, ... 变量n ] (初始化表达式);</span><br><span class="line">cv-<span class="keyword">auto</span>+引用 [变量<span class="number">1</span>, 变量<span class="number">2</span>, ... 变量n ] &#123;初始化表达式&#125;;</span><br><span class="line"><span class="comment">// 这里 cv-auto+引用 包含 auto, auto const, auto &amp;, auto&amp;&amp; 等等形式</span></span><br></pre></td></tr></table></figure></div>
-
-<p>在这里，<code>[x, y]</code>会自动绑定到<code>func()</code>返回的<code>std::pair</code>的两个成员。</p>
-<hr>
-<h2 id="结构化绑定的引入版本"><a href="#结构化绑定的引入版本" class="headerlink" title="结构化绑定的引入版本"></a>结构化绑定的引入版本</h2><p>结构化绑定是从 <strong>C++17</strong> 开始引入的。要使用这一特性，请确保你的编译器支持C++17或更高版本，并在编译时添加<code>-std=c++17</code>选项。例如：</p>
-<div class="code-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="code"><pre><span class="line">g++ -std=c+<span class="number">+17</span> -o main main.cpp</span><br></pre></td></tr></table></figure></div>
-
-<hr>
-<h2 id="常见用法"><a href="#常见用法" class="headerlink" title="常见用法"></a>常见用法</h2><h3 id="1-解构std-pair或std-tuple"><a href="#1-解构std-pair或std-tuple" class="headerlink" title="1. 解构std::pair或std::tuple"></a>1. 解构<code>std::pair</code>或<code>std::tuple</code></h3><p>结构化绑定可以直接解构<code>std::pair</code>或<code>std::tuple</code>，避免显式调用方法访问其成员。</p>
-<div class="code-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;tuple&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function">std::pair&lt;<span class="type">int</span>, <span class="type">int</span>&gt; <span class="title">func</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;<span class="number">1</span>, <span class="number">2</span>&#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">auto</span> [x, y] = <span class="built_in">func</span>();</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;x: &quot;</span> &lt;&lt; x &lt;&lt; <span class="string">&quot;, y: &quot;</span> &lt;&lt; y &lt;&lt; std::endl;</span><br><span class="line"></span><br><span class="line">    std::tuple&lt;<span class="type">int</span>, <span class="type">double</span>, std::string&gt; t = &#123;<span class="number">42</span>, <span class="number">3.14</span>, <span class="string">&quot;Hello&quot;</span>&#125;;</span><br><span class="line">    <span class="keyword">auto</span> [a, b, c] = t;</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;a: &quot;</span> &lt;&lt; a &lt;&lt; <span class="string">&quot;, b: &quot;</span> &lt;&lt; b &lt;&lt; <span class="string">&quot;, c: &quot;</span> &lt;&lt; c &lt;&lt; std::endl;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
-
-<h3 id="2-解构用户自定义结构体"><a href="#2-解构用户自定义结构体" class="headerlink" title="2. 解构用户自定义结构体"></a>2. 解构用户自定义结构体</h3><p>如果结构体的成员是<code>public</code>，可以直接使用结构化绑定来解构。</p>
-<div class="code-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">Point</span> &#123;</span><br><span class="line">    <span class="type">int</span> x;</span><br><span class="line">    <span class="type">int</span> y;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    Point p = &#123;<span class="number">3</span>, <span class="number">4</span>&#125;;</span><br><span class="line">    <span class="keyword">auto</span> [x, y] = p;</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;x: &quot;</span> &lt;&lt; x &lt;&lt; <span class="string">&quot;, y: &quot;</span> &lt;&lt; y &lt;&lt; std::endl;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
-
-<h3 id="3-遍历std-map或std-unordered-map"><a href="#3-遍历std-map或std-unordered-map" class="headerlink" title="3. 遍历std::map或std::unordered_map"></a>3. 遍历<code>std::map</code>或<code>std::unordered_map</code></h3><p>结构化绑定可以简化对键值对容器的遍历，使代码更加简洁。</p>
-<div class="code-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;map&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    std::map&lt;std::string, <span class="type">int</span>&gt; m = &#123;&#123;<span class="string">&quot;Alice&quot;</span>, <span class="number">25</span>&#125;, &#123;<span class="string">&quot;Bob&quot;</span>, <span class="number">30</span>&#125;&#125;;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">const</span> <span class="keyword">auto</span>&amp; [key, value] : m) &#123;</span><br><span class="line">        std::cout &lt;&lt; key &lt;&lt; <span class="string">&quot;: &quot;</span> &lt;&lt; value &lt;&lt; std::endl;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
-
-<hr>
-<h2 id="拓展用法"><a href="#拓展用法" class="headerlink" title="拓展用法"></a>拓展用法</h2><h3 id="1-与范围for循环结合"><a href="#1-与范围for循环结合" class="headerlink" title="1. 与范围for循环结合"></a>1. 与范围<code>for</code>循环结合</h3><p>结构化绑定可以与范围<code>for</code>循环结合，简化对容器中复杂类型的遍历。</p>
-<div class="code-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    std::vector&lt;std::pair&lt;<span class="type">int</span>, <span class="type">int</span>&gt;&gt; v = &#123;&#123;<span class="number">1</span>, <span class="number">2</span>&#125;, &#123;<span class="number">3</span>, <span class="number">4</span>&#125;, &#123;<span class="number">5</span>, <span class="number">6</span>&#125;&#125;;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">const</span> <span class="keyword">auto</span>&amp; [x, y] : v) &#123;</span><br><span class="line">        std::cout &lt;&lt; <span class="string">&quot;x: &quot;</span> &lt;&lt; x &lt;&lt; <span class="string">&quot;, y: &quot;</span> &lt;&lt; y &lt;&lt; std::endl;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
-
-<h3 id="2-解构数组"><a href="#2-解构数组" class="headerlink" title="2. 解构数组"></a>2. 解构数组</h3><p>结构化绑定也支持解构数组，允许开发者直接将数组的元素绑定到多个变量。</p>
-<div class="code-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span> arr[<span class="number">3</span>] = &#123;<span class="number">10</span>, <span class="number">20</span>, <span class="number">30</span>&#125;;</span><br><span class="line">    <span class="keyword">auto</span> [a, b, c] = arr;</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;a: &quot;</span> &lt;&lt; a &lt;&lt; <span class="string">&quot;, b: &quot;</span> &lt;&lt; b &lt;&lt; <span class="string">&quot;, c: &quot;</span> &lt;&lt; c &lt;&lt; std::endl;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
-
-<hr>
-<h2 id="类似的语法糖"><a href="#类似的语法糖" class="headerlink" title="类似的语法糖"></a>类似的语法糖</h2><h3 id="1-auto关键字"><a href="#1-auto关键字" class="headerlink" title="1. auto关键字"></a>1. <code>auto</code>关键字</h3><p><code>auto</code>是C++11引入的语法糖，用于自动推导变量类型。例如：</p>
-<div class="code-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">auto</span> x = <span class="number">42</span>; <span class="comment">// 自动推导为 int</span></span><br></pre></td></tr></table></figure></div>
-
-<h3 id="2-范围for循环"><a href="#2-范围for循环" class="headerlink" title="2. 范围for循环"></a>2. 范围<code>for</code>循环</h3><p>C++11引入了范围<code>for</code>循环，用于简化容器的遍历：</p>
-<div class="code-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    std::vector&lt;<span class="type">int</span>&gt; v = &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>&#125;;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">auto</span> x : v) &#123;</span><br><span class="line">        std::cout &lt;&lt; x &lt;&lt; std::endl;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
-
-<h3 id="3-初始化列表"><a href="#3-初始化列表" class="headerlink" title="3. 初始化列表"></a>3. 初始化列表</h3><p>C++11引入了初始化列表语法，简化了容器的初始化：</p>
-<div class="code-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vector&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    std::vector&lt;<span class="type">int</span>&gt; v = &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>&#125;; <span class="comment">// 使用初始化列表</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
-
-<hr>
-<h1 id="🏥反思"><a href="#🏥反思" class="headerlink" title="🏥反思"></a>🏥反思</h1><p>结构化绑定是C++17引入的一项重要特性，它极大地简化了对复杂类型的解构操作，使代码更加简洁和易读。在实际开发中，合理使用结构化绑定和其他语法糖（如<code>auto</code>、范围<code>for</code>循环）可以显著提升代码的可维护性和开发效率。</p>
-<p>未来有空时，还会继续整理其它有意思的语法糖<a href="#refer-anchor-5"><sup>[5]</sup></a>的用法。</p>
-<hr>
-<ul>
-<li>希望这篇博客对你有帮助！如果你有任何问题或需要进一步的帮助，请随时提问。</li>
-<li>如果你喜欢这篇文章，欢迎<a class="link"   href="https://github.com/freshwlnd/" >动动小手<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>给我一个follow或star。</li>
-</ul>
-<h1 id="x1f5fa-参考文献"><a href="#x1f5fa-参考文献" class="headerlink" title="&#x1f5fa;参考文献"></a><span class="emoji" alias="world_map" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f5fa.png?v8">&#x1f5fa;</span>参考文献</h1><div id="refer-anchor-1"></div>
-
-<p><a class="link"   href="https://en.cppreference.com/w/cpp/language/structured_binding" >[1] C++17 Structured Bindings<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>  </p>
-<div id="refer-anchor-2"></div>
-
-<p><a class="link"   href="https://en.cppreference.com/w/cpp/17" >[2] C++17 Features<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>  </p>
-<div id="refer-anchor-3"></div>
-
-<p><a class="link"   href="https://www.packtpub.com/product/modern-c-programming-cookbook-second-edition/9781839211966" >[3] Modern C++ Programming Cookbook<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
-<div id="refer-anchor-4"></div>
-
-<p><a class="link"   href="https://blog.csdn.net/zwvista/article/details/78111346" >[4] C++17尝鲜：结构化绑定声明（Structured Binding Declaration）<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
-<div id="refer-anchor-4"></div>
-
-<p><a class="link"   href="https://www.luogu.com.cn/article/l86yn4aw" >[5] 从 C++98 到 C++20，寻觅甜甜的语法糖们<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
-]]></content>
-      <categories>
-        <category>工程</category>
-        <category>编程语言</category>
-        <category>C++</category>
-      </categories>
-      <tags>
-        <tag>C++</tag>
-        <tag>结构化绑定</tag>
-        <tag>语法糖</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>【Python 进阶】yield 关键词</title>
     <url>/2023/09/13/program_language/python/py-yield/</url>
     <content><![CDATA[<h1 id="💡简介"><a href="#💡简介" class="headerlink" title="💡简介"></a>💡简介</h1><ul>
@@ -14975,120 +14975,6 @@
       </categories>
       <tags>
         <tag>java</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>【Spring】java 单体式应用微服务拆分过程 bug 修复：Json Infinite Recursion</title>
-    <url>/2023/08/27/program_language/java/java-spring-bug-json-infinite-recursion/</url>
-    <content><![CDATA[<h1 id="💡简介"><a href="#💡简介" class="headerlink" title="💡简介"></a>💡简介</h1><ul>
-<li><p>将单体式 Spring 应用拆分为微服务式应用过程中，遇到了一系列有关 Spring 框架的问题，将修复过程及相关问题信息分析过程记录下来，便于以后解决同类问题，也顺便提高自己对 Spring 框架的理解。</p>
-</li>
-<li><p>前期还遇到Serialize 类序列化失败等问题，暂未记录下来，未来有机会再回顾并补充相关记录。</p>
-</li>
-</ul>
-<h1 id="🧠问题1️⃣——Json-Infinite-Recursion"><a href="#🧠问题1️⃣——Json-Infinite-Recursion" class="headerlink" title="🧠问题1️⃣——Json Infinite Recursion"></a>🧠问题1️⃣——Json Infinite Recursion</h1><h2 id="✏️问题描述"><a href="#✏️问题描述" class="headerlink" title="✏️问题描述"></a>✏️问题描述</h2><ul>
-<li>项目中涉及多个循环引用的类，例如最典型的 <code>Post</code> 和 <code>User</code>，代码如下所示：</li>
-</ul>
-<div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Post</span> {</span><br><span class="line">    <span class="meta">@ManyToOne</span></span><br><span class="line">    <span class="keyword">private</span> User user;</span><br><span class="line"></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">}</span><br></pre></td></tr></table></figure></div>
-
-<div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">User</span> {</span><br><span class="line">    <span class="meta">@OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.REMOVE)</span></span><br><span class="line">    <span class="keyword">private</span> Collection&lt;Post&gt; posts = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line"></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">}</span><br></pre></td></tr></table></figure></div>
-
-<ul>
-<li>问题也很明显，当压缩为 JSON 格式数据时，不断循环引用导致出错。</li>
-</ul>
-<h3 id="ℹ️报错信息"><a href="#ℹ️报错信息" class="headerlink" title="ℹ️报错信息"></a>ℹ️报错信息</h3><div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">feign.codec.EncodeException: Could not write JSON: Infinite recursion (StackOverflowError); nested exception is com.fasterxml.jackson.databind.JsonMappingException: Infinite recursion (StackOverflowError) (through reference chain: com.raysmond.blog.common.models.User["post"]-&gt;com.raysmond.blog.common.models.Post["seoData"]-&gt;com.raysmond.blog.common.models.User["post"]-&gt;com.raysmond.blog.common.models.Post["seoData"]-&gt;...)</span><br></pre></td></tr></table></figure></div>
-
-<h2 id="🔨解决方法1️⃣——-JsonIgnore"><a href="#🔨解决方法1️⃣——-JsonIgnore" class="headerlink" title="🔨解决方法1️⃣——@JsonIgnore"></a>🔨解决方法1️⃣——@JsonIgnore</h2><ul>
-<li>算是比较粗鲁的方法。</li>
-<li><code>@JsonIgnore</code> 能够在 JSON 序列化时将一些属性忽略<a href="#refer-anchor-1"><sup>[1]</sup></a>，从而避免循环引用。<ul>
-<li>具体而言，将注解标记在属性或者方法上，序列化生成的 JSON 数据中将不包含该属性，反序列化时也不会读取该属性。</li>
-<li>示例：<div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Post</span> {</span><br><span class="line">    <span class="meta">@ManyToOne</span></span><br><span class="line">    <span class="keyword">private</span> User user;  <span class="comment">// 保持正常</span></span><br><span class="line"></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">}</span><br></pre></td></tr></table></figure></div>
-<div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">User</span> {</span><br><span class="line">    <span class="meta">@OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.REMOVE)</span></span><br><span class="line">    <span class="meta">@JsonIgnore</span>         <span class="comment">// 序列化时忽略</span></span><br><span class="line">    <span class="keyword">private</span> Collection&lt;Post&gt; posts = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line"></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">}</span><br></pre></td></tr></table></figure></div>
-
-</li>
-</ul>
-</li>
-</ul>
-<h2 id="🔨解决方法2️⃣——-JsonManagedReference-和-JsonBackReference"><a href="#🔨解决方法2️⃣——-JsonManagedReference-和-JsonBackReference" class="headerlink" title="🔨解决方法2️⃣——@JsonManagedReference 和 @JsonBackReference"></a>🔨解决方法2️⃣——@JsonManagedReference 和 @JsonBackReference</h2><ul>
-<li><p>比上一种更合理的方法，不影响数据内容。</p>
-</li>
-<li><p>通过将循环引用关系双方中的一方不序列化，来避免出现无限循环，使 Jackson 正常工作。<a href="#refer-anchor-2"><sup>[2]</sup></a><a href="#refer-anchor-3"><sup>[3]</sup></a></p>
-</li>
-<li><p>因此，Jackson 会获取引用的前向部分（被标记了 @JsonManagedReference 注解的部分），并将其转换为类似 json 的存储格式；这就是正常 marshalling 过程。然后，Jackson 会查找引用的后向部分（被标记了 @JsonBackReference 注解的部分），不对其进行序列化，这部分关系将在前向引用的反序列化（解Marshalling）过程中正常重新构建，不影响使用。</p>
-<ul>
-<li><em>marshalling可译作集结、结集、编码、编组、编集、安整、数据打包、列集等，是计算机科学中把一个对象的内存表示变换为适合存储或发送的数据格式的过程。典型用于数据必须在一个程序的两个部分之间移动，或者必须从一个程序移动到另一个程序。Marshalling类似于序列化，可用于一个对象与一个远程对象通信。</em></li>
-<li>示例：<div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Post</span> {</span><br><span class="line">    <span class="meta">@ManyToOne</span></span><br><span class="line">    <span class="meta">@JsonManagedReference</span></span><br><span class="line">    <span class="keyword">private</span> User user;  <span class="comment">// 保持正常</span></span><br><span class="line"></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">}</span><br></pre></td></tr></table></figure></div>
-<div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">User</span> {</span><br><span class="line">    <span class="meta">@OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.REMOVE)</span></span><br><span class="line">    <span class="meta">@JsonBackReference</span>  <span class="comment">// 序列化时忽略</span></span><br><span class="line">    <span class="keyword">private</span> Collection&lt;Post&gt; posts = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line"></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">}</span><br></pre></td></tr></table></figure></div>
-</li>
-</ul>
-</li>
-<li><p>⚠️注：仅对 OneToMany 或 OneToOne 情况适用，ManyToMany 下不适用。</p>
-</li>
-</ul>
-<h2 id="🔨解决方法3️⃣——-JsonIdentityInfo"><a href="#🔨解决方法3️⃣——-JsonIdentityInfo" class="headerlink" title="🔨解决方法3️⃣——@JsonIdentityInfo"></a>🔨解决方法3️⃣——@JsonIdentityInfo</h2><ul>
-<li><p>最简单的一种方法（个人认为），因为不用手动设定父子关系，仅需给整个类进行注解标记即可。</p>
-</li>
-<li><p>使 Jackson 只在第一次遇到时序列化为完整的对象，之后再遇到同一个对象，都以对象的标识符 ID（或其他属性）代替。这样就不会序列化每个对象都 “扫描 “一次，在多个相互关联的对象之间形成链式循环时非常有用（例如：订单 -&gt; 订单行 -&gt; 用户 -&gt; 订单，如此反复）。<a href="#refer-anchor-2"><sup>[2]</sup></a></p>
-<ul>
-<li>@JsonIdentityInfo 相关参数定义<a href="#refer-anchor-3"><sup>[3]</sup></a><div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> JsonIdentityInfo</span><br><span class="line">{</span><br><span class="line">    <span class="comment">// Object ID 的 JSON 属性名</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">property</span><span class="params">()</span> <span class="keyword">default</span> <span class="string">"@id"</span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// Object ID 的生成器</span></span><br><span class="line">    <span class="keyword">public</span> Class&lt;? <span class="keyword">extends</span> <span class="title class_">ObjectIdGenerator</span>&lt;?&gt;&gt; generator();</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 将 Object ID 解析回对象的解析器</span></span><br><span class="line">    <span class="keyword">public</span> Class&lt;? <span class="keyword">extends</span> <span class="title class_">ObjectIdResolver</span>&gt; resolver() <span class="keyword">default</span> SimpleObjectIdResolver.class;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> Class&lt;?&gt; scope() <span class="keyword">default</span> Object.class;</span><br><span class="line">}</span><br></pre></td></tr></table></figure></div></li>
-<li>示例：<div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = Post.class)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Post</span> {</span><br><span class="line">    <span class="meta">@ManyToOne</span></span><br><span class="line">    <span class="meta">@JsonManagedReference</span></span><br><span class="line">    <span class="keyword">private</span> User user;  <span class="comment">// 保持正常</span></span><br><span class="line"></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">}</span><br></pre></td></tr></table></figure></div>
-<div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = User.class)</span><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">User</span> {</span><br><span class="line">    <span class="meta">@OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.REMOVE)</span></span><br><span class="line">    <span class="meta">@JsonBackReference</span>  <span class="comment">// 序列化时忽略</span></span><br><span class="line">    <span class="keyword">private</span> Collection&lt;Post&gt; posts = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line"></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">}</span><br></pre></td></tr></table></figure></div>
-</li>
-</ul>
-</li>
-<li><p>⚠️注：</p>
-<ul>
-<li>后续发现当同一个对象被传输两次及以上时，会报错：<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">Failed to read HTTP message: org.springframework.http.converter.HttpMessageNotReadableException: JSON parse error: Already had POJO for id</span><br></pre></td></tr></table></figure></div></li>
-</ul>
-</li>
-<li><p>根据相关回答<a href="#refer-anchor-5"><sup>[5]</sup></a>，问题出在同一个变量出现两次：</p>
-<blockquote>
-<p>The problem is that Jackson fails becouse the same entity is present two times.<br>The solution is send only the plain ID in the second instance, not wrapped in object.</p>
-</blockquote>
-</li>
-<li><p>由于没想好如何跟他一样在第二次传输时修改传输内容，最终选择采用<a href="#%F0%9F%94%A8%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%951%EF%B8%8F%E2%83%A3jsonignore">第一种方案</a>。</p>
-</li>
-<li><p>另外，发现一篇非常全面的好文<a href="#refer-anchor-6"><sup>[6]</sup></a>，里面包含了各种有关 Jackson 序列化的小知识。</p>
-</li>
-</ul>
-<h1 id="🚧ToDoList（也许会补上）"><a href="#🚧ToDoList（也许会补上）" class="headerlink" title="🚧ToDoList（也许会补上）"></a>🚧ToDoList（也许会补上）</h1><ol>
-<li><input disabled="" type="checkbox"> Spring 框架基础原理</li>
-<li><input disabled="" type="checkbox"> Jackson 组件原理及相关注解作用</li>
-<li><input checked="" disabled="" type="checkbox"> <a href="#">Post not found: program_language/java-spring-bug-4xx 到底为啥报4xx相关错误</a></li>
-<li><input checked="" disabled="" type="checkbox"> <a href="#">Post not found: program_language/java-spring-bug-json-infinite-recursion json循环引用报错</a></li>
-<li><input disabled="" type="checkbox"> Serialize Json 报错</li>
-</ol>
-<hr>
-<ul>
-<li>希望这篇博客对你有帮助！如果你有任何问题或需要进一步的帮助，请随时提问。</li>
-<li>如果你喜欢这篇文章，欢迎<a class="link" href="https://github.com/freshwlnd/">动动小手<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>给我一个follow或star。</li>
-</ul>
-<h1 id="x1f5fa-参考文献"><a href="#x1f5fa-参考文献" class="headerlink" title="🗺参考文献"></a><span class="emoji" alias="world_map" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f5fa.png?v8">🗺</span>参考文献</h1><div id="refer-anchor-1"></div>
-
-<p><a class="link" href="https://blog.csdn.net/liliang_11676/article/details/80209994">[1] 注解@JsonIgnore的使用方法及其效果<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
-<div id="refer-anchor-2"></div>
-
-<p><a class="link" href="https://stackoverflow.com/questions/3325387/infinite-recursion-with-jackson-json-and-hibernate-jpa-issue">[2] Infinite Recursion with Jackson JSON and Hibernate JPA issue<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
-<div id="refer-anchor-3"></div>
-
-<p><a class="link" href="https://cloud.tencent.com/developer/article/1711806">[3] Jackson 的 JsonManagedReference 和 JsonBackReference 注解<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
-<div id="refer-anchor-4"></div>
-
-<p><a class="link" href="https://blog.csdn.net/qq_20919883/article/details/117256836">[4] @JsonIdentityInfo 处理循环引用<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
-<div id="refer-anchor-5"></div>
-
-<p><a class="link" href="https://stackoverflow.com/questions/42558927/serializing-already-had-pojo-for-id-java-lang-string">[5] Serializing Already had POJO for id (java.lang.String)<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
-<div id="refer-anchor-6"></div>
-
-<p><a class="link" href="https://lanlan2017.github.io/JavaReadingNotes/c7a15d1f/">[6] 14.5 使用Jackson序列化为JSON_XML_MessagePack<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
-]]></content>
-      <categories>
-        <category>工程</category>
-        <category>环境检修</category>
-      </categories>
-      <tags>
-        <tag>java</tag>
-        <tag>spring</tag>
       </tags>
   </entry>
   <entry>
@@ -15412,6 +15298,120 @@
 <div id="refer-anchor-3"></div>
 
 <p><a class="link" href="https://www.bedebug.com/archives/openfeign">[3] Feign 踩坑指南 (接口返回泛型设置属性为null)<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
+]]></content>
+      <categories>
+        <category>工程</category>
+        <category>环境检修</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+        <tag>spring</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>【Spring】java 单体式应用微服务拆分过程 bug 修复：Json Infinite Recursion</title>
+    <url>/2023/08/27/program_language/java/java-spring-bug-json-infinite-recursion/</url>
+    <content><![CDATA[<h1 id="💡简介"><a href="#💡简介" class="headerlink" title="💡简介"></a>💡简介</h1><ul>
+<li><p>将单体式 Spring 应用拆分为微服务式应用过程中，遇到了一系列有关 Spring 框架的问题，将修复过程及相关问题信息分析过程记录下来，便于以后解决同类问题，也顺便提高自己对 Spring 框架的理解。</p>
+</li>
+<li><p>前期还遇到Serialize 类序列化失败等问题，暂未记录下来，未来有机会再回顾并补充相关记录。</p>
+</li>
+</ul>
+<h1 id="🧠问题1️⃣——Json-Infinite-Recursion"><a href="#🧠问题1️⃣——Json-Infinite-Recursion" class="headerlink" title="🧠问题1️⃣——Json Infinite Recursion"></a>🧠问题1️⃣——Json Infinite Recursion</h1><h2 id="✏️问题描述"><a href="#✏️问题描述" class="headerlink" title="✏️问题描述"></a>✏️问题描述</h2><ul>
+<li>项目中涉及多个循环引用的类，例如最典型的 <code>Post</code> 和 <code>User</code>，代码如下所示：</li>
+</ul>
+<div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Post</span> {</span><br><span class="line">    <span class="meta">@ManyToOne</span></span><br><span class="line">    <span class="keyword">private</span> User user;</span><br><span class="line"></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">}</span><br></pre></td></tr></table></figure></div>
+
+<div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">User</span> {</span><br><span class="line">    <span class="meta">@OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.REMOVE)</span></span><br><span class="line">    <span class="keyword">private</span> Collection&lt;Post&gt; posts = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line"></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">}</span><br></pre></td></tr></table></figure></div>
+
+<ul>
+<li>问题也很明显，当压缩为 JSON 格式数据时，不断循环引用导致出错。</li>
+</ul>
+<h3 id="ℹ️报错信息"><a href="#ℹ️报错信息" class="headerlink" title="ℹ️报错信息"></a>ℹ️报错信息</h3><div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">feign.codec.EncodeException: Could not write JSON: Infinite recursion (StackOverflowError); nested exception is com.fasterxml.jackson.databind.JsonMappingException: Infinite recursion (StackOverflowError) (through reference chain: com.raysmond.blog.common.models.User["post"]-&gt;com.raysmond.blog.common.models.Post["seoData"]-&gt;com.raysmond.blog.common.models.User["post"]-&gt;com.raysmond.blog.common.models.Post["seoData"]-&gt;...)</span><br></pre></td></tr></table></figure></div>
+
+<h2 id="🔨解决方法1️⃣——-JsonIgnore"><a href="#🔨解决方法1️⃣——-JsonIgnore" class="headerlink" title="🔨解决方法1️⃣——@JsonIgnore"></a>🔨解决方法1️⃣——@JsonIgnore</h2><ul>
+<li>算是比较粗鲁的方法。</li>
+<li><code>@JsonIgnore</code> 能够在 JSON 序列化时将一些属性忽略<a href="#refer-anchor-1"><sup>[1]</sup></a>，从而避免循环引用。<ul>
+<li>具体而言，将注解标记在属性或者方法上，序列化生成的 JSON 数据中将不包含该属性，反序列化时也不会读取该属性。</li>
+<li>示例：<div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Post</span> {</span><br><span class="line">    <span class="meta">@ManyToOne</span></span><br><span class="line">    <span class="keyword">private</span> User user;  <span class="comment">// 保持正常</span></span><br><span class="line"></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">}</span><br></pre></td></tr></table></figure></div>
+<div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">User</span> {</span><br><span class="line">    <span class="meta">@OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.REMOVE)</span></span><br><span class="line">    <span class="meta">@JsonIgnore</span>         <span class="comment">// 序列化时忽略</span></span><br><span class="line">    <span class="keyword">private</span> Collection&lt;Post&gt; posts = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line"></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">}</span><br></pre></td></tr></table></figure></div>
+
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="🔨解决方法2️⃣——-JsonManagedReference-和-JsonBackReference"><a href="#🔨解决方法2️⃣——-JsonManagedReference-和-JsonBackReference" class="headerlink" title="🔨解决方法2️⃣——@JsonManagedReference 和 @JsonBackReference"></a>🔨解决方法2️⃣——@JsonManagedReference 和 @JsonBackReference</h2><ul>
+<li><p>比上一种更合理的方法，不影响数据内容。</p>
+</li>
+<li><p>通过将循环引用关系双方中的一方不序列化，来避免出现无限循环，使 Jackson 正常工作。<a href="#refer-anchor-2"><sup>[2]</sup></a><a href="#refer-anchor-3"><sup>[3]</sup></a></p>
+</li>
+<li><p>因此，Jackson 会获取引用的前向部分（被标记了 @JsonManagedReference 注解的部分），并将其转换为类似 json 的存储格式；这就是正常 marshalling 过程。然后，Jackson 会查找引用的后向部分（被标记了 @JsonBackReference 注解的部分），不对其进行序列化，这部分关系将在前向引用的反序列化（解Marshalling）过程中正常重新构建，不影响使用。</p>
+<ul>
+<li><em>marshalling可译作集结、结集、编码、编组、编集、安整、数据打包、列集等，是计算机科学中把一个对象的内存表示变换为适合存储或发送的数据格式的过程。典型用于数据必须在一个程序的两个部分之间移动，或者必须从一个程序移动到另一个程序。Marshalling类似于序列化，可用于一个对象与一个远程对象通信。</em></li>
+<li>示例：<div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Post</span> {</span><br><span class="line">    <span class="meta">@ManyToOne</span></span><br><span class="line">    <span class="meta">@JsonManagedReference</span></span><br><span class="line">    <span class="keyword">private</span> User user;  <span class="comment">// 保持正常</span></span><br><span class="line"></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">}</span><br></pre></td></tr></table></figure></div>
+<div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">User</span> {</span><br><span class="line">    <span class="meta">@OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.REMOVE)</span></span><br><span class="line">    <span class="meta">@JsonBackReference</span>  <span class="comment">// 序列化时忽略</span></span><br><span class="line">    <span class="keyword">private</span> Collection&lt;Post&gt; posts = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line"></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">}</span><br></pre></td></tr></table></figure></div>
+</li>
+</ul>
+</li>
+<li><p>⚠️注：仅对 OneToMany 或 OneToOne 情况适用，ManyToMany 下不适用。</p>
+</li>
+</ul>
+<h2 id="🔨解决方法3️⃣——-JsonIdentityInfo"><a href="#🔨解决方法3️⃣——-JsonIdentityInfo" class="headerlink" title="🔨解决方法3️⃣——@JsonIdentityInfo"></a>🔨解决方法3️⃣——@JsonIdentityInfo</h2><ul>
+<li><p>最简单的一种方法（个人认为），因为不用手动设定父子关系，仅需给整个类进行注解标记即可。</p>
+</li>
+<li><p>使 Jackson 只在第一次遇到时序列化为完整的对象，之后再遇到同一个对象，都以对象的标识符 ID（或其他属性）代替。这样就不会序列化每个对象都 “扫描 “一次，在多个相互关联的对象之间形成链式循环时非常有用（例如：订单 -&gt; 订单行 -&gt; 用户 -&gt; 订单，如此反复）。<a href="#refer-anchor-2"><sup>[2]</sup></a></p>
+<ul>
+<li>@JsonIdentityInfo 相关参数定义<a href="#refer-anchor-3"><sup>[3]</sup></a><div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> JsonIdentityInfo</span><br><span class="line">{</span><br><span class="line">    <span class="comment">// Object ID 的 JSON 属性名</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">property</span><span class="params">()</span> <span class="keyword">default</span> <span class="string">"@id"</span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// Object ID 的生成器</span></span><br><span class="line">    <span class="keyword">public</span> Class&lt;? <span class="keyword">extends</span> <span class="title class_">ObjectIdGenerator</span>&lt;?&gt;&gt; generator();</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 将 Object ID 解析回对象的解析器</span></span><br><span class="line">    <span class="keyword">public</span> Class&lt;? <span class="keyword">extends</span> <span class="title class_">ObjectIdResolver</span>&gt; resolver() <span class="keyword">default</span> SimpleObjectIdResolver.class;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> Class&lt;?&gt; scope() <span class="keyword">default</span> Object.class;</span><br><span class="line">}</span><br></pre></td></tr></table></figure></div></li>
+<li>示例：<div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = Post.class)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Post</span> {</span><br><span class="line">    <span class="meta">@ManyToOne</span></span><br><span class="line">    <span class="meta">@JsonManagedReference</span></span><br><span class="line">    <span class="keyword">private</span> User user;  <span class="comment">// 保持正常</span></span><br><span class="line"></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">}</span><br></pre></td></tr></table></figure></div>
+<div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = User.class)</span><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">User</span> {</span><br><span class="line">    <span class="meta">@OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.REMOVE)</span></span><br><span class="line">    <span class="meta">@JsonBackReference</span>  <span class="comment">// 序列化时忽略</span></span><br><span class="line">    <span class="keyword">private</span> Collection&lt;Post&gt; posts = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line"></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">}</span><br></pre></td></tr></table></figure></div>
+</li>
+</ul>
+</li>
+<li><p>⚠️注：</p>
+<ul>
+<li>后续发现当同一个对象被传输两次及以上时，会报错：<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">Failed to read HTTP message: org.springframework.http.converter.HttpMessageNotReadableException: JSON parse error: Already had POJO for id</span><br></pre></td></tr></table></figure></div></li>
+</ul>
+</li>
+<li><p>根据相关回答<a href="#refer-anchor-5"><sup>[5]</sup></a>，问题出在同一个变量出现两次：</p>
+<blockquote>
+<p>The problem is that Jackson fails becouse the same entity is present two times.<br>The solution is send only the plain ID in the second instance, not wrapped in object.</p>
+</blockquote>
+</li>
+<li><p>由于没想好如何跟他一样在第二次传输时修改传输内容，最终选择采用<a href="#%F0%9F%94%A8%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%951%EF%B8%8F%E2%83%A3jsonignore">第一种方案</a>。</p>
+</li>
+<li><p>另外，发现一篇非常全面的好文<a href="#refer-anchor-6"><sup>[6]</sup></a>，里面包含了各种有关 Jackson 序列化的小知识。</p>
+</li>
+</ul>
+<h1 id="🚧ToDoList（也许会补上）"><a href="#🚧ToDoList（也许会补上）" class="headerlink" title="🚧ToDoList（也许会补上）"></a>🚧ToDoList（也许会补上）</h1><ol>
+<li><input disabled="" type="checkbox"> Spring 框架基础原理</li>
+<li><input disabled="" type="checkbox"> Jackson 组件原理及相关注解作用</li>
+<li><input checked="" disabled="" type="checkbox"> <a href="#">Post not found: program_language/java-spring-bug-4xx 到底为啥报4xx相关错误</a></li>
+<li><input checked="" disabled="" type="checkbox"> <a href="#">Post not found: program_language/java-spring-bug-json-infinite-recursion json循环引用报错</a></li>
+<li><input disabled="" type="checkbox"> Serialize Json 报错</li>
+</ol>
+<hr>
+<ul>
+<li>希望这篇博客对你有帮助！如果你有任何问题或需要进一步的帮助，请随时提问。</li>
+<li>如果你喜欢这篇文章，欢迎<a class="link" href="https://github.com/freshwlnd/">动动小手<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>给我一个follow或star。</li>
+</ul>
+<h1 id="x1f5fa-参考文献"><a href="#x1f5fa-参考文献" class="headerlink" title="🗺参考文献"></a><span class="emoji" alias="world_map" style="" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f5fa.png?v8">🗺</span>参考文献</h1><div id="refer-anchor-1"></div>
+
+<p><a class="link" href="https://blog.csdn.net/liliang_11676/article/details/80209994">[1] 注解@JsonIgnore的使用方法及其效果<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
+<div id="refer-anchor-2"></div>
+
+<p><a class="link" href="https://stackoverflow.com/questions/3325387/infinite-recursion-with-jackson-json-and-hibernate-jpa-issue">[2] Infinite Recursion with Jackson JSON and Hibernate JPA issue<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
+<div id="refer-anchor-3"></div>
+
+<p><a class="link" href="https://cloud.tencent.com/developer/article/1711806">[3] Jackson 的 JsonManagedReference 和 JsonBackReference 注解<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
+<div id="refer-anchor-4"></div>
+
+<p><a class="link" href="https://blog.csdn.net/qq_20919883/article/details/117256836">[4] @JsonIdentityInfo 处理循环引用<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
+<div id="refer-anchor-5"></div>
+
+<p><a class="link" href="https://stackoverflow.com/questions/42558927/serializing-already-had-pojo-for-id-java-lang-string">[5] Serializing Already had POJO for id (java.lang.String)<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
+<div id="refer-anchor-6"></div>
+
+<p><a class="link" href="https://lanlan2017.github.io/JavaReadingNotes/c7a15d1f/">[6] 14.5 使用Jackson序列化为JSON_XML_MessagePack<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
 ]]></content>
       <categories>
         <category>工程</category>
