@@ -37,11 +37,11 @@
     
     <category term="K8s" scheme="https://freshwlnd.github.io/tags/K8s/"/>
     
-    <category term="性能测试" scheme="https://freshwlnd.github.io/tags/%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95/"/>
-    
     <category term="Volcano" scheme="https://freshwlnd.github.io/tags/Volcano/"/>
     
     <category term="调度器" scheme="https://freshwlnd.github.io/tags/%E8%B0%83%E5%BA%A6%E5%99%A8/"/>
+    
+    <category term="性能测试" scheme="https://freshwlnd.github.io/tags/%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95/"/>
     
   </entry>
   
@@ -66,11 +66,11 @@
     
     <category term="K8s" scheme="https://freshwlnd.github.io/tags/K8s/"/>
     
-    <category term="性能测试" scheme="https://freshwlnd.github.io/tags/%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95/"/>
-    
     <category term="Volcano" scheme="https://freshwlnd.github.io/tags/Volcano/"/>
     
     <category term="调度器" scheme="https://freshwlnd.github.io/tags/%E8%B0%83%E5%BA%A6%E5%99%A8/"/>
+    
+    <category term="性能测试" scheme="https://freshwlnd.github.io/tags/%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95/"/>
     
   </entry>
   
@@ -95,11 +95,11 @@
     
     <category term="K8s" scheme="https://freshwlnd.github.io/tags/K8s/"/>
     
-    <category term="性能测试" scheme="https://freshwlnd.github.io/tags/%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95/"/>
-    
     <category term="Volcano" scheme="https://freshwlnd.github.io/tags/Volcano/"/>
     
     <category term="调度器" scheme="https://freshwlnd.github.io/tags/%E8%B0%83%E5%BA%A6%E5%99%A8/"/>
+    
+    <category term="性能测试" scheme="https://freshwlnd.github.io/tags/%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95/"/>
     
   </entry>
   
@@ -379,9 +379,9 @@
     
     <category term="Kubernetes" scheme="https://freshwlnd.github.io/tags/Kubernetes/"/>
     
-    <category term="kwok" scheme="https://freshwlnd.github.io/tags/kwok/"/>
-    
     <category term="性能测试" scheme="https://freshwlnd.github.io/tags/%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95/"/>
+    
+    <category term="kwok" scheme="https://freshwlnd.github.io/tags/kwok/"/>
     
   </entry>
   
