@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://freshwlnd.github.io/2025/05/19/k8s/k8s-kind-install/</loc>
+    <lastmod>2025-07-13</lastmod>
+  </url>
+  <url>
     <loc>https://freshwlnd.github.io/2025/07/01/k8s/k8s-scheduler-performance-test-debug/</loc>
     <lastmod>2025-07-11</lastmod>
   </url>
@@ -298,10 +302,6 @@
   </url>
   <url>
     <loc>https://freshwlnd.github.io/2025/05/20/k8s/k8s-kwok-install/</loc>
-    <lastmod>2025-06-27</lastmod>
-  </url>
-  <url>
-    <loc>https://freshwlnd.github.io/2025/05/19/k8s/k8s-kind-install/</loc>
     <lastmod>2025-06-27</lastmod>
   </url>
   <url>
