@@ -2,7 +2,11 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://freshwlnd.github.io/2025/07/27/k8s/k8s-scheduler-performance-volcano-process/</loc>
-    <lastmod>2025-08-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
+  </url>
+  <url>
+    <loc>https://freshwlnd.github.io/2025/08/07/k8s/k8s-scheduler-performance-volcano-metrics/</loc>
+    <lastmod>2025-08-08</lastmod>
   </url>
   <url>
     <loc>https://freshwlnd.github.io/2025/07/23/k8s/k8s-scheduler-performance-test-local/</loc>
@@ -281,10 +285,6 @@
     <lastmod>2024-10-08</lastmod>
   </url>
   <url>
-    <loc>https://freshwlnd.github.io/2024/03/20/literature/literatureNotes31/</loc>
-    <lastmod>2024-10-08</lastmod>
-  </url>
-  <url>
     <loc>https://freshwlnd.github.io/2024/03/20/literature/literatureNotes32/</loc>
     <lastmod>2024-10-08</lastmod>
   </url>
@@ -406,6 +406,10 @@
   </url>
   <url>
     <loc>https://freshwlnd.github.io/2023/12/06/literature/literatureNotesIntensive1/</loc>
+    <lastmod>2024-10-08</lastmod>
+  </url>
+  <url>
+    <loc>https://freshwlnd.github.io/2024/03/20/literature/literatureNotes31/</loc>
     <lastmod>2024-10-08</lastmod>
   </url>
   <url>
