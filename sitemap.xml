@@ -1253,7 +1253,7 @@
   </url>
   
   <url>
-    <loc>https://freshwlnd.github.io/2023/11/04/literature/literatureNotes18/</loc>
+    <loc>https://freshwlnd.github.io/2023/11/07/literature/literatureNotes19/</loc>
     
     <lastmod>2024-03-08</lastmod>
     
@@ -1262,7 +1262,7 @@
   </url>
   
   <url>
-    <loc>https://freshwlnd.github.io/2023/11/07/literature/literatureNotes19/</loc>
+    <loc>https://freshwlnd.github.io/2023/11/04/literature/literatureNotes18/</loc>
     
     <lastmod>2024-03-08</lastmod>
     
@@ -1487,6 +1487,13 @@
 
   
   <url>
+    <loc>https://freshwlnd.github.io/tags/%E7%BB%9F%E4%B8%80%E8%B0%83%E5%BA%A6/</loc>
+    <lastmod>2025-08-31</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://freshwlnd.github.io/tags/Kubernetes/</loc>
     <lastmod>2025-08-31</lastmod>
     <changefreq>weekly</changefreq>
@@ -1516,13 +1523,6 @@
   
   <url>
     <loc>https://freshwlnd.github.io/tags/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/</loc>
-    <lastmod>2025-08-31</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://freshwlnd.github.io/tags/%E7%BB%9F%E4%B8%80%E8%B0%83%E5%BA%A6/</loc>
     <lastmod>2025-08-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -1669,6 +1669,13 @@
   </url>
   
   <url>
+    <loc>https://freshwlnd.github.io/tags/api-server/</loc>
+    <lastmod>2025-08-31</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://freshwlnd.github.io/tags/K8s/</loc>
     <lastmod>2025-08-31</lastmod>
     <changefreq>weekly</changefreq>
@@ -1698,6 +1705,20 @@
   
   <url>
     <loc>https://freshwlnd.github.io/tags/calico/</loc>
+    <lastmod>2025-08-31</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://freshwlnd.github.io/tags/%E9%9B%86%E7%BE%A4%E9%87%8D%E5%90%AF/</loc>
+    <lastmod>2025-08-31</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://freshwlnd.github.io/tags/%E6%95%85%E9%9A%9C%E6%8E%92%E6%9F%A5/</loc>
     <lastmod>2025-08-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -1774,27 +1795,6 @@
   </url>
   
   <url>
-    <loc>https://freshwlnd.github.io/tags/api-server/</loc>
-    <lastmod>2025-08-31</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://freshwlnd.github.io/tags/%E9%9B%86%E7%BE%A4%E9%87%8D%E5%90%AF/</loc>
-    <lastmod>2025-08-31</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://freshwlnd.github.io/tags/%E6%95%85%E9%9A%9C%E6%8E%92%E6%9F%A5/</loc>
-    <lastmod>2025-08-31</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://freshwlnd.github.io/tags/%E7%9B%91%E6%8E%A7/</loc>
     <lastmod>2025-08-31</lastmod>
     <changefreq>weekly</changefreq>
@@ -1830,6 +1830,27 @@
   </url>
   
   <url>
+    <loc>https://freshwlnd.github.io/tags/%E6%80%A7%E8%83%BD%E7%93%B6%E9%A2%88/</loc>
+    <lastmod>2025-08-31</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://freshwlnd.github.io/tags/%E5%AE%9E%E9%AA%8C%E9%AA%8C%E8%AF%81/</loc>
+    <lastmod>2025-08-31</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://freshwlnd.github.io/tags/%E7%B3%BB%E7%BB%9F%E4%BC%98%E5%8C%96/</loc>
+    <lastmod>2025-08-31</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://freshwlnd.github.io/tags/%E7%89%88%E6%9C%AC%E5%8D%87%E7%BA%A7/</loc>
     <lastmod>2025-08-31</lastmod>
     <changefreq>weekly</changefreq>
@@ -1838,6 +1859,27 @@
   
   <url>
     <loc>https://freshwlnd.github.io/tags/%E8%87%AA%E5%8A%A8%E5%8C%96%E8%84%9A%E6%9C%AC/</loc>
+    <lastmod>2025-08-31</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://freshwlnd.github.io/tags/%E9%97%AE%E9%A2%98%E6%8E%92%E6%9F%A5/</loc>
+    <lastmod>2025-08-31</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://freshwlnd.github.io/tags/%E8%B6%85%E6%97%B6%E4%BF%AE%E5%A4%8D/</loc>
+    <lastmod>2025-08-31</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://freshwlnd.github.io/tags/CRD/</loc>
     <lastmod>2025-08-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -1872,28 +1914,7 @@
   </url>
   
   <url>
-    <loc>https://freshwlnd.github.io/tags/%E6%80%A7%E8%83%BD%E7%93%B6%E9%A2%88/</loc>
-    <lastmod>2025-08-31</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://freshwlnd.github.io/tags/%E5%AE%9E%E9%AA%8C%E9%AA%8C%E8%AF%81/</loc>
-    <lastmod>2025-08-31</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://freshwlnd.github.io/tags/%E7%B3%BB%E7%BB%9F%E4%BC%98%E5%8C%96/</loc>
-    <lastmod>2025-08-31</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://freshwlnd.github.io/tags/CRD/</loc>
+    <loc>https://freshwlnd.github.io/tags/%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1/</loc>
     <lastmod>2025-08-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -1943,6 +1964,34 @@
   
   <url>
     <loc>https://freshwlnd.github.io/tags/Mesos/</loc>
+    <lastmod>2025-08-31</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://freshwlnd.github.io/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/</loc>
+    <lastmod>2025-08-31</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://freshwlnd.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%9E%B6%E6%9E%84/</loc>
+    <lastmod>2025-08-31</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://freshwlnd.github.io/tags/CPU/</loc>
+    <lastmod>2025-08-31</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://freshwlnd.github.io/tags/%E7%A1%AC%E4%BB%B6%E5%8E%9F%E7%90%86/</loc>
     <lastmod>2025-08-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -2047,6 +2096,13 @@
   </url>
   
   <url>
+    <loc>https://freshwlnd.github.io/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/</loc>
+    <lastmod>2025-08-31</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://freshwlnd.github.io/tags/%E8%B7%A8%E5%9C%B0%E5%9F%9F/</loc>
     <lastmod>2025-08-31</lastmod>
     <changefreq>weekly</changefreq>
@@ -2061,28 +2117,7 @@
   </url>
   
   <url>
-    <loc>https://freshwlnd.github.io/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/</loc>
-    <lastmod>2025-08-31</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://freshwlnd.github.io/tags/%E6%B7%B1%E5%BA%A6%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/</loc>
-    <lastmod>2025-08-31</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://freshwlnd.github.io/tags/%E9%97%AE%E9%A2%98%E6%8E%92%E6%9F%A5/</loc>
-    <lastmod>2025-08-31</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://freshwlnd.github.io/tags/%E8%B6%85%E6%97%B6%E4%BF%AE%E5%A4%8D/</loc>
     <lastmod>2025-08-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -2131,6 +2166,13 @@
   </url>
   
   <url>
+    <loc>https://freshwlnd.github.io/tags/%E5%A4%8D%E6%9D%82%E6%8B%93%E6%89%91/</loc>
+    <lastmod>2025-08-31</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://freshwlnd.github.io/tags/%E9%83%A8%E7%BD%B2/</loc>
     <lastmod>2025-08-31</lastmod>
     <changefreq>weekly</changefreq>
@@ -2139,13 +2181,6 @@
   
   <url>
     <loc>https://freshwlnd.github.io/tags/%E5%BA%94%E7%94%A8%E6%8B%93%E6%89%91/</loc>
-    <lastmod>2025-08-31</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://freshwlnd.github.io/tags/%E5%A4%8D%E6%9D%82%E6%8B%93%E6%89%91/</loc>
     <lastmod>2025-08-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -2551,13 +2586,6 @@
   </url>
   
   <url>
-    <loc>https://freshwlnd.github.io/tags/%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1/</loc>
-    <lastmod>2025-08-31</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://freshwlnd.github.io/tags/%E4%BA%91%E8%BE%B9%E5%8D%8F%E5%90%8C/</loc>
     <lastmod>2025-08-31</lastmod>
     <changefreq>weekly</changefreq>
@@ -2726,28 +2754,14 @@
   </url>
   
   <url>
-    <loc>https://freshwlnd.github.io/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/</loc>
+    <loc>https://freshwlnd.github.io/tags/Lua/</loc>
     <lastmod>2025-08-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://freshwlnd.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%9E%B6%E6%9E%84/</loc>
-    <lastmod>2025-08-31</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://freshwlnd.github.io/tags/CPU/</loc>
-    <lastmod>2025-08-31</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://freshwlnd.github.io/tags/%E7%A1%AC%E4%BB%B6%E5%8E%9F%E7%90%86/</loc>
+    <loc>https://freshwlnd.github.io/tags/%E8%AF%AD%E6%B3%95/</loc>
     <lastmod>2025-08-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -2769,20 +2783,6 @@
   
   <url>
     <loc>https://freshwlnd.github.io/tags/%E8%AF%AD%E6%B3%95%E7%B3%96/</loc>
-    <lastmod>2025-08-31</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://freshwlnd.github.io/tags/Lua/</loc>
-    <lastmod>2025-08-31</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://freshwlnd.github.io/tags/%E8%AF%AD%E6%B3%95/</loc>
     <lastmod>2025-08-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -2826,14 +2826,14 @@
   </url>
   
   <url>
-    <loc>https://freshwlnd.github.io/categories/%E6%8A%80%E6%9C%AF/</loc>
+    <loc>https://freshwlnd.github.io/categories/%E8%AE%BA%E6%96%87/</loc>
     <lastmod>2025-08-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://freshwlnd.github.io/categories/%E8%AE%BA%E6%96%87/</loc>
+    <loc>https://freshwlnd.github.io/categories/%E6%8A%80%E6%9C%AF/</loc>
     <lastmod>2025-08-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -2854,14 +2854,7 @@
   </url>
   
   <url>
-    <loc>https://freshwlnd.github.io/categories/%E6%8A%80%E6%9C%AF/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/</loc>
-    <lastmod>2025-08-31</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://freshwlnd.github.io/categories/%E6%8A%80%E6%9C%AF/%E4%BA%91%E8%AE%A1%E7%AE%97/</loc>
+    <loc>https://freshwlnd.github.io/categories/%E8%AE%BA%E6%96%87/%E7%95%A5%E8%AF%BB/</loc>
     <lastmod>2025-08-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -2875,7 +2868,7 @@
   </url>
   
   <url>
-    <loc>https://freshwlnd.github.io/categories/%E8%AE%BA%E6%96%87/%E7%95%A5%E8%AF%BB/</loc>
+    <loc>https://freshwlnd.github.io/categories/%E6%8A%80%E6%9C%AF/%E4%BA%91%E8%AE%A1%E7%AE%97/</loc>
     <lastmod>2025-08-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -2903,7 +2896,7 @@
   </url>
   
   <url>
-    <loc>https://freshwlnd.github.io/categories/%E6%B5%8B%E8%AF%95/</loc>
+    <loc>https://freshwlnd.github.io/categories/%E6%8A%80%E6%9C%AF/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/</loc>
     <lastmod>2025-08-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -2931,13 +2924,6 @@
   </url>
   
   <url>
-    <loc>https://freshwlnd.github.io/categories/%E7%AE%97%E6%B3%95/%E7%AE%97%E6%B3%95%E4%BB%8B%E7%BB%8D/</loc>
-    <lastmod>2025-08-31</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://freshwlnd.github.io/categories/%E6%8A%80%E6%9C%AF/%E4%BA%91%E8%AE%A1%E7%AE%97/%E5%AE%9E%E6%88%98/</loc>
     <lastmod>2025-08-31</lastmod>
     <changefreq>weekly</changefreq>
@@ -2945,7 +2931,21 @@
   </url>
   
   <url>
+    <loc>https://freshwlnd.github.io/categories/%E7%AE%97%E6%B3%95/%E7%AE%97%E6%B3%95%E4%BB%8B%E7%BB%8D/</loc>
+    <lastmod>2025-08-31</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://freshwlnd.github.io/categories/%E9%98%85%E8%AF%BB/%E6%91%98%E5%BD%95/</loc>
+    <lastmod>2025-08-31</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://freshwlnd.github.io/categories/%E6%8A%80%E6%9C%AF/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/</loc>
     <lastmod>2025-08-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -3022,7 +3022,7 @@
   </url>
   
   <url>
-    <loc>https://freshwlnd.github.io/categories/%E6%8A%80%E6%9C%AF/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/</loc>
+    <loc>https://freshwlnd.github.io/categories/%E6%B5%8B%E8%AF%95/</loc>
     <lastmod>2025-08-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -3036,14 +3036,14 @@
   </url>
   
   <url>
-    <loc>https://freshwlnd.github.io/categories/%E6%8A%80%E6%9C%AF/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/C/</loc>
+    <loc>https://freshwlnd.github.io/categories/%E6%8A%80%E6%9C%AF/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Lua/</loc>
     <lastmod>2025-08-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://freshwlnd.github.io/categories/%E6%8A%80%E6%9C%AF/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Lua/</loc>
+    <loc>https://freshwlnd.github.io/categories/%E6%8A%80%E6%9C%AF/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/C/</loc>
     <lastmod>2025-08-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
